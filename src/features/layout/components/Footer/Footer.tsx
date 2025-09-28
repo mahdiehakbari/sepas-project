@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import { Fragment } from 'react';
 import { SiteRights } from './SiteRights';
@@ -8,19 +9,56 @@ export default function Footer() {
   return (
     <Fragment>
       <footer className='w-full bg-secondary'>
-        <div className='mx-auto max-w-6xl flex  flex-col md:flex-row items-center justify-between py-6'>
-          <div>
+        <div className='py-6 flex max-w-6xl mx-auto gap-x-12'>
+          <div className='w-2/3'>
             <Image
-              src='/assets/icons/logo.svg'
+              src='assets/icons/logo.svg'
               alt='logo'
               width={78}
               height={42}
-              className='cursor-pointer hover:opacity-80'
+              className='cursor-pointer hover:opacity-80 mb-6'
             />
-
-            <p className='text-[14px] font-[400] text-text-black pb-4 md:pb-0'>
+            <p className='text-text-black text-[14px] font-[400]'>
               {t('home:credit_bnpl')}
             </p>
+          </div>
+          <div className='flex flex-col w-2/3 '>
+            <p className='text-text-black text-[18px] font-[700]  mb-6'>
+              {t('home:communication')}
+            </p>
+            <div className='flex items-center gap-2 mb-4'>
+              <Image
+                src='assets/icons/phone.svg'
+                alt='logo'
+                width={20}
+                height={20}
+              />
+              <span className='text-text-black text-[14px] font-[400]'>
+                {t('home:contact_phone')}
+              </span>
+            </div>
+            <div className='flex items-center gap-2 mb-4'>
+              <Image
+                src='assets/icons/address.svg'
+                alt='logo'
+                width={20}
+                height={20}
+              />
+              <span className='text-text-black text-[14px] font-[400]'>
+                {t('home:address')}
+              </span>
+            </div>
+            <div className='flex items-center gap-2'>
+              <Image
+                src='assets/icons/mail.svg'
+                alt='logo'
+                width={20}
+                height={20}
+              />
+              <span className='text-text-black text-[14px] font-[400]'>
+                {t('home:email')}
+              </span>
+            </div>
           </div>
         </div>
       </footer>
