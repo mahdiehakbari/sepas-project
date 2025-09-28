@@ -1,27 +1,51 @@
 'use client';
 
-import i18n from 'i18next';
+import i18n, { InitOptions, Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
+import { localesNS, LocaleNS, languages, Language } from './locales_NameSpace';
 
-import en from './locales/en/translation.json';
-import fa from './locales/en/translation.json';
+// بارگذاری داینامیک فایل‌های ترجمه
+const loadResources = async (): Promise<Resource> => {
+  const resources: Resource = {};
 
-if (!i18n.isInitialized) {
-  i18n
-    .use(initReactI18next)
-    .use(LanguageDetector)
-    .init({
-      resources: {
-        en: { translation: en },
-        fa: { translation: fa },
-      },
+  for (const lang of languages) {
+    resources[lang] = {};
+    for (const ns of localesNS) {
+      try {
+        const moduleData = await import(`./locales/${lang}/${ns}.json`);
+        resources[lang][ns] = moduleData.default;
+      } catch (err) {
+        console.warn(
+          `Translation file not found: ./locales/${lang}/${ns}.json`,
+        );
+        resources[lang][ns] = {};
+      }
+    }
+  }
+
+  return resources;
+};
+
+// تابع init i18next
+export const initI18n = async () => {
+  if (!i18n.isInitialized) {
+    const resources = await loadResources();
+
+    const options: InitOptions = {
+      resources,
       lng: 'fa',
       fallbackLng: 'en',
-      interpolation: {
-        escapeValue: false,
-      },
-    });
-}
+      ns: localesNS,
+      defaultNS: localesNS[0],
+      interpolation: { escapeValue: false },
+      react: { useSuspense: false },
+    };
+
+    await i18n.use(initReactI18next).use(LanguageDetector).init(options);
+  }
+
+  return i18n;
+};
 
 export default i18n;
