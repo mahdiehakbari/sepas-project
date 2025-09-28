@@ -21,43 +21,40 @@
 
 @font-face {
   font-family: 'VazirMatn';
-  src: url('../../public/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-Regular.woff2')
+  src: url('/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-Regular.woff2')
     format('woff2');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'VazirMatn';
-  src: url('../../public/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-Bold.woff2')
+  src: url('/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-Bold.woff2')
     format('woff2');
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'VazirMatn';
-  src: url('../../public/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-SemiBold.woff2')
+  src: url('/assets/fonts/VazirMatn/fonts/webfonts/Vazirmatn-SemiBold.woff2')
     format('woff2');
   font-weight: 600;
 }
 
 @font-face {
   font-family: 'poppins';
-  src: url('../../public/assets/fonts/poppins/PoppinsLatin-Regular.ttf')
-    format('truetype');
+  src: url('/assets/fonts/poppins/PoppinsLatin-Regular.ttf') format('truetype');
   font-weight: 400;
 }
 
 @font-face {
   font-family: 'poppins';
-  src: url('../../public/assets/fonts/poppins/PoppinsLatin-Medium.ttf')
-    format('truetype');
+  src: url('/assets/fonts/poppins/PoppinsLatin-Medium.ttf') format('truetype');
   font-weight: 500;
 }
 
 @font-face {
   font-family: 'poppins';
-  src: url('../../public/assets/fonts/poppins/PoppinsLatin-SemiBold.ttf')
-    format('truetype');
+  src: url('/assets/fonts/poppins/PoppinsLatin-SemiBold.ttf') format('truetype');
   font-weight: 600;
 }
 
