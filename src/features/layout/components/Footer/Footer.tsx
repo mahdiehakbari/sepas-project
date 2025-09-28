@@ -9,8 +9,8 @@ export default function Footer() {
   return (
     <Fragment>
       <footer className='w-full bg-secondary'>
-        <div className='py-6 flex max-w-6xl mx-auto gap-x-12'>
-          <div className='w-2/3'>
+        <div className='py-6 block md:flex max-w-6xl mx-auto gap-x-12 px-6 md:px-0'>
+          <div className='w-3/3 md:w-2/3 mb-6 md:mb-0'>
             <Image
               src='assets/icons/logo.svg'
               alt='logo'
@@ -22,7 +22,7 @@ export default function Footer() {
               {t('home:credit_bnpl')}
             </p>
           </div>
-          <div className='flex flex-col w-2/3 '>
+          <div className='flex flex-col w-3/3  md:w-2/3 '>
             <p className='text-text-black text-[18px] font-[700]  mb-6'>
               {t('home:communication')}
             </p>
