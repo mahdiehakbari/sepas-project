@@ -1,4 +1,4 @@
-import { CreditPlans } from '@/features/mainPage';
+import { BannerSection, CreditPlans } from '@/features/mainPage';
 import { Metadata } from 'next';
 import { Fragment } from 'react';
 
@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <Fragment>
+      <BannerSection />
       <CreditPlans />
     </Fragment>
   );
