@@ -10,6 +10,10 @@ export default function Header() {
     const newLang = i18n.language === 'fa' ? 'en' : 'fa';
     i18n.changeLanguage(newLang);
     document.documentElement.dir = newLang === 'fa' ? 'rtl' : 'ltr';
+    document.documentElement.classList.remove('font-fa', 'font-en');
+    document.documentElement.classList.add(
+      newLang === 'fa' ? 'font-fa' : 'font-en',
+    );
   };
 
   return (
@@ -28,7 +32,7 @@ export default function Header() {
           <Link href='/contact' className='hover:underline'>
             Contact
           </Link>
-          {/* دکمه تغییر زبان و direction */}
+
           <button
             onClick={toggleLanguage}
             className='px-3 py-1 border rounded hover:bg-gray-100 dark:hover:bg-gray-800'
