@@ -11,8 +11,8 @@ import { useTranslation } from 'react-i18next';
 export const BannerSection = () => {
   const { t } = useTranslation();
   return (
-    <div className='mb-12'>
-      <div className='max-w-4xl mx-auto py-4 px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
+    <div className='mb-12 px-6 md:px-0'>
+      <div className='max-w-4xl mx-auto py-4 px-4 md:px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
         <h1 className='sr-only'>عنوان اصلی صفحه یا اسلایدر</h1>
         <Swiper
           modules={[Pagination]}
@@ -27,17 +27,17 @@ export const BannerSection = () => {
         >
           {BannerItems.map((item, index) => (
             <SwiperSlide key={item.id}>
-              <div className='flex justify-between items-center'>
+              <div className='flex  md:justify-between items-center'>
                 <div>
-                  <h2 className='text-white font-[700] text-[32px] mb-4'>
+                  <h2 className='text-white font-[700] text-[24px] md:text-[32px] mb-4'>
                     {item.title}
                   </h2>
 
-                  <p className='text-white font-[400] text-[20px] mb-6'>
+                  <p className='text-white font-[400] text-[14px] md:text-[20px] mb-6 '>
                     {item.description}
                   </p>
 
-                  <div className='flex items-center gap-4'>
+                  <div className='flex  items-center gap-4'>
                     <Button>{t('home:calculation_installments')}</Button>
                     <Button>{t('home:view_plans')}</Button>
                   </div>
@@ -48,6 +48,7 @@ export const BannerSection = () => {
                   width={262}
                   height={262}
                   priority={index === 0}
+                  className='hidden md:block'
                 />
               </div>
             </SwiperSlide>
