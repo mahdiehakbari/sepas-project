@@ -1,13 +1,7 @@
 import i18n from '@/i18n';
+import { TCreditItem } from '../types';
 
-export type CreditItem = {
-  src: string;
-  alt: string;
-  href: string;
-  title: string;
-};
-
-export const CreditItems = [
+export const CreditItems: TCreditItem[] = [
   {
     src: '/assets/home-image/dentistry.svg',
     alt: 'dentistry',

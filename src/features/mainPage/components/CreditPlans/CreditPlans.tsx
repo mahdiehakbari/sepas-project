@@ -1,8 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
-import { CreditItems } from './constants/CreditItems';
+
 import Link from 'next/link';
+import { CreditItems } from './constants/CreditItems';
 
 export const CreditPlans = () => {
   const { t } = useTranslation();
@@ -24,7 +25,7 @@ export const CreditPlans = () => {
                 height={128}
                 className='cursor-pointer hover:opacity-80'
               />
-              <p>{item.title}</p>
+              <p className='text-black font-[500] text-[14px]'>{item.title}</p>
             </div>
           </Link>
         ))}

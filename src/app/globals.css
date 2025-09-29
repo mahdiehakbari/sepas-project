@@ -9,6 +9,9 @@
   --text-white: #ffffff;
   --text-black: #000000;
   --secondary: #fbfbfb;
+  --first-gradient: #267ff9;
+  --second-gradient: #1c6ca8;
+  --button-primary: #2378d8;
 }
 
 @theme inline {
@@ -17,6 +20,9 @@
   --color-secondary: var(--secondary);
   --color-text-white: var(--text-white);
   --color-text-black: var(--text-black);
+  --color-first-gradient: var(--first-gradient);
+  --color-second-gradient: var(--second-gradient);
+  --color-button-primary: var(--button-primary);
 }
 
 @font-face {
@@ -69,4 +75,9 @@ html.font-fa {
 
 html.font-en {
   font-family: 'poppins';
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
 }
