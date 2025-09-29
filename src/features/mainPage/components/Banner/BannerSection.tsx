@@ -6,8 +6,10 @@ import { BannerItems } from './constants/BannerItems';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Button } from '@/sharedComponent/ui';
+import { useTranslation } from 'react-i18next';
 
 export const BannerSection = () => {
+  const { t } = useTranslation();
   return (
     <div className='mb-12'>
       <div className='max-w-4xl mx-auto py-4 px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
@@ -35,8 +37,9 @@ export const BannerSection = () => {
                     {item.description}
                   </p>
 
-                  <div className='flex justify-between'>
-                    <Button>hiii</Button>
+                  <div className='flex items-center gap-4'>
+                    <Button>{t('home:calculation_installments')}</Button>
+                    <Button>{t('home:view_plans')}</Button>
                   </div>
                 </div>
                 <Image
