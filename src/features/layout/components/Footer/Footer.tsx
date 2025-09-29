@@ -4,12 +4,12 @@ import { Fragment } from 'react';
 import { SiteRights } from './SiteRights';
 import { useTranslation } from 'react-i18next';
 
-export default function Footer() {
+export const Footer = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
       <footer className='w-full bg-secondary'>
-        <div className='py-6 block md:flex max-w-6xl mx-auto gap-x-12 px-6 xl:px-0'>
+        <div className='py-6 block md:flex max-w-4xl mx-auto gap-x-12 px-6 xl:px-0'>
           <div className='w-3/3 md:w-2/3 mb-6 md:mb-0'>
             <Image
               src='assets/icons/logo.svg'
@@ -65,4 +65,4 @@ export default function Footer() {
       <SiteRights />
     </Fragment>
   );
-}
+};
