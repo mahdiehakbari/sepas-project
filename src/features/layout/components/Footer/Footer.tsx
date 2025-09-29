@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import { SiteRights } from './SiteRights';
 import { useTranslation } from 'react-i18next';
 
-export default function Footer() {
+export const Footer = () => {
   const { t } = useTranslation();
   return (
     <Fragment>
@@ -65,4 +65,4 @@ export default function Footer() {
       <SiteRights />
     </Fragment>
   );
-}
+};

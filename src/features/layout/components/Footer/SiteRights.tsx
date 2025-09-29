@@ -7,7 +7,7 @@ import { socialIcons } from './constants/socialIcons';
 export const SiteRights = () => {
   const { t } = useTranslation();
   return (
-    <div className='bg-primary '>
+    <div className='bg-primary'>
       <div className='mx-auto max-w-6xl flex  flex-col md:flex-row items-center py-4 justify-between  px-6 xl:px-0'>
         <p className='text-[14px] font-[500] text-white pb-4 md:pb-0'>
           {t('home:all_rights')}
