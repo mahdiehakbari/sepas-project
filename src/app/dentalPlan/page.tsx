@@ -1,6 +1,7 @@
 import { DentalPlaneContent } from '@/features/DentalPlane';
+import { DentalApplyCredit } from '@/features/DentalPlane/components/ِDentalApplyCredit';
+import { Accordion } from '@/sharedComponent/ui';
 import { Metadata } from 'next';
-import { Fragment } from 'react';
 
 export const metadata: Metadata = {
   title: 'DentalPlane',
@@ -8,8 +9,12 @@ export const metadata: Metadata = {
 };
 export default function DentalPlane() {
   return (
-    <Fragment>
+    <div className='max-w-4xl mx-auto px-6 md:px-0'>
       <DentalPlaneContent />
-    </Fragment>
+      <DentalApplyCredit />
+      <div className='mb-12'>
+        <Accordion />
+      </div>
+    </div>
   );
 }

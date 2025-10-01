@@ -12,6 +12,8 @@ module.exports = {
         'first-gradient': 'var(--first-gradient)',
         'second-gradient': 'var(--second-gradient)',
         'second-blue': 'var(--second-blue)',
+        'second-text-color': 'var(--second-text-color)',
+        'border-color': 'var(--border-color)',
       },
     },
   },

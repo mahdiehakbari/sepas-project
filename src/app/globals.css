@@ -13,6 +13,8 @@
   --second-gradient: #1c6ca8;
   --button-primary: #2378d8;
   --second-blue: #eaf3f8;
+  --second-text-color: #3a3a3a;
+  --border-color: #ebebeb;
 }
 
 @theme inline {
@@ -25,6 +27,8 @@
   --color-second-gradient: var(--second-gradient);
   --color-button-primary: var(--button-primary);
   --color-second-blue: var(--second-blue);
+  --color-second-text-color: var(--second-text-color);
+  --color-border-color: var(--border-color);
 }
 
 @font-face {

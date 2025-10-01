@@ -16,7 +16,8 @@ export const BannerSection = () => {
 
   useEffect(() => {
     setDir(i18n.dir());
-  }, [i18n.language]);
+  }, [i18n, i18n.language]);
+
   return (
     <div className='mb-12 px-6 md:px-0'>
       <div className='max-w-4xl mx-auto py-4 px-4 md:px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
