@@ -15,6 +15,7 @@
   --second-blue: #eaf3f8;
   --second-text-color: #3a3a3a;
   --border-color: #ebebeb;
+  --active-tab-color: #ecf0ff;
 }
 
 @theme inline {
@@ -27,8 +28,9 @@
   --color-second-gradient: var(--second-gradient);
   --color-button-primary: var(--button-primary);
   --color-second-blue: var(--second-blue);
-  --color-second-text-color: var(--second-text-color);
+  --color-second-blue: var(--second-blue);
   --color-border-color: var(--border-color);
+  --color-active-tab-color: var(--active-tab-color);
 }
 
 @font-face {

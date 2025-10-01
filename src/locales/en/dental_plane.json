@@ -12,5 +12,8 @@
   "repayment": "How is credit repayment done?",
   "covered_service": "What plans are currently covered by this service?",
   "service_through_tejarat": "Is it possible to use this service only through Tejarat Bank?",
-  "increase_extend_credit": "Is it possible to increase or extend credit?"
+  "increase_extend_credit": "Is it possible to increase or extend credit?",
+  "tejarat_bank": "Tejarat Bank",
+  "saman_bank": "Saman Bank",
+  "meli_bank": "Meli Bank"
 }
