@@ -1,9 +1,9 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './app/**/*.{js,ts,jsx,tsx}', // مسیر فایل‌های Next.js
+    './app/**/*.{js,ts,jsx,tsx}',
     './components/**/*.{js,ts,jsx,tsx}',
-    './features/**/*.{js,ts,jsx,tsx}', // اگر فیچر داری
+    './features/**/*.{js,ts,jsx,tsx}',
   ],
   theme: {
     extend: {
@@ -11,6 +11,7 @@ module.exports = {
         'button-primary': 'var(--button-primary)',
         'first-gradient': 'var(--first-gradient)',
         'second-gradient': 'var(--second-gradient)',
+        'second-blue': 'var(--second-blue)',
       },
     },
   },
