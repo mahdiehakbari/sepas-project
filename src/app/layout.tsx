@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { Header, Footer } from '@/features/layout';
+import { Header, Footer, SiteRights } from '@/features/layout';
 import I18nProvider from '@/providers/I18nProvider';
 
 export const metadata: Metadata = {
@@ -47,7 +47,7 @@ export default function RootLayout({
           <div className='min-h-screen flex flex-col'>
             <Header />
             <main className='flex-1'>{children}</main>
-            <Footer />
+            <SiteRights />
           </div>
         </I18nProvider>
       </body>
