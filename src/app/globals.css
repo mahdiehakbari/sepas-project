@@ -16,6 +16,7 @@
   --second-text-color: #3a3a3a;
   --border-color: #ebebeb;
   --active-tab-color: #ecf0ff;
+  --col-bg: #e6e8ee;
 }
 
 @theme inline {
@@ -31,6 +32,7 @@
   --color-second-blue: var(--second-blue);
   --color-border-color: var(--border-color);
   --color-active-tab-color: var(--active-tab-color);
+  --color-col-bg: var(--col-bg);
 }
 
 @font-face {

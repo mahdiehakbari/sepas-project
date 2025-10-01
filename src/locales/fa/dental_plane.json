@@ -15,5 +15,13 @@
   "increase_extend_credit": "آیا امکان افزایش یا تمدید اعتبار وجود دارد؟",
   "tejarat_bank": "بانک تجارت",
   "saman_bank": "بانک سامان",
-  "meli_bank": "بانک ملی"
+  "meli_bank": "بانک ملی",
+  "loan_amount": "1) مبلغ وام (اصل تسهیلات) - 50 تا 100 میلیون تومان",
+  "contract_period": "2) مدت قرارداد (ماه)",
+  "calculation_results": "نتایج محاسبه",
+  "interest_rate": "نرخ سود: 7% | مدت 6 ماه",
+  "monthly_installment": "قسط ماهانه",
+  "total_refund": "مجموع بازپرداخت",
+  "purchasing_power": "قدرت خرید ( توان خرید از مجموعه)",
+  "apply_credit": "درخواست اعتبار"
 }

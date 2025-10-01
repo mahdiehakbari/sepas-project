@@ -1,11 +1,12 @@
 import i18n from '@/i18n';
 import { TTabItems } from '../types';
+import { FirstTab } from '../FirstTab/FirstTab';
 
 export const tabsItem: TTabItems[] = [
   {
     tabImage: '/assets/dental-plane/tejarat_bank_logo.svg',
     label: i18n.t('dental_plane:tejarat_bank'),
-    content: ' محتوای تب اول',
+    content: <FirstTab />,
   },
   {
     tabImage: '/assets/dental-plane/saman-bank-logo.svg',

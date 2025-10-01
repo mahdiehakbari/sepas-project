@@ -15,6 +15,7 @@ module.exports = {
         'second-text-color': 'var(--second-text-color)',
         'border-color': 'var(--border-color)',
         'active-tab-color': 'var(--active-tab-color)',
+        'col-bg': 'var(--col-bg)',
       },
     },
   },

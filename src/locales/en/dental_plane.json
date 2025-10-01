@@ -15,5 +15,13 @@
   "increase_extend_credit": "Is it possible to increase or extend credit?",
   "tejarat_bank": "Tejarat Bank",
   "saman_bank": "Saman Bank",
-  "meli_bank": "Meli Bank"
+  "meli_bank": "Meli Bank",
+  "loan_amount": "1) Loan amount (principal facility) - 50 to 100 million Tomans",
+  "contract_period": "2) Contract period (months)",
+  "calculation_results": "Calculation results",
+  "interest_rate": "Interest rate: 7% | 6 months term",
+  "monthly_installment": "monthly installment",
+  "total_refund": "Total refund",
+  "purchasing_power": "Purchasing power (purchasing power of the group)",
+  "apply_credit": "Apply for credit"
 }
