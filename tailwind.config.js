@@ -16,6 +16,8 @@ module.exports = {
         'border-color': 'var(--border-color)',
         'active-tab-color': 'var(--active-tab-color)',
         'col-bg': 'var(--col-bg)',
+        'active-loan-text': 'var(--active-loan-text)',
+        'active-loan-text-bg': 'var(--active-loan-text-bg)',
       },
     },
   },
