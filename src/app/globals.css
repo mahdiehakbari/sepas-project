@@ -12,6 +12,13 @@
   --first-gradient: #267ff9;
   --second-gradient: #1c6ca8;
   --button-primary: #2378d8;
+  --second-blue: #eaf3f8;
+  --second-text-color: #3a3a3a;
+  --border-color: #ebebeb;
+  --active-tab-color: #ecf0ff;
+  --col-bg: #fbfdff;
+  --active-loan-text: #4e4e4e;
+  --active-loan-text-bg: #e0e0e0;
 }
 
 @theme inline {
@@ -23,6 +30,14 @@
   --color-first-gradient: var(--first-gradient);
   --color-second-gradient: var(--second-gradient);
   --color-button-primary: var(--button-primary);
+  --color-second-blue: var(--second-blue);
+  --color-second-blue: var(--second-blue);
+  --color-border-color: var(--border-color);
+  --color-active-tab-color: var(--active-tab-color);
+  --color-col-bg: var(--col-bg);
+  --color-second-text-color: var(--second-text-color);
+  --active-loan-text: var(--active-loan-text);
+  --active-loan-text-bg: var(--active-loan-text-bg);
 }
 
 @font-face {
@@ -80,4 +95,31 @@ html.font-en {
 .swiper {
   width: 100%;
   height: 100%;
+}
+
+input[type='range'] {
+  -webkit-appearance: none;
+  appearance: none;
+  background: transparent;
+  height: 2px;
+}
+input[type='range']::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 4px solid white;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin-top: -9px;
+}
+input[type='range']::-moz-range-thumb {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background: #3b82f6;
+  border: 5px solid white;
+  cursor: pointer;
 }

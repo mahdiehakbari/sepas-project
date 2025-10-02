@@ -7,14 +7,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Button } from '@/sharedComponent/ui';
 import { useTranslation } from 'react-i18next';
+import { useEffect, useState } from 'react';
 
 export const BannerSection = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+
+  const [dir, setDir] = useState(i18n.dir());
+
+  useEffect(() => {
+    setDir(i18n.dir());
+  }, [i18n, i18n.language]);
+
   return (
     <div className='mb-12 px-6 md:px-0'>
       <div className='max-w-4xl mx-auto py-4 px-4 md:px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
         <h1 className='sr-only'>عنوان اصلی صفحه یا اسلایدر</h1>
         <Swiper
+          key={dir}
+          dir={dir}
           modules={[Pagination]}
           pagination={{
             clickable: true,
