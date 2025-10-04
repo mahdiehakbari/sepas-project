@@ -1,7 +1,7 @@
 export type TBannerItem = {
   src: string;
   alt: string;
-  title: string;
-  description: string;
+  titleKey: string;
+  descriptionKey: string;
   id: number;
 };

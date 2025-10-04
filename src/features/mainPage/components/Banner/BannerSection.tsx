@@ -37,21 +37,22 @@ export const BannerSection = () => {
         >
           {BannerItems.map((item, index) => (
             <SwiperSlide key={item.id}>
-              <div className='flex  md:justify-between items-center'>
+              <div className='flex md:justify-between items-center'>
                 <div>
                   <h2 className='text-white font-[700] text-[24px] md:text-[32px] mb-4'>
-                    {item.title}
+                    {t(item.titleKey)}
                   </h2>
 
                   <p className='text-white font-[400] text-[14px] md:text-[20px] mb-6 '>
-                    {item.description}
+                    {t(item.descriptionKey)}
                   </p>
 
-                  <div className='flex  items-center gap-4'>
+                  <div className='flex items-center gap-4'>
                     <Button>{t('home:calculation_installments')}</Button>
                     <Button>{t('home:view_plans')}</Button>
                   </div>
                 </div>
+
                 <Image
                   src={item.src}
                   alt={item.alt}
