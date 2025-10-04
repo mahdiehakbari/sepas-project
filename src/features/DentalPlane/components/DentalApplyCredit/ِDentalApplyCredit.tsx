@@ -3,8 +3,10 @@
 import Image from 'next/image';
 import { useState } from 'react';
 import { tabsItem } from './constants';
+import { useTranslation } from 'react-i18next';
 
 export const DentalApplyCredit = () => {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
   return (
@@ -37,7 +39,7 @@ export const DentalApplyCredit = () => {
                     : 'font-[500] text-[16px] opacity-40'
                 }`}
               >
-                {tab.label}
+                {t(tab.label)}
               </h3>
             </div>
           </button>

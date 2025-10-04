@@ -17,15 +17,17 @@ export const CreditPlans = () => {
       <div className='flex justify-between flex-wrap'>
         {CreditItems.map((item) => (
           <Link key={item.alt} href={item.href} rel='noopener noreferrer'>
-            <div className='text-center bg-secondary px-4 pt-[11px] pb-4 mb-2 md:mb-0 rounded-2xl'>
+            <div className='text-center bg-secondary px-4 pt-[11px] pb-4 mb-2 md:mb-0 rounded-2xl transition-all duration-300 hover:shadow-lg'>
               <Image
                 src={item.src}
                 alt={item.alt}
                 width={128}
                 height={128}
-                className='cursor-pointer hover:opacity-80'
+                className='cursor-pointer hover:opacity-80 mx-auto'
               />
-              <p className='text-black font-[500] text-[14px]'>{item.title}</p>
+              <p className='text-black font-[500] text-[14px] mt-2'>
+                {t(item.titleKey)}
+              </p>
             </div>
           </Link>
         ))}
