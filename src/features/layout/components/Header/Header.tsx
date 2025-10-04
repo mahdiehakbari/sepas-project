@@ -46,10 +46,22 @@ export const Header = () => {
           <Button>{t('home:login')}</Button>
 
           <button
-            className='cursor-pointer border border-primary px-3 py-1 rounded'
+            className='cursor-pointer bg-[#F3F3F4] h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'
             onClick={toggleLanguage}
           >
-            {currentLanguage === 'fa' ? 'EN' : 'FA'}
+            <Image
+              src={
+                currentLanguage === 'fa'
+                  ? '/assets/icons/ir-logo.svg'
+                  : '/assets/icons/us-logo.png'
+              }
+              alt={currentLanguage === 'fa' ? 'Iran flag' : 'US flag'}
+              width={20}
+              height={20}
+            />
+            <span className='text-sm font-medium'>
+              {currentLanguage === 'fa' ? 'Fa' : 'EN'}
+            </span>
           </button>
 
           {/* Hamburger button */}
