@@ -18,6 +18,8 @@ module.exports = {
         'col-bg': 'var(--col-bg)',
         'active-loan-text': 'var(--active-loan-text)',
         'active-loan-text-bg': 'var(--active-loan-text-bg)',
+        'gray-text-second': 'var(--gray-text-second)',
+        'danger-color': 'var(--danger-color)',
       },
     },
   },

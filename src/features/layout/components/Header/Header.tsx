@@ -8,11 +8,16 @@ import { getNavItems } from './constants';
 import Image from 'next/image';
 import { useState } from 'react';
 import { MobileMenu } from './MobileMenu';
+import { PhoneNumberModal } from '../Modal/PhoneNumberModal';
 
 export const Header = () => {
   const { t } = useTranslation();
   const { toggleLanguage, currentLanguage } = useToggleLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const handleLogin = () => {
+    setIsOpenLoginModal(true);
+  };
 
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
@@ -43,7 +48,7 @@ export const Header = () => {
         </div>
 
         <div className='flex items-center gap-3'>
-          <Button>{t('home:login')}</Button>
+          <Button onClick={handleLogin}>{t('home:login')}</Button>
 
           <button
             className='cursor-pointer bg-[#F3F3F4] h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'
@@ -63,8 +68,6 @@ export const Header = () => {
               {currentLanguage === 'fa' ? 'Fa' : 'EN'}
             </span>
           </button>
-
-          {/* Hamburger button */}
           <button
             className='md:hidden flex flex-col justify-center items-center w-8 h-8 relative'
             onClick={() => setIsOpen(!isOpen)}
@@ -89,6 +92,10 @@ export const Header = () => {
       </div>
 
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
+
+      {isOpenLoginModal && (
+        <PhoneNumberModal setIsOpenLoginModal={setIsOpenLoginModal} />
+      )}
     </header>
   );
 };
