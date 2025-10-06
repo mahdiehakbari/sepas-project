@@ -1,5 +1,9 @@
 {
   "login_user_account": "Login to user account",
   "enter_mobile": "Enter your mobile number to use the service.",
-  "phone_number": "Phone Number"
+  "phone_number": "Phone Number",
+  "receive_verification_code": "Receive verification code",
+  "verification_code": "Verification code",
+  "enter_otp_message": "Please enter the verification code sent to {{phone}}",
+  "login": "login"
 }

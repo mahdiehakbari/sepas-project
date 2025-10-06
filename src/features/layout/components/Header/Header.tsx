@@ -8,13 +8,15 @@ import { getNavItems } from './constants';
 import Image from 'next/image';
 import { useState } from 'react';
 import { MobileMenu } from './MobileMenu';
-import { PhoneNumberModal } from '../Modal/PhoneNumberModal';
+import { PhoneNumberModal } from '../Modal/PhoneNumber/PhoneNumberModal';
+import { OtpModal } from '../Modal/OTPComponent/OtpModal';
 
 export const Header = () => {
   const { t } = useTranslation();
   const { toggleLanguage, currentLanguage } = useToggleLanguage();
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
   const handleLogin = () => {
     setIsOpenLoginModal(true);
   };
@@ -94,7 +96,16 @@ export const Header = () => {
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
       {isOpenLoginModal && (
-        <PhoneNumberModal setIsOpenLoginModal={setIsOpenLoginModal} />
+        <PhoneNumberModal
+          setIsOpenLoginModal={setIsOpenLoginModal}
+          setIsOpenOtpModal={setIsOpenOtpModal}
+        />
+      )}
+      {isOpenOtpModal && (
+        <OtpModal
+          setIsOpenOtpModal={setIsOpenOtpModal}
+          setIsOpenLoginModal={setIsOpenLoginModal}
+        />
       )}
     </header>
   );

@@ -4,21 +4,8 @@ import { useTranslation } from 'react-i18next';
 
 import Link from 'next/link';
 import { CreditItems } from './constants/CreditItems';
-import axios from 'axios';
-import { API_SEND_OTP } from '@/config/api_address.config';
 export const CreditPlans = () => {
   const { t } = useTranslation();
-
-  const handleClick = async () => {
-    try {
-      const response = await axios.post(API_SEND_OTP, {
-        phoneNumber: '09196003608',
-      });
-      console.log('✅ OTP sent:', response.data);
-    } catch (error) {
-      console.error('❌ Error sending OTP:', error);
-    }
-  };
 
   return (
     <div className='mx-auto max-w-4xl mb-12  px-6 md:px-0'>

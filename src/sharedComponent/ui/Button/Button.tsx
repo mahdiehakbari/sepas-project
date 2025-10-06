@@ -11,11 +11,11 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
           'cursor-pointer inline-flex items-center justify-center font-medium rounded-[8px] transition-colors focus:outline-none  disabled:opacity-50 disabled:pointer-events-none',
 
           variant === 'primary' &&
-            'bg-button-primary text-white hover:bg-blue-700 focus:ring-blue-500',
+            'bg-button-primary text-white hover:bg-blue-700 focus:ring-blue-500 disabled:bg-[#cbe5f8]',
           variant === 'secondary' &&
-            'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400',
+            'bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400 disabled:bg-[#cbe5f8]',
           variant === 'outline' &&
-            'bg-transparent border border-gray-300 hover:bg-gray-100',
+            'bg-transparent border border-gray-300 hover:bg-gray-100 disabled:bg-[#cbe5f8]',
 
           size === 'sm' && 'px-4 py-2 text-sm',
           size === 'md' &&
