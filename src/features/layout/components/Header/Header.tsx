@@ -8,8 +8,8 @@ import { getNavItems } from './constants';
 import Image from 'next/image';
 import { useState } from 'react';
 import { MobileMenu } from './MobileMenu';
-import { PhoneNumberModal } from '../Modal/PhoneNumber/PhoneNumberModal';
-import { OtpModal } from '../Modal/OTPComponent/OtpModal';
+import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
+import { OtpModal } from '../Auth/OTPComponent/OtpModal';
 
 export const Header = () => {
   const { t } = useTranslation();

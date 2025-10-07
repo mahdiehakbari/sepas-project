@@ -21,6 +21,7 @@
   --active-loan-text-bg: #e0e0e0;
   --gray-text-second: #323232;
   --danger-color: #ff4b4b;
+  --block-color: #f9f9f9;
 }
 
 @theme inline {
@@ -42,6 +43,7 @@
   --active-loan-text-bg: var(--active-loan-text-bg);
   --gray-text-second: var(--gray-text-second);
   --danger-color: var(--danger-color);
+  --block-color: var(--block-color);
 }
 
 @font-face {

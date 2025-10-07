@@ -2,7 +2,7 @@ import {
   DentalApplyCredit,
   DentalBanner,
   DentalPlaneContent,
-} from '@/features/DentalPlane';
+} from '@/features/dentalPlane';
 import { Accordion } from '@/sharedComponent/ui';
 import { Metadata } from 'next';
 

@@ -20,6 +20,7 @@ module.exports = {
         'active-loan-text-bg': 'var(--active-loan-text-bg)',
         'gray-text-second': 'var(--gray-text-second)',
         'danger-color': 'var(--danger-color)',
+        'block-color': 'var(--block-color)',
       },
     },
   },

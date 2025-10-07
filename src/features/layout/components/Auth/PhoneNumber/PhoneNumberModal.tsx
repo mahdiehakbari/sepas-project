@@ -49,12 +49,7 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
   };
 
   return (
-    <div
-      className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'
-      onClick={(e) =>
-        e.target === e.currentTarget && setIsOpenLoginModal(false)
-      }
-    >
+    <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
       <div className='bg-white rounded-2xl shadow-lg w-[320px]  md:w-100 p-8 relative animate-fadeIn'>
         <div className='flex items-center justify-end mb-6'>
           <button
