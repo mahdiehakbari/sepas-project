@@ -1,41 +1,37 @@
 'use client';
-import { Input } from '@/sharedComponent/ui';
+import { Button, Input } from '@/sharedComponent/ui';
+import { useAuthStore } from '@/store/Auth/authStore';
 import { useProfileStore } from '@/store/Profile/useProfileStore';
 import Image from 'next/image';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-
-interface ProfileFormValues {
-  firstName: string;
-  lastName: string;
-  mobile: string;
-  nationalCode: string;
-  birthDate: string;
-  gender: string;
-  email: string;
-  iban: string;
-  country: string;
-  province: string;
-  city: string;
-  postalCode: string;
-  address: string;
-}
+import { FormTitle } from './FormTitle';
+import { IProfileFormValues } from './types';
+import Cookies from 'js-cookie';
 
 export const ProfileForm = () => {
   const { t } = useTranslation();
   const { profile, setProfile } = useProfileStore();
-
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
+  const { user } = useAuthStore();
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<ProfileFormValues>({ defaultValues: profile });
+  } = useForm<IProfileFormValues>({ defaultValues: profile });
 
-  const onSubmit: SubmitHandler<ProfileFormValues> = (data) => {
+  const onSubmit: SubmitHandler<IProfileFormValues> = (data) => {
     setProfile(data);
-    alert('پروفایل با موفقیت به‌روزرسانی شد ✅');
   };
+  const savedPhone = Cookies.get('phoneNumber');
+  useEffect(() => {
+    if (user) {
+      setPhoneNumber(user?.phoneNumber);
+    } else {
+      setPhoneNumber(savedPhone);
+    }
+  }, [savedPhone, user]);
 
   const handleBack = () => {};
 
@@ -57,95 +53,146 @@ export const ProfileForm = () => {
         </h2>
       </div>
 
-      <div className='bg-[var(--block-color)] border border-border-color rounded-lg py-3 px-6'>
-        ssss
+      <div className='bg-[var(--block-color)] border border-border-color rounded-lg py-3 px-6 mb-6'>
+        <div className='flex items-center gap-6'>
+          <div className='relative'>
+            <Image
+              src='/assets/icons/user-profile-icon.jpg'
+              alt='user-profile-icon'
+              width={56}
+              height={56}
+              className='rounded-full'
+            />
+            <Image
+              src='/assets/icons/profile-edit-button.svg'
+              alt='profile-edit-button'
+              width={28}
+              height={28}
+              className='cursor-pointer absolute top-8 left-8'
+            />
+          </div>
+          <h2 className='font-medium text-black text-[13px]'>{phoneNumber}</h2>
+        </div>
       </div>
 
-      <form onSubmit={handleSubmit(onSubmit)} className='space-y-8'>
-        <section>
-          <div className='flex items-center gap-6'>
-            <h2 className='text-lg font-semibold text-gray-800'>
-              طرح‌های اعتباری
-            </h2>
-            <div className='flex-grow border-t border-gray-300 '></div>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className='p-6 bg-[var(--block-color)] border border-border-color rounded-lg'>
+          <section>
+            <FormTitle title={t('profile:credit_plans')} />
+
+            <div className='grid grid-cols-2 gap-4 text-right mb-12'>
+              <Input
+                label={t('profile:first_name')}
+                name='firstName'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:last_name')}
+                name='lastName'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:phone_number')}
+                name='mobile'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:national_id')}
+                name='nationalCode'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:date_birth')}
+                name='birthDate'
+                register={register}
+                type='date'
+                errors={errors}
+              />
+              <Input
+                label={t('profile:gender')}
+                name='gender'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:email')}
+                name='email'
+                register={register}
+                errors={errors}
+              />
+            </div>
+          </section>
+
+          <section>
+            <FormTitle title={t('profile:bank_information')} />
+            <div className='grid grid-cols-2 gap-4 text-right  mb-12'>
+              <Input
+                label={t('profile:iban')}
+                name='iban'
+                register={register}
+                errors={errors}
+              />
+            </div>
+          </section>
+
+          <section>
+            <FormTitle title={t('profile:address_information')} />
+
+            <div className='grid grid-cols-2 gap-4 text-right  mb-6'>
+              <Input
+                label={t('profile:country')}
+                name='country'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:province')}
+                name='province'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:city')}
+                name='city'
+                register={register}
+                errors={errors}
+              />
+              <Input
+                label={t('profile:postal_code')}
+                name='postalCode'
+                register={register}
+                errors={errors}
+              />
+            </div>
+
+            <Input
+              label={t('profile:address')}
+              name='address'
+              register={register}
+              full
+              errors={errors}
+            />
+          </section>
+        </div>
+
+        <div className='flex gap-4 mt-6'>
+          <div className='w-2/3'>
+            <Button type='submit' className='w-full '>
+              {t('profile:profile_update')}
+            </Button>
           </div>
-
-          <div className='grid grid-cols-2 gap-4 text-right'>
-            <Input label='نام' name='firstName' register={register} required />
-            <Input
-              label='نام خانوادگی'
-              name='lastName'
-              register={register}
-              required
-            />
-            <Input
-              label='شماره موبایل'
-              name='mobile'
-              register={register}
-              required
-            />
-            <Input
-              label='کد ملی'
-              name='nationalCode'
-              register={register}
-              required
-            />
-            <Input
-              label='تاریخ تولد'
-              name='birthDate'
-              register={register}
-              required
-              type='date'
-            />
-            <Input label='جنسیت' name='gender' register={register} required />
-            <Input label='ایمیل' name='email' register={register} />
+          <div className='w-1/3'>
+            <Button
+              type='button'
+              className='w-full bg-[var(--active-loan-text-bg)] text-black hover:bg-[var(--active-loan-text-bg)]'
+            >
+              {t('profile:back')}
+            </Button>
           </div>
-        </section>
-
-        {/* اطلاعات بانکی */}
-        <section>
-          <h3 className='font-semibold text-gray-700 mb-4 text-right border-b pb-2'>
-            اطلاعات بانکی
-          </h3>
-          <div className='grid grid-cols-2 gap-4 text-right'>
-            <Input label='شماره شبا' name='iban' register={register} />
-          </div>
-        </section>
-
-        {/* اطلاعات آدرس */}
-        <section>
-          <h3 className='font-semibold text-gray-700 mb-4 text-right border-b pb-2'>
-            اطلاعات آدرس
-          </h3>
-
-          <div className='grid grid-cols-2 gap-4 text-right'>
-            <Input label='کشور' name='country' register={register} />
-            <Input label='استان' name='province' register={register} required />
-            <Input label='شهرستان' name='city' register={register} />
-            <Input
-              label='کد پستی'
-              name='postalCode'
-              register={register}
-              required
-            />
-          </div>
-          <Input label='آدرس' name='address' register={register} full />
-        </section>
-
-        {/* دکمه‌ها */}
-        <div className='flex justify-between pt-6 border-t'>
-          <button
-            type='button'
-            className='px-6 py-2 rounded-lg bg-gray-100 text-gray-700 hover:bg-gray-200 transition'
-          >
-            بازگشت
-          </button>
-          <button
-            type='submit'
-            className='px-8 py-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition'
-          >
-            به‌روزرسانی پروفایل
-          </button>
         </div>
       </form>
     </div>

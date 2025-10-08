@@ -1,1 +1,21 @@
-{ "profile_setting": " تنظیمات پروفایل" }
+{
+  "profile_setting": " تنظیمات پروفایل",
+  "credit_plans": "طرح های اعتباری",
+  "first_name": "نام",
+  "last_name": "نام خانوادگی",
+  "phone_number": "شماره موبایل",
+  "national_id": "کد ملی",
+  "date_birth": "تاریخ تولد",
+  "gender": "جنسیت",
+  "email": "ایمیل",
+  "bank_information": "اطلاعات بانکی",
+  "iban": "شماره شبا",
+  "address_information": "اطلاعات آدرس",
+  "country": "کشور",
+  "province": "استان",
+  "city": "شهرستان",
+  "postal_code": "کد پستی",
+  "address": "آدرس",
+  "back": "بازگشت",
+  "profile_update": "به‌روزرسانی پروفایل"
+}

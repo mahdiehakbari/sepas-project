@@ -3,8 +3,8 @@ export interface IProfileFormValues {
   lastName: string;
   mobile: string;
   nationalCode: string;
-  gender: string;
   birthDate: string;
+  gender: string;
   email: string;
   iban: string;
   country: string;
@@ -12,5 +12,4 @@ export interface IProfileFormValues {
   city: string;
   postalCode: string;
   address: string;
-  [key: string]: unknown;
 }

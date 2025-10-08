@@ -3,15 +3,10 @@
 import Image from 'next/image';
 import { IOtpProps } from './constants';
 import { useTranslation } from 'react-i18next';
-import { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import OTPInput from 'react-otp-input';
 import { Button } from '@/sharedComponent/ui';
 import { SpinnerDiv } from '../../SpinnerDiv/SpinnerDiv';
-import { useAuthStore } from '@/store/Auth/authStore';
-import axios from 'axios';
-import { API_AUTHENTICATE } from '@/config/api_address.config';
-import { useRouter } from 'next/navigation';
+import { useOtp } from './hooks';
 
 export const OtpModal: React.FC<IOtpProps> = ({
   setIsOpenOtpModal,
@@ -19,56 +14,13 @@ export const OtpModal: React.FC<IOtpProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const [phone, setPhone] = useState<string>('');
-  const [otp, setOtp] = useState('');
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const { setAuth } = useAuthStore();
-
-  const router = useRouter();
-  useEffect(() => {
-    const savedPhone = Cookies.get('phoneNumber');
-    if (savedPhone) setPhone(savedPhone);
-  }, []);
+  const { phone, otp, setOtp, isSubmitting, error, handleSubmit } = useOtp(() =>
+    setIsOpenOtpModal(false),
+  );
 
   const handleBack = () => {
     setIsOpenOtpModal(false);
     setIsOpenLoginModal(true);
-  };
-
-  const handleSubmit = async () => {
-    try {
-      setIsSubmitting(true);
-      setError('');
-      const response = await axios.post(API_AUTHENTICATE, {
-        phoneNumber: phone,
-        otp,
-      });
-
-      const { token, user } = response.data;
-      setAuth(token, user);
-
-      if (!user.isVerified) {
-        router.push('/profile');
-      } else {
-        router.push('/');
-      }
-
-      setIsOpenOtpModal(false);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.message || 'خطایی رخ داده است.');
-        console.log('Axios error:', err.response?.data);
-      } else if (err instanceof Error) {
-        setError(err.message);
-        console.log('JS error:', err.message);
-      } else {
-        setError('خطای ناشناخته رخ داده است.');
-        console.log('Unknown error:', err);
-      }
-    } finally {
-      setIsSubmitting(false);
-    }
   };
 
   return (
@@ -125,7 +77,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
             )}
           />
         </div>
-        یسیسیس
+
         {error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
         <Button
           onClick={handleSubmit}

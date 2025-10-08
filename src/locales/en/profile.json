@@ -1,1 +1,21 @@
-{ "profile_setting": "Profile Setting" }
+{
+  "profile_setting": "Profile Setting",
+  "credit_plans": "Credit plans",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "phone_number": "Phone Number",
+  "national_id": "National Id",
+  "date_birth": "Date of birth",
+  "gender": "Gender",
+  "email": "Email",
+  "bank_information": "Bank information",
+  "iban": "Shaba number",
+  "address_information": "Address information",
+  "country": "country",
+  "province": "province",
+  "city": "city",
+  "postal_code": "Postal code",
+  "address": "Address",
+  "back": "Back",
+  "profile_update": "Profile update"
+}
