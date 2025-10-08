@@ -6,10 +6,12 @@ import { useToggleLanguage } from './hooks';
 import { Button } from '@/sharedComponent/ui';
 import { getNavItems } from './constants';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MobileMenu } from './MobileMenu';
 import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
 import { OtpModal } from '../Auth/OTPComponent/OtpModal';
+import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -17,10 +19,19 @@ export const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
+
+  const router = useRouter();
   const handleLogin = () => {
     setIsOpenLoginModal(true);
   };
 
+  const isLoggedIn = Cookies.get('isLoggedIn');
+
+  const handleClick = () => {
+    router.push('/profile');
+  };
+
+  useEffect(() => {}, []);
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
@@ -50,7 +61,19 @@ export const Header = () => {
         </div>
 
         <div className='flex items-center gap-3'>
-          <Button onClick={handleLogin}>{t('home:login')}</Button>
+          {!isLoggedIn ? (
+            <Button onClick={handleLogin}>{t('home:login')}</Button>
+          ) : (
+            <div onClick={handleClick} className='cursor-pointer'>
+              <Image
+                src='/assets/icons/user-profile-icon.jpg'
+                alt='user-profile-icon'
+                width={56}
+                height={56}
+                className='rounded-full'
+              />
+            </div>
+          )}
 
           <button
             className='cursor-pointer bg-[#F3F3F4] h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'

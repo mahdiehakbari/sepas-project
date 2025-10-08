@@ -50,7 +50,8 @@ export const useOtp = (onClose: () => void) => {
       localStorage.setItem('user', JSON.stringify(user));
 
       if (!user.isVerified) {
-        router.push('/profile');
+        // router.push('/profile');
+        Cookies.set('isLoggedIn', 'isLoggedIn');
       } else {
         router.push('/');
       }
