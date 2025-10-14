@@ -5,5 +5,7 @@
   "receive_verification_code": "Receive verification code",
   "verification_code": "Verification code",
   "enter_otp_message": "Please enter the verification code sent to {{phone}}",
-  "login": "login"
+  "login": "login",
+  "resend_code": "Resend Code",
+  "accept_terms_message": "By entering the code, I agree to the <1>Terms and Conditions</1>."
 }

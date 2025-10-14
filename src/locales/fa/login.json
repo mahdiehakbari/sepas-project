@@ -5,5 +5,7 @@
   "receive_verification_code": "دریافت کد تایید",
   "verification_code": "کد تایید",
   "enter_otp_message": "لطفا کد تایید ارسال شده به شماره {{phone}} را وارد نمایید",
-  "login": "ورود"
+  "login": "ورود",
+  "resend_code": "ارسال مجدد کد",
+  "accept_terms_message": "با وارد کردن کد، <1>قوانین و مقررات</1> را می‌پذیرم."
 }

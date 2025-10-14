@@ -11,6 +11,7 @@ import { API_SEND_OTP } from '@/config/api_address.config';
 import axios from 'axios';
 import { useState } from 'react';
 import { SpinnerDiv } from '../../SpinnerDiv/SpinnerDiv';
+import { usePhoneNumberSubmit } from './hooks';
 
 export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
   setIsOpenLoginModal,
@@ -24,29 +25,10 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
 
   const { handleChange, isValid } = usePhoneNumber(setValue);
 
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
-
-  const onSubmit = async (data: { phoneNumber: string }) => {
-    setLoading(true);
-    setError('');
-
-    try {
-      Cookies.set('phoneNumber', data.phoneNumber, { path: '/' });
-
-      const response = await axios.post(API_SEND_OTP, {
-        phoneNumber: data.phoneNumber,
-      });
-      setIsOpenLoginModal(false);
-      setIsOpenOtpModal(true);
-    } catch (err: unknown) {
-      if (axios.isAxiosError(err)) {
-        setError(err.response?.data?.message);
-      }
-    } finally {
-      setLoading(false);
-    }
-  };
+  const { onSubmit, loading, error } = usePhoneNumberSubmit({
+    setIsOpenLoginModal,
+    setIsOpenOtpModal,
+  });
 
   return (
     <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
