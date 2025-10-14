@@ -9,6 +9,7 @@ import { useTranslation } from 'react-i18next';
 import { FormTitle } from './FormTitle';
 import { IProfileFormValues } from './types';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export const ProfileForm = () => {
   const { t } = useTranslation();
@@ -20,7 +21,7 @@ export const ProfileForm = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<IProfileFormValues>({ defaultValues: profile });
-
+  const router = useRouter();
   const onSubmit: SubmitHandler<IProfileFormValues> = (data) => {
     setProfile(data);
   };
@@ -33,7 +34,9 @@ export const ProfileForm = () => {
     }
   }, [savedPhone, user]);
 
-  const handleBack = () => {};
+  const handleBack = () => {
+    router.push('/');
+  };
 
   return (
     <div className='max-w-4xl mx-auto '>

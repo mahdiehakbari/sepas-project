@@ -61,6 +61,13 @@ export const OtpModal: React.FC<IOtpProps> = ({
     }
   };
 
+  useEffect(() => {
+    console.log(otp);
+    if (otp.length === 6) {
+      handleSubmit();
+    }
+  }, [otp]);
+
   return (
     <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
       <div className='bg-white rounded-2xl shadow-lg w-[320px] md:w-100 p-8 relative animate-fadeIn'>
@@ -87,13 +94,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
           <div dir='ltr' className='flex justify-center'>
             <OTPInput
               value={otp}
-              onChange={(val) => {
-                const cleanVal = val.replace(/[^0-9]/g, '');
-                setOtp(cleanVal);
-                if (cleanVal.length === 6) {
-                  handleSubmit();
-                }
-              }}
+              onChange={(val) => setOtp(val.replace(/[^0-9]/g, ''))}
               numInputs={6}
               inputType='tel'
               shouldAutoFocus
