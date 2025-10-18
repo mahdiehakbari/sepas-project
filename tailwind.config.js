@@ -21,6 +21,7 @@ module.exports = {
         'gray-text-second': 'var(--gray-text-second)',
         'danger-color': 'var(--danger-color)',
         'block-color': 'var(--block-color)',
+        'notice-color': 'var(--notice-color)',
       },
     },
   },

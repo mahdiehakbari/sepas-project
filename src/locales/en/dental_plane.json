@@ -23,5 +23,19 @@
   "monthly_installment": "monthly installment",
   "total_refund": "Total refund",
   "purchasing_power": "Purchasing power (purchasing power of the group)",
-  "apply_credit": "Apply for credit"
+  "apply_credit": "Apply for credit",
+  "conditions_receiving": "Conditions for receiving Kalano Bank Tejarat installment credit:",
+  "install_budget_app": "1- First, install the Budget app and complete the credit receiving process. To receive the Budget app,",
+  "click_here": "Click Here.",
+  "after_receiving_credit": "2- After receiving the credit, you must pay the credit fee by selecting the credit request option. (This amount is one percent of the total loan amount.)",
+  "note": "Please note the following points regarding the fee:",
+  "note_fee_amount": "The fee amount is non-refundable and there is no possibility of a refund if the fee is paid.",
+  "note_without_paying": "Without paying the fee, it is not possible to use the activated credit in the Budget app.",
+  "after_paying": "3- After paying the fee, a one-time password will be sent to the number you registered with in the Budget app.",
+  "password_tips:": "One-time password tips:",
+  "password_correctly": "Enter the password correctly in the specified field.",
+  "dont_receive_code": "If you do not receive the code after the specified period of time, you can request a new code.",
+  "constitutes_receiving_credit": "Please note that entering a one-time password constitutes receiving credit and it is not possible to cancel the request afterwards.",
+  "dental_plan_credit": "Request for dental plan credit",
+  "guide": "guide"
 }
