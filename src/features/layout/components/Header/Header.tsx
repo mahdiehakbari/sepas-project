@@ -6,29 +6,35 @@ import { useToggleLanguage } from './hooks';
 import { Button } from '@/sharedComponent/ui';
 import { getNavItems } from './constants';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MobileMenu } from './MobileMenu';
 import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
 import { OtpModal } from '../Auth/OTPComponent/OtpModal';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
+import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
 
 export const Header = () => {
   const { t } = useTranslation();
   const { toggleLanguage, currentLanguage } = useToggleLanguage();
   const [isOpen, setIsOpen] = useState(false);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
-
+  const [openPopUp, setOpenPopUp] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+
   const handleLogin = () => {
     setIsOpenLoginModal(true);
+    setIsOpenModal(true);
   };
 
   const isLoggedIn = Cookies.get('isLoggedIn');
 
   const handleClick = () => {
-    router.push('/profile');
+    setOpenPopUp(true);
   };
 
   useEffect(() => {}, []);
@@ -64,14 +70,43 @@ export const Header = () => {
           {!isLoggedIn ? (
             <Button onClick={handleLogin}>{t('home:login')}</Button>
           ) : (
-            <div onClick={handleClick} className='cursor-pointer'>
-              <Image
-                src='/assets/icons/user-profile-icon.jpg'
-                alt='user-profile-icon'
-                width={56}
-                height={56}
-                className='rounded-full'
-              />
+            <div className='relative' ref={menuRef}>
+              <div onClick={handleClick} className='cursor-pointer'>
+                <Image
+                  src='/assets/icons/user-profile-icon.jpg'
+                  alt='user-profile-icon'
+                  width={56}
+                  height={56}
+                  className='rounded-full'
+                />
+              </div>
+              {openPopUp && (
+                <DropdownMenu
+                  isOpen={openPopUp}
+                  onClose={() => setOpenPopUp(false)}
+                  items={[
+                    {
+                      label: 'حساب کاربری',
+                      href: '/profile',
+                      image: '/assets/icons/user-account.svg',
+                    },
+                    {
+                      label: 'لیست درخواست‌ها',
+                      href: '/',
+                      image: '/assets/icons/document.svg',
+                    },
+                    {
+                      label: 'خروج',
+                      image: '/assets/icons/logout.svg',
+                      danger: true,
+                      onClick: () => {
+                        Cookies.remove('isLoggedIn');
+                        router.push('/');
+                      },
+                    },
+                  ]}
+                />
+              )}
             </div>
           )}
 
@@ -118,18 +153,24 @@ export const Header = () => {
 
       <MobileMenu isOpen={isOpen} setIsOpen={setIsOpen} />
 
-      {isOpenLoginModal && (
-        <PhoneNumberModal
-          setIsOpenLoginModal={setIsOpenLoginModal}
-          setIsOpenOtpModal={setIsOpenOtpModal}
-        />
-      )}
-      {isOpenOtpModal && (
-        <OtpModal
-          setIsOpenOtpModal={setIsOpenOtpModal}
-          setIsOpenLoginModal={setIsOpenLoginModal}
-        />
-      )}
+      <ResponsiveModal
+        isOpen={isOpenModal}
+        onClose={() => setIsOpenModal(false)}
+      >
+        {isOpenLoginModal && (
+          <PhoneNumberModal
+            setIsOpenLoginModal={setIsOpenLoginModal}
+            setIsOpenOtpModal={setIsOpenOtpModal}
+          />
+        )}
+        {isOpenOtpModal && (
+          <OtpModal
+            setIsOpenOtpModal={setIsOpenOtpModal}
+            setIsOpenLoginModal={setIsOpenLoginModal}
+            setIsOpenModal={setIsOpenModal}
+          />
+        )}
+      </ResponsiveModal>
     </header>
   );
 };
