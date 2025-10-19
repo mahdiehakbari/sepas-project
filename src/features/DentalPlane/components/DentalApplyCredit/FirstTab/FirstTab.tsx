@@ -13,9 +13,14 @@ export const FirstTab = () => {
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
         <div className=' p-6 rounded-lg  border-2  border-border-color bg-white'>
-          <h3 className='text-black text-[14px] font-[500] mb-6'>
-            {t('dental_plane:loan_amount')}
-          </h3>
+          <div className='flex items-center justify-between mb-6'>
+            <h3 className='text-black text-[14px] font-[500] '>
+              {t('dental_plane:loan_amount')}
+            </h3>
+            <p className='text-primary text-[14px] font-[700] bg-active-tab-color px-4 py-1 rounded-[16px]'>
+              {t('dental_plane:guide')}
+            </p>
+          </div>
 
           <div className='relative w-full mb-6'>
             <div className='absolute top-1/2 left-0 w-full h-2 bg-gray-300 rounded-full transform -translate-y-1/2' />

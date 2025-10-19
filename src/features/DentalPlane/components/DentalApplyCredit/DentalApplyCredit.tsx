@@ -11,6 +11,10 @@ export const DentalApplyCredit = () => {
 
   return (
     <div className='mb-12'>
+      <h2 className='font[700] text-[24px] mb-4'>
+        {t('dental_plane:dental_plan_credit')}
+      </h2>
+
       <div className='flex overflow-x-auto scrollbar-none border-2 border-border-color bg-white rounded-[8px] px-4 py-4 gap-3 md:gap-12'>
         {tabsItem.map((tab, index) => (
           <button

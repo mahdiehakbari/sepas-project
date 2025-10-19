@@ -37,7 +37,7 @@ export const Header = () => {
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
         <div className='flex items-center gap-[50px]'>
           <Image
-            src='assets/icons/logo.svg'
+            src='/assets/icons/logo.svg'
             alt='logo'
             width={78}
             height={42}

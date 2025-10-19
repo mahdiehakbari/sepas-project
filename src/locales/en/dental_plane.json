@@ -16,7 +16,7 @@
   "tejarat_bank": "Tejarat Bank",
   "saman_bank": "Saman Bank",
   "meli_bank": "Meli Bank",
-  "loan_amount": "1) Loan amount (principal facility) - 50 to 100 million Tomans",
+  "loan_amount": "1) Loan amount (principal of the facility)",
   "contract_period": "2) Contract period (months)",
   "calculation_results": "Calculation results",
   "interest_rate": "Interest rate: 7% | 6 months term",
@@ -37,5 +37,6 @@
   "dont_receive_code": "If you do not receive the code after the specified period of time, you can request a new code.",
   "constitutes_receiving_credit": "Please note that entering a one-time password constitutes receiving credit and it is not possible to cancel the request afterwards.",
   "dental_plan_credit": "Request for dental plan credit",
-  "guide": "guide"
+  "guide": "guide",
+  "bank_announces": "4- After the bank announces the result, you can use it for dental services. It should be noted that it is not possible to withdraw this amount."
 }

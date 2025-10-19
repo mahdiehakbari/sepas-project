@@ -22,7 +22,10 @@
   --gray-text-second: #323232;
   --danger-color: #ff4b4b;
   --block-color: #f9f9f9;
-  --notice-color: #1e73b3;
+  --notice-title: #1e73b3;
+  --notice-text: #124681;
+  --notice-bg: #ebf3fd;
+  --gray-bg: #f6f6f6;
 }
 
 @theme inline {
@@ -45,7 +48,10 @@
   --gray-text-second: var(--gray-text-second);
   --danger-color: var(--danger-color);
   --block-color: var(--block-color);
-  --notice-color: var(--notice-color);
+  --notice-title: var(--notice-title);
+  --notice-text: var(--notice-text);
+  --notice-bg: var(--notice-bg);
+  --gray-bg: var(--gray-bg);
 }
 
 @font-face {
