@@ -5,11 +5,7 @@ import { IPhoneNumberModalProps, TFormValues } from './constants';
 import { useTranslation } from 'react-i18next';
 import { Button } from '@/sharedComponent/ui';
 import { useForm } from 'react-hook-form';
-import Cookies from 'js-cookie';
 import { usePhoneNumber } from './hooks/usePhoneNumber';
-import { API_SEND_OTP } from '@/config/api_address.config';
-import axios from 'axios';
-import { useState } from 'react';
 import { SpinnerDiv } from '../../SpinnerDiv/SpinnerDiv';
 import { usePhoneNumberSubmit } from './hooks';
 
@@ -31,78 +27,76 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
   });
 
   return (
-    <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-      <div className='bg-white rounded-2xl shadow-lg w-[320px]  md:w-100 p-8 relative animate-fadeIn'>
-        <div className='flex items-center justify-end mb-6'>
-          <button
-            onClick={() => setIsOpenLoginModal(false)}
-            className='cursor-pointer'
-          >
-            <Image
-              src='/assets/icons/close-button.svg'
-              alt='close-button'
-              width={24}
-              height={24}
-              className='cursor-pointer hover:opacity-80'
-            />
-          </button>
-        </div>
-
-        <div className='flex justify-center mb-4'>
+    <div className='p-8 max-w-[431px]'>
+      <div className='flex items-center justify-end mb-6'>
+        <button
+          onClick={() => setIsOpenLoginModal(false)}
+          className='cursor-pointer'
+        >
           <Image
-            src='/assets/icons/logo.svg'
-            alt='logo'
-            width={78}
-            height={42}
+            src='/assets/icons/close-button.svg'
+            alt='close-button'
+            width={24}
+            height={24}
             className='cursor-pointer hover:opacity-80'
           />
+        </button>
+      </div>
+
+      <div className='flex justify-center mb-4'>
+        <Image
+          src='/assets/icons/logo.svg'
+          alt='logo'
+          width={78}
+          height={42}
+          className='cursor-pointer hover:opacity-80'
+        />
+      </div>
+
+      <h2 className='text-[18px] font-[700] mb-2 text-center'>
+        {t('login:login_user_account')}
+      </h2>
+      <p className='text-[14px] font-[500] text-[#323232] mb-6 text-center'>
+        {t('login:enter_mobile')}
+      </p>
+
+      <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
+        <div className='flex items-center gap-1 mb-2'>
+          <p className='text-[14px] font-[500] text-[#494A50]'>
+            {t('login:phone_number')}
+          </p>
+          <p className='text-[14px] font-[500] text-[#ff4b4b]'>*</p>
         </div>
 
-        <h2 className='text-[18px] font-[700] mb-2 text-center'>
-          {t('login:login_user_account')}
-        </h2>
-        <p className='text-[14px] font-[500] text-[#323232] mb-6 text-center'>
-          {t('login:enter_mobile')}
-        </p>
+        <input
+          type='tel'
+          placeholder='09*********'
+          {...register('phoneNumber')}
+          onChange={handleChange}
+          maxLength={11}
+          className={`w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 ${
+            error
+              ? 'border-red-500 focus:ring-red-400'
+              : 'border-gray-300 focus:ring-blue-500'
+          }`}
+        />
 
-        <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
-          <div className='flex items-center gap-1 mb-2'>
-            <p className='text-[14px] font-[500] text-[#494A50]'>
-              {t('login:phone_number')}
-            </p>
-            <p className='text-[14px] font-[500] text-[#ff4b4b]'>*</p>
-          </div>
+        {error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
 
-          <input
-            type='tel'
-            placeholder='09*********'
-            {...register('phoneNumber')}
-            onChange={handleChange}
-            maxLength={11}
-            className={`w-full border rounded-lg p-2 mb-2 focus:outline-none focus:ring-2 ${
-              error
-                ? 'border-red-500 focus:ring-red-400'
-                : 'border-gray-300 focus:ring-blue-500'
-            }`}
-          />
-
-          {error && <p className='text-red-500 text-sm mb-4'>{error}</p>}
-
-          <Button
-            type='submit'
-            disabled={!isValid || loading}
-            className='w-full flex items-center justify-center gap-2'
-          >
-            <span>
-              {loading ? (
-                <SpinnerDiv size='sm' className='text-white' />
-              ) : (
-                t('login:receive_verification_code')
-              )}
-            </span>
-          </Button>
-        </form>
-      </div>
+        <Button
+          type='submit'
+          disabled={!isValid || loading}
+          className='w-full flex items-center justify-center gap-2'
+        >
+          <span>
+            {loading ? (
+              <SpinnerDiv size='sm' className='text-white' />
+            ) : (
+              t('login:receive_verification_code')
+            )}
+          </span>
+        </Button>
+      </form>
     </div>
   );
 };

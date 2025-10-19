@@ -13,10 +13,11 @@ import axios from 'axios';
 export const OtpModal: React.FC<IOtpProps> = ({
   setIsOpenOtpModal,
   setIsOpenLoginModal,
+  setIsOpenModal,
 }) => {
   const { t } = useTranslation();
   const { phone, otp, setOtp, isSubmitting, error, handleSubmit } = useOtp(() =>
-    setIsOpenOtpModal(false),
+    setIsOpenModal(false),
   );
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -69,49 +70,48 @@ export const OtpModal: React.FC<IOtpProps> = ({
   }, [otp]);
 
   return (
-    <div className='fixed inset-0 bg-black/50 flex items-center justify-center z-50'>
-      <div className='bg-white rounded-2xl shadow-lg w-[320px] md:w-100 p-8 relative animate-fadeIn'>
-        <div className='flex items-center justify-start mb-2'>
-          <button onClick={handleBack} className='cursor-pointer'>
-            <Image
-              src='/assets/icons/back-button.svg'
-              alt='close-button'
-              width={24}
-              height={24}
-              className='cursor-pointer hover:opacity-80'
-            />
-          </button>
+    <div className='p-8'>
+      <div className='flex items-center justify-start mb-2'>
+        <button onClick={handleBack} className='cursor-pointer'>
+          <Image
+            src='/assets/icons/back-button.svg'
+            alt='close-button'
+            width={24}
+            height={24}
+            className='cursor-pointer hover:opacity-80'
+          />
+        </button>
 
-          <h2 className='text-[18px] font-[700] '>
-            {t('login:verification_code')}
-          </h2>
-        </div>
+        <h2 className='text-[18px] font-[700] '>
+          {t('login:verification_code')}
+        </h2>
+      </div>
 
-        <p className='text-[12px] font-[600] text-[#323232] mb-6'>
-          {t('login:enter_otp_message', { phone })}
-        </p>
-        <div className=' mb-6'>
-          <div dir='ltr' className='flex justify-center'>
-            <OTPInput
-              value={otp}
-              onChange={(val) => setOtp(val.replace(/[^0-9]/g, ''))}
-              numInputs={6}
-              inputType='tel'
-              shouldAutoFocus
-              containerStyle={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: '8px',
-              }}
-              renderInput={(props, index) => (
-                <input
-                  {...props}
-                  onFocus={() => setFocusedIndex(index)}
-                  onBlur={() => setFocusedIndex(null)}
-                  dir='ltr'
-                  inputMode='numeric'
-                  className={`text-center text-lg border rounded-lg outline-none transition-all duration-150
+      <p className='text-[12px] font-[600] text-[#323232] mb-6'>
+        {t('login:enter_otp_message', { phone })}
+      </p>
+      <div className=' mb-6'>
+        <div dir='ltr' className='flex justify-center'>
+          <OTPInput
+            value={otp}
+            onChange={(val) => setOtp(val.replace(/[^0-9]/g, ''))}
+            numInputs={6}
+            inputType='tel'
+            shouldAutoFocus
+            containerStyle={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+              gap: '8px',
+            }}
+            renderInput={(props, index) => (
+              <input
+                {...props}
+                onFocus={() => setFocusedIndex(index)}
+                onBlur={() => setFocusedIndex(null)}
+                dir='ltr'
+                inputMode='numeric'
+                className={`text-center text-lg border rounded-lg outline-none transition-all duration-150
                   ${
                     error
                       ? 'border-red-500'
@@ -120,65 +120,64 @@ export const OtpModal: React.FC<IOtpProps> = ({
                       : 'border-gray-300'
                   }
                 `}
-                  style={{
-                    width: '44px',
-                    height: '44px',
-                    margin: '0px',
-                  }}
-                />
-              )}
-            />
-          </div>
-
-          {error && <p className='text-red-500 text-sm my-2 mr-4'>{error}</p>}
-          {apiError && (
-            <p className='text-red-500 text-sm my-2 mr-4'>{apiError}</p>
-          )}
-        </div>
-
-        <Button
-          onClick={handleSubmit}
-          type='submit'
-          disabled={otp.length !== 6 || isSubmitting}
-          className='w-full'
-        >
-          {isSubmitting ? (
-            <SpinnerDiv size='sm' className='text-white' />
-          ) : (
-            t('login:login')
-          )}
-        </Button>
-        <div className='flex justify-center items-center mt-4 gap-2 text-sm'>
-          <button
-            onClick={handleResend}
-            disabled={!canResend}
-            className={`cursor-pointer font-semibold ${
-              canResend
-                ? 'text-primary hover:underline'
-                : 'text-gray-400 cursor-not-allowed'
-            }`}
-          >
-            {t('login:resend_code')}
-          </button>
-          <span className='text-[#A5A5A5] text-[12px] font-[700]'>
-            {formatTime(timeLeft)}
-          </span>
-        </div>
-
-        <div className='text-center text-xs text-gray-600 mt-4 leading-relaxed'>
-          <Trans
-            i18nKey='login:accept_terms_message'
-            components={[
-              <></>, // index 0 برای متن معمولی
-              <Link
-                key='terms-link'
-                href='/terms'
-                target='_blank'
-                className='text-primary underline font-medium '
-              />,
-            ]}
+                style={{
+                  width: '44px',
+                  height: '44px',
+                  margin: '0px',
+                }}
+              />
+            )}
           />
         </div>
+
+        {error && <p className='text-red-500 text-sm my-2 mr-4'>{error}</p>}
+        {apiError && (
+          <p className='text-red-500 text-sm my-2 mr-4'>{apiError}</p>
+        )}
+      </div>
+
+      <Button
+        onClick={handleSubmit}
+        type='submit'
+        disabled={otp.length !== 6 || isSubmitting}
+        className='w-full'
+      >
+        {isSubmitting ? (
+          <SpinnerDiv size='sm' className='text-white' />
+        ) : (
+          t('login:login')
+        )}
+      </Button>
+      <div className='flex justify-center items-center mt-4 gap-2 text-sm'>
+        <button
+          onClick={handleResend}
+          disabled={!canResend}
+          className={`cursor-pointer font-semibold ${
+            canResend
+              ? 'text-primary hover:underline'
+              : 'text-gray-400 cursor-not-allowed'
+          }`}
+        >
+          {t('login:resend_code')}
+        </button>
+        <span className='text-[#A5A5A5] text-[12px] font-[700]'>
+          {formatTime(timeLeft)}
+        </span>
+      </div>
+
+      <div className='text-center text-xs text-gray-600 mt-4 leading-relaxed'>
+        <Trans
+          i18nKey='login:accept_terms_message'
+          components={[
+            <></>, // index 0 برای متن معمولی
+            <Link
+              key='terms-link'
+              href='/terms'
+              target='_blank'
+              className='text-primary underline font-medium '
+            />,
+          ]}
+        />
       </div>
     </div>
   );
