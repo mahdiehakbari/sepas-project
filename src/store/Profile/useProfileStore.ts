@@ -1,27 +1,7 @@
 import { create } from 'zustand';
+import { IProfileStore } from './types';
 
-export interface Profile {
-  firstName: string;
-  lastName: string;
-  mobile: string;
-  nationalCode: string;
-  gender: string;
-  birthDate: string;
-  email: string;
-  iban: string;
-  country: string;
-  province: string;
-  city: string;
-  postalCode: string;
-  address: string;
-}
-
-interface ProfileStore {
-  profile: Profile;
-  setProfile: (data: Profile) => void;
-}
-
-export const useProfileStore = create<ProfileStore>((set) => ({
+export const useProfileStore = create<IProfileStore>((set) => ({
   profile: {
     firstName: '',
     lastName: '',
@@ -31,7 +11,6 @@ export const useProfileStore = create<ProfileStore>((set) => ({
     birthDate: '',
     email: '',
     iban: '',
-    country: '',
     province: '',
     city: '',
     postalCode: '',

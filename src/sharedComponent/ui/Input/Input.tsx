@@ -8,6 +8,7 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   full = false,
   errors,
+  textError,
 }) => {
   const hasError = !!errors[name];
 
@@ -16,7 +17,7 @@ export const Input: React.FC<InputProps> = ({
       <input
         {...register(name, { required: true })}
         type={type}
-        placeholder={label}
+        placeholder={`${label} *`}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2
                     ${
@@ -26,7 +27,7 @@ export const Input: React.FC<InputProps> = ({
                     }`}
       />
       {hasError && (
-        <span className='text-red-500 text-sm mt-1'>این فیلد الزامی است</span>
+        <span className='text-red-500 text-sm mt-1'>{textError}</span>
       )}
     </div>
   );

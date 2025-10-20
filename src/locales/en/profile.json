@@ -12,10 +12,11 @@
   "iban": "Shaba number",
   "address_information": "Address information",
   "country": "country",
-  "province": "province",
-  "city": "city",
+  "province": "Select province",
+  "city": "Select city",
   "postal_code": "Postal code",
   "address": "Address",
   "back": "Back",
-  "profile_update": "Profile update"
+  "profile_update": "Profile update",
+  "field_required": "This field is required."
 }

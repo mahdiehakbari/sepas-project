@@ -12,10 +12,11 @@
   "iban": "شماره شبا",
   "address_information": "اطلاعات آدرس",
   "country": "کشور",
-  "province": "استان",
-  "city": "شهرستان",
+  "province": "انتخاب استان",
+  "city": "انتخاب شهرستان",
   "postal_code": "کد پستی",
   "address": "آدرس",
   "back": "بازگشت",
-  "profile_update": "به‌روزرسانی پروفایل"
+  "profile_update": "به‌روزرسانی پروفایل",
+  "field_required": "این فیلد الزامی است"
 }

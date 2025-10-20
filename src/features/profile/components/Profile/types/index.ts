@@ -7,7 +7,6 @@ export interface IProfileFormValues {
   gender: string;
   email: string;
   iban: string;
-  country: string;
   province: string;
   city: string;
   postalCode: string;

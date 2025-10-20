@@ -9,7 +9,6 @@ export interface IProfileFormValues {
   gender: string;
   email: string;
   iban: string;
-  country: string;
   province: string;
   city: string;
   postalCode: string;
@@ -24,4 +23,5 @@ export interface InputProps {
   type?: string;
   full?: boolean;
   errors: FieldErrors<IProfileFormValues>;
+  textError: string;
 }
