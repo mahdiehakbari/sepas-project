@@ -1,57 +1,71 @@
 'use client';
-import { Button, Input } from '@/sharedComponent/ui';
+import React, { useEffect, useState } from 'react';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { useAuthStore } from '@/store/Auth/authStore';
 import { useProfileStore } from '@/store/Profile/useProfileStore';
-import Image from 'next/image';
-import React, { useEffect, useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { useTranslation } from 'react-i18next';
-import { FormTitle } from './FormTitle';
-import { IProfileFormValues } from './types';
 import Cookies from 'js-cookie';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import axios from 'axios';
+import { API_UPDATE_PROFILE } from '@/config/api_address.config';
+import { IProfileFormValues } from './types';
+import { useLocationData } from './hooks/useLocationData';
+import { PersonalInfoSection } from './sections/PersonalInfoSection';
+import { BankInfoSection } from './sections/BankInfoSection';
+import { AddressInfoSection } from './sections/AddressInfoSection';
 
 export const ProfileForm = () => {
   const { t } = useTranslation();
+  const router = useRouter();
   const { profile, setProfile } = useProfileStore();
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
   const { user } = useAuthStore();
+  const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
+  const [isLoading, setIsLoading] = useState(false);
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<IProfileFormValues>({ defaultValues: profile });
-  const router = useRouter();
-  const onSubmit: SubmitHandler<IProfileFormValues> = (data) => {
-    setProfile(data);
-  };
+  const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
+
   const savedPhone = Cookies.get('phoneNumber');
+
   useEffect(() => {
-    if (user) {
-      setPhoneNumber(user?.phoneNumber);
-    } else {
-      setPhoneNumber(savedPhone);
-    }
+    setPhoneNumber(user?.phoneNumber || savedPhone);
   }, [savedPhone, user]);
 
-  const handleBack = () => {
-    router.push('/');
+  const onSubmit: SubmitHandler<IProfileFormValues> = async (data) => {
+    const token = Cookies.get('token');
+    setIsLoading(true);
+    try {
+      const res = await axios.put(API_UPDATE_PROFILE, data, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      });
+      setProfile(res.data.profile);
+      setIsLoading(false);
+      router.push('/');
+      Cookies.set('isLoggedIn', 'true');
+    } catch (err) {}
   };
 
   return (
-    <div className='max-w-4xl mx-auto '>
+    <div className='max-w-4xl mx-auto'>
       <div className='flex items-center justify-start mb-6 gap-2'>
-        <button onClick={handleBack} className='cursor-pointer'>
+        <button onClick={() => router.push('/')} className='cursor-pointer'>
           <Image
             src='/assets/icons/black-back-button.svg'
-            alt='close-button'
+            alt='back'
             width={24}
             height={24}
-            className='cursor-pointer hover:opacity-80'
           />
         </button>
-
-        <h2 className='text-[18px] font-[700] '>
+        <h2 className='text-[18px] font-[700]'>
           {t('profile:profile_setting')}
         </h2>
       </div>
@@ -61,14 +75,14 @@ export const ProfileForm = () => {
           <div className='relative'>
             <Image
               src='/assets/icons/user-profile-icon.jpg'
-              alt='user-profile-icon'
+              alt='user'
               width={56}
               height={56}
               className='rounded-full'
             />
             <Image
               src='/assets/icons/profile-edit-button.svg'
-              alt='profile-edit-button'
+              alt='edit'
               width={28}
               height={28}
               className='cursor-pointer absolute top-8 left-8'
@@ -80,118 +94,34 @@ export const ProfileForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='p-6 bg-[var(--block-color)] border border-border-color rounded-lg'>
-          <section>
-            <FormTitle title={t('profile:credit_plans')} />
-
-            <div className='grid grid-cols-2 gap-4 text-right mb-12'>
-              <Input
-                label={t('profile:first_name')}
-                name='firstName'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:last_name')}
-                name='lastName'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:phone_number')}
-                name='mobile'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:national_id')}
-                name='nationalCode'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:date_birth')}
-                name='birthDate'
-                register={register}
-                type='date'
-                errors={errors}
-              />
-              <Input
-                label={t('profile:gender')}
-                name='gender'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:email')}
-                name='email'
-                register={register}
-                errors={errors}
-              />
-            </div>
-          </section>
-
-          <section>
-            <FormTitle title={t('profile:bank_information')} />
-            <div className='grid grid-cols-2 gap-4 text-right  mb-12'>
-              <Input
-                label={t('profile:iban')}
-                name='iban'
-                register={register}
-                errors={errors}
-              />
-            </div>
-          </section>
-
-          <section>
-            <FormTitle title={t('profile:address_information')} />
-
-            <div className='grid grid-cols-2 gap-4 text-right  mb-6'>
-              <Input
-                label={t('profile:country')}
-                name='country'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:province')}
-                name='province'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:city')}
-                name='city'
-                register={register}
-                errors={errors}
-              />
-              <Input
-                label={t('profile:postal_code')}
-                name='postalCode'
-                register={register}
-                errors={errors}
-              />
-            </div>
-
-            <Input
-              label={t('profile:address')}
-              name='address'
-              register={register}
-              full
-              errors={errors}
-            />
-          </section>
+          <PersonalInfoSection t={t} register={register} errors={errors} />
+          <BankInfoSection t={t} register={register} errors={errors} />
+          <AddressInfoSection
+            t={t}
+            register={register}
+            errors={errors}
+            provinces={provinces}
+            cities={cities}
+            handleProvinceChange={handleProvinceChange}
+          />
         </div>
 
         <div className='flex gap-4 mt-6'>
           <div className='w-2/3'>
-            <Button type='submit' className='w-full '>
-              {t('profile:profile_update')}
+            <Button disabled={isLoading} type='submit' className='w-full'>
+              {isLoading ? (
+                <SpinnerDiv size='sm' className='text-white' />
+              ) : (
+                t('profile:profile_update')
+              )}
             </Button>
           </div>
           <div className='w-1/3'>
             <Button
+              disabled={isLoading}
               type='button'
               className='w-full bg-[var(--active-loan-text-bg)] text-black hover:bg-[var(--active-loan-text-bg)]'
+              onClick={() => router.push('/')}
             >
               {t('profile:back')}
             </Button>

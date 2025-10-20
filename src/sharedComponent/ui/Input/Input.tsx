@@ -8,15 +8,17 @@ export const Input: React.FC<InputProps> = ({
   type = 'text',
   full = false,
   errors,
+  textError,
+  rules = {}, // ✅ اضافه شد
 }) => {
   const hasError = !!errors[name];
 
   return (
     <div className={`flex flex-col ${full ? 'col-span-2' : ''}`}>
       <input
-        {...register(name, { required: true })}
+        {...register(name, { required: true, ...rules })} // ✅ قوانین سفارشی اضافه شد
         type={type}
-        placeholder={label}
+        placeholder={`${label} *`}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2
                     ${
@@ -26,7 +28,9 @@ export const Input: React.FC<InputProps> = ({
                     }`}
       />
       {hasError && (
-        <span className='text-red-500 text-sm mt-1'>این فیلد الزامی است</span>
+        <span className='text-red-500 text-sm mt-1'>
+          {errors[name]?.message?.toString() || textError}
+        </span>
       )}
     </div>
   );

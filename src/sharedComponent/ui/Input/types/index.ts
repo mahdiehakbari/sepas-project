@@ -1,19 +1,18 @@
-import { FieldErrors, UseFormRegister } from 'react-hook-form';
+import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
 
 export interface IProfileFormValues {
   firstName: string;
   lastName: string;
   mobile: string;
-  nationalCode: string;
+  nationalId: string;
   birthDate: string;
   gender: string;
   email: string;
   iban: string;
-  country: string;
   province: string;
-  city: string;
+  cityId: string;
   postalCode: string;
-  address: string;
+  addressDetails: string;
 }
 
 export interface InputProps {
@@ -24,4 +23,6 @@ export interface InputProps {
   type?: string;
   full?: boolean;
   errors: FieldErrors<IProfileFormValues>;
+  textError: string;
+  rules?: RegisterOptions<IProfileFormValues, keyof IProfileFormValues>;
 }
