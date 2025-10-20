@@ -32,7 +32,7 @@ export const useLocationData = (
 
   const handleProvinceChange = (provinceId: string) => {
     setCities([]);
-    setValue('city', '');
+    setValue('cityId', '');
     const token = Cookies.get('token');
     axios
       .get(`${API_CITIES_QUERY}/${provinceId}`, {
