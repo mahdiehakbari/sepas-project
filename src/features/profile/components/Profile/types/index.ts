@@ -2,13 +2,13 @@ export interface IProfileFormValues {
   firstName: string;
   lastName: string;
   mobile: string;
-  nationalCode: string;
+  nationalId: string;
   birthDate: string;
   gender: string;
   email: string;
   iban: string;
   province: string;
-  city: string;
+  cityId: string;
   postalCode: string;
-  address: string;
+  addressDetails: string;
 }

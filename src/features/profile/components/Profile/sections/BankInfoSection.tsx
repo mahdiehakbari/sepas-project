@@ -1,0 +1,23 @@
+import React from 'react';
+import { Input } from '@/sharedComponent/ui';
+import { FormTitle } from '../FormTitle';
+import { IBankInfoSectionProps } from './types';
+
+export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
+  t,
+  register,
+  errors,
+}) => (
+  <section>
+    <FormTitle title={t('profile:bank_information')} />
+    <div className='grid grid-cols-2 gap-4 text-right mb-12'>
+      <Input
+        label={t('profile:iban')}
+        name='iban'
+        register={register}
+        errors={errors}
+        textError={t('profile:field_required')}
+      />
+    </div>
+  </section>
+);

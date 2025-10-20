@@ -3,10 +3,9 @@
 import Image from 'next/image';
 import { IPhoneNumberModalProps, TFormValues } from './constants';
 import { useTranslation } from 'react-i18next';
-import { Button } from '@/sharedComponent/ui';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { useForm } from 'react-hook-form';
 import { usePhoneNumber } from './hooks/usePhoneNumber';
-import { SpinnerDiv } from '../../SpinnerDiv/SpinnerDiv';
 import { usePhoneNumberSubmit } from './hooks';
 
 export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({

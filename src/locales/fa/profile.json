@@ -18,5 +18,8 @@
   "address": "آدرس",
   "back": "بازگشت",
   "profile_update": "به‌روزرسانی پروفایل",
-  "field_required": "این فیلد الزامی است"
+  "field_required": "این فیلد الزامی است",
+  "only_numbers_allowed": "فقط شماره مجاز است",
+  "mobile_must_be_11_digits": "شماره وارد شده باید 11 رقم باشد ",
+  "national_code_invalid": "شماره ملی اشتباه است "
 }

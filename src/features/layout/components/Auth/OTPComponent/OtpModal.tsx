@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import OTPInput from 'react-otp-input';
-import { Button } from '@/sharedComponent/ui';
-import { SpinnerDiv } from '../../SpinnerDiv/SpinnerDiv';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { useOtp } from './hooks';
 import Image from 'next/image';
 import { Trans, useTranslation } from 'react-i18next';
@@ -169,7 +168,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
         <Trans
           i18nKey='login:accept_terms_message'
           components={[
-            <></>, // index 0 برای متن معمولی
+            <></>,
             <Link
               key='terms-link'
               href='/terms'

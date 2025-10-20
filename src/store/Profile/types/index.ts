@@ -2,15 +2,15 @@ export interface IProfile {
   firstName: string;
   lastName: string;
   mobile: string;
-  nationalCode: string;
+  nationalId: string;
   gender: string;
   birthDate: string;
   email: string;
   iban: string;
   province: string;
-  city: string;
+  cityId: string;
   postalCode: string;
-  address: string;
+  addressDetails: string;
 }
 
 export interface IProfileStore {
