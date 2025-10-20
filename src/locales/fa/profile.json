@@ -27,5 +27,6 @@
   "log_out": "خروج",
   "identity_information": "اطلاعات هویتی",
   "man": "مرد",
-  "woman": "زن"
+  "woman": "زن",
+  "success_toast": "باتشکر! اطلاعات شما با موفقیت ثبت شد."
 }

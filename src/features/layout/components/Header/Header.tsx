@@ -32,6 +32,7 @@ export const Header = () => {
   };
 
   const isLoggedIn = Cookies.get('isLoggedIn');
+  const userProfile = Cookies.get('userProfile');
 
   const handleClick = () => {
     setOpenPopUp(true);
@@ -83,7 +84,7 @@ export const Header = () => {
                   isOpen={openPopUp}
                   onClose={() => setOpenPopUp(false)}
                   items={[
-                    ...(isLoggedIn
+                    ...(userProfile
                       ? [
                           {
                             label: t('profile:user_account'),
@@ -98,7 +99,7 @@ export const Header = () => {
                             image: '/assets/icons/user-account.svg',
                           },
                         ]),
-                    ...(isLoggedIn
+                    ...(userProfile
                       ? [
                           {
                             label: t('profile:requests_list'),

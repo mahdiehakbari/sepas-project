@@ -15,6 +15,7 @@ import { useLocationData } from './hooks/useLocationData';
 import { PersonalInfoSection } from './sections/PersonalInfoSection';
 import { BankInfoSection } from './sections/BankInfoSection';
 import { AddressInfoSection } from './sections/AddressInfoSection';
+import { toast } from 'react-toastify';
 
 export const ProfileForm = () => {
   const { t } = useTranslation();
@@ -48,11 +49,18 @@ export const ProfileForm = () => {
           'Content-Type': 'application/json',
         },
       });
+
       setProfile(res.data.profile);
+      Cookies.set('userProfile', 'true');
+
+      toast.success(t('profile:success_toast'));
+      router.push('/panel/userAccount');
+    } catch (err: unknown) {
+      const error = err as { response?: { data?: { message?: string } } };
+      toast.error(error.response?.data?.message || 'خطا در آپدیت پروفایل');
+    } finally {
       setIsLoading(false);
-      router.push('/');
-      Cookies.set('isLoggedIn', 'true');
-    } catch (err) {}
+    }
   };
 
   return (

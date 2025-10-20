@@ -27,5 +27,6 @@
   "log_out": "Log Out",
   "identity_information": "Identity information",
   "man": "Men",
-  "woman": "Woman"
+  "woman": "Woman",
+  "success_toast": "Thank you! Your information has been successfully submitted."
 }
