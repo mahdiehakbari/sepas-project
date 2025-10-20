@@ -1,5 +1,4 @@
 {
-  "profile_setting": " تنظیمات پروفایل",
   "credit_plans": "طرح های اعتباری",
   "first_name": "نام",
   "last_name": "نام خانوادگی",
@@ -13,11 +12,11 @@
   "address_information": "اطلاعات آدرس",
   "country": "کشور",
   "province": "انتخاب استان",
-  "city": "انتخاب شهرستان",
+  "city": "انتخاب شهر",
   "postal_code": "کد پستی",
   "address": "آدرس",
   "back": "بازگشت",
-  "profile_update": "به‌روزرسانی پروفایل",
+  "record_information": "ثبت اطلاعات",
   "field_required": "این فیلد الزامی است",
   "only_numbers_allowed": "فقط شماره مجاز است",
   "mobile_must_be_11_digits": "شماره وارد شده باید 11 رقم باشد ",
@@ -25,5 +24,8 @@
   "user_account": "حساب کاربری",
   "complete_profile": "تکمیل پروفایل",
   "requests_list": "لیست درخواست‌ها",
-  "log_out": "خروج"
+  "log_out": "خروج",
+  "identity_information": "اطلاعات هویتی",
+  "man": "مرد",
+  "woman": "زن"
 }

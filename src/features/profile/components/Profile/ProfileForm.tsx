@@ -28,6 +28,7 @@ export const ProfileForm = () => {
     handleSubmit,
     setValue,
     formState: { errors },
+    control,
   } = useForm<IProfileFormValues>({ defaultValues: profile });
   const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
 
@@ -66,7 +67,7 @@ export const ProfileForm = () => {
           />
         </button>
         <h2 className='text-[18px] font-[700]'>
-          {t('profile:profile_setting')}
+          {t('profile:complete_profile')}
         </h2>
       </div>
 
@@ -94,7 +95,12 @@ export const ProfileForm = () => {
 
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className='p-6 bg-[var(--block-color)] border border-border-color rounded-lg'>
-          <PersonalInfoSection t={t} register={register} errors={errors} />
+          <PersonalInfoSection
+            t={t}
+            register={register}
+            errors={errors}
+            control={control}
+          />
           <BankInfoSection t={t} register={register} errors={errors} />
           <AddressInfoSection
             t={t}
@@ -112,7 +118,7 @@ export const ProfileForm = () => {
               {isLoading ? (
                 <SpinnerDiv size='sm' className='text-white' />
               ) : (
-                t('profile:profile_update')
+                t('profile:record_information')
               )}
             </Button>
           </div>
