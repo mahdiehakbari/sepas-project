@@ -3,9 +3,8 @@
 import i18n, { InitOptions, Resource } from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import { localesNS, LocaleNS, languages, Language } from './locales_NameSpace';
+import { localesNS, languages } from './locales_NameSpace';
 
-// بارگذاری داینامیک فایل‌های ترجمه
 const loadResources = async (): Promise<Resource> => {
   const resources: Resource = {};
 
@@ -27,7 +26,6 @@ const loadResources = async (): Promise<Resource> => {
   return resources;
 };
 
-// تابع init i18next
 export const initI18n = async () => {
   if (!i18n.isInitialized) {
     const resources = await loadResources();

@@ -37,7 +37,7 @@ export const Header = () => {
     setOpenPopUp(true);
   };
 
-  useEffect(() => {}, []);
+  const IsLoggedIn = Cookies.get('isLoggedIn');
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
@@ -85,16 +85,30 @@ export const Header = () => {
                   isOpen={openPopUp}
                   onClose={() => setOpenPopUp(false)}
                   items={[
-                    {
-                      label: 'حساب کاربری',
-                      href: '/profile',
-                      image: '/assets/icons/user-account.svg',
-                    },
-                    {
-                      label: 'لیست درخواست‌ها',
-                      href: '/',
-                      image: '/assets/icons/document.svg',
-                    },
+                    ...(isLoggedIn
+                      ? [
+                          {
+                            label: 'حساب کاربری',
+                            href: '/profile',
+                            image: '/assets/icons/user-account.svg',
+                          },
+                        ]
+                      : [
+                          {
+                            label: 'تکمیل پروفایل',
+                            href: '/profile',
+                            image: '/assets/icons/user-account.svg',
+                          },
+                        ]),
+                    ...(isLoggedIn
+                      ? [
+                          {
+                            label: 'لیست درخواست‌ها',
+                            href: '/',
+                            image: '/assets/icons/document.svg',
+                          },
+                        ]
+                      : []),
                     {
                       label: 'خروج',
                       image: '/assets/icons/logout.svg',
@@ -125,7 +139,7 @@ export const Header = () => {
               height={20}
             />
             <span className='text-sm font-medium'>
-              {currentLanguage === 'fa' ? 'Fa' : 'EN'}
+              {currentLanguage === 'fa' ? 'فا' : 'EN'}
             </span>
           </button>
           <button
