@@ -32,12 +32,12 @@ export const Header = () => {
   };
 
   const isLoggedIn = Cookies.get('isLoggedIn');
+  const userProfile = Cookies.get('userProfile');
 
   const handleClick = () => {
     setOpenPopUp(true);
   };
 
-  useEffect(() => {}, []);
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
@@ -50,7 +50,6 @@ export const Header = () => {
             className='cursor-pointer hover:opacity-80'
           />
 
-          {/* Desktop nav */}
           <nav className='hidden md:flex items-center gap-6 text-sm'>
             {getNavItems().map((item) => (
               <Link
@@ -85,18 +84,32 @@ export const Header = () => {
                   isOpen={openPopUp}
                   onClose={() => setOpenPopUp(false)}
                   items={[
+                    ...(userProfile
+                      ? [
+                          {
+                            label: t('profile:user_account'),
+                            href: '/profile',
+                            image: '/assets/icons/user-account.svg',
+                          },
+                        ]
+                      : [
+                          {
+                            label: t('profile:complete_profile'),
+                            href: '/profile',
+                            image: '/assets/icons/user-account.svg',
+                          },
+                        ]),
+                    ...(userProfile
+                      ? [
+                          {
+                            label: t('profile:requests_list'),
+                            href: '/',
+                            image: '/assets/icons/document.svg',
+                          },
+                        ]
+                      : []),
                     {
-                      label: 'حساب کاربری',
-                      href: '/profile',
-                      image: '/assets/icons/user-account.svg',
-                    },
-                    {
-                      label: 'لیست درخواست‌ها',
-                      href: '/',
-                      image: '/assets/icons/document.svg',
-                    },
-                    {
-                      label: 'خروج',
+                      label: t('profile:log_out'),
                       image: '/assets/icons/logout.svg',
                       danger: true,
                       onClick: () => {
@@ -125,7 +138,7 @@ export const Header = () => {
               height={20}
             />
             <span className='text-sm font-medium'>
-              {currentLanguage === 'fa' ? 'Fa' : 'EN'}
+              {currentLanguage === 'fa' ? 'فا' : 'EN'}
             </span>
           </button>
           <button

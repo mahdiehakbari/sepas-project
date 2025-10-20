@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { Header, Footer, SiteRights } from '@/features/layout';
 import I18nProvider from '@/providers/I18nProvider';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -49,6 +51,16 @@ export default function RootLayout({
             <main className='flex-1'>{children}</main>
             <SiteRights />
           </div>
+          <ToastContainer
+            position='top-right'
+            autoClose={3000}
+            hideProgressBar={false}
+            newestOnTop
+            closeOnClick
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+          />
         </I18nProvider>
       </body>
     </html>
