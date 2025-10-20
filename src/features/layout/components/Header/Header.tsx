@@ -37,7 +37,6 @@ export const Header = () => {
     setOpenPopUp(true);
   };
 
-  const IsLoggedIn = Cookies.get('isLoggedIn');
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
@@ -50,7 +49,6 @@ export const Header = () => {
             className='cursor-pointer hover:opacity-80'
           />
 
-          {/* Desktop nav */}
           <nav className='hidden md:flex items-center gap-6 text-sm'>
             {getNavItems().map((item) => (
               <Link
@@ -88,14 +86,14 @@ export const Header = () => {
                     ...(isLoggedIn
                       ? [
                           {
-                            label: 'حساب کاربری',
+                            label: t('profile:user_account'),
                             href: '/profile',
                             image: '/assets/icons/user-account.svg',
                           },
                         ]
                       : [
                           {
-                            label: 'تکمیل پروفایل',
+                            label: t('profile:complete_profile'),
                             href: '/profile',
                             image: '/assets/icons/user-account.svg',
                           },
@@ -103,14 +101,14 @@ export const Header = () => {
                     ...(isLoggedIn
                       ? [
                           {
-                            label: 'لیست درخواست‌ها',
+                            label: t('profile:requests_list'),
                             href: '/',
                             image: '/assets/icons/document.svg',
                           },
                         ]
                       : []),
                     {
-                      label: 'خروج',
+                      label: t('profile:log_out'),
                       image: '/assets/icons/logout.svg',
                       danger: true,
                       onClick: () => {
