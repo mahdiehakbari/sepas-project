@@ -81,7 +81,13 @@ export const SideMenu = () => {
               {t('profile:communication_experts')}
             </p>
           </div>
-          <div className='flex items-center gap-1 pb-1 cursor-pointer '>
+          <div
+            className='flex items-center gap-1 pb-1 cursor-pointer '
+            onClick={() => {
+              Cookies.remove('isLoggedIn');
+              router.push('/');
+            }}
+          >
             <Image
               src='/assets/icons/logout.svg'
               alt=''

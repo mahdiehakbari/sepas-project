@@ -28,7 +28,7 @@ export const useLocationData = (
       })
       .then((res) => {
         setProvinces(res.data.provinces);
-        Cookies.set('provinces', res.data.provinces);
+        localStorage.setItem('provinces', JSON.stringify(res.data.provinces));
       })
       .catch((err) => console.error(err.response));
   }, []);
@@ -43,7 +43,8 @@ export const useLocationData = (
       })
       .then((res) => {
         setCities(res.data.cities);
-        Cookies.set('cities', res.data.cities);
+
+        localStorage.setItem('cities', JSON.stringify(res.data.cities));
       })
       .catch((err) => console.error(err.response));
   };

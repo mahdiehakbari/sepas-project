@@ -5,8 +5,10 @@ import Cookies from 'js-cookie';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import { ShowUserData } from '@/features/userAccount';
 import { ProfileForm } from '@/features/profile';
+import { useTranslation } from 'react-i18next';
 
 export default function UserAccount() {
+  const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
   const userAccount = Cookies.get('userAccount');
   const [user, setUser] = useState<IProfileFormValues>({
@@ -36,11 +38,6 @@ export default function UserAccount() {
     }
   }, []);
 
-  const handleEditClick = () => {
-    setIsEditing(true);
-    Cookies.remove('userAccount');
-  };
-
   const handleBack = () => {
     setIsEditing(false);
   };
@@ -53,15 +50,17 @@ export default function UserAccount() {
           name='userAccount'
           handleBack={handleBack}
           onSuccess={(updatedUser) => {
-            setUser(updatedUser); // بروزرسانی اطلاعات
-            setIsEditing(false); // فرم بسته شود
+            setUser(updatedUser);
+            setIsEditing(false);
           }}
         />
       ) : (
         <>
           <ShowUserData user={user} />
           <div className='flex justify-end my-2'>
-            <Button onClick={() => setIsEditing(true)}>ویرایش اطلاعات</Button>
+            <Button onClick={() => setIsEditing(true)}>
+              {t('profile:edit')}
+            </Button>
           </div>
         </>
       )}
