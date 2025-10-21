@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import { useTranslation } from 'react-i18next';
+import { getSideBarItems } from './constants';
 
 export const SideMenu = () => {
   const { t } = useTranslation();
@@ -20,29 +21,6 @@ export const SideMenu = () => {
       setUserProfile(JSON.parse(userInfo));
     }
   }, []);
-
-  const menuItems = [
-    {
-      label: t('profile:user_account'),
-      path: '/panel/userAccount',
-      icon: '/assets/icons/white-user-acc.svg',
-    },
-    {
-      label: t('profile:requests_list'),
-      path: '/panel/requests',
-      icon: '/assets/icons/document.svg',
-    },
-    {
-      label: t('profile:transactions_list'),
-      path: '/panel/transactions',
-      icon: '/assets/icons/transaction-list.svg',
-    },
-    {
-      label: t('profile:my_plans'),
-      path: '/panel/plans',
-      icon: '/assets/icons/my-plans.svg',
-    },
-  ];
 
   const isActive = (path: string) => pathname === path;
 
@@ -71,7 +49,7 @@ export const SideMenu = () => {
       </div>
       <div className='bg-white h-[100vh] flex flex-col justify-between py-6'>
         <ul className=' font[400] text-[16px]'>
-          {menuItems.map((item) => (
+          {getSideBarItems().map((item) => (
             <li
               key={item.path}
               onClick={() => router.push(item.path)}
@@ -92,25 +70,31 @@ export const SideMenu = () => {
         </ul>
 
         <div className='px-6'>
-          <div className='flex items-center gap-2 pb-4'>
+          <div className='flex items-center gap-2 pb-4  cursor-pointer '>
             <Image
               src='/assets/icons/headphone.svg'
               alt=''
               width={20}
               height={20}
             />
-            <p className='text-black font-[400] text-[16px] leading-6'>
+            <p className='text-black font-[400] text-[16px] leading-6 hover:text-primary'>
               {t('profile:communication_experts')}
             </p>
           </div>
-          <div className='flex items-center gap-1 pb-1'>
+          <div
+            className='flex items-center gap-1 pb-1 cursor-pointer '
+            onClick={() => {
+              Cookies.remove('isLoggedIn');
+              router.push('/');
+            }}
+          >
             <Image
               src='/assets/icons/logout.svg'
               alt=''
               width={20}
               height={20}
             />
-            <p className='text-[#FF4B4B] font-[400] text-[16px] leading-6'>
+            <p className='text-[#FF4B4B] font-[400] text-[16px] leading-6 '>
               {t('profile:log_out')}
             </p>
           </div>

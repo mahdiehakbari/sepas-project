@@ -16,6 +16,7 @@ export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
         register={register}
         errors={errors}
         textError={t('profile:field_required')}
+        rules={{ required: false }}
       />
     </div>
   </section>

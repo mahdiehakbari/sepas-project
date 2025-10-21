@@ -26,7 +26,10 @@ export const useLocationData = (
           Accept: 'application/json',
         },
       })
-      .then((res) => setProvinces(res.data.provinces))
+      .then((res) => {
+        setProvinces(res.data.provinces);
+        localStorage.setItem('provinces', JSON.stringify(res.data.provinces));
+      })
       .catch((err) => console.error(err.response));
   }, []);
 
@@ -38,7 +41,11 @@ export const useLocationData = (
       .get(`${API_CITIES_QUERY}/${provinceId}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
-      .then((res) => setCities(res.data.cities))
+      .then((res) => {
+        setCities(res.data.cities);
+
+        localStorage.setItem('cities', JSON.stringify(res.data.cities));
+      })
       .catch((err) => console.error(err.response));
   };
 

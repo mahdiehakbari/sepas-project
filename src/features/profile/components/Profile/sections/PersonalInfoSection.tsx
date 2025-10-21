@@ -78,6 +78,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
+          rules={{ required: false }}
         />
       </div>
     </section>

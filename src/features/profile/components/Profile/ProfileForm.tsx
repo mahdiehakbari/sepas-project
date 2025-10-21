@@ -20,7 +20,15 @@ import { DateObject } from 'react-multi-date-picker';
 import { Calendar, Locale } from 'react-date-object';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import persian from 'react-date-object/calendars/persian';
-export const ProfileForm = ({ name }: { name: string }) => {
+export const ProfileForm = ({
+  name,
+  handleBack,
+  onSuccess,
+}: {
+  name: string;
+  handleBack: () => void;
+  onSuccess?: (updatedUser: IProfileFormValues) => void;
+}) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { profile, setProfile } = useProfileStore();
@@ -62,6 +70,14 @@ export const ProfileForm = ({ name }: { name: string }) => {
       birthDate: birthDateISO,
     };
 
+    if (!formattedData.email) {
+      delete formattedData?.email;
+    }
+
+    if (!formattedData.iban) {
+      delete formattedData?.iban;
+    }
+
     try {
       const res = await axios.put(API_UPDATE_PROFILE, formattedData, {
         headers: {
@@ -73,6 +89,7 @@ export const ProfileForm = ({ name }: { name: string }) => {
       setProfile(res.data.profile);
 
       Cookies.set('userProfile', JSON.stringify(data));
+      if (onSuccess) onSuccess(data);
 
       toast.success(t('profile:success_toast'));
       router.push('/panel/userAccount');
@@ -151,7 +168,7 @@ export const ProfileForm = ({ name }: { name: string }) => {
             variant='outline'
             disabled={isLoading}
             type='button'
-            onClick={() => router.push('/')}
+            onClick={handleBack}
           >
             {t('profile:back')}
           </Button>
