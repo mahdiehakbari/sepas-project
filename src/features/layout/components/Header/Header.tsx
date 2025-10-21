@@ -88,7 +88,7 @@ export const Header = () => {
                       ? [
                           {
                             label: t('profile:user_account'),
-                            href: '/profile',
+                            href: '/panel/userAccount',
                             image: '/assets/icons/user-account.svg',
                           },
                         ]

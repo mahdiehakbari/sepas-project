@@ -16,7 +16,10 @@ import { PersonalInfoSection } from './sections/PersonalInfoSection';
 import { BankInfoSection } from './sections/BankInfoSection';
 import { AddressInfoSection } from './sections/AddressInfoSection';
 import { toast } from 'react-toastify';
-
+import { DateObject } from 'react-multi-date-picker';
+import { Calendar, Locale } from 'react-date-object';
+import persian_fa from 'react-date-object/locales/persian_fa';
+import persian from 'react-date-object/calendars/persian';
 export const ProfileForm = () => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -42,8 +45,25 @@ export const ProfileForm = () => {
   const onSubmit: SubmitHandler<IProfileFormValues> = async (data) => {
     const token = Cookies.get('token');
     setIsLoading(true);
+    let birthDateISO: string = '';
+    if (data.birthDate) {
+      const dateObj = new DateObject({
+        date: data.birthDate,
+        calendar: persian as Calendar,
+        locale: persian_fa as Locale,
+      });
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      //@ts-expect-error
+      birthDateISO = dateObj.convert('gregorian').toDate().toISOString();
+    }
+
+    const formattedData: IProfileFormValues = {
+      ...data,
+      birthDate: birthDateISO,
+    };
+
     try {
-      const res = await axios.put(API_UPDATE_PROFILE, data, {
+      const res = await axios.put(API_UPDATE_PROFILE, formattedData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json',
@@ -51,7 +71,8 @@ export const ProfileForm = () => {
       });
 
       setProfile(res.data.profile);
-      Cookies.set('userProfile', 'true');
+
+      Cookies.set('userProfile', JSON.stringify(data));
 
       toast.success(t('profile:success_toast'));
       router.push('/panel/userAccount');
