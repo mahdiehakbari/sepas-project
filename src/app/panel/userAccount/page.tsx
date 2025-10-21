@@ -8,7 +8,7 @@ import { ProfileForm } from '@/features/profile';
 
 export default function UserAccount() {
   const [isEditing, setIsEditing] = useState(false);
-
+  const userAccount = Cookies.get('userAccount');
   const [user, setUser] = useState<IProfileFormValues>({
     firstName: '',
     lastName: '',
@@ -16,8 +16,8 @@ export default function UserAccount() {
     nationalId: '',
     birthDate: '',
     gender: '',
-    email: '',
-    iban: '',
+    email: undefined,
+    iban: undefined,
     province: '',
     cityId: '',
     postalCode: '',
@@ -38,22 +38,33 @@ export default function UserAccount() {
 
   const handleEditClick = () => {
     setIsEditing(true);
+    Cookies.remove('userAccount');
   };
 
+  const handleBack = () => {
+    setIsEditing(false);
+  };
+
+  console.log(isEditing, userAccount);
   return (
-    <>
-      <>
-        {isEditing ? (
-          <ProfileForm name='userAccount' />
-        ) : (
-          <>
-            <ShowUserData user={user} />
-            <div className='flex justify-end mt-2'>
-              <Button onClick={handleEditClick}>ویرایش اطلاعات</Button>
-            </div>
-          </>
-        )}
-      </>
-    </>
+    <div className='max-w-4xl mx-auto'>
+      {isEditing ? (
+        <ProfileForm
+          name='userAccount'
+          handleBack={handleBack}
+          onSuccess={(updatedUser) => {
+            setUser(updatedUser); // بروزرسانی اطلاعات
+            setIsEditing(false); // فرم بسته شود
+          }}
+        />
+      ) : (
+        <>
+          <ShowUserData user={user} />
+          <div className='flex justify-end my-2'>
+            <Button onClick={() => setIsEditing(true)}>ویرایش اطلاعات</Button>
+          </div>
+        </>
+      )}
+    </div>
   );
 }

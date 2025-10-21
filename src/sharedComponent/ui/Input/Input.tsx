@@ -9,16 +9,16 @@ export const Input: React.FC<InputProps> = ({
   full = false,
   errors,
   textError,
-  rules = {}, // ✅ اضافه شد
+  rules = {},
 }) => {
   const hasError = !!errors[name];
-
+  const isRequired = rules?.required !== false;
   return (
     <div className={`flex flex-col ${full ? 'col-span-2' : ''}`}>
       <input
-        {...register(name, { required: true, ...rules })} // ✅ قوانین سفارشی اضافه شد
+        {...register(name, { required: isRequired && textError, ...rules })}
         type={type}
-        placeholder={`${label} *`}
+        placeholder={isRequired ? `${label} *` : label}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2
                     ${

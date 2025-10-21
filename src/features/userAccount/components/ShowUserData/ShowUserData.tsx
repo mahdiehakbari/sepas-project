@@ -61,9 +61,11 @@ export const ShowUserData: React.FC<IShowUserDataProps> = ({ user }) => {
 
         <FormTitle title={t('profile:bank_information')} />
         <div className='grid grid-cols-2 gap-4 mt-2'>
-          <div className='flex justify-between items-center  mb-6'>
+          <div className='flex justify-between items-center  mb-6 pl-6'>
             <p className='text-[#3B3B3B] text-[14px] font-[500]'>شماره شبا:</p>
-            <p className='text-[#3B3B3B] text-[14px] font-[500]'>{user.iban}</p>
+            <p className='text-[#3B3B3B] text-[14px] font-[500]'>
+              {user.iban || '-'}
+            </p>
           </div>
         </div>
         <FormTitle title={t('profile:address_information')} />
