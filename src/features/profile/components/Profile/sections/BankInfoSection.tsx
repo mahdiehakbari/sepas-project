@@ -1,6 +1,5 @@
 import React from 'react';
-import { Input } from '@/sharedComponent/ui';
-import { FormTitle } from '../FormTitle';
+import { FormTitle, Input } from '@/sharedComponent/ui';
 import { IBankInfoSectionProps } from './types';
 
 export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
