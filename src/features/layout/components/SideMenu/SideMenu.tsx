@@ -4,12 +4,14 @@ import Cookies from 'js-cookie';
 import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
+import { useTranslation } from 'react-i18next';
 
 export const SideMenu = () => {
+  const { t } = useTranslation();
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
-  const pathname = usePathname(); // مسیر فعلی
+  const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
@@ -21,21 +23,25 @@ export const SideMenu = () => {
 
   const menuItems = [
     {
-      label: 'حساب کاربری',
+      label: t('profile:user_account'),
       path: '/panel/userAccount',
-      icon: '/assets/icons/',
+      icon: '/assets/icons/white-user-acc.svg',
     },
     {
-      label: 'لیست درخواست‌ها',
+      label: t('profile:requests_list'),
       path: '/panel/requests',
-      icon: '/assets/icons/',
+      icon: '/assets/icons/document.svg',
     },
     {
-      label: 'لیست تراکنش‌ها',
+      label: t('profile:transactions_list'),
       path: '/panel/transactions',
-      icon: '/assets/icons/',
+      icon: '/assets/icons/transaction-list.svg',
     },
-    { label: 'طرح های من', path: '/panel/plans', icon: '/assets/icons/' },
+    {
+      label: t('profile:my_plans'),
+      path: '/panel/plans',
+      icon: '/assets/icons/my-plans.svg',
+    },
   ];
 
   const isActive = (path: string) => pathname === path;
@@ -49,7 +55,7 @@ export const SideMenu = () => {
             alt='user'
             width={56}
             height={56}
-            className='rounded-full'
+            className='rounded-full text-white'
           />
           <Image
             src='/assets/icons/profile-edit-button.svg'
@@ -69,21 +75,45 @@ export const SideMenu = () => {
             <li
               key={item.path}
               onClick={() => router.push(item.path)}
-              className={`px-4 pb-[12px] cursor-pointer hover:text-primary ${
+              className={`px-4 py-2 cursor-pointer hover:text-primary flex items-center ${
                 isActive(item.path)
                   ? 'text-white bg-primary mb-2 mx-2 font-semibold hover:text-white rounded-2xl'
                   : ''
               }`}
             >
               <Image src={item.icon} alt={item.label} width={20} height={20} />
-              <span>{item.label}</span>
+              <span
+                className={` pr-1${isActive(item.path) ? 'text-white' : ''}`}
+              >
+                {item.label}
+              </span>
             </li>
           ))}
         </ul>
 
-        <div>
-          <p>ارتباط با کارشناسان</p>
-          <p>خروج</p>
+        <div className='px-6'>
+          <div className='flex items-center gap-2 pb-4'>
+            <Image
+              src='/assets/icons/headphone.svg'
+              alt=''
+              width={20}
+              height={20}
+            />
+            <p className='text-black font-[400] text-[16px] leading-6'>
+              {t('profile:communication_experts')}
+            </p>
+          </div>
+          <div className='flex items-center gap-1 pb-1'>
+            <Image
+              src='/assets/icons/logout.svg'
+              alt=''
+              width={20}
+              height={20}
+            />
+            <p className='text-[#FF4B4B] font-[400] text-[16px] leading-6'>
+              {t('profile:log_out')}
+            </p>
+          </div>
         </div>
       </div>
     </aside>

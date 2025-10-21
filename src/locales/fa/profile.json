@@ -28,5 +28,8 @@
   "identity_information": "اطلاعات هویتی",
   "man": "مرد",
   "woman": "زن",
-  "success_toast": "باتشکر! اطلاعات شما با موفقیت ثبت شد."
+  "success_toast": "باتشکر! اطلاعات شما با موفقیت ثبت شد.",
+  "transactions_list": "لیست تراکنش‌ها",
+  "my_plans": "طرح های من",
+  "communication_experts": "ارتباط با کارشناسان"
 }

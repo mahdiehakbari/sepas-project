@@ -28,5 +28,7 @@
   "identity_information": "Identity information",
   "man": "Men",
   "woman": "Woman",
-  "success_toast": "Thank you! Your information has been successfully submitted."
+  "success_toast": "Thank you! Your information has been successfully submitted.",
+  "transactions_list": "Transactions List",
+  "communication_experts": "Communication with experts"
 }
