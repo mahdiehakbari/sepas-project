@@ -1,13 +1,14 @@
 'use client';
-import { Button, FormTitle } from '@/sharedComponent/ui';
+import { Button } from '@/sharedComponent/ui';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import { ShowUserData } from '@/features/userAccount';
+import { ProfileForm } from '@/features/profile';
 
 export default function UserAccount() {
-  const { t } = useTranslation();
+  const [isEditing, setIsEditing] = useState(false);
+
   const [user, setUser] = useState<IProfileFormValues>({
     firstName: '',
     lastName: '',
@@ -35,12 +36,24 @@ export default function UserAccount() {
     }
   }, []);
 
+  const handleEditClick = () => {
+    setIsEditing(true);
+  };
+
   return (
     <>
-      <ShowUserData user={user} />
-      <div className=' flex justify-end mt-2'>
-        <Button>ویرایش اطلاعات</Button>
-      </div>
+      <>
+        {isEditing ? (
+          <ProfileForm name='userAccount' />
+        ) : (
+          <>
+            <ShowUserData user={user} />
+            <div className='flex justify-end mt-2'>
+              <Button onClick={handleEditClick}>ویرایش اطلاعات</Button>
+            </div>
+          </>
+        )}
+      </>
     </>
   );
 }
