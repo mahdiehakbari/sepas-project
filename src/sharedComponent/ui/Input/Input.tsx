@@ -16,7 +16,10 @@ export const Input: React.FC<InputProps> = ({
   return (
     <div className={`flex flex-col ${full ? 'col-span-2' : ''}`}>
       <input
-        {...register(name, { required: isRequired && textError, ...rules })}
+        {...register(name, {
+          ...(isRequired && { required: textError }),
+          ...rules,
+        })}
         type={type}
         placeholder={isRequired ? `${label} *` : label}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
