@@ -174,6 +174,7 @@ export const Header = () => {
           <PhoneNumberModal
             setIsOpenLoginModal={setIsOpenLoginModal}
             setIsOpenOtpModal={setIsOpenOtpModal}
+            setIsOpenModal={setIsOpenModal}
           />
         )}
         {isOpenOtpModal && (

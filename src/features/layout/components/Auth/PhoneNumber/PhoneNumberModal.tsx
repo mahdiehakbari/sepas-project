@@ -11,6 +11,7 @@ import { usePhoneNumberSubmit } from './hooks';
 export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
   setIsOpenLoginModal,
   setIsOpenOtpModal,
+  setIsOpenModal,
 }) => {
   const { t } = useTranslation();
 
@@ -29,7 +30,10 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
     <div className='p-8 max-w-[431px]'>
       <div className='flex items-center justify-end mb-6'>
         <button
-          onClick={() => setIsOpenLoginModal(false)}
+          onClick={() => {
+            setIsOpenLoginModal(false);
+            setIsOpenModal(false);
+          }}
           className='cursor-pointer'
         >
           <Image
