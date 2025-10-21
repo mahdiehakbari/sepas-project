@@ -25,8 +25,11 @@
   "complete_profile": "تکمیل پروفایل",
   "requests_list": "لیست درخواست‌ها",
   "log_out": "خروج",
-  "identity_information": "اطلاعات هویتی",
+  "identity_information": "اطلاعات فردی",
   "man": "مرد",
   "woman": "زن",
-  "success_toast": "باتشکر! اطلاعات شما با موفقیت ثبت شد."
+  "success_toast": "باتشکر! اطلاعات شما با موفقیت ثبت شد.",
+  "transactions_list": "لیست تراکنش‌ها",
+  "my_plans": "طرح های من",
+  "communication_experts": "ارتباط با کارشناسان"
 }

@@ -1,6 +1,5 @@
 import React from 'react';
-import { DateInput, Input, SelectInput } from '@/sharedComponent/ui';
-import { FormTitle } from '../FormTitle';
+import { DateInput, FormTitle, Input, SelectInput } from '@/sharedComponent/ui';
 import { validationRules } from '../utils/validationRules';
 import { IPersonalInfoSectionProps } from './types';
 

@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Controller, FieldValues } from 'react-hook-form';
 import DatePicker, { DateObject } from 'react-multi-date-picker';

@@ -4,3 +4,4 @@ export { Input } from './Input/Input';
 export { SelectInput } from './SelectInput/SelectInput';
 export { SpinnerDiv } from './SpinnerDiv/SpinnerDiv';
 export { DateInput } from './DateInput/DateInput';
+export { FormTitle } from './FormTitle/FormTitle';

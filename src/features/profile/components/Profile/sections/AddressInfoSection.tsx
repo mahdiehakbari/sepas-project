@@ -1,6 +1,5 @@
 import React from 'react';
-import { Input, SelectInput } from '@/sharedComponent/ui';
-import { FormTitle } from '../FormTitle';
+import { FormTitle, Input, SelectInput } from '@/sharedComponent/ui';
 import { IAddressInfoSectionProps } from './types';
 
 export const AddressInfoSection: React.FC<IAddressInfoSectionProps> = ({
