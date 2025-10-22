@@ -1,5 +1,6 @@
 'use client';
 import { Button } from '@/sharedComponent/ui';
+import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -8,6 +9,7 @@ export const FirstTab = () => {
   const [value, setValue] = useState(0);
   const options = ['۶ ماهه', '۹ ماهه', '۱۲ ماهه', '۱۸ ماهه'];
   const [active, setActive] = useState(options[0]);
+  const [isOpenModal, setIsOpenModal] = useState(false);
 
   return (
     <div className='flex flex-wrap -mx-4 '>
@@ -119,9 +121,19 @@ export const FirstTab = () => {
             </div>
           </div>
 
-          <Button className='w-full'>{t('dental_plane:apply_credit')}</Button>
+          <Button className='w-full' onClick={() => setIsOpenModal(true)}>
+            {t('dental_plane:apply_credit')}
+          </Button>
         </div>
       </div>
+
+      <ResponsiveModal
+        isOpen={isOpenModal}
+        title={t('credit:apply_credit')}
+        onClose={() => setIsOpenModal(false)}
+      >
+        eeeeeee
+      </ResponsiveModal>
     </div>
   );
 };
