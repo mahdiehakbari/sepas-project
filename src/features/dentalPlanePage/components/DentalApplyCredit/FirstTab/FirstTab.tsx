@@ -3,6 +3,10 @@ import { Button } from '@/sharedComponent/ui';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { CreditNoteModal } from '../components';
+import Cookies from 'js-cookie';
+import { PhoneNumberModal } from '@/features/layout';
+import { OtpModal } from '@/features/layout/components/Auth/OTPComponent/OtpModal';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -10,7 +14,23 @@ export const FirstTab = () => {
   const options = ['۶ ماهه', '۹ ماهه', '۱۲ ماهه', '۱۸ ماهه'];
   const [active, setActive] = useState(options[0]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [creditLoading, setCreditLoading] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
+  const token = Cookies.get('token');
 
+  const handleCredit = () => {
+    setCreditLoading(true);
+  };
+
+  const handleShowModal = () => {
+    setIsOpenModal(true);
+    setCreditLoading(false);
+    if (!token) {
+      setIsOpenLoginModal(true);
+    }
+  };
+  console.log(token, 'token');
   return (
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
@@ -121,7 +141,7 @@ export const FirstTab = () => {
             </div>
           </div>
 
-          <Button className='w-full' onClick={() => setIsOpenModal(true)}>
+          <Button className='w-full' onClick={handleShowModal}>
             {t('dental_plane:apply_credit')}
           </Button>
         </div>
@@ -132,7 +152,30 @@ export const FirstTab = () => {
         title={t('credit:apply_credit')}
         onClose={() => setIsOpenModal(false)}
       >
-        eeeeeee
+        {token ? (
+          <>
+            {creditLoading == false && (
+              <CreditNoteModal handleCredit={handleCredit} />
+            )}
+          </>
+        ) : (
+          <>
+            {isOpenLoginModal && (
+              <PhoneNumberModal
+                setIsOpenLoginModal={setIsOpenLoginModal}
+                setIsOpenOtpModal={setIsOpenOtpModal}
+                setIsOpenModal={setIsOpenModal}
+              />
+            )}
+            {isOpenOtpModal && (
+              <OtpModal
+                setIsOpenOtpModal={setIsOpenOtpModal}
+                setIsOpenLoginModal={setIsOpenLoginModal}
+                setIsOpenModal={setIsOpenModal}
+              />
+            )}
+          </>
+        )}
       </ResponsiveModal>
     </div>
   );

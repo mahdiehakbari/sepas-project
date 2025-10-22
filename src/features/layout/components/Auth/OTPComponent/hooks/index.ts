@@ -20,7 +20,7 @@ export const useOtp = (onClose: () => void) => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || Cookies.get('token');
+    const token = Cookies.get('token');
     const userData = localStorage.getItem('user');
 
     if (token && userData) {

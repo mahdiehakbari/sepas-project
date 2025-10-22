@@ -20,6 +20,7 @@ module.exports = {
         'second-primary': 'var(--second-primary)',
         'light-primary': 'var(--light-primary)',
         'second-gray': 'var(--second-gray)',
+        'second-border-gray': 'var(--second-border-gray)',
 
         'button-primary': 'var(--button-primary)',
         'second-blue': 'var(--second-blue)',
