@@ -4,3 +4,4 @@ export { PersonalInfoSection } from './components/Profile/sections/PersonalInfoS
 export { BankInfoSection } from './components/Profile/sections/BankInfoSection';
 export { AddressInfoSection } from './components/Profile/sections/AddressInfoSection';
 export { useLocationData } from './components/Profile/hooks/useLocationData';
+export { formatBirthDate } from './components/Profile/utils/formatBirthDate';

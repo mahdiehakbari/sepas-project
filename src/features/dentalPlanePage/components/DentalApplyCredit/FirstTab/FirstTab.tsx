@@ -7,6 +7,8 @@ import { CreditNoteModal } from '../components';
 import Cookies from 'js-cookie';
 import { PhoneNumberModal } from '@/features/layout';
 import { OtpModal } from '@/features/layout/components/Auth/OTPComponent/OtpModal';
+import { toast } from 'react-toastify';
+import { ProfileForm } from '@/features/profile';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -18,6 +20,7 @@ export const FirstTab = () => {
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
   const token = Cookies.get('token');
+  const userProfile = Cookies.get('userProfile');
 
   const handleCredit = () => {
     setCreditLoading(true);
@@ -27,10 +30,29 @@ export const FirstTab = () => {
     setIsOpenModal(true);
     setCreditLoading(false);
     if (!token) {
+      toast.success(t('credit:log_in_continue'), {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        icon: false,
+        style: {
+          backgroundColor: '#ebf3fd',
+          color: 'black',
+          fontSize: '16px',
+          borderRadius: '8px',
+          textAlign: 'center',
+        },
+      });
+
       setIsOpenLoginModal(true);
     }
   };
-  console.log(token, 'token');
+  const handleProfileBack = () => {
+    setIsOpenModal(false);
+  };
   return (
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
@@ -149,16 +171,16 @@ export const FirstTab = () => {
 
       <ResponsiveModal
         isOpen={isOpenModal}
-        title={t('credit:apply_credit')}
+        title={!token ? undefined : t('credit:apply_credit')}
         onClose={() => setIsOpenModal(false)}
       >
-        {token ? (
+        {token && userProfile ? (
           <>
             {creditLoading == false && (
               <CreditNoteModal handleCredit={handleCredit} />
             )}
           </>
-        ) : (
+        ) : !token && !userProfile ? (
           <>
             {isOpenLoginModal && (
               <PhoneNumberModal
@@ -175,6 +197,17 @@ export const FirstTab = () => {
               />
             )}
           </>
+        ) : (
+          token &&
+          !userProfile && (
+            <>
+              <ProfileForm
+                name='credit'
+                handleBack={handleProfileBack}
+                setIsOpenModal={setIsOpenModal}
+              />
+            </>
+          )
         )}
       </ResponsiveModal>
     </div>

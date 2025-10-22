@@ -20,6 +20,7 @@
   --primary-border: #2f76c7;
   --second-gray: #e0e0e0;
   --second-border-gray: #e6e6e6;
+  --light-primary: #ebf3fd;
 
   --button-primary: #2378d8;
   --second-blue: #eaf3f8;
@@ -32,7 +33,6 @@
   --danger-color: #ff4b4b;
   --block-color: #f9f9f9;
   --second-primary: #124681;
-  --light-primary: #ebf3fd;
 }
 
 @theme inline {

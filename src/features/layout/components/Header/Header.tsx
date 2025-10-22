@@ -14,6 +14,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
+import { useAuthStore } from '@/store/Auth/authStore';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -25,7 +26,14 @@ export const Header = () => {
   const [openPopUp, setOpenPopUp] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { logout } = useAuthStore();
 
+  const handleLogout = () => {
+    logout();
+    Cookies.remove('userProfile');
+    Cookies.remove('isLoggedIn');
+    router.push('/');
+  };
   const handleLogin = () => {
     setIsOpenLoginModal(true);
     setIsOpenModal(true);
@@ -112,10 +120,7 @@ export const Header = () => {
                       label: t('profile:log_out'),
                       image: '/assets/icons/logout.svg',
                       danger: true,
-                      onClick: () => {
-                        Cookies.remove('isLoggedIn');
-                        router.push('/');
-                      },
+                      onClick: handleLogout,
                     },
                   ]}
                 />
