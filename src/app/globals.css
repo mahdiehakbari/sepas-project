@@ -13,7 +13,6 @@
   --second-primary-disabled: #d5d6d7;
   --border-color-gray: #97999b;
   --text-disabled: #ababab;
-  --button-outline-border: #2690e0;
   --button-outline-disabled: #eaebeb;
   --error-color: #d33c3c;
   --secondary: #f3f3f3;
@@ -45,7 +44,7 @@
   --second-primary-disabled: var(--second-primary-disabled);
   --border-color-gray: var(--border-color-gray);
   --text-disabled: var(--text-disabled);
-  --button-outline-border: var(--button-outline-border);
+
   --button-outline-disabled: var(--button-outline-disabled);
   --error-color: var(--error-color);
   --light-primary: var(--light-primary);

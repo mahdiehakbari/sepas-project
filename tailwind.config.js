@@ -13,7 +13,6 @@ module.exports = {
         'second-primary-disabled': 'var(--second-primary-disabled)',
         'border-color-gray': 'var(--border-color-gray)',
         'text-disabled': 'var(--text-disabled)',
-        'button-outline-border': 'var(--button-outline-border)',
         'button-outline-disabled': 'var(--button-outline-disabled)',
         'error-color': 'var(--error-color)',
         'primary-border': 'var(--primary-border)',

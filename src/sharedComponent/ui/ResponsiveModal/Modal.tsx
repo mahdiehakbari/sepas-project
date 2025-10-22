@@ -57,7 +57,7 @@ export default function ResponsiveModal({
           </motion.div>
 
           <motion.div
-            className={`sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white  rounded-t-2xl shadow-lg max-h-[10vh]`}
+            className={`sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-lg max-h-[90vh] overflow-y-auto`}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}

@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/sharedComponent/ui';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreditNoteModal } from '../components';
 import Cookies from 'js-cookie';
@@ -9,6 +9,7 @@ import { PhoneNumberModal } from '@/features/layout';
 import { OtpModal } from '@/features/layout/components/Auth/OTPComponent/OtpModal';
 import { toast } from 'react-toastify';
 import { ProfileForm } from '@/features/profile';
+import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -19,10 +20,15 @@ export const FirstTab = () => {
   const [creditLoading, setCreditLoading] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
+  const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
+    null,
+  );
   const token = Cookies.get('token');
-  const userProfile = Cookies.get('userProfile');
+  const userInfo = Cookies.get('userProfile');
 
-  const handleCredit = () => {
+  console.log(userProfile, 'userProfile');
+
+  const handleBudgetLoading = () => {
     setCreditLoading(true);
   };
 
@@ -48,6 +54,9 @@ export const FirstTab = () => {
       });
 
       setIsOpenLoginModal(true);
+    }
+    if (userInfo) {
+      setUserProfile(JSON.parse(userInfo));
     }
   };
   const handleProfileBack = () => {
@@ -171,14 +180,17 @@ export const FirstTab = () => {
 
       <ResponsiveModal
         isOpen={isOpenModal}
-        title={!token ? undefined : t('credit:apply_credit')}
+        title={
+          !token || creditLoading == true ? undefined : t('credit:apply_credit')
+        }
         onClose={() => setIsOpenModal(false)}
       >
         {token && userProfile ? (
           <>
-            {creditLoading == false && (
-              <CreditNoteModal handleCredit={handleCredit} />
-            )}
+            <CreditNoteModal
+              handleBudgetLoading={handleBudgetLoading}
+              creditLoading={creditLoading}
+            />
           </>
         ) : !token && !userProfile ? (
           <>
