@@ -20,7 +20,7 @@ export const BannerSection = () => {
 
   return (
     <div className='mb-12 px-6 md:px-0'>
-      <div className='max-w-4xl mx-auto py-4 px-4 md:px-12 rounded-2xl bg-gradient-to-r from-first-gradient to-second-gradient mb-4'>
+      <div className='max-w-4xl mx-auto py-4 px-4 md:px-12 rounded-2xl bg-primary mb-4'>
         <h1 className='sr-only'>عنوان اصلی صفحه یا اسلایدر</h1>
         <Swiper
           key={dir}
@@ -48,7 +48,7 @@ export const BannerSection = () => {
                   </p>
 
                   <div className='flex items-center gap-4'>
-                    <Button>{t('home:calculation_installments')}</Button>
+                    {/* <Button>{t('home:calculation_installments')}</Button> */}
                     <Button>{t('home:view_plans')}</Button>
                   </div>
                 </div>

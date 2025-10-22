@@ -124,7 +124,7 @@ export const Header = () => {
           )}
 
           <button
-            className='cursor-pointer bg-[#F3F3F4] h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'
+            className='cursor-pointer bg-secondary h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'
             onClick={toggleLanguage}
           >
             <Image

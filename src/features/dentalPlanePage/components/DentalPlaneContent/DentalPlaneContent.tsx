@@ -28,8 +28,8 @@ export const DentalPlaneContent = () => {
         </p>
       </div>
 
-      <div className='py-2 px-10 bg-[var(--gray-bg)] rounded-2xl mb-4'>
-        <h3 className='font-[700] text-[14px] mb-2 text-[var(--notice-title)]'>
+      <div className='py-2 px-10 bg-secondary rounded-2xl mb-4'>
+        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
           {t('dental_plane:conditions_receiving')}
         </h3>
         <ul className='list-disc px-7 font-[400] text-[14px]'>
@@ -52,14 +52,14 @@ export const DentalPlaneContent = () => {
         </ul>
       </div>
 
-      <div className='py-2 px-4 bg-[var(--notice-bg)] rounded-2xl mb-4 flex items-center gap-4'>
+      <div className='py-2 px-4 bg-[var(--light-primary)] rounded-2xl mb-4 flex items-center gap-4 border border-[var(--primary-border)]'>
         <Image
           src='/assets/icons/notice-icon.svg'
           alt='logo'
           width={20}
           height={20}
         />
-        <p className='font-[400] text-[14px] text-[var(--notice-text)]'>
+        <p className='font-[400] text-[14px] text-[var(--second-primary)]'>
           {t('dental_plane:constitutes_receiving_credit')}
         </p>
       </div>

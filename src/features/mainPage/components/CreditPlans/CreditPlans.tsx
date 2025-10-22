@@ -41,17 +41,11 @@ export const CreditPlans = () => {
                     alt={item.alt}
                     width={128}
                     height={128}
-                    className='mx-auto'
+                    className='mx-auto opacity-50'
                   />
-                  <p className='text-black font-[500] text-[14px] mt-2'>
+                  <p className='text-[var(--text-disabled)] font-[500] text-[14px] mt-2'>
                     {t(item.titleKey)}
                   </p>
-
-                  <div className='absolute inset-0 flex items-center justify-center bg-black/60 bg-opacity opacity-0 hover:opacity-100 transition-opacity rounded-2xl'>
-                    <span className='text-white font-bold text-[14px]'>
-                      {t('home:coming_soon')}
-                    </span>
-                  </div>
                 </div>
               )}
             </div>
