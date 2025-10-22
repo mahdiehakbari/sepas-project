@@ -8,18 +8,18 @@
   --primary: #2690e0;
   --text-white: #ffffff;
   --text-black: #000000;
-  --button-default: #1e73b3;
-  --button-default-hover: #175686;
-  --button-default-disabled: #d5d6d7;
+  --second-primary: #1e73b3;
+  --second-primary-hover: #175686;
+  --second-primary-disabled: #d5d6d7;
   --border-color-gray: #97999b;
   --text-disabled: #ababab;
   --button-outline-border: #2690e0;
   --button-outline-disabled: #eaebeb;
   --error-color: #d33c3c;
   --secondary: #f3f3f3;
+  --primary-border: #2f76c7;
+  --second-gray: #e0e0e0;
 
-  --first-gradient: #267ff9;
-  --second-gradient: #1c6ca8;
   --button-primary: #2378d8;
   --second-blue: #eaf3f8;
   --second-text-color: #3a3a3a;
@@ -27,14 +27,11 @@
   --active-tab-color: #ecf0ff;
   --col-bg: #fbfdff;
   --active-loan-text: #4e4e4e;
-  --active-loan-text-bg: #e0e0e0;
   --gray-text-second: #323232;
   --danger-color: #ff4b4b;
   --block-color: #f9f9f9;
-  --notice-title: #1e73b3;
-  --notice-text: #124681;
-  --notice-bg: #ebf3fd;
-  --gray-bg: #f6f6f6;
+  --second-primary: #124681;
+  --light-primary: #ebf3fd;
 }
 
 @theme inline {
@@ -42,14 +39,17 @@
   --color-secondary: var(--secondary);
   --color-text-white: var(--text-white);
   --color-text-black: var(--text-black);
-  --button-default: var(--button-default);
-  --button-default-hover: var(--button-default-hover);
-  --button-default-disabled: var(--button-default-disabled);
+  --second-primary: var(--second-primary);
+  --second-primary-hover: var(--second-primary-hover);
+  --second-primary-disabled: var(--second-primary-disabled);
   --border-color-gray: var(--border-color-gray);
   --text-disabled: var(--text-disabled);
   --button-outline-border: var(--button-outline-border);
   --button-outline-disabled: var(--button-outline-disabled);
   --error-color: var(--error-color);
+  --light-primary: var(--light-primary);
+  --second-primary: var(--second-primary);
+  --primary-border: var(--primary-border);
 
   --color-background: var(--background);
   --color-first-gradient: var(--first-gradient);
@@ -62,14 +62,10 @@
   --color-col-bg: var(--col-bg);
   --color-second-text-color: var(--second-text-color);
   --active-loan-text: var(--active-loan-text);
-  --active-loan-text-bg: var(--active-loan-text-bg);
+  --second-gray: var(--second-gray);
   --gray-text-second: var(--gray-text-second);
   --danger-color: var(--danger-color);
   --block-color: var(--block-color);
-  --notice-title: var(--notice-title);
-  --notice-text: var(--notice-text);
-  --notice-bg: var(--notice-bg);
-  --gray-bg: var(--gray-bg);
 }
 
 @font-face {
