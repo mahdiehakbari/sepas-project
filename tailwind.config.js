@@ -8,6 +8,15 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        'button-default': 'var(--button-default)',
+        'button-default-hover': 'var(--button-default-hover)',
+        'button-default-disabled': 'var(--button-default-disabled)',
+        'border-color-gray': 'var(--border-color-gray)',
+        'text-disabled': 'var(--text-disabled)',
+        'button-outline-border': 'var(--button-outline-border)',
+        'button-outline-disabled': 'var(--button-outline-disabled)',
+        'error-color': 'var(--error-color)',
+
         'button-primary': 'var(--button-primary)',
         'first-gradient': 'var(--first-gradient)',
         'second-gradient': 'var(--second-gradient)',

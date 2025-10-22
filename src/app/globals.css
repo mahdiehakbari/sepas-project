@@ -5,10 +5,19 @@
   --background: #ffffff;
 
   /* Brand and UI palette */
-  --primary: #0ea5e9;
+  --primary: #2690e0;
   --text-white: #ffffff;
   --text-black: #000000;
-  --secondary: #fbfbfb;
+  --button-default: #1e73b3;
+  --button-default-hover: #175686;
+  --button-default-disabled: #d5d6d7;
+  --border-color-gray: #97999b;
+  --text-disabled: #ababab;
+  --button-outline-border: #2690e0;
+  --button-outline-disabled: #eaebeb;
+  --error-color: #d33c3c;
+  --secondary: #f3f3f3;
+
   --first-gradient: #267ff9;
   --second-gradient: #1c6ca8;
   --button-primary: #2378d8;
@@ -29,11 +38,20 @@
 }
 
 @theme inline {
-  --color-background: var(--background);
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-text-white: var(--text-white);
   --color-text-black: var(--text-black);
+  --button-default: var(--button-default);
+  --button-default-hover: var(--button-default-hover);
+  --button-default-disabled: var(--button-default-disabled);
+  --border-color-gray: var(--border-color-gray);
+  --text-disabled: var(--text-disabled);
+  --button-outline-border: var(--button-outline-border);
+  --button-outline-disabled: var(--button-outline-disabled);
+  --error-color: var(--error-color);
+
+  --color-background: var(--background);
   --color-first-gradient: var(--first-gradient);
   --color-second-gradient: var(--second-gradient);
   --color-button-primary: var(--button-primary);
