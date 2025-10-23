@@ -23,6 +23,7 @@ export const FirstTab = () => {
   const [creditLoading, setCreditLoading] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
+  const [showBill, setShowBill] = useState(false);
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
@@ -208,7 +209,13 @@ export const FirstTab = () => {
         {token && userProfile ? (
           <>
             {budgetData == null ? (
-              <InquiringBudget />
+              <>
+                {showBill == true ? (
+                  <>hiiii</>
+                ) : (
+                  <InquiringBudget setShowBill={setShowBill} />
+                )}
+              </>
             ) : (
               <CreditNoteModal
                 handleBudgetLoading={handleBudgetLoading}
