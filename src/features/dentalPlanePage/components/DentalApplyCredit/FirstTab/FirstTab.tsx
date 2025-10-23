@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/sharedComponent/ui';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreditNoteModal } from '../components';
 import Cookies from 'js-cookie';
@@ -10,6 +10,9 @@ import { OtpModal } from '@/features/layout/components/Auth/OTPComponent/OtpModa
 import { toast } from 'react-toastify';
 import { ProfileForm } from '@/features/profile';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
+import axios from 'axios';
+import { API_BUDGET_QUERY } from '@/config/api_address.config';
+import { InquiringBudget } from '../components/InquiringBudget/InquiringBudget';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -23,13 +26,26 @@ export const FirstTab = () => {
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
+  const [budgetData, setBudgetData] = useState(null);
   const token = Cookies.get('token');
   const userInfo = Cookies.get('userProfile');
 
-  console.log(userProfile, 'userProfile');
-
   const handleBudgetLoading = () => {
     setCreditLoading(true);
+    axios
+      .get(`${API_BUDGET_QUERY}/0491307314`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCreditLoading(false);
+        console.log('hiiii', res.data);
+        setBudgetData(res.data);
+      })
+      .catch(() => {
+        setCreditLoading(false);
+      });
   };
 
   const handleShowModal = () => {
@@ -181,16 +197,24 @@ export const FirstTab = () => {
       <ResponsiveModal
         isOpen={isOpenModal}
         title={
-          !token || creditLoading == true ? undefined : t('credit:apply_credit')
+          !token || creditLoading == true
+            ? undefined
+            : budgetData == null
+            ? t('credit:validation_result_budget')
+            : t('credit:apply_credit')
         }
         onClose={() => setIsOpenModal(false)}
       >
         {token && userProfile ? (
           <>
-            <CreditNoteModal
-              handleBudgetLoading={handleBudgetLoading}
-              creditLoading={creditLoading}
-            />
+            {budgetData == null ? (
+              <InquiringBudget />
+            ) : (
+              <CreditNoteModal
+                handleBudgetLoading={handleBudgetLoading}
+                creditLoading={creditLoading}
+              />
+            )}
           </>
         ) : !token && !userProfile ? (
           <>

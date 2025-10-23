@@ -5,5 +5,12 @@
   "inquiring_budget": "Inquiring about the budget",
   "please_wait": "Please wait.",
   "log_in_continue": "Please log in to continue the process!",
-  "enter_info": "Please enter your information to receive credit."
+  "enter_info": "Please enter your information to receive credit.",
+  "validation_result_budget": "Validation result from budget",
+  "approved_credit_amount": "Your approved credit amount in the budget",
+  "amount_credit_requesting": "Select the amount of credit you are requesting.",
+  "credit_requested": "Credit requested",
+  "subscription": "Amount of fee paid (subscription)",
+  "agree_terms": "I agree to the terms and conditions of the <1>Credit Application Rules and Regulations</1>.",
+  "receive_credit": "Receive credit"
 }

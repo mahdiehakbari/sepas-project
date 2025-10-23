@@ -42,7 +42,6 @@ export default function UserAccount() {
     setIsEditing(false);
   };
 
-  console.log(isEditing, userAccount);
   return (
     <div className='max-w-4xl mx-auto'>
       {isEditing ? (
