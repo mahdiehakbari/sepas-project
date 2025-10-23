@@ -21,6 +21,7 @@
   --second-border-gray: #e6e6e6;
   --light-primary: #ebf3fd;
   --second-light-primary: #d4e9f9;
+  --bg-gray: #e9e9e9;
 
   --button-primary: #2378d8;
   --second-blue: #eaf3f8;
@@ -52,6 +53,7 @@
   --second-primary: var(--second-primary);
   --primary-border: var(--primary-border);
   --second-border-gray: var(--second-border-gray);
+  --bg-gray: var(--bg-gray);
 
   --color-background: var(--background);
   --color-first-gradient: var(--first-gradient);
