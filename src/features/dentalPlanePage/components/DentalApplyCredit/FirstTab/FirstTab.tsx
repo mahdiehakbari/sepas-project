@@ -1,7 +1,7 @@
 'use client';
 import { Button } from '@/sharedComponent/ui';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { CreditNoteModal } from '../components';
 import Cookies from 'js-cookie';
@@ -11,8 +11,9 @@ import { toast } from 'react-toastify';
 import { ProfileForm } from '@/features/profile';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import axios from 'axios';
-import { API_BUDGET_QUERY } from '@/config/api_address.config';
+import { API_BUDGET_CALC, API_BUDGET_QUERY } from '@/config/api_address.config';
 import { InquiringBudget } from '../components/InquiringBudget/InquiringBudget';
+import { IFeeConfiguration } from './types';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -27,26 +28,33 @@ export const FirstTab = () => {
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
-  const [budgetData, setBudgetData] = useState(null);
+  const [budgetData, setBudgetData] = useState<number | null>(null);
+  const [budgetCalcData, setBudgetCalcData] = useState<IFeeConfiguration>([]);
+
   const token = Cookies.get('token');
   const userInfo = Cookies.get('userProfile');
 
   const handleBudgetLoading = () => {
     setCreditLoading(true);
-    axios
-      .get(`${API_BUDGET_QUERY}/0491307314`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      .then((res) => {
-        setCreditLoading(false);
-        console.log('hiiii', res.data);
-        setBudgetData(res.data);
-      })
-      .catch(() => {
-        setCreditLoading(false);
-      });
+    setTimeout(() => {
+      setCreditLoading(false);
+
+      setBudgetData(2000000000);
+    }, 3000);
+    // axios
+    //   .get(`${API_BUDGET_QUERY}/0491307314`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     setCreditLoading(false);
+    //     console.log('hiiii', res.data);
+    //     setBudgetData(res.data);
+    //   })
+    //   .catch(() => {
+    //     setCreditLoading(false);
+    //   });
   };
 
   const handleShowModal = () => {
@@ -79,6 +87,22 @@ export const FirstTab = () => {
   const handleProfileBack = () => {
     setIsOpenModal(false);
   };
+
+  useEffect(() => {
+    if (budgetData) {
+      axios
+        .get(API_BUDGET_CALC, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          console.log('hiii', res.data.feeConfigurations);
+          setBudgetCalcData(res.data.feeConfigurations);
+        })
+        .catch(() => {});
+    }
+  }, [budgetData]);
   return (
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
@@ -208,12 +232,15 @@ export const FirstTab = () => {
       >
         {token && userProfile ? (
           <>
-            {budgetData == null ? (
+            {budgetData ? (
               <>
                 {showBill == true ? (
                   <>hiiii</>
                 ) : (
-                  <InquiringBudget setShowBill={setShowBill} />
+                  <InquiringBudget
+                    setShowBill={setShowBill}
+                    budgetData={budgetData}
+                  />
                 )}
               </>
             ) : (

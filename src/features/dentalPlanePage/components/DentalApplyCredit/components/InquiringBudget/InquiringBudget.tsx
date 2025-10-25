@@ -7,21 +7,26 @@ import { Trans, useTranslation } from 'react-i18next';
 
 export const InquiringBudget = ({
   setShowBill,
+  budgetData,
 }: {
   setShowBill: (value: boolean) => void;
+  budgetData: null | number;
 }) => {
   const { t } = useTranslation();
   const minValue = 10000000;
-  const maxValue = 200_000_000;
+  const maxValue = budgetData;
   const step = 1_000_000;
   const [value, setValue] = useState(minValue);
   const [checked, setChecked] = useState(false);
 
-  const price = 200_000_000;
-  const formattedPrice = price.toLocaleString('fa-IR');
+  const formattedPrice = budgetData?.toLocaleString('fa-IR');
   const trackBg = '#ffffff';
   const filledColor = '#2690e0';
-  const percent = ((value - minValue) / (maxValue - minValue)) * 100;
+  const percent =
+    maxValue === null || minValue === null
+      ? 0
+      : ((value - minValue) / (maxValue - minValue)) * 100;
+
   const background = `linear-gradient(to right, ${filledColor} ${percent}%, ${trackBg} ${percent}%)`;
 
   const handleShowBill = () => {
@@ -36,7 +41,7 @@ export const InquiringBudget = ({
             {t('credit:approved_credit_amount')}
           </p>
           <p className='text-black font-[500] text-[16px]'>
-            {formattedPrice} {t('credit:toman')}
+            {formattedPrice} {t('credit:rial')}
           </p>
         </div>
 
@@ -47,7 +52,7 @@ export const InquiringBudget = ({
           <input
             type='range'
             min={minValue}
-            max={maxValue}
+            max={maxValue ?? undefined}
             step={step}
             value={value}
             onChange={(e) => setValue(Number(e.target.value))}
@@ -60,7 +65,7 @@ export const InquiringBudget = ({
               {t('credit:credit_requested')}
             </p>
             <p className='text-black font-[500] text-[16px]'>
-              {value.toLocaleString('fa-IR')} {t('credit:toman')}
+              {value.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
           <div className='flex items-center justify-between mb-4'>
@@ -68,7 +73,7 @@ export const InquiringBudget = ({
               {t('credit:subscription')}
             </p>
             <p className='text-black font-[500] text-[16px]'>
-              {value.toLocaleString('fa-IR')} {t('credit:toman')}
+              {value.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
         </div>
