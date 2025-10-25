@@ -14,5 +14,13 @@
   "credit_requested": "Credit requested",
   "subscription": "Amount of fee paid (subscription)",
   "agree_terms": "I agree to the terms and conditions of the <1>Credit Application Rules and Regulations</1>.",
-  "receive_credit": "Receive credit"
+  "receive_credit": "Receive credit",
+  "paying_subscription": "Paying our subscription",
+  "project_name": "Project name:",
+  "loan_amount_received": "Loan amount received:",
+  "paid_subscription": "Paid subscription:",
+  "payment_gateway_selection:": "Payment gateway selection:",
+  "saman_bank": "Saman Bank",
+  "canceled": "cancel",
+  "confirmation": "Confirmation"
 }

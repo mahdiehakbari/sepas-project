@@ -14,5 +14,13 @@
   "credit_requested": "اعتبار درخواستی",
   "subscription": "میزان کارمزد پرداختی (آبونمان)",
   "agree_terms": "با شرایط <1>قوانین و مقررات</1> درخواست دریافت اعتبار موافقم.",
-  "receive_credit": "دریافت اعتبار"
+  "receive_credit": "دریافت اعتبار",
+  "paying_subscription": "پرداخت آبونمان",
+  "project_name": "نام طرح:",
+  "loan_amount_received": "مبلغ وام دریافتی:",
+  "paid_subscription": "آبونمان پرداختی:",
+  "payment_gateway_selection:": "انتخاب درگاه پرداخت:",
+  "saman_bank": "بانک سامان",
+  "canceled": "انصراف",
+  "confirmation": "تایید"
 }

@@ -2,21 +2,23 @@
 
 import { Button } from '@/sharedComponent/ui';
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Trans, useTranslation } from 'react-i18next';
+import { IInquiringBudgetProps } from './types';
 
 export const InquiringBudget = ({
   setShowBill,
   budgetData,
-}: {
-  setShowBill: (value: boolean) => void;
-  budgetData: null | number;
-}) => {
+  budgetCalcData,
+  setFeePercentage,
+  feePercentage,
+  setAmountReceivedValue,
+  amountReceivedValue,
+}: IInquiringBudgetProps) => {
   const { t } = useTranslation();
-  const minValue = 10000000;
+  const minValue = 100000000;
   const maxValue = budgetData;
   const step = 1_000_000;
-  const [value, setValue] = useState(minValue);
   const [checked, setChecked] = useState(false);
 
   const formattedPrice = budgetData?.toLocaleString('fa-IR');
@@ -25,13 +27,24 @@ export const InquiringBudget = ({
   const percent =
     maxValue === null || minValue === null
       ? 0
-      : ((value - minValue) / (maxValue - minValue)) * 100;
+      : ((amountReceivedValue - minValue) / (maxValue - minValue)) * 100;
 
   const background = `linear-gradient(to right, ${filledColor} ${percent}%, ${trackBg} ${percent}%)`;
 
   const handleShowBill = () => {
     setShowBill(true);
   };
+  useEffect(() => {
+    const config = budgetCalcData.find(
+      (item) =>
+        amountReceivedValue >= item.minAmount &&
+        amountReceivedValue <= item.maxAmount,
+    );
+    const initialFee = config?.feePercentage
+      ? (amountReceivedValue * config.feePercentage) / 100
+      : 0;
+    setFeePercentage(initialFee);
+  }, [budgetCalcData]);
 
   return (
     <>
@@ -54,18 +67,31 @@ export const InquiringBudget = ({
             min={minValue}
             max={maxValue ?? undefined}
             step={step}
-            value={value}
-            onChange={(e) => setValue(Number(e.target.value))}
+            value={amountReceivedValue}
+            onChange={(e) => {
+              const newValue = Number(e.target.value);
+              setAmountReceivedValue(newValue);
+
+              const config = budgetCalcData.find(
+                (item) =>
+                  newValue >= item.minAmount && newValue <= item.maxAmount,
+              );
+              const newFee = config?.feePercentage
+                ? (newValue * config.feePercentage) / 100
+                : 0;
+              setFeePercentage(newFee);
+            }}
             className='w-full h-2 appearance-none rounded-full cursor-pointer'
             style={{ background }}
             dir='ltr'
           />
+
           <div className='flex items-center justify-between mb-4 mt-6'>
             <p className='text-black font-[400] text-[16px]'>
               {t('credit:credit_requested')}
             </p>
             <p className='text-black font-[500] text-[16px]'>
-              {value.toLocaleString('fa-IR')} {t('credit:rial')}
+              {amountReceivedValue.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
           <div className='flex items-center justify-between mb-4'>
@@ -73,7 +99,7 @@ export const InquiringBudget = ({
               {t('credit:subscription')}
             </p>
             <p className='text-black font-[500] text-[16px]'>
-              {value.toLocaleString('fa-IR')} {t('credit:rial')}
+              {feePercentage.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
         </div>
