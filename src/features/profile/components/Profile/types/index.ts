@@ -11,6 +11,7 @@ export interface IProfileFormValues {
   cityId: string;
   postalCode: string;
   addressDetails: string;
+  FullName: string;
 }
 
 export interface IProfileFormProps {

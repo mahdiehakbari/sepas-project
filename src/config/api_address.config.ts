@@ -6,3 +6,4 @@ export const API_UPDATE_PROFILE = '/api/CustomersCommand/profile';
 export const API_BUDGET_QUERY = '/api/BajetQuery/balance';
 export const API_BUDGET_CALC =
   '/api/CustomerCreditFeeConfigurationQuery/active';
+export const API_CUSTOMER_CREDIT_COMMAND = '/api/CustomerCreditCommand';

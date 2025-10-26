@@ -59,6 +59,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
       birthDate: formatBirthDate(data.birthDate),
       email: data.email || undefined,
       iban: data.iban || undefined,
+      FullName: `${data.firstName} ${data.lastName}`,
     };
 
     try {
