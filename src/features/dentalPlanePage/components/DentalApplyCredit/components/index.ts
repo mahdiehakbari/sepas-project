@@ -3,3 +3,5 @@ export { BankOption } from './BankOption/BankOption';
 export { InquiringBudget } from './InquiringBudget/InquiringBudget';
 export { CreditWorkflowModal } from './CreditWorkflowModal';
 export { PayingSubScription } from './PayingSubScription/PayingSubScription';
+export { getCreditStepTitle } from './utils/creditHelpers';
+export { useCreditWorkflow } from './hooks/useCreditWorkflow';
