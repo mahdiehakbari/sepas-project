@@ -6,7 +6,7 @@ import Cookies from 'js-cookie';
 import { toast } from 'react-toastify';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import axios from 'axios';
-import { API_BUDGET_CALC } from '@/config/api_address.config';
+import { API_BUDGET_CALC, API_BUDGET_QUERY } from '@/config/api_address.config';
 import { IFeeConfiguration } from './types';
 import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
 
@@ -34,25 +34,22 @@ export const FirstTab = () => {
 
   const handleBudgetLoading = () => {
     setCreditLoading(true);
-    setTimeout(() => {
-      setCreditLoading(false);
-      setBudgetData(2000000000);
-      setShowCreditNoteModal(false);
-    }, 3000);
-    // axios
-    //   .get(`${API_BUDGET_QUERY}/0491307314`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     setCreditLoading(false);
-    //     console.log('hiiii', res.data);
-    //     setBudgetData(res.data);
-    //   })
-    //   .catch(() => {
-    //     setCreditLoading(false);
-    //   });
+
+    axios
+      .get(`${API_BUDGET_QUERY}/0491307314`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        setCreditLoading(false);
+        setBudgetData(res.data?.balance);
+        setCreditLoading(false);
+        setShowCreditNoteModal(false);
+      })
+      .catch(() => {
+        setCreditLoading(false);
+      });
   };
 
   const handleShowModal = () => {
@@ -240,6 +237,7 @@ export const FirstTab = () => {
         setShowProfileModal={setShowProfileModal}
         setShowCreditNoteModal={setShowCreditNoteModal}
         showCreditNoteModal={showCreditNoteModal}
+        setBudgetData={setBudgetData}
       />
     </div>
   );

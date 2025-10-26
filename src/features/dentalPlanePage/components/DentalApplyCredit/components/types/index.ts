@@ -25,4 +25,14 @@ export interface ICreditWorkflowModalProps {
   amountReceivedValue: number;
   showProfileModal: boolean;
   setShowProfileModal: (value: boolean) => void;
+  setBudgetData: (value: number | null) => void;
+}
+
+export interface IGetCreditStepTitleProps {
+  t: (key: string) => string;
+  isAuthenticated: boolean;
+  creditLoading: boolean;
+  budgetData?: number | undefined | null;
+  showBill: boolean;
+  isProfileStep: boolean;
 }
