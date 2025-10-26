@@ -10,6 +10,7 @@ export interface ICreditWorkflowModalProps {
   setIsOpenModal: (value: boolean) => void;
   setShowBill: (value: boolean) => void;
   setIsOpenLoginModal: (value: boolean) => void;
+  setShowCreditNoteModal: (value: boolean) => void;
   setIsOpenOtpModal: (value: boolean) => void;
   setFeePercentage: (value: number) => void;
   userProfile: IProfileFormValues | null;
@@ -18,6 +19,7 @@ export interface ICreditWorkflowModalProps {
   handleBudgetLoading: () => void;
   handleProfileBack: () => void;
   isOpenLoginModal: boolean;
+  showCreditNoteModal: boolean;
   isOpenOtpModal: boolean;
   setAmountReceivedValue: (value: number) => void;
   amountReceivedValue: number;

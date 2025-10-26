@@ -10,7 +10,7 @@ import { toast } from 'react-toastify';
 import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { useAuthStore } from '@/store/Auth/authStore';
 import { useProfileStore } from '@/store/Profile/useProfileStore';
-import { IProfileFormValues } from './types';
+import { IProfileFormProps, IProfileFormValues } from './types';
 import { useLocationData } from './hooks/useLocationData';
 import { PersonalInfoSection } from './sections/PersonalInfoSection';
 import { BankInfoSection } from './sections/BankInfoSection';
@@ -18,18 +18,12 @@ import { AddressInfoSection } from './sections/AddressInfoSection';
 import { formatBirthDate } from './utils/formatBirthDate';
 import { updateProfile } from './api/profile.api';
 
-interface IProfileFormProps {
-  name: string;
-  handleBack: () => void;
-  onSuccess?: (updatedUser: IProfileFormValues) => void;
-  setIsOpenModal?: ((value: boolean) => void) | null;
-}
-
 export const ProfileForm: React.FC<IProfileFormProps> = ({
   name,
   handleBack,
   onSuccess,
-  setIsOpenModal,
+  setShowProfileModal,
+  setShowCreditNoteModal,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -72,11 +66,9 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
       setProfile(res.data.profile);
       Cookies.set('userProfile', JSON.stringify(data));
       onSuccess?.(data);
+      setShowProfileModal?.(false);
+      setShowCreditNoteModal?.(true);
       toast.success(t('profile:success_toast'), {});
-
-      void (name !== 'credit'
-        ? router.push('/panel/userAccount')
-        : setIsOpenModal?.(false));
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
       toast.error(error.response?.data?.message || t('profile:update_error'));
@@ -86,7 +78,9 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
   };
 
   return (
-    <div className='max-w-4xl mx-auto'>
+    <div
+      className={`${name == 'credit' ? 'md:w-[800px]' : 'max-w-4xl mx-auto'}`}
+    >
       {name !== 'userAccount' && name !== 'credit' && (
         <>
           <div className='flex items-center gap-2 mb-6'>

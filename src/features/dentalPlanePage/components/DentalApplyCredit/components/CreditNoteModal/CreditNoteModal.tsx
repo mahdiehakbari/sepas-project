@@ -9,7 +9,6 @@ export const CreditNoteModal: React.FC<ICreditNoteModalProps> = ({
   creditLoading,
 }) => {
   const { t } = useTranslation();
-  console.log(creditLoading, 'creditLoading');
   return (
     <>
       {creditLoading == false ? (

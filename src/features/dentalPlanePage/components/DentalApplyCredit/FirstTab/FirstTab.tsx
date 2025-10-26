@@ -28,7 +28,7 @@ export const FirstTab = () => {
   const [feePercentage, setFeePercentage] = useState(0);
   const [amountReceivedValue, setAmountReceivedValue] = useState(100000000);
   const [showProfileModal, setShowProfileModal] = useState(false);
-
+  const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
   const token = Cookies.get('token');
   const userInfo = Cookies.get('userProfile');
 
@@ -36,8 +36,8 @@ export const FirstTab = () => {
     setCreditLoading(true);
     setTimeout(() => {
       setCreditLoading(false);
-
       setBudgetData(2000000000);
+      setShowCreditNoteModal(false);
     }, 3000);
     // axios
     //   .get(`${API_BUDGET_QUERY}/0491307314`, {
@@ -238,6 +238,8 @@ export const FirstTab = () => {
         amountReceivedValue={amountReceivedValue}
         showProfileModal={showProfileModal}
         setShowProfileModal={setShowProfileModal}
+        setShowCreditNoteModal={setShowCreditNoteModal}
+        showCreditNoteModal={showCreditNoteModal}
       />
     </div>
   );

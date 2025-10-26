@@ -70,7 +70,6 @@ export const OtpModal: React.FC<IOtpProps> = ({
   };
 
   useEffect(() => {
-    console.log(otp);
     if (otp.length === 6) {
       handleSubmit();
     }
