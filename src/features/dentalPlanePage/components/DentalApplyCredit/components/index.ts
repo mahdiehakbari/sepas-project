@@ -7,3 +7,4 @@ export { getCreditStepTitle } from './utils/creditHelpers';
 export { useCreditWorkflow } from './hooks/useCreditWorkflow';
 export { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
 export { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
+export { OtpPaymentReceiptResult } from './/OtpPaymentReceiptResult/OtpPaymentReceiptResult';

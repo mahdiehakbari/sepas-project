@@ -12,6 +12,7 @@ import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { useState } from 'react';
 import { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
 import { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
+import { OtpPaymentReceiptResult } from './OtpPaymentReceiptResult/OtpPaymentReceiptResult';
 
 export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
   const workflow = useCreditWorkflow(props);
@@ -122,7 +123,11 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               )}
               {paymentReceiptStep == 3 && (
                 <>
-                  <OtpPaymentReceipt
+                  <OtpPaymentReceiptResult
+                    setIsOpenModal={props.setIsOpenModal}
+                    setShowCreditNoteModal={props.setShowCreditNoteModal}
+                    setShowBill={props.setShowBill}
+                    setBudgetData={props.setBudgetData}
                     setPaymentReceiptStep={setPaymentReceiptStep}
                   />
                 </>
