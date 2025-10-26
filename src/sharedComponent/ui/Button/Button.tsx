@@ -14,7 +14,7 @@ const Button = forwardRef<HTMLButtonElement, ButtonProps>(
             'bg-[var(--second-primary)] text-white hover:bg-[var(--second-primary-hover)] focus:ring-[var(--second-primary-hover)] disabled:bg-[var(--second-primary-disabled)]  disabled:text-[var(--text-disabled)]',
 
           variant === 'outline' &&
-            'bg-transparent border border-[var(--button-outline-border)] text-var(--button-outline-border)] hover:border-[var(--second-primary-hover)] hover:text-[var(--second-primary-hover)] disabled:bg-[var(--button-outline-disabled)] disabled:text-[var(--text-disabled)] disabled:border-[var(--border-color-gray)]',
+            'bg-transparent border border-primary text-primary hover:border-[var(--second-primary-hover)] hover:text-[var(--second-primary-hover)] disabled:bg-[var(--button-outline-disabled)] disabled:text-[var(--text-disabled)] disabled:border-[var(--border-color-gray)]',
 
           size === 'sm' && 'px-4 py-2 text-sm',
           size === 'md' &&

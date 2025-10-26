@@ -14,6 +14,7 @@ import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
+import { useAuthStore } from '@/store/Auth/authStore';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -25,7 +26,14 @@ export const Header = () => {
   const [openPopUp, setOpenPopUp] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
+  const { logout } = useAuthStore();
 
+  const handleLogout = () => {
+    logout();
+    Cookies.remove('userProfile');
+    Cookies.remove('isLoggedIn');
+    router.push('/');
+  };
   const handleLogin = () => {
     setIsOpenLoginModal(true);
     setIsOpenModal(true);
@@ -39,7 +47,7 @@ export const Header = () => {
   };
 
   return (
-    <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-background mb-14'>
+    <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-white mb-14'>
       <div className='mx-auto max-w-7xl px-4 py-2.5 flex items-center justify-between'>
         <div className='flex items-center gap-[50px]'>
           <Image
@@ -112,10 +120,7 @@ export const Header = () => {
                       label: t('profile:log_out'),
                       image: '/assets/icons/logout.svg',
                       danger: true,
-                      onClick: () => {
-                        Cookies.remove('isLoggedIn');
-                        router.push('/');
-                      },
+                      onClick: handleLogout,
                     },
                   ]}
                 />

@@ -1,49 +1,47 @@
 'use client';
+
 import React, { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Image from 'next/image';
+import Cookies from 'js-cookie';
+import { useForm, SubmitHandler } from 'react-hook-form';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
 import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { useAuthStore } from '@/store/Auth/authStore';
 import { useProfileStore } from '@/store/Profile/useProfileStore';
-import { useForm, SubmitHandler } from 'react-hook-form';
-import { useTranslation } from 'react-i18next';
-import Cookies from 'js-cookie';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import axios from 'axios';
-import { API_UPDATE_PROFILE } from '@/config/api_address.config';
-import { IProfileFormValues } from './types';
+import { IProfileFormProps, IProfileFormValues } from './types';
 import { useLocationData } from './hooks/useLocationData';
 import { PersonalInfoSection } from './sections/PersonalInfoSection';
 import { BankInfoSection } from './sections/BankInfoSection';
 import { AddressInfoSection } from './sections/AddressInfoSection';
-import { toast } from 'react-toastify';
-import { DateObject } from 'react-multi-date-picker';
-import { Calendar, Locale } from 'react-date-object';
-import persian_fa from 'react-date-object/locales/persian_fa';
-import persian from 'react-date-object/calendars/persian';
-export const ProfileForm = ({
+import { formatBirthDate } from './utils/formatBirthDate';
+import { updateProfile } from './api/profile.api';
+
+export const ProfileForm: React.FC<IProfileFormProps> = ({
   name,
   handleBack,
   onSuccess,
-}: {
-  name: string;
-  handleBack: () => void;
-  onSuccess?: (updatedUser: IProfileFormValues) => void;
+  setShowProfileModal,
+  setShowCreditNoteModal,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
   const { profile, setProfile } = useProfileStore();
   const { user } = useAuthStore();
+
   const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
   const [isLoading, setIsLoading] = useState(false);
+
   const {
     register,
     handleSubmit,
     setValue,
-    formState: { errors },
     control,
+    formState: { errors },
   } = useForm<IProfileFormValues>({ defaultValues: profile });
-  const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
 
+  const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
   const savedPhone = Cookies.get('phoneNumber');
 
   useEffect(() => {
@@ -52,60 +50,40 @@ export const ProfileForm = ({
 
   const onSubmit: SubmitHandler<IProfileFormValues> = async (data) => {
     const token = Cookies.get('token');
-    setIsLoading(true);
-    let birthDateISO: string = '';
-    if (data.birthDate) {
-      const dateObj = new DateObject({
-        date: data.birthDate,
-        calendar: persian as Calendar,
-        locale: persian_fa as Locale,
-      });
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      //@ts-expect-error
-      birthDateISO = dateObj.convert('gregorian').toDate().toISOString();
-    }
+    if (!token) return toast.error(t('profile:token_missing'));
 
-    const formattedData: IProfileFormValues = {
+    setIsLoading(true);
+
+    const formattedData: Partial<IProfileFormValues> = {
       ...data,
-      birthDate: birthDateISO,
+      birthDate: formatBirthDate(data.birthDate),
+      email: data.email || undefined,
+      iban: data.iban || undefined,
     };
 
-    if (!formattedData.email) {
-      delete formattedData?.email;
-    }
-
-    if (!formattedData.iban) {
-      delete formattedData?.iban;
-    }
-
     try {
-      const res = await axios.put(API_UPDATE_PROFILE, formattedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json',
-        },
-      });
-
+      const res = await updateProfile(token, formattedData);
       setProfile(res.data.profile);
-
       Cookies.set('userProfile', JSON.stringify(data));
-      if (onSuccess) onSuccess(data);
-
-      toast.success(t('profile:success_toast'));
-      router.push('/panel/userAccount');
+      onSuccess?.(data);
+      setShowProfileModal?.(false);
+      setShowCreditNoteModal?.(true);
+      toast.success(t('profile:success_toast'), {});
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
-      toast.error(error.response?.data?.message || 'خطا در آپدیت پروفایل');
+      toast.error(error.response?.data?.message || t('profile:update_error'));
     } finally {
       setIsLoading(false);
     }
   };
 
   return (
-    <div className='max-w-4xl mx-auto'>
-      {name !== 'userAccount' && (
+    <div
+      className={`${name == 'credit' ? 'md:w-[800px]' : 'max-w-4xl mx-auto'}`}
+    >
+      {name !== 'userAccount' && name !== 'credit' && (
         <>
-          <div className='flex items-center justify-start mb-6 gap-2'>
+          <div className='flex items-center gap-2 mb-6'>
             <button onClick={() => router.push('/')} className='cursor-pointer'>
               <Image
                 src='/assets/icons/black-back-button.svg'
@@ -114,10 +92,11 @@ export const ProfileForm = ({
                 height={24}
               />
             </button>
-            <h2 className='text-[18px] font-[700]'>
+            <h2 className='text-[18px] font-bold'>
               {t('profile:complete_profile')}
             </h2>
           </div>
+
           <div className='bg-[var(--block-color)] border border-border-color rounded-lg py-3 px-6 mb-6'>
             <div className='flex items-center gap-6'>
               <div className='relative'>
@@ -145,7 +124,7 @@ export const ProfileForm = ({
       )}
 
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className='p-6 bg-[var(--block-color)] border border-border-color rounded-lg'>
+        <div className='p-6 bg-[var(--block-color)] border border-border-color rounded-lg space-y-6'>
           <PersonalInfoSection
             t={t}
             register={register}
@@ -163,7 +142,7 @@ export const ProfileForm = ({
           />
         </div>
 
-        <div className='flex gap-4 my-6 justify-end'>
+        <div className='flex justify-end gap-4 my-6'>
           <Button
             variant='outline'
             disabled={isLoading}

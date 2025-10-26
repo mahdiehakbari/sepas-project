@@ -13,18 +13,26 @@ export const OtpModal: React.FC<IOtpProps> = ({
   setIsOpenOtpModal,
   setIsOpenLoginModal,
   setIsOpenModal,
+  setShowProfileModal,
+  name,
 }) => {
   const { t } = useTranslation();
-  const { phone, otp, setOtp, isSubmitting, error, handleSubmit } = useOtp(() =>
-    setIsOpenModal(false),
-  );
 
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(120);
   const [canResend, setCanResend] = useState(false);
   const { sendOtp } = useSendOtp();
   const [apiError, setApiError] = useState('');
+  const handleClose = () => {
+    if (name && setShowProfileModal) {
+      setShowProfileModal(true);
+    } else {
+      setIsOpenModal(false);
+    }
+  };
 
+  const { phone, otp, setOtp, isSubmitting, error, handleSubmit } =
+    useOtp(handleClose);
   const handleBack = () => {
     setIsOpenOtpModal(false);
     setIsOpenLoginModal(true);
@@ -62,7 +70,6 @@ export const OtpModal: React.FC<IOtpProps> = ({
   };
 
   useEffect(() => {
-    console.log(otp);
     if (otp.length === 6) {
       handleSubmit();
     }

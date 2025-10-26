@@ -1,8 +1,14 @@
 'use client';
 import { Button } from '@/sharedComponent/ui';
-import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
+import { toast } from 'react-toastify';
+import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
+import axios from 'axios';
+import { API_BUDGET_CALC } from '@/config/api_address.config';
+import { IFeeConfiguration } from './types';
+import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
 
 export const FirstTab = () => {
   const { t } = useTranslation();
@@ -10,6 +16,90 @@ export const FirstTab = () => {
   const options = ['۶ ماهه', '۹ ماهه', '۱۲ ماهه', '۱۸ ماهه'];
   const [active, setActive] = useState(options[0]);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [creditLoading, setCreditLoading] = useState(false);
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+  const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
+  const [showBill, setShowBill] = useState(false);
+  const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
+    null,
+  );
+  const [budgetData, setBudgetData] = useState<number | null>(null);
+  const [budgetCalcData, setBudgetCalcData] = useState<IFeeConfiguration[]>([]);
+  const [feePercentage, setFeePercentage] = useState(0);
+  const [amountReceivedValue, setAmountReceivedValue] = useState(100000000);
+  const [showProfileModal, setShowProfileModal] = useState(false);
+  const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
+  const token = Cookies.get('token');
+  const userInfo = Cookies.get('userProfile');
+
+  const handleBudgetLoading = () => {
+    setCreditLoading(true);
+    setTimeout(() => {
+      setCreditLoading(false);
+      setBudgetData(2000000000);
+      setShowCreditNoteModal(false);
+    }, 3000);
+    // axios
+    //   .get(`${API_BUDGET_QUERY}/0491307314`, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   })
+    //   .then((res) => {
+    //     setCreditLoading(false);
+    //     console.log('hiiii', res.data);
+    //     setBudgetData(res.data);
+    //   })
+    //   .catch(() => {
+    //     setCreditLoading(false);
+    //   });
+  };
+
+  const handleShowModal = () => {
+    setIsOpenModal(true);
+    setCreditLoading(false);
+    if (!token) {
+      toast.success(t('credit:log_in_continue'), {
+        position: 'top-center',
+        autoClose: 3000,
+        hideProgressBar: true,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: false,
+        icon: false,
+        style: {
+          backgroundColor: '#ebf3fd',
+          color: 'black',
+          fontSize: '16px',
+          borderRadius: '8px',
+          textAlign: 'center',
+        },
+      });
+
+      setIsOpenLoginModal(true);
+    }
+    if (userInfo) {
+      setUserProfile(JSON.parse(userInfo));
+    }
+  };
+  const handleProfileBack = () => {
+    setIsOpenModal(false);
+  };
+
+  useEffect(() => {
+    if (budgetData) {
+      axios
+        .get(API_BUDGET_CALC, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((res) => {
+          setBudgetCalcData(res.data.feeConfigurations);
+        })
+        .catch(() => {});
+    }
+  }, [budgetData]);
 
   return (
     <div className='flex flex-wrap -mx-4 '>
@@ -121,19 +211,36 @@ export const FirstTab = () => {
             </div>
           </div>
 
-          <Button className='w-full' onClick={() => setIsOpenModal(true)}>
+          <Button className='w-full' onClick={handleShowModal}>
             {t('dental_plane:apply_credit')}
           </Button>
         </div>
       </div>
-
-      <ResponsiveModal
-        isOpen={isOpenModal}
-        title={t('credit:apply_credit')}
-        onClose={() => setIsOpenModal(false)}
-      >
-        eeeeeee
-      </ResponsiveModal>
+      <CreditWorkflowModal
+        isOpenModal={isOpenModal}
+        creditLoading={creditLoading}
+        token={token}
+        budgetData={budgetData}
+        setIsOpenModal={setIsOpenModal}
+        userProfile={userProfile}
+        showBill={showBill}
+        setShowBill={setShowBill}
+        budgetCalcData={budgetCalcData}
+        setFeePercentage={setFeePercentage}
+        feePercentage={feePercentage}
+        handleBudgetLoading={handleBudgetLoading}
+        isOpenLoginModal={isOpenLoginModal}
+        setIsOpenLoginModal={setIsOpenLoginModal}
+        setIsOpenOtpModal={setIsOpenOtpModal}
+        isOpenOtpModal={isOpenOtpModal}
+        handleProfileBack={handleProfileBack}
+        setAmountReceivedValue={setAmountReceivedValue}
+        amountReceivedValue={amountReceivedValue}
+        showProfileModal={showProfileModal}
+        setShowProfileModal={setShowProfileModal}
+        setShowCreditNoteModal={setShowCreditNoteModal}
+        showCreditNoteModal={showCreditNoteModal}
+      />
     </div>
   );
 };

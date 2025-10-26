@@ -13,12 +13,16 @@
   --second-primary-disabled: #d5d6d7;
   --border-color-gray: #97999b;
   --text-disabled: #ababab;
-  --button-outline-border: #2690e0;
   --button-outline-disabled: #eaebeb;
   --error-color: #d33c3c;
   --secondary: #f3f3f3;
   --primary-border: #2f76c7;
   --second-gray: #e0e0e0;
+  --second-border-gray: #e6e6e6;
+  --light-primary: #ebf3fd;
+  --second-light-primary: #d4e9f9;
+  --bg-gray: #e9e9e9;
+  --green-color: #64B054;
 
   --button-primary: #2378d8;
   --second-blue: #eaf3f8;
@@ -31,7 +35,6 @@
   --danger-color: #ff4b4b;
   --block-color: #f9f9f9;
   --second-primary: #124681;
-  --light-primary: #ebf3fd;
 }
 
 @theme inline {
@@ -44,12 +47,15 @@
   --second-primary-disabled: var(--second-primary-disabled);
   --border-color-gray: var(--border-color-gray);
   --text-disabled: var(--text-disabled);
-  --button-outline-border: var(--button-outline-border);
   --button-outline-disabled: var(--button-outline-disabled);
   --error-color: var(--error-color);
   --light-primary: var(--light-primary);
+  --second-light-primary: var(--second-light-primary);
   --second-primary: var(--second-primary);
   --primary-border: var(--primary-border);
+  --second-border-gray: var(--second-border-gray);
+  --bg-gray: var(--bg-gray);
+  --green-color:var(--green-color)
 
   --color-background: var(--background);
   --color-first-gradient: var(--first-gradient);
@@ -125,29 +131,33 @@ html.font-en {
   height: 100%;
 }
 
-input[type='range'] {
+.range-slider {
   -webkit-appearance: none;
   appearance: none;
   background: transparent;
-  height: 2px;
+  height: 4px;
+  cursor: pointer;
+  width: 100%;
 }
+
 input[type='range']::-webkit-slider-thumb {
   -webkit-appearance: none;
   appearance: none;
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #3b82f6;
+  background: #2690e0;
   border: 4px solid white;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.3);
   cursor: pointer;
-  margin-top: -9px;
+  margin-top: -4px;
 }
+
 input[type='range']::-moz-range-thumb {
   height: 20px;
   width: 20px;
   border-radius: 50%;
-  background: #3b82f6;
-  border: 5px solid white;
+  background: #2690e0;
+  border: 4px solid white;
   cursor: pointer;
 }

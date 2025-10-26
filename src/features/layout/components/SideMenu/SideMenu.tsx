@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import { useTranslation } from 'react-i18next';
 import { getSideBarItems } from './constants';
+import { useAuthStore } from '@/store/Auth/authStore';
 
 export const SideMenu = () => {
   const { t } = useTranslation();
@@ -14,6 +15,14 @@ export const SideMenu = () => {
   );
   const pathname = usePathname();
   const router = useRouter();
+  const { logout } = useAuthStore();
+
+  const handleLogout = () => {
+    logout();
+    Cookies.remove('userProfile');
+    Cookies.remove('isLoggedIn');
+    router.push('/');
+  };
 
   useEffect(() => {
     const userInfo = Cookies.get('userProfile');
@@ -83,10 +92,7 @@ export const SideMenu = () => {
           </div>
           <div
             className='flex items-center gap-1 pb-1 cursor-pointer '
-            onClick={() => {
-              Cookies.remove('isLoggedIn');
-              router.push('/');
-            }}
+            onClick={handleLogout}
           >
             <Image
               src='/assets/icons/logout.svg'

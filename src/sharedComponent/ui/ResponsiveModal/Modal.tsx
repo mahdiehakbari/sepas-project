@@ -52,12 +52,12 @@ export default function ResponsiveModal({
                   />
                 </div>
               )}
-              <div className={` overflow-y-auto max-h-[90vh]`}>{children}</div>
+              <div className={` overflow-y-auto max-h-[60vh]`}>{children}</div>
             </div>
           </motion.div>
 
           <motion.div
-            className={`sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white  rounded-t-2xl shadow-lg`}
+            className={`sm:hidden fixed bottom-0 left-0 right-0 z-50 bg-white rounded-t-2xl shadow-lg max-h-[90vh] overflow-y-auto`}
             initial={{ y: '100%' }}
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
@@ -68,8 +68,16 @@ export default function ResponsiveModal({
             }}
           >
             {title && (
-              <div className='border-b border-neutral-200 pb-2 mb-2'>
+              <div className='p-4 border-b border-neutral-200 flex justify-between items-center'>
                 <h2 className='text-lg font-semibold'>{title}</h2>
+                <Image
+                  src='/assets/icons/close-button.svg'
+                  alt='close-button'
+                  width={24}
+                  height={24}
+                  className='cursor-pointer hover:opacity-80'
+                  onClick={onClose}
+                />
               </div>
             )}
             {children}

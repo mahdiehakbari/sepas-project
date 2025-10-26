@@ -20,7 +20,7 @@ export const useOtp = (onClose: () => void) => {
   }, []);
 
   useEffect(() => {
-    const token = localStorage.getItem('token') || Cookies.get('token');
+    const token = Cookies.get('token');
     const userData = localStorage.getItem('user');
 
     if (token && userData) {
@@ -60,13 +60,10 @@ export const useOtp = (onClose: () => void) => {
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setError(err.response?.data?.message || 'خطایی رخ داده است.');
-        console.log('Axios error:', err.response?.data);
       } else if (err instanceof Error) {
         setError(err.message);
-        console.log('JS error:', err.message);
       } else {
         setError('خطای ناشناخته رخ داده است.');
-        console.log('Unknown error:', err);
       }
     } finally {
       setIsSubmitting(false);

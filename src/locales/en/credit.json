@@ -1,5 +1,26 @@
 {
   "apply_credit": "Apply for credit",
   "process_amount_credit": "Please note that after completing the validation process, the amount of credit that the applicant can receive will be determined based on the results of this evaluation, and with this credit, she can use the selected services.",
-  "inquiry": "inquiry"
+  "inquiry": "inquiry",
+  "inquiring_budget": "Inquiring about the budget",
+  "please_wait": "Please wait.",
+  "log_in_continue": "Please log in to continue the process!",
+  "enter_info": "Please enter your information to receive credit.",
+  "validation_result_budget": "Validation result from budget",
+  "approved_credit_amount": "Your approved credit amount in the budget",
+  "amount_credit_requesting": "Select the amount of credit you are requesting.",
+  "toman": "Toman",
+  "rial": "Rial",
+  "credit_requested": "Credit requested",
+  "subscription": "Amount of fee paid (subscription)",
+  "agree_terms": "I agree to the terms and conditions of the <1>Credit Application Rules and Regulations</1>.",
+  "receive_credit": "Receive credit",
+  "paying_subscription": "Paying our subscription",
+  "project_name": "Project name:",
+  "loan_amount_received": "Loan amount received:",
+  "paid_subscription": "Paid subscription:",
+  "payment_gateway_selection:": "Payment gateway selection:",
+  "saman_bank": "Saman Bank",
+  "canceled": "cancel",
+  "confirmation": "Confirmation"
 }

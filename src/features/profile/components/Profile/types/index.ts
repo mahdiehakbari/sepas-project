@@ -12,3 +12,11 @@ export interface IProfileFormValues {
   postalCode: string;
   addressDetails: string;
 }
+
+export interface IProfileFormProps {
+  name: string;
+  handleBack: () => void;
+  onSuccess?: (updatedUser: IProfileFormValues) => void;
+  setShowProfileModal?: ((value: boolean) => void) | null;
+  setShowCreditNoteModal?: (value: boolean) => void;
+}
