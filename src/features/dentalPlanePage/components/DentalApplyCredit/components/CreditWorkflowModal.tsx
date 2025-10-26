@@ -10,6 +10,7 @@ import { PayingSubScription } from './PayingSubScription/PayingSubScription';
 import { ICreditWorkflowModalProps } from './types';
 import { useCreditWorkflow } from './hooks/useCreditWorkflow';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
+import { useState } from 'react';
 
 export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
   const workflow = useCreditWorkflow(props);
@@ -40,7 +41,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     amountReceivedValue,
     setProfileData,
   } = workflow;
-
+  const [showPaymentReceipt, setShowPaymentReceipt] = useState(false);
   return (
     <ResponsiveModal
       isOpen={props.isOpenModal}
@@ -92,10 +93,21 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               creditLoading={creditLoading}
             />
           ) : budgetData && showBill ? (
-            <PayingSubScription
-              feePercentage={feePercentage}
-              amountReceivedValue={amountReceivedValue}
-            />
+            <>
+              {showPaymentReceipt == false ? (
+                <PayingSubScription
+                  feePercentage={feePercentage}
+                  amountReceivedValue={amountReceivedValue}
+                  setIsOpenModal={props.setIsOpenModal}
+                  setShowCreditNoteModal={props.setShowCreditNoteModal}
+                  setShowBill={props.setShowBill}
+                  setBudgetData={props.setBudgetData}
+                  setShowPaymentReceipt={setShowPaymentReceipt}
+                />
+              ) : (
+                <></>
+              )}
+            </>
           ) : (
             <InquiringBudget
               setShowBill={setShowBill}

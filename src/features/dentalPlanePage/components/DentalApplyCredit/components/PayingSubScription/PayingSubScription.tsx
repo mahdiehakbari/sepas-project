@@ -4,18 +4,26 @@ import { useTranslation } from 'react-i18next';
 import { BankOption } from '../BankOption/BankOption';
 import { useState } from 'react';
 import { Button } from '@/sharedComponent/ui';
-
-export interface IPayingSubscriptionProps {
-  feePercentage: number;
-  amountReceivedValue: number;
-}
+import { IPayingSubscriptionProps } from './types';
 
 export const PayingSubScription = ({
   feePercentage,
   amountReceivedValue,
+  setIsOpenModal,
+  setShowCreditNoteModal,
+  setShowBill,
+  setBudgetData,
+  setShowPaymentReceipt,
 }: IPayingSubscriptionProps) => {
   const { t } = useTranslation();
   const [selectedBank, setSelectedBank] = useState('saman');
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setShowCreditNoteModal(true);
+    setShowBill(false);
+    setBudgetData(null);
+  };
 
   return (
     <div className='md:w-[600px] p-4'>
@@ -56,8 +64,12 @@ export const PayingSubScription = ({
         setSelectedBank={setSelectedBank}
       />
       <div className=' border-t border-secondary py-2 px-4 flex justify-between mt-10'>
-        <Button variant='outline'>{t('credit:canceled')}</Button>
-        <Button>{t('credit:confirmation')}</Button>
+        <Button variant='outline' onClick={handleCloseModal}>
+          {t('credit:canceled')}
+        </Button>
+        <Button onClick={() => setShowPaymentReceipt(true)}>
+          {t('credit:confirmation')}
+        </Button>
       </div>
     </div>
   );
