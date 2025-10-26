@@ -8,6 +8,7 @@ import { IOtpProps } from './constants';
 import Link from 'next/link';
 import { useSendOtp } from '../PhoneNumber/hooks';
 import axios from 'axios';
+import { formatTime } from '@/sharedComponent/lib';
 
 export const OtpModal: React.FC<IOtpProps> = ({
   setIsOpenOtpModal,
@@ -46,14 +47,6 @@ export const OtpModal: React.FC<IOtpProps> = ({
     const timer = setInterval(() => setTimeLeft((t) => t - 1), 1000);
     return () => clearInterval(timer);
   }, [timeLeft]);
-
-  const formatTime = (seconds: number) => {
-    const m = Math.floor(seconds / 60)
-      .toString()
-      .padStart(2, '0');
-    const s = (seconds % 60).toString().padStart(2, '0');
-    return `${m}:${s}`;
-  };
 
   const handleResend = async () => {
     setOtp('');

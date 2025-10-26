@@ -4,6 +4,6 @@ export interface IPayingSubscriptionProps {
   setIsOpenModal: (value: boolean) => void;
   setShowCreditNoteModal: (value: boolean) => void;
   setShowBill: (value: boolean) => void;
-  setShowPaymentReceipt: (value: boolean) => void;
+  setPaymentReceiptStep: (value: number) => void;
   setBudgetData: (value: null | number) => void;
 }

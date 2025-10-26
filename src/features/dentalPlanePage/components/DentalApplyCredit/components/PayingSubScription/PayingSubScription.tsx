@@ -13,7 +13,7 @@ export const PayingSubScription = ({
   setShowCreditNoteModal,
   setShowBill,
   setBudgetData,
-  setShowPaymentReceipt,
+  setPaymentReceiptStep,
 }: IPayingSubscriptionProps) => {
   const { t } = useTranslation();
   const [selectedBank, setSelectedBank] = useState('saman');
@@ -67,7 +67,7 @@ export const PayingSubScription = ({
         <Button variant='outline' onClick={handleCloseModal}>
           {t('credit:canceled')}
         </Button>
-        <Button onClick={() => setShowPaymentReceipt(true)}>
+        <Button onClick={() => setPaymentReceiptStep(1)}>
           {t('credit:confirmation')}
         </Button>
       </div>

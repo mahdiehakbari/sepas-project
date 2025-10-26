@@ -6,11 +6,12 @@ import { ProfileForm } from '@/features/profile';
 import { CreditNoteModal } from './CreditNoteModal/CreditNoteModal';
 import { InquiringBudget } from './InquiringBudget/InquiringBudget';
 import { PayingSubScription } from './PayingSubScription/PayingSubScription';
-
 import { ICreditWorkflowModalProps } from './types';
 import { useCreditWorkflow } from './hooks/useCreditWorkflow';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { useState } from 'react';
+import { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
+import { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
 
 export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
   const workflow = useCreditWorkflow(props);
@@ -41,7 +42,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     amountReceivedValue,
     setProfileData,
   } = workflow;
-  const [showPaymentReceipt, setShowPaymentReceipt] = useState(false);
+  const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
   return (
     <ResponsiveModal
       isOpen={props.isOpenModal}
@@ -94,7 +95,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
             />
           ) : budgetData && showBill ? (
             <>
-              {showPaymentReceipt == false ? (
+              {paymentReceiptStep == 0 && (
                 <PayingSubScription
                   feePercentage={feePercentage}
                   amountReceivedValue={amountReceivedValue}
@@ -102,10 +103,29 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
                   setShowCreditNoteModal={props.setShowCreditNoteModal}
                   setShowBill={props.setShowBill}
                   setBudgetData={props.setBudgetData}
-                  setShowPaymentReceipt={setShowPaymentReceipt}
+                  setPaymentReceiptStep={setPaymentReceiptStep}
                 />
-              ) : (
-                <></>
+              )}
+              {paymentReceiptStep == 1 && (
+                <>
+                  <PaymentReceipt
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                  />
+                </>
+              )}
+              {paymentReceiptStep == 2 && (
+                <>
+                  <OtpPaymentReceipt
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                  />
+                </>
+              )}
+              {paymentReceiptStep == 3 && (
+                <>
+                  <OtpPaymentReceipt
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                  />
+                </>
               )}
             </>
           ) : (
