@@ -2,6 +2,8 @@ import React from 'react';
 import { DateInput, FormTitle, Input, SelectInput } from '@/sharedComponent/ui';
 import { validationRules } from '../utils/validationRules';
 import { IPersonalInfoSectionProps } from './types';
+import { RegisterOptions } from 'react-hook-form';
+import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 
 export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   t,
@@ -43,7 +45,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
-          rules={rules.mobile}
+          rules={rules.mobile as unknown as RegisterOptions<IProfileFormValues>}
         />
 
         <Input
@@ -52,7 +54,9 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
-          rules={rules.nationalCode}
+          rules={
+            rules.nationalId as unknown as RegisterOptions<IProfileFormValues>
+          }
         />
 
         <DateInput

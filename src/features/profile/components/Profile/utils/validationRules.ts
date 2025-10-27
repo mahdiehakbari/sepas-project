@@ -1,19 +1,21 @@
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-export const validationRules = (t: any) => ({
+export const validationRules = (t: {
+  (key: string): string;
+  (arg0: string): unknown;
+}) => ({
   mobile: {
     required: t('profile:field_required'),
     pattern: {
       value: /^[0-9]*$/,
       message: t('profile:only_numbers_allowed'),
     },
-    // ✅ اصلاح: value می‌تواند undefined باشد
+
     validate: (value?: string) => {
-      if (!value) return true; // اجازه بده تا rule "required" خودش چک بشه
+      if (!value) return true;
       return value.length === 11 || t('profile:mobile_must_be_11_digits');
     },
   },
 
-  nationalCode: {
+  nationalId: {
     required: t('profile:field_required'),
     pattern: {
       value: /^[0-9]{10}$/,

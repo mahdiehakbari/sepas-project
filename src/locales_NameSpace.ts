@@ -4,6 +4,7 @@ export const localesNS = [
   'login',
   'profile',
   'credit',
+  'transaction_list',
 ] as const;
 export type LocaleNS = (typeof localesNS)[number];
 
