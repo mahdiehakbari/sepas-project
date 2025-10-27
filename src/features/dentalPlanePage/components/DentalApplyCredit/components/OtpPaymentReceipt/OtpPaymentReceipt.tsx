@@ -50,25 +50,35 @@ export const OtpPaymentReceipt = ({
 
   const handleSendOtp = () => {
     setButtonLoading(true);
-    // axios
-    //   .post(
-    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/process-bajet-payment`,
-    //     {
-    //       bajetOtp: otp,
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   )
-    //   .then((response) => {
-    //     setButtonLoading(false);
-    //     console.log(response.data);
-    //   })
-    //   .catch(() => {
-    //     setButtonLoading(false);
-    //   });
-    setPaymentReceiptStep(3);
+    axios
+      .post(
+        `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/process-bajet-payment`,
+        {
+          bajetOtp: otp,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((response) => {
+        setButtonLoading(false);
+        setPaymentReceiptStep(3);
+      })
+      .catch((err) => {
+        setButtonLoading(false);
+        if (axios.isAxiosError(err)) {
+          setError(err.response?.data?.message || 'خطایی رخ داده است.');
+        }
+      });
   };
+
+  useEffect(() => {
+    if (otp.length == 6) {
+      handleSendOtp();
+    }
+  }, [otp]);
 
   return (
     <>
@@ -140,7 +150,10 @@ export const OtpPaymentReceipt = ({
         </div>
       </div>
       <div className=' border-t border-secondary py-2 px-4 flex justify-end'>
-        <Button disabled={otp.length != 6} onClick={handleSendOtp}>
+        <Button
+          disabled={otp.length != 6 || buttonLoading}
+          onClick={handleSendOtp}
+        >
           {buttonLoading ? (
             <SpinnerDiv size='sm' className='text-white' />
           ) : (

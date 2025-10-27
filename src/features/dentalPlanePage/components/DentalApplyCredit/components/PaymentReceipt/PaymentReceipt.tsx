@@ -11,32 +11,37 @@ import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 export const PaymentReceipt = ({
   setPaymentReceiptStep,
   creditRequestId,
+  ipgTransactionId,
 }: IPaymentReceiptProps) => {
   const { t } = useTranslation();
   const [buttonLoading, setButtonLoading] = useState(false);
   const token = Cookies.get('token');
 
   const handleReceiveCredit = () => {
-    setPaymentReceiptStep(2);
-    // axios
-    //   .post(
-    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/complete-ipg-payment`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   )
-    //   .then((resp) => {
-    //     console.log(resp.data, 'vvvv');
-    //     setPaymentReceiptStep(2);
-    //     setButtonLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setButtonLoading(false);
-    //   });
+    setButtonLoading(true);
+    axios
+      .post(
+        `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/complete-ipg-payment`,
+        {
+          ipgTransactionId: ipgTransactionId,
+          isSuccessful: true,
+          errorMessage: 'Payment declined by bank',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((resp) => {
+        setPaymentReceiptStep(2);
+        setButtonLoading(false);
+      })
+      .catch(() => {
+        setButtonLoading(false);
+      });
   };
+
   return (
     <>
       <div className='md:w-[600px] flex flex-col items-center justify-center py-6 px-8'>

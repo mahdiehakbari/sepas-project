@@ -6,5 +6,6 @@ export interface IPayingSubscriptionProps {
   setShowBill: (value: boolean) => void;
   setPaymentReceiptStep: (value: number) => void;
   setBudgetData: (value: null | number) => void;
+  setIpgTransactionId: (value: string) => void;
   creditRequestId: string;
 }

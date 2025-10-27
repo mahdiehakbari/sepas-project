@@ -18,6 +18,7 @@ export const PayingSubScription = ({
   setBudgetData,
   setPaymentReceiptStep,
   creditRequestId,
+  setIpgTransactionId,
 }: IPayingSubscriptionProps) => {
   const { t } = useTranslation();
   const [selectedBank, setSelectedBank] = useState('saman');
@@ -34,25 +35,25 @@ export const PayingSubScription = ({
 
   const handleConfirm = () => {
     setButtonLoading(true);
-    setPaymentReceiptStep(1);
-    // axios
-    //   .post(
-    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/ipg-payment`,
-    //     {},
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   )
-    //   .then((resp) => {
-    //     console.log(resp.data);
-    //     setPaymentReceiptStep(1);
-    //     setButtonLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setButtonLoading(false);
-    //   });
+
+    axios
+      .post(
+        `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/ipg-payment`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((resp) => {
+        setIpgTransactionId(resp.data.ipgTransactionId);
+        setPaymentReceiptStep(1);
+        setButtonLoading(false);
+      })
+      .catch(() => {
+        setButtonLoading(false);
+      });
   };
 
   return (
