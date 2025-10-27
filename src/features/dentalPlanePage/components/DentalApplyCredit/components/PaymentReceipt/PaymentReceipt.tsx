@@ -1,15 +1,41 @@
 'use client';
-import { Button } from '@/sharedComponent/ui';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 import { IPaymentReceiptProps } from './types';
+import axios from 'axios';
+import { useState } from 'react';
+import Cookies from 'js-cookie';
+import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 
 export const PaymentReceipt = ({
   setPaymentReceiptStep,
+  creditRequestId,
 }: IPaymentReceiptProps) => {
   const { t } = useTranslation();
+  const [buttonLoading, setButtonLoading] = useState(false);
+  const token = Cookies.get('token');
+
   const handleReceiveCredit = () => {
     setPaymentReceiptStep(2);
+    // axios
+    //   .post(
+    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/complete-ipg-payment`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     },
+    //   )
+    //   .then((resp) => {
+    //     console.log(resp.data, 'vvvv');
+    //     setPaymentReceiptStep(2);
+    //     setButtonLoading(false);
+    //   })
+    //   .catch(() => {
+    //     setButtonLoading(false);
+    //   });
   };
   return (
     <>
@@ -39,8 +65,16 @@ export const PaymentReceipt = ({
       </div>
 
       <div className=' border-t border-secondary py-2 px-4 flex justify-between mt-10'>
-        <Button variant='outline' onClick={handleReceiveCredit}>
-          {t('credit:receive_credit')}
+        <Button
+          variant='outline'
+          disabled={buttonLoading}
+          onClick={handleReceiveCredit}
+        >
+          {buttonLoading ? (
+            <SpinnerDiv size='sm' className='text-white' />
+          ) : (
+            t('credit:receive_credit')
+          )}
         </Button>
         <Button disabled>{t('credit:download_receipt')}</Button>
       </div>

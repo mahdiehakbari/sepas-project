@@ -36,7 +36,7 @@ export const FirstTab = () => {
     setCreditLoading(true);
 
     axios
-      .get(`${API_BUDGET_QUERY}/0491307314`, {
+      .get(`${API_BUDGET_QUERY}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

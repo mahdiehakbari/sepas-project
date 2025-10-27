@@ -109,6 +109,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
                 <>
                   <PaymentReceipt
                     setPaymentReceiptStep={setPaymentReceiptStep}
+                    creditRequestId={creditRequestId}
                   />
                 </>
               )}
