@@ -36,13 +36,17 @@ export const useCreditWorkflow = (
 
   // --- Local state ---
   const [profileData, setProfileData] = useState(userProfile);
-
+  const isLoggedIn = Cookies.get('isLoggedIn');
   // --- Derived states ---
   const isAuthenticated = Boolean(token);
-  const hasProfile = Boolean(profileData);
-  const isProfileStep = isAuthenticated && !hasProfile && showProfileModal;
-  const isLoginStep = !isAuthenticated && !hasProfile && !showProfileModal;
-  const isReady = isAuthenticated && hasProfile && !showProfileModal;
+  // const hasProfile = Boolean(profileData);
+  const isProfileStep =
+    isAuthenticated && isLoggedIn == 'false' && showProfileModal;
+  const isLoginStep =
+    !isAuthenticated &&
+    (!isLoggedIn || isLoggedIn == 'false') &&
+    !showProfileModal;
+  const isReady = isAuthenticated && isLoggedIn == 'true';
   const shouldStartAtCreditNote = isReady && showCreditNoteModal;
 
   // --- Load profile from cookie ---
@@ -117,7 +121,7 @@ export const useCreditWorkflow = (
     setProfileData,
     // flags
     isAuthenticated,
-    hasProfile,
+    isLoggedIn,
     isProfileStep,
     isLoginStep,
     isReady,

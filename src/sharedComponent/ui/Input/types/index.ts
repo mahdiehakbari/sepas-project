@@ -1,6 +1,17 @@
 import { FieldErrors, RegisterOptions, UseFormRegister } from 'react-hook-form';
+interface IAddress {
+  id: string;
+  cityId: string;
+  cityName: string;
+  provinceId: string;
+  provinceName: string;
+  details: string;
+  postalCode: string;
+}
 
 export interface IProfileFormValues {
+  phoneNumber?: string;
+  fullName?: string;
   firstName: string;
   lastName: string;
   mobile: string;
@@ -13,6 +24,7 @@ export interface IProfileFormValues {
   cityId: string;
   postalCode: string;
   addressDetails: string;
+  address?: IAddress;
 }
 
 export interface InputProps {

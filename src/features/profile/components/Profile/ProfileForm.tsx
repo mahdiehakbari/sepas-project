@@ -17,13 +17,17 @@ import { BankInfoSection } from './sections/BankInfoSection';
 import { AddressInfoSection } from './sections/AddressInfoSection';
 import { formatBirthDate } from './utils/formatBirthDate';
 import { updateProfile } from './api/profile.api';
+import axios from 'axios';
+import { API_AUTHENTICATE_ME } from '@/config/api_address.config';
 
 export const ProfileForm: React.FC<IProfileFormProps> = ({
   name,
   handleBack,
   onSuccess,
+  setIsEditing,
   setShowProfileModal,
   setShowCreditNoteModal,
+  setUser,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -38,6 +42,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
     handleSubmit,
     setValue,
     control,
+
     formState: { errors },
   } = useForm<IProfileFormValues>({ defaultValues: profile });
 
@@ -66,10 +71,26 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
       const res = await updateProfile(token, formattedData);
       setProfile(res.data.profile);
       Cookies.set('userProfile', JSON.stringify(data));
-      onSuccess?.(data);
+      if (name === 'userAccount') {
+        axios
+          .get(API_AUTHENTICATE_ME, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((res) => {
+            const userData =
+              typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
+            setUser(userData);
+            setIsEditing(false);
+            Cookies.set('userProfile', JSON.stringify(data));
+            toast.success(t('profile:success_toast'));
+          })
+          .catch(() => {});
+      }
+      // onSuccess?.(data);
       setShowProfileModal?.(false);
       setShowCreditNoteModal?.(true);
-      toast.success(t('profile:success_toast'), {});
     } catch (err: unknown) {
       const error = err as { response?: { data?: { message?: string } } };
       toast.error(error.response?.data?.message || t('profile:update_error'));

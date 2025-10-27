@@ -25,7 +25,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
   const { sendOtp } = useSendOtp();
   const [apiError, setApiError] = useState('');
   const handleClose = () => {
-    if (name && setShowProfileModal) {
+    if (name == 'credit' && setShowProfileModal) {
       setShowProfileModal(true);
     } else {
       setIsOpenModal(false);

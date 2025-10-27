@@ -3,8 +3,11 @@
 import { useTranslation } from 'react-i18next';
 import { BankOption } from '../BankOption/BankOption';
 import { useState } from 'react';
-import { Button } from '@/sharedComponent/ui';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { IPayingSubscriptionProps } from './types';
+import axios from 'axios';
+import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
+import Cookies from 'js-cookie';
 
 export const PayingSubScription = ({
   feePercentage,
@@ -14,15 +17,42 @@ export const PayingSubScription = ({
   setShowBill,
   setBudgetData,
   setPaymentReceiptStep,
+  creditRequestId,
 }: IPayingSubscriptionProps) => {
   const { t } = useTranslation();
   const [selectedBank, setSelectedBank] = useState('saman');
+  const [buttonLoading, setButtonLoading] = useState(false);
+
+  const token = Cookies.get('token');
 
   const handleCloseModal = () => {
     setIsOpenModal(false);
     setShowCreditNoteModal(true);
     setShowBill(false);
     setBudgetData(null);
+  };
+
+  const handleConfirm = () => {
+    setButtonLoading(true);
+    setPaymentReceiptStep(1);
+    // axios
+    //   .post(
+    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/ipg-payment`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     },
+    //   )
+    //   .then((resp) => {
+    //     console.log(resp.data);
+    //     setPaymentReceiptStep(1);
+    //     setButtonLoading(false);
+    //   })
+    //   .catch(() => {
+    //     setButtonLoading(false);
+    //   });
   };
 
   return (
@@ -67,8 +97,12 @@ export const PayingSubScription = ({
         <Button variant='outline' onClick={handleCloseModal}>
           {t('credit:canceled')}
         </Button>
-        <Button onClick={() => setPaymentReceiptStep(1)}>
-          {t('credit:confirmation')}
+        <Button onClick={handleConfirm} disabled={buttonLoading}>
+          {buttonLoading ? (
+            <SpinnerDiv size='sm' className='text-white' />
+          ) : (
+            t('credit:confirmation')
+          )}
         </Button>
       </div>
     </div>

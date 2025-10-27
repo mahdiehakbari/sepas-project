@@ -18,6 +18,7 @@ export const InquiringBudget = ({
   feePercentage,
   setAmountReceivedValue,
   amountReceivedValue,
+  setCreditRequestId,
 }: IInquiringBudgetProps) => {
   const { t } = useTranslation();
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -35,28 +36,28 @@ export const InquiringBudget = ({
 
   const handleShowBill = () => {
     setShowBill(true);
-    // setButtonLoading(true);
-    // axios
-    //   .post(
-    //     API_CUSTOMER_CREDIT_COMMAND,
-    //     {
-    //       amount: amountReceivedValue,
-    //       description: 'Credit request details',
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${token}`,
-    //       },
-    //     },
-    //   )
-    //   .then((resp) => {
-    //     console.log(resp.data);
-    //     setShowBill(true);
-    //     setButtonLoading(false);
-    //   })
-    //   .catch(() => {
-    //     setButtonLoading(false);
-    //   });
+    setButtonLoading(true);
+    axios
+      .post(
+        API_CUSTOMER_CREDIT_COMMAND,
+        {
+          amount: amountReceivedValue,
+          description: 'Credit request details',
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((resp) => {
+        setCreditRequestId(resp.data.creditRequestId);
+        setShowBill(true);
+        setButtonLoading(false);
+      })
+      .catch(() => {
+        setButtonLoading(false);
+      });
   };
 
   useEffect(() => {

@@ -14,6 +14,7 @@ export const useAuthStore = create<IAuthState>((set) => ({
 
   logout: () => {
     Cookies.remove('token');
+    Cookies.remove('phoneNumber');
     set({ token: null, user: null, isLoggedIn: false });
   },
 }));

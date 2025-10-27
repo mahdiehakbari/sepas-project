@@ -44,6 +44,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     setProfileData,
   } = workflow;
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
+  const [creditRequestId, setCreditRequestId] = useState('');
   return (
     <ResponsiveModal
       isOpen={props.isOpenModal}
@@ -105,6 +106,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
                   setShowBill={props.setShowBill}
                   setBudgetData={props.setBudgetData}
                   setPaymentReceiptStep={setPaymentReceiptStep}
+                  creditRequestId={creditRequestId}
                 />
               )}
               {paymentReceiptStep == 1 && (
@@ -142,6 +144,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               feePercentage={feePercentage}
               setAmountReceivedValue={setAmountReceivedValue}
               amountReceivedValue={amountReceivedValue}
+              setCreditRequestId={setCreditRequestId}
             />
           )}
         </>
