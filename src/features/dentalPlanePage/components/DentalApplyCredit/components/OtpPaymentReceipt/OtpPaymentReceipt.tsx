@@ -1,7 +1,7 @@
 'use client';
 import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 import { formatTime } from '@/sharedComponent/lib';
-import { Button } from '@/sharedComponent/ui';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -19,6 +19,7 @@ export const OtpPaymentReceipt = ({
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [timeLeft, setTimeLeft] = useState(120);
   const [canResend, setCanResend] = useState(false);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const [apiError, setApiError] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
@@ -48,20 +49,24 @@ export const OtpPaymentReceipt = ({
   }, [timeLeft]);
 
   const handleSendOtp = () => {
-    axios
-      .post(
-        `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/process-bajet-payment`,
-        {
-          bajetOtp: otp,
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        },
-      )
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch(() => {});
+    setButtonLoading(true);
+    // axios
+    //   .post(
+    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/process-bajet-payment`,
+    //     {
+    //       bajetOtp: otp,
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     },
+    //   )
+    //   .then((response) => {
+    //     setButtonLoading(false);
+    //     console.log(response.data);
+    //   })
+    //   .catch(() => {
+    //     setButtonLoading(false);
+    //   });
     setPaymentReceiptStep(3);
   };
 
@@ -136,11 +141,11 @@ export const OtpPaymentReceipt = ({
       </div>
       <div className=' border-t border-secondary py-2 px-4 flex justify-end'>
         <Button disabled={otp.length != 6} onClick={handleSendOtp}>
-          {/* {buttonLoading ? (
+          {buttonLoading ? (
             <SpinnerDiv size='sm' className='text-white' />
-          ) : ( */}
-          {t('credit:confirmation')}
-          {/* )} */}
+          ) : (
+            t('credit:confirmation')
+          )}
         </Button>
       </div>
     </>
