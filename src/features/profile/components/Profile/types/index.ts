@@ -27,11 +27,11 @@ export interface IProfileFormValues {
 }
 
 export interface IProfileFormProps {
-  setUser: (value: IProfileFormValues) => void;
+  setUser?: (value: IProfileFormValues) => void;
   name: string;
   handleBack: () => void;
   onSuccess?: (updatedUser: IProfileFormValues) => void;
   setShowProfileModal?: ((value: boolean) => void) | null;
   setShowCreditNoteModal?: (value: boolean) => void;
-  setIsEditing: (value: boolean) => void;
+  setIsEditing?: (value: boolean) => void;
 }

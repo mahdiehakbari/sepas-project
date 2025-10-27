@@ -16,7 +16,7 @@ export const OtpPaymentReceiptResult = ({
 
   const handleClose = () => {
     setIsOpenModal(false);
-    setShowCreditNoteModal(false);
+    setShowCreditNoteModal(true);
     setShowBill(false);
     setBudgetData(null);
     setPaymentReceiptStep(0);

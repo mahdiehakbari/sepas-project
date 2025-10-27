@@ -1,14 +1,19 @@
 'use client';
+import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 import { formatTime } from '@/sharedComponent/lib';
 import { Button } from '@/sharedComponent/ui';
+import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import OTPInput from 'react-otp-input';
+import Cookies from 'js-cookie';
 
 export const OtpPaymentReceipt = ({
   setPaymentReceiptStep,
+  creditRequestId,
 }: {
   setPaymentReceiptStep: (value: number) => void;
+  creditRequestId: string;
 }) => {
   const { t } = useTranslation();
   const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
@@ -17,6 +22,7 @@ export const OtpPaymentReceipt = ({
   const [apiError, setApiError] = useState('');
   const [otp, setOtp] = useState('');
   const [error, setError] = useState('');
+  const token = Cookies.get('token');
 
   const handleResend = async () => {
     setOtp('');
@@ -42,6 +48,20 @@ export const OtpPaymentReceipt = ({
   }, [timeLeft]);
 
   const handleSendOtp = () => {
+    axios
+      .post(
+        `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/process-bajet-payment`,
+        {
+          bajetOtp: otp,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      )
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch(() => {});
     setPaymentReceiptStep(3);
   };
 

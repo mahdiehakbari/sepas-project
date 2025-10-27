@@ -8,6 +8,9 @@ export const PaymentReceipt = ({
   setPaymentReceiptStep,
 }: IPaymentReceiptProps) => {
   const { t } = useTranslation();
+  const handleReceiveCredit = () => {
+    setPaymentReceiptStep(2);
+  };
   return (
     <>
       <div className='md:w-[600px] flex flex-col items-center justify-center py-6 px-8'>
@@ -36,7 +39,7 @@ export const PaymentReceipt = ({
       </div>
 
       <div className=' border-t border-secondary py-2 px-4 flex justify-between mt-10'>
-        <Button variant='outline' onClick={() => setPaymentReceiptStep(2)}>
+        <Button variant='outline' onClick={handleReceiveCredit}>
           {t('credit:receive_credit')}
         </Button>
         <Button disabled>{t('credit:download_receipt')}</Button>

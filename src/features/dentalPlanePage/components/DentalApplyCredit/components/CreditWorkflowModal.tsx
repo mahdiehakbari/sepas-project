@@ -9,7 +9,6 @@ import { PayingSubScription } from './PayingSubScription/PayingSubScription';
 import { ICreditWorkflowModalProps } from './types';
 import { useCreditWorkflow } from './hooks/useCreditWorkflow';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { useState } from 'react';
 import { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
 import { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
 import { OtpPaymentReceiptResult } from './OtpPaymentReceiptResult/OtpPaymentReceiptResult';
@@ -24,7 +23,6 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     isProfileStep,
     isReady,
     shouldStartAtCreditNote,
-    // props passthrough
     isOpenLoginModal,
     isOpenOtpModal,
     setIsOpenLoginModal,
@@ -41,10 +39,12 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     feePercentage,
     setAmountReceivedValue,
     amountReceivedValue,
-    setProfileData,
+    paymentReceiptStep,
+    setPaymentReceiptStep,
+    creditRequestId,
+    setCreditRequestId,
   } = workflow;
-  const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
-  const [creditRequestId, setCreditRequestId] = useState('');
+
   return (
     <ResponsiveModal
       isOpen={props.isOpenModal}
@@ -80,10 +80,6 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
           handleBack={handleProfileBack}
           setShowProfileModal={setShowProfileModal}
           setShowCreditNoteModal={setShowCreditNoteModal}
-          onSuccess={(data) => {
-            setProfileData(data);
-            setShowCreditNoteModal(true);
-          }}
         />
       )}
 
@@ -120,6 +116,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
                 <>
                   <OtpPaymentReceipt
                     setPaymentReceiptStep={setPaymentReceiptStep}
+                    creditRequestId={creditRequestId}
                   />
                 </>
               )}

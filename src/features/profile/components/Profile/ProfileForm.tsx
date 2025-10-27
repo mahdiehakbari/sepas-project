@@ -81,8 +81,10 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
           .then((res) => {
             const userData =
               typeof res.data === 'string' ? JSON.parse(res.data) : res.data;
-            setUser(userData);
-            setIsEditing(false);
+            if (setIsEditing && setUser) {
+              setUser(userData);
+              setIsEditing(false);
+            }
             Cookies.set('userProfile', JSON.stringify(data));
             toast.success(t('profile:success_toast'));
           })
