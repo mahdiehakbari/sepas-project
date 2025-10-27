@@ -22,5 +22,21 @@
   "payment_gateway_selection:": "انتخاب درگاه پرداخت:",
   "saman_bank": "بانک سامان",
   "canceled": "انصراف",
-  "confirmation": "تایید"
+  "confirmation": "تایید",
+  "payment_receipt": "رسید پرداخت",
+  "successful_payment": "پرداخت موفق",
+  "tracking_number": "شماره پیگیری",
+  "payment_date": "تاریخ پرداخت",
+  "download_receipt": "دانلود رسید",
+  "payment_failed": "پرداخت ناموفق",
+  "deducted_from_account": "در صورت کسر از حساب، مبلغ تا ۷۲ ساعت به حساب شما باز می گردد.",
+  "try_again": "تلاش مجدد",
+  "contact_support": "تماس با پشتیبانی",
+  "code_sent": "کد ارسالی به شماره موبایل خود را وارد کنید.",
+  "code_received_budget": "کد دریافتی از باجت",
+  "request_successfully": "درخواست شما با موفقیت ثبت شد.",
+  "approved_by_bank": "پس از تأیید درخواست شما توسط بانک، نتیجه از طریق پیام به شما اطلاع داده می‌شود.همچنین می‌توانید وضعیت درخواست خود را در بخش لیست درخواست‌ها پیگیری کنید.",
+  "list_requests": "لیست درخواست ها",
+  "close": "بستن",
+  "service_experiencing": "سرویس با اختلال رو به رو است. لطفا دقایق دیگر امتحان کنید."
 }

@@ -35,4 +35,5 @@ export interface IGetCreditStepTitleProps {
   budgetData?: number | undefined | null;
   showBill: boolean;
   isProfileStep: boolean;
+  paymentReceiptStep: number;
 }

@@ -6,10 +6,12 @@ import { ProfileForm } from '@/features/profile';
 import { CreditNoteModal } from './CreditNoteModal/CreditNoteModal';
 import { InquiringBudget } from './InquiringBudget/InquiringBudget';
 import { PayingSubScription } from './PayingSubScription/PayingSubScription';
-
 import { ICreditWorkflowModalProps } from './types';
 import { useCreditWorkflow } from './hooks/useCreditWorkflow';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
+import { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
+import { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
+import { OtpPaymentReceiptResult } from './OtpPaymentReceiptResult/OtpPaymentReceiptResult';
 
 export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
   const workflow = useCreditWorkflow(props);
@@ -21,7 +23,6 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     isProfileStep,
     isReady,
     shouldStartAtCreditNote,
-    // props passthrough
     isOpenLoginModal,
     isOpenOtpModal,
     setIsOpenLoginModal,
@@ -38,7 +39,10 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     feePercentage,
     setAmountReceivedValue,
     amountReceivedValue,
-    setProfileData,
+    paymentReceiptStep,
+    setPaymentReceiptStep,
+    creditRequestId,
+    setCreditRequestId,
   } = workflow;
 
   return (
@@ -76,10 +80,6 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
           handleBack={handleProfileBack}
           setShowProfileModal={setShowProfileModal}
           setShowCreditNoteModal={setShowCreditNoteModal}
-          onSuccess={(data) => {
-            setProfileData(data);
-            setShowCreditNoteModal(true);
-          }}
         />
       )}
 
@@ -92,10 +92,46 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               creditLoading={creditLoading}
             />
           ) : budgetData && showBill ? (
-            <PayingSubScription
-              feePercentage={feePercentage}
-              amountReceivedValue={amountReceivedValue}
-            />
+            <>
+              {paymentReceiptStep == 0 && (
+                <PayingSubScription
+                  feePercentage={feePercentage}
+                  amountReceivedValue={amountReceivedValue}
+                  setIsOpenModal={props.setIsOpenModal}
+                  setShowCreditNoteModal={props.setShowCreditNoteModal}
+                  setShowBill={props.setShowBill}
+                  setBudgetData={props.setBudgetData}
+                  setPaymentReceiptStep={setPaymentReceiptStep}
+                  creditRequestId={creditRequestId}
+                />
+              )}
+              {paymentReceiptStep == 1 && (
+                <>
+                  <PaymentReceipt
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                  />
+                </>
+              )}
+              {paymentReceiptStep == 2 && (
+                <>
+                  <OtpPaymentReceipt
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                    creditRequestId={creditRequestId}
+                  />
+                </>
+              )}
+              {paymentReceiptStep == 3 && (
+                <>
+                  <OtpPaymentReceiptResult
+                    setIsOpenModal={props.setIsOpenModal}
+                    setShowCreditNoteModal={props.setShowCreditNoteModal}
+                    setShowBill={props.setShowBill}
+                    setBudgetData={props.setBudgetData}
+                    setPaymentReceiptStep={setPaymentReceiptStep}
+                  />
+                </>
+              )}
+            </>
           ) : (
             <InquiringBudget
               setShowBill={setShowBill}
@@ -105,6 +141,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               feePercentage={feePercentage}
               setAmountReceivedValue={setAmountReceivedValue}
               amountReceivedValue={amountReceivedValue}
+              setCreditRequestId={setCreditRequestId}
             />
           )}
         </>

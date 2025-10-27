@@ -22,5 +22,21 @@
   "payment_gateway_selection:": "Payment gateway selection:",
   "saman_bank": "Saman Bank",
   "canceled": "cancel",
-  "confirmation": "Confirmation"
+  "confirmation": "Confirmation",
+  "payment_receipt": "payment receipt",
+  "successful_payment": "Successful payment",
+  "tracking_number": "Tracking number",
+  "payment_date": "payment date",
+  "download_receipt": "download receipt",
+  "payment_failed": "Payment failed",
+  "deducted_from_account": "If deducted from your account, the amount will be returned to your account within 72 hours.",
+  "try_again": "Try again",
+  "contact_support": "Contact Support",
+  "code_sent": "Enter the code sent to your mobile number.",
+  "code_received_budget": "Code received from budget",
+  "request_successfully": "Your request was successfully submitted.",
+  "approved_by_bank": "Once your application is approved by the bank, you will be notified of the result via message. You can also track the status of your application in the Application List section.",
+  "list_requests": "List of requests",
+  "close": "Close",
+  "service_experiencing": "The service is experiencing a disruption. Please try again in a few minutes."
 }

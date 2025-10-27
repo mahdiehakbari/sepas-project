@@ -3,19 +3,57 @@
 import { useTranslation } from 'react-i18next';
 import { BankOption } from '../BankOption/BankOption';
 import { useState } from 'react';
-import { Button } from '@/sharedComponent/ui';
-
-export interface IPayingSubscriptionProps {
-  feePercentage: number;
-  amountReceivedValue: number;
-}
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
+import { IPayingSubscriptionProps } from './types';
+import axios from 'axios';
+import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
+import Cookies from 'js-cookie';
 
 export const PayingSubScription = ({
   feePercentage,
   amountReceivedValue,
+  setIsOpenModal,
+  setShowCreditNoteModal,
+  setShowBill,
+  setBudgetData,
+  setPaymentReceiptStep,
+  creditRequestId,
 }: IPayingSubscriptionProps) => {
   const { t } = useTranslation();
   const [selectedBank, setSelectedBank] = useState('saman');
+  const [buttonLoading, setButtonLoading] = useState(false);
+
+  const token = Cookies.get('token');
+
+  const handleCloseModal = () => {
+    setIsOpenModal(false);
+    setShowCreditNoteModal(true);
+    setShowBill(false);
+    setBudgetData(null);
+  };
+
+  const handleConfirm = () => {
+    setButtonLoading(true);
+    setPaymentReceiptStep(1);
+    // axios
+    //   .post(
+    //     `${API_CUSTOMER_CREDIT_COMMAND}/${creditRequestId}/ipg-payment`,
+    //     {},
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${token}`,
+    //       },
+    //     },
+    //   )
+    //   .then((resp) => {
+    //     console.log(resp.data);
+    //     setPaymentReceiptStep(1);
+    //     setButtonLoading(false);
+    //   })
+    //   .catch(() => {
+    //     setButtonLoading(false);
+    //   });
+  };
 
   return (
     <div className='md:w-[600px] p-4'>
@@ -56,8 +94,16 @@ export const PayingSubScription = ({
         setSelectedBank={setSelectedBank}
       />
       <div className=' border-t border-secondary py-2 px-4 flex justify-between mt-10'>
-        <Button variant='outline'>{t('credit:canceled')}</Button>
-        <Button>{t('credit:confirmation')}</Button>
+        <Button variant='outline' onClick={handleCloseModal}>
+          {t('credit:canceled')}
+        </Button>
+        <Button onClick={handleConfirm} disabled={buttonLoading}>
+          {buttonLoading ? (
+            <SpinnerDiv size='sm' className='text-white' />
+          ) : (
+            t('credit:confirmation')
+          )}
+        </Button>
       </div>
     </div>
   );

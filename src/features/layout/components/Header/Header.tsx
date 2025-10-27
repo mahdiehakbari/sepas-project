@@ -40,7 +40,6 @@ export const Header = () => {
   };
 
   const isLoggedIn = Cookies.get('isLoggedIn');
-  const userProfile = Cookies.get('userProfile');
 
   const handleClick = () => {
     setOpenPopUp(true);
@@ -92,7 +91,7 @@ export const Header = () => {
                   isOpen={openPopUp}
                   onClose={() => setOpenPopUp(false)}
                   items={[
-                    ...(userProfile
+                    ...(isLoggedIn == 'true'
                       ? [
                           {
                             label: t('profile:user_account'),
@@ -107,7 +106,7 @@ export const Header = () => {
                             image: '/assets/icons/user-account.svg',
                           },
                         ]),
-                    ...(userProfile
+                    ...(isLoggedIn == 'true'
                       ? [
                           {
                             label: t('profile:requests_list'),
@@ -184,6 +183,7 @@ export const Header = () => {
         )}
         {isOpenOtpModal && (
           <OtpModal
+            name='auth'
             setIsOpenOtpModal={setIsOpenOtpModal}
             setIsOpenLoginModal={setIsOpenLoginModal}
             setIsOpenModal={setIsOpenModal}

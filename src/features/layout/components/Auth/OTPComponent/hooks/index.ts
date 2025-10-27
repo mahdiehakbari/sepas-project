@@ -51,9 +51,10 @@ export const useOtp = (onClose: () => void) => {
 
       if (!user.isVerified) {
         // router.push('/profile');
-        Cookies.set('isLoggedIn', 'isLoggedIn');
+        Cookies.set('isLoggedIn', 'false');
       } else {
-        router.push('/');
+        Cookies.set('isLoggedIn', 'true');
+        // router.push('/');
       }
 
       onClose();
