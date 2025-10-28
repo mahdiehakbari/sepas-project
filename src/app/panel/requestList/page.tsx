@@ -4,20 +4,20 @@ import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-
-import { Button, SpinnerDiv } from '@/sharedComponent/ui';
-import { RequestListTable } from '@/features/requestList';
-import { ResponsiveRequestListTable } from '@/features/requestList/RequestListTable/ResponsiveRequestListTable';
 import {
   API_AUTHENTICATE_ME,
   API_CUSTOMER_CREDIT_QUERY,
 } from '@/config/api_address.config';
+import { RequestListTable } from '@/features/requestList';
+import { ResponsiveRequestListTable } from '@/features/requestList/RequestListTable/ResponsiveRequestListTable';
+import { IRequestsData } from './types';
+import { Paginate, SpinnerDiv } from '@/sharedComponent/ui';
 
 export default function TransactionList() {
   const { t } = useTranslation();
   const [pageLoading, setPageLoading] = useState(true);
   const [customerId, setCustomerId] = useState('');
-  const [requestsData, setRequestData] = useState(null);
+  const [requestsData, setRequestData] = useState<IRequestsData | null>(null);
   const [page, setPage] = useState(1);
   const token = Cookies.get('token');
 
@@ -34,21 +34,22 @@ export default function TransactionList() {
       .then((res) => {
         setCustomerId(res.data.customerId);
       })
-      .catch(() => setPageLoading(false));
+      .catch((err) => console.error(err));
   }, [token]);
 
   useEffect(() => {
     if (!customerId) return;
 
-    setPageLoading(true);
     axios
       .get(
-        `${API_CUSTOMER_CREDIT_QUERY}/${customerId}?pageNumber=${page}&pageSize=10`,
+        `${API_CUSTOMER_CREDIT_QUERY}/${customerId}?page=${page}&pageSize=10`,
         {
           headers: { Authorization: `Bearer ${token}` },
         },
       )
-      .then((res) => setRequestData(res.data))
+      .then((res) => {
+        setRequestData(res.data);
+      })
       .catch((err) => console.error(err))
       .finally(() => setPageLoading(false));
   }, [customerId, page]);
@@ -62,7 +63,7 @@ export default function TransactionList() {
     );
   }
 
-  if (!requestsData) {
+  if (!requestsData || requestsData.items.length === 0) {
     return (
       <div className='text-center mt-10 text-gray-500'>
         هیچ داده‌ای یافت نشد.
@@ -70,66 +71,41 @@ export default function TransactionList() {
     );
   }
 
-  const { items, totalPages, hasNextPage, hasPreviousPage, pageNumber } =
-    requestsData;
+  const items = requestsData.items;
+  const pageSize = requestsData.pageSize || 10;
+  const totalCount = requestsData.totalCount || 0;
+  const totalPages = Math.ceil(totalCount / pageSize) || 1;
+  const currentPage = page;
+  const hasPreviousPage = currentPage > 1;
+  const hasNextPage = currentPage < totalPages;
 
   return (
     <div className='max-w-6xl mx-auto mt-6'>
       <h1 className='text-black font-bold text-lg mb-4'>
-        {t('request_list:list_title') || 'لیست درخواست‌ها'}
+        {t('request_list:filters')}
       </h1>
 
-      {/* Desktop Table */}
       <div className='hidden md:block'>
-        <RequestListTable requests={items} />
+        <RequestListTable
+          requests={items}
+          currentPage={currentPage}
+          pageSize={pageSize}
+        />
       </div>
-
-      {/* Mobile Table */}
       <div className='block md:hidden'>
-        <ResponsiveRequestListTable requests={items} />
+        <ResponsiveRequestListTable
+          requests={items}
+          currentPage={currentPage}
+          pageSize={pageSize}
+        />
       </div>
-
-      <div className='flex justify-center items-center gap-2 mt-6'>
-        <Button
-          disabled={!hasPreviousPage}
-          onClick={() => setPage((p) => Math.max(1, p - 1))}
-          className={`px-3 py-2 text-sm rounded-md ${
-            !hasPreviousPage
-              ? 'opacity-50 cursor-not-allowed bg-gray-200'
-              : 'bg-gray-100 hover:bg-gray-200'
-          }`}
-        >
-          قبلی
-        </Button>
-
-        <div className='flex gap-1'>
-          {Array.from({ length: totalPages }, (_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i + 1)}
-              className={`px-3 py-1 rounded-md text-sm ${
-                pageNumber === i + 1
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
-              }`}
-            >
-              {i + 1}
-            </button>
-          ))}
-        </div>
-
-        <Button
-          disabled={!hasNextPage}
-          onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-          className={`px-3 py-2 text-sm rounded-md ${
-            !hasNextPage
-              ? 'opacity-50 cursor-not-allowed bg-gray-200'
-              : 'bg-gray-100 hover:bg-gray-200'
-          }`}
-        >
-          بعدی
-        </Button>
-      </div>
+      <Paginate
+        hasPreviousPage={hasPreviousPage}
+        setPage={setPage}
+        currentPage={currentPage}
+        totalPages={totalPages}
+        hasNextPage={hasNextPage}
+      />
     </div>
   );
 }
