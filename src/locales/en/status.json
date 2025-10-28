@@ -1,0 +1,14 @@
+{
+  "0": "Balance Check Pending",
+  "1": "Insufficient Balance",
+  "2": "Fee Calculated",
+  "3": "Payment Processing",
+  "4": "Payment Completed",
+  "5": "Payment Failed",
+  "6": "OTP Sent",
+  "7": "Purchase Processing",
+  "8": "Completed",
+  "9": "Completed Verified",
+  "10": "Failed",
+  "11": "Cancelled"
+}

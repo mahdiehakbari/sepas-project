@@ -82,7 +82,7 @@ export default function TransactionList() {
   return (
     <div className='max-w-6xl mx-auto mt-6'>
       <h1 className='text-black font-bold text-lg mb-4'>
-        {t('request_list:filters')}
+        {t('request_list:request_list')}
       </h1>
 
       <div className='hidden md:block'>

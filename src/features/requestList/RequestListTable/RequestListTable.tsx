@@ -2,7 +2,7 @@
 import { getThItems } from './constants';
 import { useTranslation } from 'react-i18next';
 import { IRequestListTableProps } from './types';
-import { getStatusColor } from './utils/getStatusColor';
+import { useStatusInfo } from './utils/useStatusInfo';
 
 export const RequestListTable = ({
   requests,
@@ -10,6 +10,7 @@ export const RequestListTable = ({
   pageSize,
 }: IRequestListTableProps) => {
   const { t } = useTranslation();
+  const { getStatusInfo } = useStatusInfo();
 
   return (
     <div className='overflow-x-auto'>
@@ -29,40 +30,35 @@ export const RequestListTable = ({
         </thead>
 
         <tbody>
-          {requests.map((req, index) => (
-            <tr key={req.id}>
-              <td colSpan={5} className='p-0'>
-                <div className='flex items-center justify-between bg-white border border-[var(--border-color)] rounded-[8px] px-3 py-3'>
-                  <div className='w-[5%] text-center'>
-                    {index + 1 + (currentPage - 1) * pageSize}
+          {requests.map((req, index) => {
+            const { label, className } = getStatusInfo(Number(req.status));
+
+            return (
+              <tr key={req.id}>
+                <td colSpan={5} className='p-0'>
+                  <div className='flex items-center justify-between bg-white border border-[var(--border-color)] rounded-[8px] px-3 py-3'>
+                    <div className='w-[5%] text-center'>
+                      {index + 1 + (currentPage - 1) * pageSize}
+                    </div>
+                    <div className='w-[20%] text-center'>
+                      {t('request_list:dentistry')}
+                    </div>
+                    <div className='w-[20%] text-center'>
+                      {new Date(req.createdAt).toLocaleDateString('fa-IR')}
+                    </div>
+                    <div className='w-[20%] text-center'>
+                      <span
+                        className={`px-3 py-1 rounded-full text-xs font-semibold ${className}`}
+                      >
+                        {label}
+                      </span>
+                    </div>
+                    <div className='w-[20%] text-center'></div>
                   </div>
-                  <div className='w-[20%] text-center'>
-                    {t('request_list:dentistry')}
-                  </div>
-                  <div className='w-[20%] text-center'>
-                    {new Date(req.createdAt).toLocaleDateString('fa-IR')}
-                  </div>
-                  <div className='w-[20%] text-center'>
-                    <span
-                      className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
-                        req.status,
-                      )}`}
-                    >
-                      {req.status}
-                    </span>
-                  </div>
-                  <div className='w-[20%] text-center'></div>
-                  {/* 
-                    {req.statusDescription === 'تایید شده' && (
-                      <Button className='w-[112px] text-[14px] font-[500]'>
-                        پرداخت آبونمان
-                      </Button>
-                    )}
-                  </div> */}
-                </div>
-              </td>
-            </tr>
-          ))}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

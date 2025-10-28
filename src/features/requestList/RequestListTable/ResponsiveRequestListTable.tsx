@@ -1,7 +1,7 @@
 import { Button } from '@/sharedComponent/ui';
 import { IRequestListTableProps } from './types';
 import { useTranslation } from 'react-i18next';
-import { getStatusColor } from './utils/getStatusColor';
+// import { getStatusColor } from './utils/useStatusInfo';
 
 export const ResponsiveRequestListTable = ({
   requests,
@@ -20,13 +20,13 @@ export const ResponsiveRequestListTable = ({
                 <h2 className='font-semibold text-gray-800'>
                   {t('request_list:dentistry')}
                 </h2>
-                <span
+                {/* <span
                   className={`px-3 py-1 rounded-full text-xs font-semibold ${getStatusColor(
                     req.status,
                   )}`}
                 >
                   {req.status}
-                </span>
+                </span> */}
               </div>
               <p className='text-gray-600 mb-4'>
                 {new Date(req.createdAt).toLocaleDateString('fa-IR')}

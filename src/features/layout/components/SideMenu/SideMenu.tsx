@@ -57,20 +57,27 @@ export const SideMenu = () => {
         </h2>
       </div>
       <div className='bg-white h-[100vh] flex flex-col justify-between py-6'>
-        <ul className=' font[400] text-[16px]'>
+        <ul className='font[400] text-[16px]'>
           {getSideBarItems().map((item) => (
             <li
               key={item.path}
-              onClick={() => router.push(item.path)}
-              className={`px-4 py-2 cursor-pointer hover:text-primary flex items-center ${
-                isActive(item.path)
-                  ? 'text-white bg-primary mb-2 mx-2 font-semibold hover:text-white rounded-2xl'
-                  : ''
-              }`}
+              onClick={() => !item.disabled && router.push(item.path)} // فقط اگر فعال بود
+              className={`px-4 py-2 cursor-pointer flex items-center mb-2 mx-2
+        ${
+          isActive(item.path)
+            ? 'text-white bg-primary font-semibold rounded-2xl'
+            : ''
+        }
+        ${
+          item.disabled
+            ? 'text-gray-400 cursor-default hover:text-gray-400'
+            : 'hover:text-primary'
+        }
+      `}
             >
               <Image src={item.icon} alt={item.label} width={20} height={20} />
               <span
-                className={` pr-1 ${isActive(item.path) ? 'text-white' : ''}`}
+                className={`pr-1 ${isActive(item.path) ? 'text-white' : ''}`}
               >
                 {item.label}
               </span>

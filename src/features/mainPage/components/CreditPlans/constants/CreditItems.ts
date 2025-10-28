@@ -4,7 +4,7 @@ export const CreditItems: TCreditItem[] = [
   {
     src: '/assets/home-image/dentistry.svg',
     alt: 'dentistry',
-    href: '/services/dentalPlane',
+    href: '/services/dentalPlan',
     titleKey: 'home:dentistry',
   },
   {

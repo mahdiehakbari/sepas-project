@@ -11,5 +11,6 @@
   "status": "Status",
   "recipient_name": "Recipient Name",
   "actions": "Actions",
-  "dentistry": "Dentistry"
+  "dentistry": "Dentistry",
+  "request_list": "Request List"
 }

@@ -1,2 +1,2 @@
 export { RequestListTable } from './RequestListTable/RequestListTable';
-export { getStatusColor } from './RequestListTable/utils/getStatusColor';
+export { getStatusColor } from './RequestListTable/utils/useStatusInfo';

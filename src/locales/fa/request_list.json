@@ -10,5 +10,6 @@
   "status": " در خواست وضعیت",
   "recipient_name": "نام پذیرنده",
   "actions": "عملیات ها",
-  "dentistry": "دندان پزشکی"
+  "dentistry": "دندان پزشکی",
+  "request_list": "لیست در خواست ها "
 }
