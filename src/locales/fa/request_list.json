@@ -1,0 +1,13 @@
+{
+  "filters": "فیلترها",
+  "search_recipient_name": "جستجو نام طرح یا پذیرنده",
+  "transaction_date_from": "تاریخ تراکنش از",
+  "transaction_date_to": "تاریخ تراکنش تا",
+  "receive_report": "دریافت گزارش",
+  "row": "ردیف",
+  "design_Name": "نام طرح",
+  "transaction_history": "تاریخ تراکنش",
+  "transaction_amount": "مبلغ تراکنش",
+  "status": "وضعیت",
+  "recipient_name": "نام پذیرنده"
+}

@@ -12,7 +12,6 @@ import { API_AUTHENTICATE_ME } from '@/config/api_address.config';
 export default function UserAccount() {
   const { t } = useTranslation();
   const [isEditing, setIsEditing] = useState(false);
-  const token = Cookies.get('token');
   const [pageLoading, setPageLoading] = useState(true);
   const [user, setUser] = useState<IProfileFormValues>({
     fullName: '',
@@ -41,6 +40,7 @@ export default function UserAccount() {
   });
 
   useEffect(() => {
+    const token = Cookies.get('token');
     if (!token) {
       setPageLoading(false);
       return;
@@ -49,9 +49,7 @@ export default function UserAccount() {
     setPageLoading(true);
     axios
       .get(API_AUTHENTICATE_ME, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+        headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
         const userData =
@@ -60,7 +58,7 @@ export default function UserAccount() {
       })
       .catch(() => {})
       .finally(() => setPageLoading(false));
-  }, [token]);
+  }, []);
 
   const handleBack = () => {
     setIsEditing(false);
@@ -70,7 +68,7 @@ export default function UserAccount() {
     return (
       <div className='flex justify-center items-center h-screen'>
         <SpinnerDiv size='lg' />
-        <p>در حال بارگذاری...</p>
+        <p className='px-2'>در حال بارگذاری...</p>
       </div>
     );
   }

@@ -70,7 +70,7 @@ export const SideMenu = () => {
             >
               <Image src={item.icon} alt={item.label} width={20} height={20} />
               <span
-                className={` pr-1${isActive(item.path) ? 'text-white' : ''}`}
+                className={` pr-1 ${isActive(item.path) ? 'text-white' : ''}`}
               >
                 {item.label}
               </span>

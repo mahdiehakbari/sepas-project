@@ -110,7 +110,7 @@ export const Header = () => {
                       ? [
                           {
                             label: t('profile:requests_list'),
-                            href: '/',
+                            href: '/panel/requestList',
                             image: '/assets/icons/document.svg',
                           },
                         ]

@@ -8,7 +8,7 @@ export const getSideBarItems = () => [
   },
   {
     label: i18n.t('profile:requests_list'),
-    path: '/panel/requests',
+    path: '/panel/requestList',
     icon: '/assets/icons/document.svg',
   },
   {

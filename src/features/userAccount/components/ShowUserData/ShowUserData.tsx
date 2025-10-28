@@ -15,7 +15,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
         <div className='grid grid-cols-2 gap-4'>
           <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6 mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-[500]'>
-              {t('profile:first_name')}و {t('profile:last_name')}
+              {t('profile:first_name')} و {t('profile:last_name')}
             </p>
             <p className='text-[#3B3B3B] text-[14px] font-[500]'>
               {user.fullName}
@@ -58,7 +58,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
               {t('profile:gender')}:
             </p>
             <p className='text-[#3B3B3B] text-[14px] font-[500]'>
-              {user.gender == '2' ? 'زن' : 'مرد'}
+              {user.merchantId == '2' ? 'زن' : 'مرد'}
             </p>
           </div>
           <div className='flex justify-between items-center pl-6 mb-6'>

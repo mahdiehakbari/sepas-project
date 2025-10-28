@@ -8,3 +8,4 @@ export const API_BUDGET_QUERY = '/api/BajetQuery/balance';
 export const API_BUDGET_CALC =
   '/api/CustomerCreditFeeConfigurationQuery/active';
 export const API_CUSTOMER_CREDIT_COMMAND = '/api/CustomerCreditCommand';
+export const API_CUSTOMER_CREDIT_QUERY = '/api/CustomerCreditQuery/customer';

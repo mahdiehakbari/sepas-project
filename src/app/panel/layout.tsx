@@ -4,7 +4,10 @@ import { ReactNode } from 'react';
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
     <div className='min-h-screen flex'>
-      <SideMenu />
+      <div className='hidden md:block'>
+        <SideMenu />
+      </div>
+
       <main className='flex-1 px-8 md:max-w-[1000px]'>{children}</main>
     </div>
   );

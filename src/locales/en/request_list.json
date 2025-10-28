@@ -1,0 +1,13 @@
+{
+  "filters": "Filters",
+  "search_recipient_name": "Search for project or recipient name",
+  "transaction_date_from": "Transaction date from",
+  "transaction_date_to": "Transaction date to",
+  "receive_report": "Receive report",
+  "row": "row",
+  "design_Name": "Design Name",
+  "transaction_history": "Transaction history",
+  "transaction_amount": "Transaction amount",
+  "status": "Status",
+  "recipient_name": "Recipient Name"
+}
