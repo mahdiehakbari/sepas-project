@@ -33,7 +33,7 @@ export const RequestListTable = ({ requests }: IRequestListTableProps) => {
         <thead>
           <tr>
             <th colSpan={5} className='p-0'>
-              <div className='flex bg-[var(--block-color)] border border-[var(--border-color)] rounded- px-3 py-3 font-semibold text-gray-700 text-sm'>
+              <div className='flex bg-[var(--block-color)] border border-[var(--border-color)] rounded-[8px] px-3 py-3 font-semibold text-gray-700 text-sm'>
                 {getThItems().map((item) => (
                   <div
                     key={item.id}

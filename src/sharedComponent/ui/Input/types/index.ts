@@ -25,6 +25,7 @@ export interface IProfileFormValues {
   postalCode: string;
   addressDetails: string;
   address?: IAddress;
+  merchantId?: string;
 }
 
 export interface InputProps {

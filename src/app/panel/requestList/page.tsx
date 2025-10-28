@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Button, Input } from '@/sharedComponent/ui';
 import { getThItems } from '@/features/requestList/RequestListTable/constants';
 import { RequestListTable } from '@/features/requestList';
+import { ResponsiveRequestListTable } from '@/features/requestList/RequestListTable/ResponsiveRequestListTable';
 
 export default function TransactionList() {
   const { t } = useTranslation();
@@ -75,7 +76,7 @@ export default function TransactionList() {
       </h1>
 
       <div className='w-full'>
-        <div className='flex flex-wrap justify-between items-center gap-4 mb-4'>
+        {/* <div className='flex flex-wrap justify-between items-center gap-4 mb-4'>
           <div className='flex gap-2'>
             <input type='text' className='text-right' />
             <input
@@ -90,9 +91,17 @@ export default function TransactionList() {
             className='w-40 text-right'
           />
           <Button>{t('request_list:receive_report')}</Button>
-        </div>
+        </div> */}
 
-        <RequestListTable requests={requests} />
+        <div>
+          <div className='hidden md:block'>
+            <RequestListTable requests={requests} />
+          </div>
+
+          <div className='block md:hidden'>
+            <ResponsiveRequestListTable />
+          </div>
+        </div>
       </div>
     </div>
   );
