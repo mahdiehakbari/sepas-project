@@ -1,15 +1,22 @@
 import { Button } from '@/sharedComponent/ui';
 
-export const ResponsiveRequestListTable = () => {
+interface IDisplayRequest {
+  name: string;
+  status: string;
+  date: string;
+}
+
+interface IResponsiveRequestListTableProps {
+  requests: IDisplayRequest[];
+}
+
+export const ResponsiveRequestListTable = ({
+  requests,
+}: IResponsiveRequestListTableProps) => {
   const statusStyles: { [key: string]: string } = {
     'تایید شده': 'bg-green-100 text-green-800',
     'درحال بررسی': 'bg-blue-100 text-blue-800',
   };
-
-  const requests = [
-    { name: 'دندان پزشکی', date: '۱۴۰۲/۰۳/۱۴', status: 'تایید شده' },
-    { name: 'دندان پزشکی', date: '۱۴۰۲/۰۳/۱۴', status: 'درحال بررسی' },
-  ];
 
   return (
     <div className='max-w-md mx-auto mt-10'>
