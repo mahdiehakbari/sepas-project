@@ -91,6 +91,11 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
           .catch(() => {});
       }
       // onSuccess?.(data);
+      Cookies.set('isLoggedIn', 'true');
+      toast.success(t('profile:success_toast'));
+      if (name == 'profile') {
+        router.push('/panel/userAccount');
+      }
       setShowProfileModal?.(false);
       setShowCreditNoteModal?.(true);
     } catch (err: unknown) {

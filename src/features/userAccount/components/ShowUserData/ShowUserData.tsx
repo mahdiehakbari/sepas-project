@@ -58,7 +58,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
               {t('profile:gender')}:
             </p>
             <p className='text-[#3B3B3B] text-[14px] font-[500]'>
-              {user.merchantId == '2' ? 'زن' : 'مرد'}
+              {user.merchantId == '1' ? 'زن' : 'مرد'}
             </p>
           </div>
           <div className='flex justify-between items-center pl-6 mb-6'>

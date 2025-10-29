@@ -36,4 +36,5 @@ export interface IGetCreditStepTitleProps {
   showBill: boolean;
   isProfileStep: boolean;
   paymentReceiptStep: number;
+  shouldStartAtCreditNote: boolean;
 }

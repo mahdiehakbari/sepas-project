@@ -33,6 +33,7 @@ export const Header = () => {
     Cookies.remove('userProfile');
     Cookies.remove('isLoggedIn');
     router.push('/');
+    setIsOpenOtpModal(false);
   };
   const handleLogin = () => {
     setIsOpenLoginModal(true);

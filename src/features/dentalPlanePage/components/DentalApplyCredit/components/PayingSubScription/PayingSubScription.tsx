@@ -98,7 +98,10 @@ export const PayingSubScription = ({
         <Button variant='outline' onClick={handleCloseModal}>
           {t('credit:canceled')}
         </Button>
-        <Button onClick={handleConfirm} disabled={buttonLoading}>
+        <Button
+          onClick={handleConfirm}
+          disabled={buttonLoading && !creditRequestId}
+        >
           {buttonLoading ? (
             <SpinnerDiv size='sm' className='text-white' />
           ) : (
