@@ -54,9 +54,9 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
-          // rules={
-          //   rules.nationalId as unknown as RegisterOptions<IProfileFormValues>
-          // }
+          rules={
+            rules.nationalId as unknown as RegisterOptions<IProfileFormValues>
+          }
         />
 
         <DateInput
