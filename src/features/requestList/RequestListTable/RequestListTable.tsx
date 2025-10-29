@@ -44,7 +44,7 @@ export const RequestListTable = ({
                       {t('request_list:dentistry')}
                     </div>
                     <div className='w-[20%] text-center'>
-                      {new Date(req.createdAt).toLocaleDateString('fa-IR')}
+                      {new Date(req.createdAt).toLocaleTimeString('fa-IR') + " - " + new Date(req.createdAt).toLocaleDateString('fa-IR')}
                     </div>
                     <div className='w-[20%] text-center'>
                       <span
