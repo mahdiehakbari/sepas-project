@@ -283,6 +283,7 @@ export const useCreditWorkflow = (
         showBill,
         isProfileStep,
         paymentReceiptStep,
+        shouldStartAtCreditNote,
       }),
     [
       isAuthenticated,
@@ -292,6 +293,7 @@ export const useCreditWorkflow = (
       isProfileStep,
       t,
       paymentReceiptStep,
+      shouldStartAtCreditNote,
     ],
   );
 
