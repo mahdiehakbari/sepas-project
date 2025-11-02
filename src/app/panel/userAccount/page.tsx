@@ -66,7 +66,7 @@ export default function UserAccount() {
 
   if (pageLoading) {
     return (
-      <div className='flex justify-center items-center h-screen'>
+      <div className='flex justify-center items-center h-[60vh]'>
         <SpinnerDiv size='lg' />
         <p className='px-2'>در حال بارگذاری...</p>
       </div>
