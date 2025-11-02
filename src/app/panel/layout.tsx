@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (
-    <div className='min-h-screen flex'>
+    <div className='flex'>
       <div className='hidden md:block'>
         <SideMenu />
       </div>
