@@ -27,7 +27,7 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
   });
 
   return (
-    <div className='p-8 max-w-[431px]'>
+    <div className='p-8 md:max-w-[431px]'>
       <div className='flex items-center justify-end mb-6'>
         <button
           onClick={() => {
