@@ -13,9 +13,8 @@ export const getSideBarItems = () => [
   },
   {
     label: i18n.t('profile:transactions_list'),
-    path: '/panel/transactions',
+    path: '/panel/transactionList',
     icon: '/assets/icons/transaction-list.svg',
-    disabled: true,
   },
   {
     label: i18n.t('profile:my_plans'),
