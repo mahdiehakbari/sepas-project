@@ -15,7 +15,7 @@ export const ResponsiveRequestListTable = ({
   return (
     <div className='max-w-md mx-auto mt-10'>
       {requests.map((req, index) => {
-        const { label, className } = getStatusInfo(Number(req.status));
+        const { label, className } = getStatusInfo(req.status);
         return (
           <div key={index}>
             <div className='border-2 border-[var(--border-color)] rounded-lg mb-4'>
