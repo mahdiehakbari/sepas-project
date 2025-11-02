@@ -15,10 +15,10 @@ export const DentalPlaneContent = () => {
         <h3 className='font-[700] text-[14px] mb-4'>
           {t('dental_plane:conditions_receiving')}
         </h3>
-        <div className='flex items-center gap-1 mb-2'>
-          <p className='font-[400] text-[14px]'>
+        <div className='md:flex items-center gap-1 mb-2'>
+          <span className='font-[400] text-[14px]'>
             {t('dental_plane:install_budget_app')}
-          </p>
+          </span>
           <Link href='#' className='text-primary cursor-pointer'>
             {t('dental_plane:click_here')}
           </Link>
