@@ -1,1 +1,7 @@
-{}
+{
+  "transaction_date": "Transaction Date",
+  "transaction_amount": "Transaction amount",
+  "status": "Status",
+  "name_recipient": "Recipient Name",
+  "transaction_list": "Transaction List"
+}
