@@ -24,9 +24,7 @@ const MyPlanes = () => {
     <div className=' flex items-center'>
       <Card
         title={t('my_planes:dental_plan')}
-        amountReceived='100 تومان'
-        cost='80 تومان'
-        remaining='20 تومان'
+        remaining='20'
         borderColor='bg-blue-400'
         image='/assets/icons/tooth-health.svg'
       />
