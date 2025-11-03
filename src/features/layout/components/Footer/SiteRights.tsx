@@ -34,23 +34,24 @@ export const SiteRights = () => {
           </div>
         </div>
 
-        <a
-          referrerPolicy='origin'
-          target='_blank'
-          href='https://trustseal.enamad.ir/?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
-        >
-          <img
-            src='https://trustseal.enamad.ir/logo.aspx?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
-            alt='نماد اعتماد'
-            style={{
-              cursor: 'pointer',
-              width: '64px',
-              height: '64px',
-              borderRadius: '8px',
-            }}
+        <div className='rounded-[8px] bg-white'>
+          <a
             referrerPolicy='origin'
-          />
-        </a>
+            target='_blank'
+            href='https://trustseal.enamad.ir/?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
+          >
+            <img
+              src='https://trustseal.enamad.ir/logo.aspx?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
+              alt='نماد اعتماد'
+              style={{
+                cursor: 'pointer',
+                width: '64px',
+                height: '64px',
+              }}
+              referrerPolicy='origin'
+            />
+          </a>
+        </div>
       </div>
     </div>
   );
