@@ -18,8 +18,7 @@ export const getSideBarItems = () => [
   },
   {
     label: i18n.t('profile:my_plans'),
-    path: '/panel/plans',
+    path: '/panel/myPlans',
     icon: '/assets/icons/my-plans.svg',
-    disabled: true,
   },
 ];

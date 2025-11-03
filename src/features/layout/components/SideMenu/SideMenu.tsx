@@ -61,18 +61,14 @@ export const SideMenu = () => {
           {getSideBarItems().map((item) => (
             <li
               key={item.path}
-              onClick={() => !item.disabled && router.push(item.path)} // فقط اگر فعال بود
+              onClick={() => router.push(item.path)}
               className={`px-4 py-2 cursor-pointer flex items-center mb-2 mx-2
         ${
           isActive(item.path)
             ? 'text-white bg-primary font-semibold rounded-2xl'
             : ''
         }
-        ${
-          item.disabled
-            ? 'text-gray-400 cursor-default hover:text-gray-400'
-            : 'hover:text-primary'
-        }
+        ${'hover:text-primary'}
       `}
             >
               <Image src={item.icon} alt={item.label} width={20} height={20} />
