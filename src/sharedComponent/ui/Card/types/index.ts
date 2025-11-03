@@ -4,4 +4,5 @@ export interface ICardProps {
   cost: string;
   remaining: string;
   borderColor?: string;
+  image: string;
 }

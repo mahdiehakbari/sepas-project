@@ -1,5 +1,9 @@
+'use client';
 import React from 'react';
 import { ICardProps } from './types';
+import Image from 'next/image';
+import { Button } from '../Button/Button';
+import { useTranslation } from 'react-i18next';
 
 const Card: React.FC<ICardProps> = ({
   title,
@@ -7,37 +11,52 @@ const Card: React.FC<ICardProps> = ({
   cost,
   remaining,
   borderColor = 'bg-blue-400',
+  image,
 }) => {
+  const { t } = useTranslation();
+
   return (
-    <div className='relative w-64 rounded-xl border border-gray-200 bg-white p-4 shadow-sm hover:shadow-md transition-shadow duration-200'>
-      {/* نوار رنگی ضخیم سمت راست */}
+    <div className='relative w-64 rounded-xl border border-primary bg-white pt-4 px-4 '>
       <div
         className={`absolute right-0 top-0 h-full w-2 rounded-r-xl ${borderColor}`}
       ></div>
 
-      {/* محتوا */}
-      <div className='flex items-center justify-between mb-2'>
+      <div className='flex items-center gap-2 mb-2'>
+        <Image src={image} alt={title} width={40} height={40} />
         <h2 className='text-gray-800 font-semibold text-lg'>{title}</h2>
-        <span className='text-blue-500 text-xl'>🦷</span>
       </div>
 
       <div className='text-sm text-gray-700 space-y-1'>
-        <div className='flex justify-between'>
+        {/* <div className='flex justify-between'>
           <span>مبلغ دریافتی</span>
           <span>{amountReceived}</span>
         </div>
         <div className='flex justify-between'>
           <span>میزان هزینه</span>
           <span>{cost}</span>
-        </div>
-        <div className='flex justify-between font-semibold'>
-          <span>مبلغ باقی مانده</span>
-          <span className='text-gray-900'>{remaining}</span>
+        </div> */}
+        <div className='flex justify-between'>
+          <span className='text-black  font-bold text-[14px]'>
+            {t('my_planes:remaining_amount')}
+          </span>
+          <div className='flex items-center gap-1'>
+            <span className='text-black  font-bold text-[14px]'>
+              {remaining}
+            </span>
+            <span className='text-black  font-bold text-[14px]'>
+              {t('my_planes:toman')}
+            </span>
+          </div>
         </div>
       </div>
 
-      <div className='border-t mt-3 pt-2 text-blue-500 text-sm text-center cursor-pointer hover:underline'>
-        جزئیات بیشتر
+      <div className='border-t border-border-color mt-3 '>
+        <Button
+          disabled
+          className='w-full text-primary text-sm text-center hover:underline bg-transparent disabled:bg-transparent '
+        >
+          جزئیات بیشتر
+        </Button>
       </div>
     </div>
   );
