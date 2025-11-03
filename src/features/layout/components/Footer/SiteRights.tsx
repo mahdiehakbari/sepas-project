@@ -39,12 +39,15 @@ export const SiteRights = () => {
           target='_blank'
           href='https://trustseal.enamad.ir/?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
         >
-          <Image
+          <img
             src='https://trustseal.enamad.ir/logo.aspx?id=657485&Code=avnjPcnHRVDRJRWU5o1BGCbZrB6apxGh'
-            alt=''
-            width={64}
-            height={64}
-            className='rounded-[8px] cursor-pointer'
+            alt='نماد اعتماد'
+            style={{
+              cursor: 'pointer',
+              width: '64px',
+              height: '64px',
+              borderRadius: '8px',
+            }}
             referrerPolicy='origin'
           />
         </a>
