@@ -34,7 +34,7 @@ export const SiteRights = () => {
           </div>
         </div>
 
-        <div className='rounded-[8px] bg-white'>
+        <div className='rounded-[8px] bg-white flex items-center justify-center'>
           <a
             referrerPolicy='origin'
             target='_blank'
