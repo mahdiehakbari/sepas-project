@@ -7,6 +7,9 @@ const nextConfig = {
       },
     ];
   },
+  images: {
+    domains: ['trustseal.enamad.ir'],
+  },
 };
 
 module.exports = nextConfig;
