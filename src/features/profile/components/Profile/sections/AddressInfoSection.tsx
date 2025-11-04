@@ -11,7 +11,6 @@ export const AddressInfoSection: React.FC<IAddressInfoSectionProps> = ({
   handleProvinceChange,
   userData,
 }) => {
-  console.log(cities, 'fff');
   useEffect(() => {
     if (userData?.address?.provinceId) {
       handleProvinceChange(userData.address.provinceId);

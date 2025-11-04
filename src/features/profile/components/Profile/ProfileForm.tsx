@@ -117,8 +117,6 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
     }
   };
 
-  console.log(userData, 'aaaa');
-
   return (
     <div
       className={`${name == 'credit' ? 'md:w-[800px]' : 'max-w-4xl mx-auto'}`}
