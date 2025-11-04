@@ -8,6 +8,7 @@ import { IPayingSubscriptionProps } from './types';
 import axios from 'axios';
 import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/navigation';
 
 export const PayingSubScription = ({
   feePercentage,
@@ -33,6 +34,7 @@ export const PayingSubScription = ({
     setBudgetData(null);
   };
 
+  const router = useRouter();
   const handleConfirm = () => {
     setButtonLoading(true);
 
@@ -47,8 +49,10 @@ export const PayingSubScription = ({
         },
       )
       .then((resp) => {
+        console.log(resp.data, 'hhhhhhhh');
+        router.push(resp.data.paymentUrl);
         setIpgTransactionId(resp.data.ipgTransactionId);
-        setPaymentReceiptStep(1);
+        // setPaymentReceiptStep(1);
         setButtonLoading(false);
       })
       .catch(() => {
