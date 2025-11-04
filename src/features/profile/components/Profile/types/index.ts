@@ -15,7 +15,7 @@ export interface IProfileFormValues {
   mobile: string;
   nationalId: string;
   birthDate: string;
-  gender: string;
+  gender: number | string;
   email?: string;
   iban?: string;
   province: string;
@@ -27,6 +27,7 @@ export interface IProfileFormValues {
 }
 
 export interface IProfileFormProps {
+  userData?: IProfileFormValues | null;
   setUser?: (value: IProfileFormValues) => void;
   name: string;
   handleBack: () => void;

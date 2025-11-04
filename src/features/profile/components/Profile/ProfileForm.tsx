@@ -28,6 +28,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
   setShowProfileModal,
   setShowCreditNoteModal,
   setUser,
+  userData,
 }) => {
   const { t } = useTranslation();
   const router = useRouter();
@@ -42,9 +43,11 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
     handleSubmit,
     setValue,
     control,
-
+    reset,
     formState: { errors },
-  } = useForm<IProfileFormValues>({ defaultValues: profile });
+  } = useForm<IProfileFormValues>({
+    defaultValues: {},
+  });
 
   const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
   const savedPhone = Cookies.get('phoneNumber');
@@ -52,6 +55,12 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
   useEffect(() => {
     setPhoneNumber(user?.phoneNumber || savedPhone);
   }, [savedPhone, user]);
+
+  useEffect(() => {
+    if (userData) {
+      reset(userData);
+    }
+  }, [userData, reset]);
 
   const onSubmit: SubmitHandler<IProfileFormValues> = async (data) => {
     const token = Cookies.get('token');
@@ -61,6 +70,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
 
     const formattedData: Partial<IProfileFormValues> = {
       ...data,
+      gender: data.gender ? Number(data.gender) : 0,
       birthDate: formatBirthDate(data.birthDate),
       email: data.email || undefined,
       iban: data.iban || undefined,
@@ -71,12 +81,11 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
       const res = await updateProfile(token, formattedData);
       setProfile(res.data.profile);
       Cookies.set('userProfile', JSON.stringify(data));
+
       if (name === 'userAccount') {
         axios
           .get(API_AUTHENTICATE_ME, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+            headers: { Authorization: `Bearer ${token}` },
           })
           .then((res) => {
             const userData =
@@ -90,12 +99,14 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
           })
           .catch(() => {});
       }
-      // onSuccess?.(data);
+
       Cookies.set('isLoggedIn', 'true');
       toast.success(t('profile:success_toast'));
-      if (name == 'profile') {
+
+      if (name === 'profile') {
         router.push('/panel/userAccount');
       }
+
       setShowProfileModal?.(false);
       setShowCreditNoteModal?.(true);
     } catch (err: unknown) {
@@ -159,6 +170,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
             register={register}
             errors={errors}
             control={control}
+            userData={userData}
           />
           <BankInfoSection t={t} register={register} errors={errors} />
           <AddressInfoSection

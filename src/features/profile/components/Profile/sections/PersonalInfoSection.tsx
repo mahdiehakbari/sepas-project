@@ -10,6 +10,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   register,
   errors,
   control,
+  userData,
 }) => {
   const rules = validationRules(t);
 
@@ -17,7 +18,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     { id: '1', name: t('profile:man') },
     { id: '2', name: t('profile:woman') },
   ];
-
+  console.log(userData, 'dddd');
   return (
     <section>
       <FormTitle title={t('profile:identity_information')} />
@@ -29,6 +30,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
+          defaultValue={userData?.firstName ?? ''}
         />
 
         <Input
@@ -37,6 +39,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
+          defaultValue={userData?.lastName ?? ''}
         />
 
         <Input
@@ -46,6 +49,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           errors={errors}
           textError={t('profile:field_required')}
           rules={rules.mobile as unknown as RegisterOptions<IProfileFormValues>}
+          defaultValue={userData?.mobile ?? ''}
         />
 
         <Input
@@ -57,6 +61,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           rules={
             rules.nationalId as unknown as RegisterOptions<IProfileFormValues>
           }
+          defaultValue={userData?.nationalId ?? ''}
         />
 
         <DateInput
@@ -83,6 +88,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           errors={errors}
           textError={t('profile:field_required')}
           rules={{ required: false }}
+          defaultValue={userData?.email ?? ''}
         />
       </div>
     </section>

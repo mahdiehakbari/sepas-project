@@ -7,7 +7,7 @@ export const useProfileStore = create<IProfileStore>((set) => ({
     lastName: '',
     mobile: '',
     nationalId: '',
-    gender: '',
+    gender: 0,
     birthDate: '',
     email: '',
     iban: '',

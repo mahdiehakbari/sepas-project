@@ -22,6 +22,7 @@ export interface IBankInfoSectionProps {
 }
 
 export interface IPersonalInfoSectionProps {
+  userData?: IProfileFormValues | null;
   t: (key: string) => string;
   register: UseFormRegister<IProfileFormValues>;
   errors: FieldErrors<IProfileFormValues>;

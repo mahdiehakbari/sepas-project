@@ -10,9 +10,11 @@ export const Input: React.FC<InputProps> = ({
   errors,
   textError,
   rules = {},
+  defaultValue,
 }) => {
   const hasError = !!errors[name];
   const isRequired = rules?.required !== false;
+
   return (
     <div className={`flex flex-col ${full ? 'col-span-2' : ''}`}>
       <input
@@ -21,6 +23,7 @@ export const Input: React.FC<InputProps> = ({
           ...rules,
         })}
         type={type}
+        defaultValue={defaultValue}
         placeholder={isRequired ? `${label} *` : label}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2

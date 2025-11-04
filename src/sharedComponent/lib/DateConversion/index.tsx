@@ -2,14 +2,21 @@ import React from 'react';
 import jalaali from 'jalaali-js';
 
 interface BirthDateProps {
-  birthDate: string;
+  birthDate?: string | null;
 }
 
 const toPersianNumber = (str: string) =>
   str.replace(/\d/g, (d) => '۰۱۲۳۴۵۶۷۸۹'[parseInt(d)]);
 
 export const BirthDate: React.FC<BirthDateProps> = ({ birthDate }) => {
+  if (!birthDate) return <span>تاریخ نامعتبر</span>;
+
   const date = new Date(birthDate);
+
+  if (isNaN(date.getTime())) {
+    console.error('تاریخ نامعتبر:', birthDate);
+    return <span>تاریخ نامعتبر</span>;
+  }
 
   const jDate = jalaali.toJalaali(
     date.getFullYear(),

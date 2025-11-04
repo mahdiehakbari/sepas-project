@@ -17,7 +17,7 @@ export interface IProfileFormValues {
   mobile: string;
   nationalId: string;
   birthDate: string;
-  gender: string;
+  gender: number | string;
   email?: string;
   iban?: string;
   province: string;
@@ -29,6 +29,7 @@ export interface IProfileFormValues {
 }
 
 export interface InputProps {
+  defaultValue: string;
   label: string;
   name: keyof IProfileFormValues;
   register: UseFormRegister<IProfileFormValues>;

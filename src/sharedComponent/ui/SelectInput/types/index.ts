@@ -12,6 +12,6 @@ export interface ISelectInputProps<T extends FieldValues> {
   register: UseFormRegister<T>;
   options: { label: string; value: string }[];
   errors?: FieldErrors<T>;
-  onChange?: (value: string) => void;
+  onChange?: (value: string | number) => void;
   rules?: RegisterOptions<T, Path<T>>;
 }

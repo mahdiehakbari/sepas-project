@@ -21,7 +21,7 @@ export default function UserAccount() {
     mobile: '',
     nationalId: '',
     birthDate: '',
-    gender: '',
+    gender: 0,
     email: undefined,
     iban: undefined,
     province: '',
@@ -81,6 +81,7 @@ export default function UserAccount() {
           handleBack={handleBack}
           setUser={setUser}
           setIsEditing={setIsEditing}
+          userData={user}
         />
       ) : (
         <>
