@@ -51,6 +51,6 @@ export async function POST(request: Request) {
 
   // redirect به صفحه نتیجه
   return NextResponse.redirect(
-    `${process.env.NEXT_PUBLIC_URL}/payment/result?${params.toString()}`,
+    `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?${params.toString()}`,
   );
 }
