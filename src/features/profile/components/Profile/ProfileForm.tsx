@@ -117,6 +117,8 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
     }
   };
 
+  console.log(userData, 'aaaa');
+
   return (
     <div
       className={`${name == 'credit' ? 'md:w-[800px]' : 'max-w-4xl mx-auto'}`}
@@ -172,7 +174,12 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
             control={control}
             userData={userData}
           />
-          <BankInfoSection t={t} register={register} errors={errors} />
+          <BankInfoSection
+            t={t}
+            register={register}
+            errors={errors}
+            userData={userData}
+          />
           <AddressInfoSection
             t={t}
             register={register}
@@ -180,6 +187,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
             provinces={provinces}
             cities={cities}
             handleProvinceChange={handleProvinceChange}
+            userData={userData}
           />
         </div>
 

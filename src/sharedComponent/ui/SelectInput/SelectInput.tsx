@@ -11,7 +11,6 @@ export const SelectInput = <T extends FieldValues>({
   rules,
   defaultValue,
 }: ISelectInputProps<T>) => {
-  console.log(defaultValue, 'hiiii');
   return (
     <div className='flex flex-col'>
       <select

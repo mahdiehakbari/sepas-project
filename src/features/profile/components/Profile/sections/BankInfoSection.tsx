@@ -6,6 +6,7 @@ export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
   t,
   register,
   errors,
+  userData,
 }) => (
   <section>
     <FormTitle title={t('profile:bank_information')} />
@@ -17,6 +18,7 @@ export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
         errors={errors}
         textError={t('profile:field_required')}
         rules={{ required: false }}
+        defaultValue={userData?.iban ?? ''}
       />
     </div>
   </section>

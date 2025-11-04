@@ -58,8 +58,6 @@ const TransactionsList = () => {
       .finally(() => setPageLoading(false));
   }, [customerId, page]);
 
-  console.log('hiii', transactionData);
-
   if (pageLoading) {
     return (
       <div className='flex justify-center items-center h-[60vh]'>

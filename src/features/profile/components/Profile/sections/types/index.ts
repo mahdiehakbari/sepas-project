@@ -7,15 +7,17 @@ interface ILocationItem {
 }
 
 export interface IAddressInfoSectionProps {
+  userData?: IProfileFormValues | null;
   t: (key: string) => string;
   register: UseFormRegister<IProfileFormValues>;
   errors: FieldErrors<IProfileFormValues>;
   provinces: ILocationItem[];
   cities: ILocationItem[];
-  handleProvinceChange: (provinceId: string) => void;
+  handleProvinceChange: (provinceId: string | number) => void;
 }
 
 export interface IBankInfoSectionProps {
+  userData?: IProfileFormValues | null;
   t: (key: string) => string;
   register: UseFormRegister<IProfileFormValues>;
   errors: FieldErrors<IProfileFormValues>;

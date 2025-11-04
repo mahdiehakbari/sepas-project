@@ -33,9 +33,7 @@ export const useLocationData = (
       .catch((err) => console.error(err.response));
   }, []);
 
-  const handleProvinceChange = (provinceId: string) => {
-    setCities([]);
-    setValue('cityId', '');
+  const handleProvinceChange = (provinceId: string | number) => {
     const token = Cookies.get('token');
     axios
       .get(`${API_CITIES_QUERY}/${provinceId}`, {
