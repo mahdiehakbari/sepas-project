@@ -27,41 +27,28 @@
 // }
 
 import { NextResponse } from 'next/server';
-// import axios from 'axios'  // فعلاً نیاز نداریم
 
 export async function POST(request: Request) {
+  let data = {};
   try {
-    // داده‌ی خام ارسالی از بانک
-    const data = await request.json();
-
-    console.log('📦 Data from bank:', data);
-
-    // فعلاً این بخش بررسی صحت پرداخت غیر فعال می‌مونه
-    /*
-    const response = await axios.post(
-      `${process.env.NEXT_PUBLIC_UR}/payment/verify`,
-      data,
-    )
-    const result = response.data
-    */
-
-    // برای تست، مستقیماً داده بانک رو به صفحه نتیجه بفرست
-    const params = new URLSearchParams({
-      status: data.status?.toString() || 'unknown',
-      trackId: data.trackId?.toString() || '',
-      message: data.message?.toString() || 'نتیجه تست از بانک',
-      amount: data.amount?.toString() || '',
-    });
-
-    return NextResponse.redirect(
-      `${
-        process.env.NEXT_PUBLIC_FRONT_URL
-      }/payment/result?${params.toString()}`,
-    );
-  } catch (error) {
-    console.error('Payment callback error:', error);
-    return NextResponse.redirect(
-      `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?status=failed&message=خطا در پردازش تراکنش`,
-    );
+    data = await request.json();
+  } catch (err) {
+    console.warn('No JSON body in request', err);
   }
+
+  const status = data.status || 'canceled';
+  const trackId = data.trackId || '';
+  const message = data.message || 'تراکنش لغو شد';
+  const amount = data.amount || 0;
+
+  const params = new URLSearchParams({
+    status,
+    trackId,
+    message,
+    amount: amount.toString(),
+  });
+
+  return NextResponse.redirect(
+    `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?${params.toString()}`,
+  );
 }
