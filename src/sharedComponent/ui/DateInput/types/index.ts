@@ -4,6 +4,7 @@ import {
   Control,
   RegisterOptions,
   Path,
+  PathValue,
 } from 'react-hook-form';
 
 export interface IDateInputProps<T extends FieldValues> {
@@ -13,4 +14,5 @@ export interface IDateInputProps<T extends FieldValues> {
   errors: FieldErrors<T>;
   rules?: RegisterOptions<T>;
   textError?: string;
+  defaultValue?: PathValue<T, Path<T>>;
 }

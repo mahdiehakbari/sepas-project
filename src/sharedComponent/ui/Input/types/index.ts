@@ -39,4 +39,5 @@ export interface InputProps {
   errors: FieldErrors<IProfileFormValues>;
   textError: string;
   rules?: RegisterOptions<IProfileFormValues, keyof IProfileFormValues>;
+  disabled?: boolean;
 }

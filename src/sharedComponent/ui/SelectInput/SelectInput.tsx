@@ -9,7 +9,9 @@ export const SelectInput = <T extends FieldValues>({
   errors,
   onChange,
   rules,
+  defaultValue,
 }: ISelectInputProps<T>) => {
+  console.log(defaultValue, 'hiiii');
   return (
     <div className='flex flex-col'>
       <select
@@ -18,6 +20,7 @@ export const SelectInput = <T extends FieldValues>({
           register(name, rules).onChange(e);
           onChange?.(e.target.value);
         }}
+        defaultValue={defaultValue}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2
                     ${

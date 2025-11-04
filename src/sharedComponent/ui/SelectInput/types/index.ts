@@ -14,4 +14,5 @@ export interface ISelectInputProps<T extends FieldValues> {
   errors?: FieldErrors<T>;
   onChange?: (value: string | number) => void;
   rules?: RegisterOptions<T, Path<T>>;
+  defaultValue?: string;
 }

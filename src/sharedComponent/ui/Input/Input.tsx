@@ -11,6 +11,7 @@ export const Input: React.FC<InputProps> = ({
   textError,
   rules = {},
   defaultValue,
+  disabled = false,
 }) => {
   const hasError = !!errors[name];
   const isRequired = rules?.required !== false;
@@ -24,6 +25,7 @@ export const Input: React.FC<InputProps> = ({
         })}
         type={type}
         defaultValue={defaultValue}
+        disabled={disabled}
         placeholder={isRequired ? `${label} *` : label}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
                     focus:outline-none focus:ring-2
@@ -31,7 +33,13 @@ export const Input: React.FC<InputProps> = ({
                       hasError
                         ? 'border-red-500 focus:ring-red-400'
                         : 'border-gray-300 focus:ring-blue-500'
-                    }`}
+                    }
+                    ${
+                      disabled
+                        ? 'bg-gray-100 cursor-default opacity-70 text-[#9b9b9b]'
+                        : ''
+                    } 
+                    `}
       />
       {hasError && (
         <span className='text-red-500 text-sm mt-1'>
