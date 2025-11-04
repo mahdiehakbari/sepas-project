@@ -27,9 +27,15 @@
 // }
 
 import { NextResponse } from 'next/server';
+interface PaymentData {
+  status?: string;
+  trackId?: string;
+  message?: string;
+  amount?: number;
+}
 
 export async function POST(request: Request) {
-  let data = {};
+  let data: PaymentData = {};
   try {
     data = await request.json();
   } catch (err) {
