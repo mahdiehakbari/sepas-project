@@ -12,7 +12,7 @@ export default function PaymentResult() {
   const isSuccess = status === 'success';
 
   return (
-    <div className='min-h-screen flex flex-col items-center justify-center bg-gray-50 px-4'>
+    <div className='flex flex-col items-center justify-center'>
       <div className='bg-white shadow-xl rounded-2xl p-8 w-full max-w-md text-center'>
         <h1
           className={`text-2xl font-bold mb-4 ${
