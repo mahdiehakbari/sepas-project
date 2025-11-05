@@ -121,6 +121,10 @@ export async function POST(request: Request) {
       amount: data.amount || '',
       wage: data.wage || '',
       securePan: data.securePan || '',
+      token: data.token || '',
+      mid: data.mid || '',
+      affectiveAmount: data.affectiveAmount || '',
+      hashCardNumber: data.hashCardNumber || '',
     };
 
     // ارسال به API بک‌اند
