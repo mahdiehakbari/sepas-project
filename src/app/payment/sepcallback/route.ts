@@ -54,8 +54,7 @@
 //     `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?${params.toString()}`,
 //   );
 // }
-
-import { NextResponse } from 'next/server';
+import { NextResponse } from "next/server";
 
 interface PaymentData {
   status?: string;
@@ -68,40 +67,36 @@ export async function POST(request: Request) {
   let data: PaymentData = {};
 
   try {
-    const contentType = request.headers.get('content-type') || '';
+    const contentType = request.headers.get("content-type") || "";
 
-    if (contentType.includes('application/json')) {
-      // اگر JSON اومده
+    if (contentType.includes("application/json")) {
       const text = await request.text();
       if (text) {
         data = JSON.parse(text);
       }
     } else if (
-      contentType.includes('application/x-www-form-urlencoded') ||
-      contentType.includes('multipart/form-data')
+      contentType.includes("application/x-www-form-urlencoded") ||
+      contentType.includes("multipart/form-data")
     ) {
-      // اگر فرم اومده
       const formData = await request.formData().catch(() => null);
       if (formData) {
-        data.status = formData.get('status')?.toString();
-        data.trackId = formData.get('trackId')?.toString();
-        data.message = formData.get('message')?.toString();
-        const amountStr = formData.get('amount')?.toString();
+        data.status = formData.get("status")?.toString();
+        data.trackId = formData.get("trackId")?.toString();
+        data.message = formData.get("message")?.toString();
+        const amountStr = formData.get("amount")?.toString();
         if (amountStr) data.amount = Number(amountStr);
       }
     } else {
-      // body خالی یا نوع ناشناخته
-      console.warn('Empty or unknown body type in POST', contentType);
+      console.warn("Empty or unknown body type in POST", contentType);
     }
   } catch (err) {
-    console.warn('Error parsing body', err);
+    console.warn("Error parsing body", err);
   }
 
-  // fallback امن
-  const status = data.status || 'canceled';
-  const trackId = data.trackId || '';
+  const status = data.status || "canceled";
+  const trackId = data.trackId || "";
   const message =
-    data.message || (status === 'canceled' ? 'تراکنش لغو شد' : 'تراکنش ناموفق');
+    data.message || (status === "canceled" ? "تراکنش لغو شد" : "تراکنش ناموفق");
   const amount = data.amount || 0;
 
   const params = new URLSearchParams({
@@ -111,20 +106,19 @@ export async function POST(request: Request) {
     amount: amount.toString(),
   });
 
-  // تشخیص آدرس فرانت برای redirect
   const frontUrl =
     process.env.NEXT_PUBLIC_FRONT_URL ||
-    (process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://dentalit.sepasholding.com');
+    (process.env.NODE_ENV === "development"
+      ? "http://localhost:3000"
+      : "https://dentalit.sepasholding.com");
 
   const redirectUrl = `${frontUrl}/payment/result?${params.toString()}`;
 
-  console.log('Redirecting to:', redirectUrl);
+  console.log("Redirecting to:", redirectUrl);
 
-  return NextResponse.redirect(redirectUrl);
+  // استفاده از status 303 برای تبدیل POST به GET
+  return NextResponse.redirect(redirectUrl, { status: 303 });
 }
-
 // import { NextResponse } from 'next/server';
 // import axios from 'axios';
 
