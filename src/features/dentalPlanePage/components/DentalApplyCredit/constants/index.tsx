@@ -1,21 +1,20 @@
-import i18n from '@/i18n';
 import { TTabItems } from '../types';
 import { FirstTab } from '../FirstTab/FirstTab';
 
-export const tabsItem: TTabItems[] = [
+export const getTabsItem = (
+  isOpenModal: boolean,
+  setIsOpenModal: (value: boolean) => void,
+): TTabItems[] => [
   {
     tabImage: '/assets/dental-plane/tejarat_bank_logo.svg',
     label: 'dental_plane:tejarat_bank',
-    content: <FirstTab />,
+    content: (
+      <FirstTab isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} />
+    ),
   },
   // {
   //   tabImage: '/assets/dental-plane/saman-bank-logo.svg',
   //   label: 'dental_plane:saman_bank',
-  //   content: 'محتوای تب دوم',
-  // },
-  // {
-  //   tabImage: '/assets/dental-plane/meli-bank-logo.svg',
-  //   label: 'dental_plane:meli_bank',
-  //   content: 'محتوای تب سوم',
+  //   content: <SecondTab isOpenModal={isOpenModal} setIsOpenModal={setIsOpenModal} />,
   // },
 ];

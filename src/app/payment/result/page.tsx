@@ -1,8 +1,10 @@
 'use client';
 
 import { Button } from '@/sharedComponent/ui';
+import { stat } from 'fs';
 import Image from 'next/image';
-import { useSearchParams } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
+
 import { useTranslation } from 'react-i18next';
 
 export default function PaymentResult() {
@@ -12,6 +14,12 @@ export default function PaymentResult() {
   const message = params.get('message') || '';
   const amount = params.get('amount') || '0';
   const { t } = useTranslation();
+  const router = useRouter();
+
+  const handleRetry = () => {
+    localStorage.setItem('payment-status', status);
+    router.push('/services/dentalPlan');
+  };
 
   return (
     <div className='flex flex-col items-center justify-center '>
@@ -55,8 +63,10 @@ export default function PaymentResult() {
             </p>
 
             <div className='w-full border-t border-secondary py-2  flex justify-between'>
-              <Button variant='outline'>{t('payment:contact_support')}</Button>
-              <Button>{t('payment:retry')}</Button>
+              <Button disabled variant='outline'>
+                {t('payment:contact_support')}
+              </Button>
+              <Button onClick={handleRetry}>{t('payment:retry')}</Button>
             </div>
           </>
         )}

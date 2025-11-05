@@ -2,13 +2,21 @@
 
 import Image from 'next/image';
 import { useState } from 'react';
-import { tabsItem } from './constants';
+import { getTabsItem } from './constants';
 import { useTranslation } from 'react-i18next';
 
-export const DentalApplyCredit = () => {
+export interface iCreditProps {
+  isOpenModal: boolean;
+  setIsOpenModal: (value: boolean) => void;
+}
+
+export const DentalApplyCredit = ({
+  setIsOpenModal,
+  isOpenModal,
+}: iCreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
-
+  const tabsItem = getTabsItem(isOpenModal, setIsOpenModal);
   return (
     <div className='mb-12'>
       <h2 className='font[700] text-[24px] mb-4'>

@@ -10,12 +10,16 @@ import { API_BUDGET_CALC, API_BUDGET_QUERY } from '@/config/api_address.config';
 import { IFeeConfiguration } from './types';
 import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
 
-export const FirstTab = () => {
+export interface IFirstTabProps {
+  isOpenModal: boolean;
+  setIsOpenModal: (value: boolean) => void;
+}
+
+export const FirstTab = ({ setIsOpenModal, isOpenModal }: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
   const options = ['۶ ماهه', '۹ ماهه', '۱۲ ماهه', '۱۸ ماهه'];
   const [active, setActive] = useState(options[0]);
-  const [isOpenModal, setIsOpenModal] = useState(false);
   const [creditLoading, setCreditLoading] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
