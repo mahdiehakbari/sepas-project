@@ -1,0 +1,12 @@
+{
+  "payment_receipt": "Payment Receipt",
+  "payment_successful": "Payment Successful",
+  "tracking_number": "Tracking Number",
+  "payment_date": "Payment Date",
+  "receive_credit": "Receive Credit",
+  "download_receipt": "Download Receipt",
+  "payment_failed": "Payment Failed",
+  "debited": "If debited, the amount will be returned to your account within 72 hours.",
+  "retry": "Retry",
+  "contact_support": "Contact Support"
+}

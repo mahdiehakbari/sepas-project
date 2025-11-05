@@ -1,0 +1,12 @@
+{
+  "payment_receipt": "رسید پرداخت",
+  "payment_successful": "پرداخت موفق",
+  "tracking_number": "شماره پیگیری",
+  "payment_date": "تاریخ پرداخت",
+  "receive_credit": "دریافت اعتبار",
+  "download_receipt": "دانلود رسید",
+  "payment_failed": "پرداخت ناموفق",
+  "debited": "در صورت کسر از حساب، مبلغ تا ۷۲ ساعت به حساب شما باز می گردد.",
+  "retry": "تلاش مجدد",
+  "contact_support": "تماس با پشتیبانی"
+}
