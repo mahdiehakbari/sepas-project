@@ -1,7 +1,7 @@
 // import { NextResponse } from 'next/server';
 
 // interface PaymentData {
-//   status?: string | undefined;
+//   status?: string;
 //   trackId?: string;
 //   message?: string;
 //   amount?: number;
@@ -14,13 +14,14 @@
 //     const contentType = request.headers.get('content-type') || '';
 
 //     if (contentType.includes('application/json')) {
-//       // دریافت JSON
-//       data = await request.json();
+//       const text = await request.text();
+//       if (text) {
+//         data = JSON.parse(text);
+//       }
 //     } else if (
 //       contentType.includes('application/x-www-form-urlencoded') ||
 //       contentType.includes('multipart/form-data')
 //     ) {
-//       // دریافت formData
 //       const formData = await request.formData().catch(() => null);
 //       if (formData) {
 //         data.status = formData.get('status')?.toString();
@@ -29,19 +30,19 @@
 //         const amountStr = formData.get('amount')?.toString();
 //         if (amountStr) data.amount = Number(amountStr);
 //       }
+//     } else {
+//       console.warn('Empty or unknown body type in POST', contentType);
 //     }
 //   } catch (err) {
-//     console.warn('No valid body in request', err);
+//     console.warn('Error parsing body', err);
 //   }
 
-//   // fallback امن
 //   const status = data.status || 'canceled';
 //   const trackId = data.trackId || '';
 //   const message =
 //     data.message || (status === 'canceled' ? 'تراکنش لغو شد' : 'تراکنش ناموفق');
 //   const amount = data.amount || 0;
 
-//   // ساخت query params
 //   const params = new URLSearchParams({
 //     status,
 //     trackId,
@@ -49,12 +50,20 @@
 //     amount: amount.toString(),
 //   });
 
-//   // redirect به صفحه نتیجه
-//   return NextResponse.redirect(
-//     `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?${params.toString()}`,
-//   );
+//   const frontUrl =
+//     process.env.NEXT_PUBLIC_FRONT_URL ||
+//     (process.env.NODE_ENV === 'development'
+//       ? 'http://localhost:3000'
+//       : 'https://dentalit.sepasholding.com');
+
+//   const redirectUrl = `${frontUrl}/payment/result?${params.toString()}`;
+
+//   console.log('Redirecting to:', redirectUrl);
+
+//   // استفاده از status 303 برای تبدیل POST به GET
+//   return NextResponse.redirect(redirectUrl, { status: 303 });
 // }
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
 
 interface PaymentData {
   status?: string;
@@ -67,37 +76,69 @@ export async function POST(request: Request) {
   let data: PaymentData = {};
 
   try {
-    const contentType = request.headers.get("content-type") || "";
+    const contentType = request.headers.get('content-type') || '';
 
-    if (contentType.includes("application/json")) {
+    if (contentType.includes('application/json')) {
       const text = await request.text();
       if (text) {
         data = JSON.parse(text);
       }
     } else if (
-      contentType.includes("application/x-www-form-urlencoded") ||
-      contentType.includes("multipart/form-data")
+      contentType.includes('application/x-www-form-urlencoded') ||
+      contentType.includes('multipart/form-data')
     ) {
       const formData = await request.formData().catch(() => null);
       if (formData) {
-        data.status = formData.get("status")?.toString();
-        data.trackId = formData.get("trackId")?.toString();
-        data.message = formData.get("message")?.toString();
-        const amountStr = formData.get("amount")?.toString();
+        data.status = formData.get('status')?.toString();
+        data.trackId = formData.get('trackId')?.toString();
+        data.message = formData.get('message')?.toString();
+        const amountStr = formData.get('amount')?.toString();
         if (amountStr) data.amount = Number(amountStr);
       }
     } else {
-      console.warn("Empty or unknown body type in POST", contentType);
+      console.warn('Empty or unknown body type in POST', contentType);
     }
   } catch (err) {
-    console.warn("Error parsing body", err);
+    console.warn('Error parsing body', err);
   }
 
-  const status = data.status || "canceled";
-  const trackId = data.trackId || "";
+  // fallback امن
+  const status = data.status || 'canceled';
+  const trackId = data.trackId || '';
   const message =
-    data.message || (status === "canceled" ? "تراکنش لغو شد" : "تراکنش ناموفق");
+    data.message || (status === 'canceled' ? 'تراکنش لغو شد' : 'تراکنش ناموفق');
   const amount = data.amount || 0;
+
+  // 🧠 اینجا: درخواست وریفای به API بک‌اند
+  try {
+    const verifyResponse = await fetch(
+      'https://dentalitapi.sepasholding.com/api/Payment/sep/verify',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        // ASP.NET معمولاً فرم می‌خواد نه JSON
+        body: new URLSearchParams({
+          refNum: trackId || '', // یا اگر refNum داری، جایگزین کن
+          rrn: trackId || '', // اگر rrn جدا داری، مقدارش رو بفرست
+          amount: amount.toString(),
+        }).toString(),
+      },
+    );
+
+    const verifyResult = await verifyResponse.json().catch(() => null);
+    console.log('Verify result from API:', verifyResult);
+  } catch (err) {
+    console.error('Error calling verify API:', err);
+  }
+
+  // حالا ریدایرکت به صفحه نتیجه
+  const frontUrl =
+    process.env.NEXT_PUBLIC_FRONT_URL ||
+    (process.env.NODE_ENV === 'development'
+      ? 'http://localhost:3000'
+      : 'https://dentalit.sepasholding.com');
 
   const params = new URLSearchParams({
     status,
@@ -106,41 +147,9 @@ export async function POST(request: Request) {
     amount: amount.toString(),
   });
 
-  const frontUrl =
-    process.env.NEXT_PUBLIC_FRONT_URL ||
-    (process.env.NODE_ENV === "development"
-      ? "http://localhost:3000"
-      : "https://dentalit.sepasholding.com");
-
   const redirectUrl = `${frontUrl}/payment/result?${params.toString()}`;
 
-  console.log("Redirecting to:", redirectUrl);
+  console.log('Redirecting to:', redirectUrl);
 
-  // استفاده از status 303 برای تبدیل POST به GET
   return NextResponse.redirect(redirectUrl, { status: 303 });
 }
-// import { NextResponse } from 'next/server';
-// import axios from 'axios';
-
-// export async function POST(request: Request) {
-//   const data = await request.formData();
-//   const refNum = data.get('RefNum')?.toString();
-//   const amount = data.get('Amount')?.toString();
-
-//   // ارسال به بک‌اند
-//   const verifyRes = await axios.post(
-//     'https://dentalitapi.sepasholding.com/api/Payment/sep/verify',
-//     { refNum, amount },
-//   );
-
-//   console.log('Verify response:', verifyRes.data);
-
-//   const params = new URLSearchParams({
-//     status: verifyRes.data.success ? 'success' : 'failed',
-//     message: verifyRes.data.message,
-//   });
-
-//   return NextResponse.redirect(
-//     `https://dentalit.sepasholding.com/payment/result?${params.toString()}`,
-//   );
-// }
