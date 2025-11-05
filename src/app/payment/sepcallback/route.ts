@@ -54,52 +54,99 @@
 //     `${process.env.NEXT_PUBLIC_FRONT_URL}/payment/result?${params.toString()}`,
 //   );
 // }
-import { NextResponse } from 'next/server';
 
-interface PaymentData {
-  status?: string;
-  trackId?: string;
-  message?: string;
-  amount?: number;
-}
+// import { NextResponse } from 'next/server';
+
+// interface PaymentData {
+//   status?: string;
+//   trackId?: string;
+//   message?: string;
+//   amount?: number;
+// }
+
+// export async function POST(request: Request) {
+//   let data: PaymentData = {};
+
+//   try {
+//     const contentType = request.headers.get('content-type') || '';
+
+//     if (contentType.includes('application/json')) {
+//       // اگر JSON اومده
+//       const text = await request.text();
+//       if (text) {
+//         data = JSON.parse(text);
+//       }
+//     } else if (
+//       contentType.includes('application/x-www-form-urlencoded') ||
+//       contentType.includes('multipart/form-data')
+//     ) {
+//       // اگر فرم اومده
+//       const formData = await request.formData().catch(() => null);
+//       if (formData) {
+//         data.status = formData.get('status')?.toString();
+//         data.trackId = formData.get('trackId')?.toString();
+//         data.message = formData.get('message')?.toString();
+//         const amountStr = formData.get('amount')?.toString();
+//         if (amountStr) data.amount = Number(amountStr);
+//       }
+//     } else {
+//       // body خالی یا نوع ناشناخته
+//       console.warn('Empty or unknown body type in POST', contentType);
+//     }
+//   } catch (err) {
+//     console.warn('Error parsing body', err);
+//   }
+
+//   // fallback امن
+//   const status = data.status || 'canceled';
+//   const trackId = data.trackId || '';
+//   const message =
+//     data.message || (status === 'canceled' ? 'تراکنش لغو شد' : 'تراکنش ناموفق');
+//   const amount = data.amount || 0;
+
+//   const params = new URLSearchParams({
+//     status,
+//     trackId,
+//     message,
+//     amount: amount.toString(),
+//   });
+
+//   // تشخیص آدرس فرانت برای redirect
+//   const frontUrl =
+//     process.env.NEXT_PUBLIC_FRONT_URL ||
+//     (process.env.NODE_ENV === 'development'
+//       ? 'http://localhost:3000'
+//       : 'https://dentalit.sepasholding.com');
+
+//   const redirectUrl = `${frontUrl}/payment/result?${params.toString()}`;
+
+//   console.log('Redirecting to:', redirectUrl);
+
+//   return NextResponse.redirect(redirectUrl);
+// }
+
+import { NextResponse } from 'next/server';
+import axios from 'axios';
 
 export async function POST(request: Request) {
-  let data: PaymentData = {};
+  const data = await request.formData();
+  const refNum = data.get('RefNum')?.toString();
+  const amount = data.get('Amount')?.toString();
 
-  try {
-    data = await request.json();
-  } catch (err) {
-    console.warn('No JSON body in request', err);
-  }
+  // ارسال به بک‌اند
+  const verifyRes = await axios.post(
+    'https://dentalitapi.sepasholding.com/api/Payment/sep/verify',
+    { refNum, amount },
+  );
 
-  const status = data.status || 'canceled';
-  const trackId = data.trackId || '';
-  const message = data.message || 'تراکنش لغو شد';
-  const amount = data.amount || 0;
+  console.log('Verify response:', verifyRes.data);
 
   const params = new URLSearchParams({
-    status,
-    trackId,
-    message,
-    amount: amount.toString(),
+    status: verifyRes.data.success ? 'success' : 'failed',
+    message: verifyRes.data.message,
   });
 
-  // ✅ تشخیص آدرس فرانت براساس محیط
-  const frontUrl =
-    process.env.NEXT_PUBLIC_FRONT_URL ||
-    (process.env.NODE_ENV === 'development'
-      ? 'http://localhost:3000'
-      : 'https://dentalit.sepasholding.com');
-
-  const redirectUrl = `${frontUrl}/payment/result?${params.toString()}`;
-
-  try {
-    return NextResponse.redirect(redirectUrl);
-  } catch (err) {
-    console.error('Redirect failed', err);
-    return NextResponse.json(
-      { success: false, message: 'خطا در redirect' },
-      { status: 500 },
-    );
-  }
+  return NextResponse.redirect(
+    `https://dentalit.sepasholding.com/payment/result?${params.toString()}`,
+  );
 }
