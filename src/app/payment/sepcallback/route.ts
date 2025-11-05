@@ -208,18 +208,18 @@ export async function POST(request: Request) {
     // آماده‌سازی بدنه برای verify
     const verifyBody = {
       state: data.state || '',
-      status: data.status || '',
+      status: data.status || 0,
       rrn: data.rrn || '',
       refNum: data.refNum || '',
       resNum: data.resNum || '',
       terminalId: data.terminalId || '',
       traceNo: data.traceNo || '',
-      amount: data.amount || '',
-      wage: data.wage || '',
+      amount: data.amount || 0,
+      wage: data.wage || 0,
       securePan: data.securePan || '',
       token: data.token || '',
       mid: data.mid || '',
-      affectiveAmount: data.affectiveAmount || '',
+      affectiveAmount: data.affectiveAmount || 0,
       hashCardNumber: data.hashCardNumber || '',
     };
 
