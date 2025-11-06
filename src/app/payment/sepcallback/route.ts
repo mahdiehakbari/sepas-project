@@ -62,18 +62,34 @@ export async function POST(request: Request) {
         sent: verifyBody,
         response: verifyResponse.data,
       });
-    } catch (err: any) {
-      return NextResponse.json({
-        data,
-        contentType,
-        verifyBody,
-        error: err,
-        response: err.response?.data,
-      });
+    } catch (error) {
+      // خطا در پارس کردن body
+      if (axios.isAxiosError(error)) {
+        return NextResponse.json(
+          {
+            data,
+            contentType,
+            error: true,
+            message: error.message,
+            details: error.response?.data,
+          },
+          { status: error.response?.status || 500 }
+        );
+      }
+
+      return NextResponse.json(
+        {
+          data,
+          contentType,
+          error: true,
+          message: error instanceof Error ? error.message : "Server error",
+        },
+        { status: 500 }
+      );
     }
-  } catch (err: any) {
+  } catch (error) {
     return NextResponse.json(
-      { error: true, message: err?.message || 'Server error' },
+      { message: error instanceof Error ? error.message : "Server error", },
       { status: 500 },
     );
   }
