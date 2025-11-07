@@ -49,7 +49,6 @@ export const PayingSubScription = ({
         },
       )
       .then((resp) => {
-        console.log(resp.data, 'hhhhhhhh');
         router.push(resp.data.paymentUrl);
         setIpgTransactionId(resp.data.ipgTransactionId);
         // setPaymentReceiptStep(1);

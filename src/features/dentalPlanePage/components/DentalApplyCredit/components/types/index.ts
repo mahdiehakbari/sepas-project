@@ -26,6 +26,10 @@ export interface ICreditWorkflowModalProps {
   showProfileModal: boolean;
   setShowProfileModal: (value: boolean) => void;
   setBudgetData: (value: number | null) => void;
+  paymentReceiptStep: number;
+  setPaymentReceiptStep: (value: number) => void;
+  creditRequestId: string;
+  setCreditRequestId: (value: string) => void;
 }
 
 export interface IGetCreditStepTitleProps {

@@ -13,9 +13,28 @@ import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
 export interface IFirstTabProps {
   isOpenModal: boolean;
   setIsOpenModal: (value: boolean) => void;
+  budgetData: number | null;
+  setBudgetData: (value: number | null) => void;
+  showBill: boolean;
+  setShowBill: (value: boolean) => void;
+  paymentReceiptStep: number;
+  setPaymentReceiptStep: (value: number) => void;
+  creditRequestId: string;
+  setCreditRequestId: (value: string) => void;
 }
 
-export const FirstTab = ({ setIsOpenModal, isOpenModal }: IFirstTabProps) => {
+export const FirstTab = ({
+  setIsOpenModal,
+  isOpenModal,
+  setBudgetData,
+  budgetData,
+  showBill,
+  setShowBill,
+  paymentReceiptStep,
+  setPaymentReceiptStep,
+  creditRequestId,
+  setCreditRequestId,
+}: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
   const options = ['۶ ماهه', '۹ ماهه', '۱۲ ماهه', '۱۸ ماهه'];
@@ -23,11 +42,10 @@ export const FirstTab = ({ setIsOpenModal, isOpenModal }: IFirstTabProps) => {
   const [creditLoading, setCreditLoading] = useState(false);
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
-  const [showBill, setShowBill] = useState(false);
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
-  const [budgetData, setBudgetData] = useState<number | null>(null);
+
   const [budgetCalcData, setBudgetCalcData] = useState<IFeeConfiguration[]>([]);
   const [feePercentage, setFeePercentage] = useState(0);
   const [amountReceivedValue, setAmountReceivedValue] = useState(100000000);
@@ -242,6 +260,10 @@ export const FirstTab = ({ setIsOpenModal, isOpenModal }: IFirstTabProps) => {
         setShowCreditNoteModal={setShowCreditNoteModal}
         showCreditNoteModal={showCreditNoteModal}
         setBudgetData={setBudgetData}
+        paymentReceiptStep={paymentReceiptStep}
+        setPaymentReceiptStep={setPaymentReceiptStep}
+        creditRequestId={creditRequestId}
+        setCreditRequestId={setCreditRequestId}
       />
     </div>
   );

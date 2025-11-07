@@ -47,6 +47,8 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     setCreditRequestId,
   } = workflow;
 
+  console.log(budgetData, showBill, paymentReceiptStep);
+
   return (
     <ResponsiveModal
       isOpen={props.isOpenModal}
@@ -93,7 +95,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               handleBudgetLoading={handleBudgetLoading}
               creditLoading={creditLoading}
             />
-          ) : budgetData && showBill ? (
+          ) : budgetData ? (
             <>
               {paymentReceiptStep == 0 && (
                 <PayingSubScription

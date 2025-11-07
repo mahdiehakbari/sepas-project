@@ -8,15 +8,42 @@ import { useTranslation } from 'react-i18next';
 export interface iCreditProps {
   isOpenModal: boolean;
   setIsOpenModal: (value: boolean) => void;
+  budgetData: number | null;
+  setBudgetData: (value: number | null) => void;
+  showBill: boolean;
+  setShowBill: (value: boolean) => void;
+  paymentReceiptStep: number;
+  setPaymentReceiptStep: (value: number) => void;
+  creditRequestId: string;
+  setCreditRequestId: (value: string) => void;
 }
 
 export const DentalApplyCredit = ({
   setIsOpenModal,
   isOpenModal,
+  budgetData,
+  setBudgetData,
+  showBill,
+  setShowBill,
+  paymentReceiptStep,
+  setPaymentReceiptStep,
+  creditRequestId,
+  setCreditRequestId,
 }: iCreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
-  const tabsItem = getTabsItem(isOpenModal, setIsOpenModal);
+  const tabsItem = getTabsItem(
+    isOpenModal,
+    setIsOpenModal,
+    setBudgetData,
+    budgetData,
+    showBill,
+    setShowBill,
+    paymentReceiptStep,
+    setPaymentReceiptStep,
+    creditRequestId,
+    setCreditRequestId,
+  );
   return (
     <div className='mb-12'>
       <h2 className='font[700] text-[24px] mb-4'>
