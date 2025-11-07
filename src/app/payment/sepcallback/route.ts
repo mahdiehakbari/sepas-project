@@ -156,8 +156,7 @@ export async function POST(request: Request) {
       ipgTransactionId: resData?.ipgTransactionId || '',
     };
 
-    const baseUrl =
-      process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_FRONT_URL;
     const response = NextResponse.redirect(`${baseUrl}/payment/result`);
 
     response.cookies.set('payment_result', JSON.stringify(cookieData), {
@@ -169,8 +168,7 @@ export async function POST(request: Request) {
     return response;
   } catch (error) {
     console.error('Verify error:', error);
-    const baseUrl =
-      process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NEXT_PUBLIC_FRONT_URL;
     const res = NextResponse.redirect(`${baseUrl}/payment/result`);
     res.cookies.set(
       'payment_result',
