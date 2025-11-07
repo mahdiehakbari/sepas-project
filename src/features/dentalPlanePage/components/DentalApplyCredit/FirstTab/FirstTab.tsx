@@ -21,6 +21,8 @@ export interface IFirstTabProps {
   setPaymentReceiptStep: (value: number) => void;
   creditRequestId: string;
   setCreditRequestId: (value: string) => void;
+  showCreditNoteModal: boolean;
+  setShowCreditNoteModal: (value: boolean) => void;
 }
 
 export const FirstTab = ({
@@ -34,6 +36,8 @@ export const FirstTab = ({
   setPaymentReceiptStep,
   creditRequestId,
   setCreditRequestId,
+  showCreditNoteModal,
+  setShowCreditNoteModal,
 }: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
@@ -50,7 +54,6 @@ export const FirstTab = ({
   const [feePercentage, setFeePercentage] = useState(0);
   const [amountReceivedValue, setAmountReceivedValue] = useState(100000000);
   const [showProfileModal, setShowProfileModal] = useState(false);
-  const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
   const token = Cookies.get('token');
   const userInfo = Cookies.get('userProfile');
 

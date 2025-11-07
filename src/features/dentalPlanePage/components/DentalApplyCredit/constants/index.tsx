@@ -1,5 +1,6 @@
 import { TTabItems } from '../types';
 import { FirstTab } from '../FirstTab/FirstTab';
+import { Value } from 'react-multi-date-picker';
 
 export const getTabsItem = (
   isOpenModal: boolean,
@@ -12,6 +13,8 @@ export const getTabsItem = (
   setPaymentReceiptStep: (value: number) => void,
   creditRequestId: string,
   setCreditRequestId: (value: string) => void,
+  showCreditNoteModal: boolean,
+  setShowCreditNoteModal: (Value: boolean) => void,
 ): TTabItems[] => [
   {
     tabImage: '/assets/dental-plane/tejarat_bank_logo.svg',
@@ -28,6 +31,8 @@ export const getTabsItem = (
         setPaymentReceiptStep={setPaymentReceiptStep}
         creditRequestId={creditRequestId}
         setCreditRequestId={setCreditRequestId}
+        showCreditNoteModal={showCreditNoteModal}
+        setShowCreditNoteModal={setShowCreditNoteModal}
       />
     ),
   },

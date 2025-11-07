@@ -16,6 +16,8 @@ export interface iCreditProps {
   setPaymentReceiptStep: (value: number) => void;
   creditRequestId: string;
   setCreditRequestId: (value: string) => void;
+  showCreditNoteModal: boolean;
+  setShowCreditNoteModal: (Value: boolean) => void;
 }
 
 export const DentalApplyCredit = ({
@@ -29,6 +31,8 @@ export const DentalApplyCredit = ({
   setPaymentReceiptStep,
   creditRequestId,
   setCreditRequestId,
+  showCreditNoteModal,
+  setShowCreditNoteModal,
 }: iCreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -43,6 +47,8 @@ export const DentalApplyCredit = ({
     setPaymentReceiptStep,
     creditRequestId,
     setCreditRequestId,
+    showCreditNoteModal,
+    setShowCreditNoteModal,
   );
   return (
     <div className='mb-12'>

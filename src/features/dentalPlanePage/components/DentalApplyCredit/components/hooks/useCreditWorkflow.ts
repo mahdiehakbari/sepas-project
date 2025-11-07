@@ -58,20 +58,22 @@ export const useCreditWorkflow = (
   useEffect(() => {
     if (!isAuthenticated) return;
     const storedProfile = Cookies.get('userProfile');
+    const paymentResult = Cookies.get('payment_result');
     if (storedProfile) {
       try {
         const parsed = JSON.parse(storedProfile);
         setProfileData(parsed);
         setShowProfileModal(false);
-        setShowCreditNoteModal(true);
       } catch (err) {
         console.error('Error parsing userProfile cookie', err);
       }
+    } else if (storedProfile && !paymentResult) {
+      setShowCreditNoteModal(true);
     } else {
       setShowProfileModal(true);
     }
 
-    if (isLoggedIn == 'true') {
+    if (isLoggedIn == 'true' && !paymentResult) {
       setShowCreditNoteModal(true);
       setShowBill(false);
     }

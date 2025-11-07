@@ -16,6 +16,7 @@ export default function DentalPlaneClient() {
   const [showBill, setShowBill] = useState(false);
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
   const [creditRequestId, setCreditRequestId] = useState('');
+  const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -32,30 +33,30 @@ export default function DentalPlaneClient() {
         }
 
         if (parsed.status === 'true' && parsed.creditRequestId) {
-          setPaymentReceiptStep(2);
-          setIsOpenModal(true);
-          setShowBill(true);
           setBudgetData(Number(parsed.amount));
-          // axios
-          //   .post(
-          //     `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/complete-ipg-payment`,
-          //     {
-          //       ipgTransactionId: parsed.ipgTransactionId,
-          //       isSuccessful: true,
-          //       errorMessage: 'Payment declined by bank',
-          //     },
-          //     {
-          //       headers: {
-          //         Authorization: token ? `Bearer ${token}` : '',
-          //       },
-          //     },
-          //   )
-          //   .then((resp) => {
-          //     setPaymentReceiptStep(2);
-          //     setIsOpenModal(true);
-          //     setShowBill(true);
-          //   })
-          //   .catch((err) => {});
+          axios
+            .post(
+              `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/complete-ipg-payment`,
+              {
+                ipgTransactionId: parsed.ipgTransactionId,
+                isSuccessful: true,
+                errorMessage: 'Payment declined by bank',
+              },
+              {
+                headers: {
+                  Authorization: token ? `Bearer ${token}` : '',
+                },
+              },
+            )
+            .then((resp) => {
+              setIsOpenModal(true);
+              setShowBill(true);
+              setShowCreditNoteModal(false);
+              setPaymentReceiptStep(2);
+              setIsOpenModal(true);
+              setShowBill(true);
+            })
+            .catch((err) => {});
         }
 
         localStorage.setItem('payment_modal_shown', 'true');
@@ -78,6 +79,8 @@ export default function DentalPlaneClient() {
         setPaymentReceiptStep={setPaymentReceiptStep}
         creditRequestId={creditRequestId}
         setCreditRequestId={setCreditRequestId}
+        showCreditNoteModal={showCreditNoteModal}
+        setShowCreditNoteModal={setShowCreditNoteModal}
       />
       <div className='mb-12'>
         <Accordion />
