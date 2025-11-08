@@ -178,17 +178,15 @@
 //     return res;
 //   }
 // }
-
-import axios from 'axios';
+import axios, { AxiosError } from 'axios';
 import fs from 'fs';
 import path from 'path';
-import { NextResponse } from 'next/server';
 
 // 📁 مسیر فایل لاگ
 const LOG_FILE = path.join(process.cwd(), 'logs', 'payment.log');
 
-// ✍️ تابع کمکی برای نوشتن لاگ در فایل
-function writeLog(message: any) {
+// ✍️ تابع کمکی برای نوشتن لاگ در فایل (type-safe)
+function writeLog(message: unknown): void {
   try {
     const dir = path.dirname(LOG_FILE);
     if (!fs.existsSync(dir)) {
@@ -202,13 +200,41 @@ function writeLog(message: any) {
         ? message
         : JSON.stringify(message, null, 2)) +
       '\n----------------------------------------\n';
+
     fs.appendFileSync(LOG_FILE, formatted, 'utf8');
   } catch (err) {
     console.error('❌ Error writing log:', err);
   }
 }
 
-export async function POST(request: Request) {
+// 📦 نوع داده‌های بانکی
+interface SepCallbackData {
+  State?: string;
+  Status?: string;
+  Rrn?: string;
+  RefNum?: string;
+  ResNum?: string;
+  TerminalId?: string;
+  TraceNo?: string;
+  Amount?: string;
+  Wage?: string;
+  SecurePan?: string;
+  Token?: string;
+  MID?: string;
+  AffectiveAmount?: string;
+  HashedCardNumber?: string;
+}
+
+// 📦 نوع پاسخ verify
+interface VerifyResponse {
+  success?: boolean;
+  rrn?: string;
+  message?: string;
+  creditRequestId?: string;
+  ipgTransactionId?: string;
+}
+
+export async function POST(request: Request): Promise<Response> {
   writeLog('📥 [Payment Callback] Request received');
 
   try {
@@ -219,7 +245,7 @@ export async function POST(request: Request) {
 
     // 🧩 خواندن داده از درگاه
     if (contentType.includes('application/json')) {
-      data = await request.json();
+      data = (await request.json()) as Record<string, string>;
     } else if (contentType.includes('application/x-www-form-urlencoded')) {
       const text = await request.text();
       const params = new URLSearchParams(text);
@@ -251,8 +277,8 @@ export async function POST(request: Request) {
 
     writeLog({ '📤 Verify Body': verifyBody });
 
-    // 🔍 ارسال به بک‌اند وریفای
-    const verifyResponse = await axios.post(
+    // 🔍 ارسال به بک‌اند وریفای (آدرس واقعی API)
+    const verifyResponse = await axios.post<VerifyResponse>(
       'http://localhost:3838/api/Payment/sep/verify',
       verifyBody,
       {
@@ -261,56 +287,57 @@ export async function POST(request: Request) {
       },
     );
 
-    writeLog({ '✅ Verify Response': verifyResponse.data });
-
     const resData = verifyResponse.data;
+    writeLog({ '✅ Verify Response': resData });
+
     const isSuccess = resData?.success === true;
 
-    // 🍪 ساخت داده برای کوکی
-    const cookieData = {
+    // 📊 ساخت داده برای redirect query
+    const query = new URLSearchParams({
       status: isSuccess ? 'true' : 'false',
       rrn: resData?.rrn || data.Rrn || '',
-      message: resData?.message || '',
+      message: resData?.message || 'پرداخت ناموفق',
       amount: data.Amount || '0',
       creditRequestId: resData?.creditRequestId || '',
       ipgTransactionId: resData?.ipgTransactionId || '',
-    };
-
-    writeLog({ '🍪 Cookie Data': cookieData });
-
-    // 🌍 ریدایرکت
-    const baseUrl =
-      process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000';
-    const redirectUrl = `${baseUrl}/payment/result`;
-
-    writeLog(`🌍 Redirecting to: ${redirectUrl}`);
-
-    const response = NextResponse.redirect(redirectUrl);
-    response.cookies.set('payment_result', JSON.stringify(cookieData), {
-      path: '/',
-      httpOnly: false,
-      maxAge: 60 * 10,
     });
 
-    writeLog('🚀 Redirect successful.');
-    return response;
-  } catch (error: any) {
-    writeLog({
-      '❌ Verify error': error?.response?.data || error?.message || error,
+    // 🌍 آدرس نهایی فرانت
+    const baseUrl =
+      process.env.NEXT_PUBLIC_FRONT_URL || 'https://dentalit.sepasholding.com';
+    const redirectUrl = `${baseUrl}/payment/result?${query.toString()}`;
+
+    writeLog(`🚀 Redirecting to: ${redirectUrl}`);
+
+    // ⚡️ redirect استاندارد HTTP (بدون NextResponse)
+    return new Response(null, {
+      status: 302,
+      headers: { Location: redirectUrl },
     });
+  } catch (error) {
+    let errMsg = 'Server error';
+    let details: unknown = null;
+
+    if (axios.isAxiosError(error)) {
+      errMsg = error.message;
+      details = error.response?.data;
+    } else if (error instanceof Error) {
+      errMsg = error.message;
+    }
+
+    writeLog({ '❌ Verify error': details || errMsg });
 
     const baseUrl =
-      process.env.NEXT_PUBLIC_FRONT_URL || 'http://localhost:3000';
-    const res = NextResponse.redirect(`${baseUrl}/payment/result`);
-    res.cookies.set(
-      'payment_result',
-      JSON.stringify({
-        status: 'false',
-        message: error?.message || 'Server error',
-      }),
-      { path: '/', httpOnly: false },
-    );
+      process.env.NEXT_PUBLIC_FRONT_URL || 'https://dentalit.sepasholding.com';
+    const fallbackUrl = `${baseUrl}/payment/result?status=false&message=${encodeURIComponent(
+      errMsg,
+    )}`;
 
-    return res;
+    writeLog(`⚠️ Redirecting to fallback URL: ${fallbackUrl}`);
+
+    return new Response(null, {
+      status: 302,
+      headers: { Location: fallbackUrl },
+    });
   }
 }
