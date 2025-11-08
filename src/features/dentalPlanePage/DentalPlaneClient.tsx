@@ -52,7 +52,7 @@ export default function DentalPlaneClient() {
 
     if (!parsed) return;
 
-    if (parsed.status === 'false' && !modalShown) {
+    if (parsed.status === 'false') {
       axios
         .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -70,7 +70,7 @@ export default function DentalPlaneClient() {
           localStorage.removeItem('payment_result');
         })
         .catch(console.error);
-    } else if (parsed.status === 'true' && modalShown) {
+    } else if (parsed.status === 'true') {
       setPaymentData(parsed);
 
       if (parsed.creditRequestId) {
