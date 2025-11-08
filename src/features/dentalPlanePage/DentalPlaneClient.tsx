@@ -7,7 +7,10 @@ import { DentalPlaneContent } from './components/DentalPlaneContent/DentalPlaneC
 import { DentalApplyCredit } from './components/DentalApplyCredit/DentalApplyCredit';
 import Cookies from 'js-cookie';
 import axios from 'axios';
-import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
+import {
+  API_CUSTOMER_CREDIT,
+  API_CUSTOMER_CREDIT_COMMAND,
+} from '@/config/api_address.config';
 
 export interface PaymentResult {
   status: string;
@@ -52,18 +55,9 @@ export default function DentalPlaneClient() {
 
     if (parsed.status === 'false' && modalShown) {
       axios
-        .post(
-          API_CUSTOMER_CREDIT_COMMAND,
-          {
-            amount: parsed.amount,
-            description: 'Credit request details',
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          },
-        )
+        .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
         .then((resp) => {
           // eslint-disable-next-line @typescript-eslint/ban-ts-comment
           //@ts-expect-error
@@ -71,8 +65,8 @@ export default function DentalPlaneClient() {
           setShowBill(true);
           setIsOpenModal(true);
           setShowCreditNoteModal(false);
-          setBudgetData(parsed.amount);
-          setFeePercentage(parsed?.amount);
+          setBudgetData(resp.data.requestedAmount);
+          setFeePercentage(resp.data.subscriptionFee);
           // setPaymentReceiptStep(0);
 
           localStorage.removeItem('payment_result');
