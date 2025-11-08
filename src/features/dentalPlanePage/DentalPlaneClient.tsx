@@ -23,7 +23,7 @@ export interface PaymentResult {
 
 export default function DentalPlaneClient() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  // const [paymentData, setPaymentData] = useState<PaymentResult | null>(null);
+  const [paymentData, setPaymentData] = useState<PaymentResult | null>(null);
   const [budgetData, setBudgetData] = useState<number | null>(null);
   const [showBill, setShowBill] = useState(false);
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
@@ -70,6 +70,37 @@ export default function DentalPlaneClient() {
           localStorage.removeItem('payment_result');
         })
         .catch(console.error);
+    } else if (parsed.status === 'true' && modalShown) {
+      setPaymentData(parsed);
+
+      if (parsed.creditRequestId) {
+        setCreditRequestId(parsed.creditRequestId);
+      }
+
+      setBudgetData(Number(parsed.amount));
+
+      axios
+        .post(
+          `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
+          {},
+          {
+            headers: {
+              Authorization: token ? `Bearer ${token}` : '',
+            },
+          },
+        )
+        .then((resp) => {
+          setIsOpenModal(true);
+          setShowBill(true);
+          setShowCreditNoteModal(false);
+          setPaymentReceiptStep(2);
+
+          // حذف payment_result بعد از استفاده
+          localStorage.removeItem('payment_result');
+        })
+        .catch((err) => {
+          console.error('Error requesting budget OTP', err);
+        });
     }
   }, []);
 
