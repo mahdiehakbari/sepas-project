@@ -9,6 +9,7 @@ import axios from 'axios';
 import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 import Cookies from 'js-cookie';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
 export const PayingSubScription = ({
   feePercentage,
@@ -56,6 +57,7 @@ export const PayingSubScription = ({
       })
       .catch(() => {
         setButtonLoading(false);
+        toast.error(t('credit:active_request'));
       });
   };
 

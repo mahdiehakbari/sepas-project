@@ -9,6 +9,7 @@ import axios from 'axios';
 import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 import Cookies from 'js-cookie';
 import { minValue, step } from './constants';
+import { toast } from 'react-toastify';
 
 export const InquiringBudget = ({
   setShowBill,
@@ -59,6 +60,7 @@ export const InquiringBudget = ({
       })
       .catch(() => {
         setButtonLoading(false);
+        toast.error(t('credit:active_request'));
       });
   };
 

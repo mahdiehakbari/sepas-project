@@ -38,5 +38,6 @@
   "approved_by_bank": "Once your application is approved by the bank, you will be notified of the result via message. You can also track the status of your application in the Application List section.",
   "list_requests": "List of requests",
   "close": "Close",
-  "service_experiencing": "The service is experiencing a disruption. Please try again in a few minutes."
+  "service_experiencing": "The service is experiencing a disruption. Please try again in a few minutes.",
+  "active_request": "Due to an active request, it is not possible to register a new request."
 }
