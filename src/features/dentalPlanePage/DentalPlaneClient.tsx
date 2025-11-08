@@ -53,7 +53,7 @@ export default function DentalPlaneClient() {
 
     if (!parsed) return;
 
-    if (parsed.status === 'false' || payment) {
+    if ((parsed.status === 'false' && !modalShown) || payment) {
       axios
         .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,8 +68,8 @@ export default function DentalPlaneClient() {
             setFeePercentage(resp.data.subscriptionFee);
           }
           // پاک کردن payment_result بعد از استفاده
-          localStorage.removeItem('payment_result');
-          localStorage.setItem('payment', 'true');
+          // localStorage.removeItem('payment_result');
+          // localStorage.setItem('payment', 'true');
         })
         .catch(console.error);
     } else if (parsed.status === 'true') {
@@ -98,7 +98,7 @@ export default function DentalPlaneClient() {
           setPaymentReceiptStep(2);
 
           // حذف payment_result بعد از استفاده
-          localStorage.removeItem('payment_result');
+          // localStorage.removeItem('payment_result');
         })
         .catch((err) => {
           console.error('Error requesting budget OTP', err);
