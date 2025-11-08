@@ -20,7 +20,10 @@ export const RequestListTable = ({
     localStorage.setItem('payment', 'true');
   };
 
-  console.log(requests, 'aaaa');
+  const handlePaymentCredit = (id: string) => {
+    router.push(`/services/dentalPlan?requestId=${id}&&type=2`);
+    localStorage.setItem('payment', 'true');
+  };
 
   return (
     <div className='overflow-x-auto'>
@@ -69,6 +72,13 @@ export const RequestListTable = ({
                       {(req.status == 3 || req.status == 5) && (
                         <Button onClick={() => handlePayment(req.id)}>
                           {t('request_list:payment')}
+                        </Button>
+                      )}
+                      {(req.status == 4 ||
+                        req.status == 7 ||
+                        req.status == 6) && (
+                        <Button onClick={() => handlePaymentCredit(req.id)}>
+                          {t('credit:receive_credit')}
                         </Button>
                       )}
                     </div>
