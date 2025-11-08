@@ -31,6 +31,7 @@ export default function DentalPlaneClient() {
   useEffect(() => {
     const paymentResult = localStorage.getItem('payment_result');
     const modalShown = localStorage.getItem('payment_modal_shown');
+
     localStorage.setItem('payment_modal_shown', 'true');
 
     if (!paymentResult) return;
@@ -43,13 +44,12 @@ export default function DentalPlaneClient() {
       console.error('Failed to parse payment_result from localStorage', err);
       return;
     }
-    console.log(parsed?.amount, 'aaaa');
+
     if (!parsed) return;
 
-    if (parsed.status === 'false' && modalShown) {
-      // setIsOpenModal(true);
-      // setShowCreditNoteModal(false);
-      // setShowBill(false);
+    console.log(parsed, 'aaa');
+
+    if (parsed.status === 'false' && !modalShown) {
       axios
         .post(
           API_CUSTOMER_CREDIT_COMMAND,
@@ -74,12 +74,12 @@ export default function DentalPlaneClient() {
           //@ts-expect-error
           setBudgetData(parsed.amount);
           setPaymentReceiptStep(0);
+
+          localStorage.removeItem('payment_result');
         })
         .catch(() => {});
     } else if (parsed.status === 'true' && modalShown) {
-      if (parsed) {
-        setPaymentData(parsed);
-      }
+      setPaymentData(parsed);
 
       if (parsed.creditRequestId) {
         setCreditRequestId(parsed.creditRequestId);
@@ -90,11 +90,7 @@ export default function DentalPlaneClient() {
       axios
         .post(
           `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
-          {
-            // ipgTransactionId: parsed.ipgTransactionId,
-            // isSuccessful: true,
-            // errorMessage: 'Payment declined by bank',
-          },
+          {},
           {
             headers: {
               Authorization: token ? `Bearer ${token}` : '',
@@ -106,6 +102,9 @@ export default function DentalPlaneClient() {
           setShowBill(true);
           setShowCreditNoteModal(false);
           setPaymentReceiptStep(2);
+
+          // حذف payment_result بعد از استفاده
+          localStorage.removeItem('payment_result');
         })
         .catch((err) => {
           console.error('Error requesting budget OTP', err);
