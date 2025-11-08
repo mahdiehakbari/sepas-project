@@ -67,9 +67,9 @@ export default function DentalPlaneClient() {
             setBudgetData(resp.data.requestedAmount);
             setFeePercentage(resp.data.subscriptionFee);
           }
-          // پاک کردن payment_result بعد از استفاده
-          // localStorage.removeItem('payment_result');
-          // localStorage.setItem('payment', 'true');
+          localStorage.removeItem('payment_result');
+          localStorage.removeItem('payment');
+          localStorage.setItem('payment_modal_shown', 'true');
         })
         .catch(console.error);
     } else if (parsed.status === 'true') {

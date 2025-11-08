@@ -64,12 +64,11 @@ export const RequestListTable = ({
                       </span>
                     </div>
                     <div className='w-[20%] text-center'>
-                      {req.status == 3 ||
-                        (req.status == 5 && (
-                          <Button onClick={handlePayment}>
-                            {t('request_list:payment')}
-                          </Button>
-                        ))}
+                      {(req.status == 3 || req.status == 5) && (
+                        <Button onClick={handlePayment}>
+                          {t('request_list:payment')}
+                        </Button>
+                      )}
                     </div>
                   </div>
                 </td>
