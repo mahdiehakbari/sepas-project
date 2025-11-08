@@ -67,7 +67,7 @@ export default function DentalPlaneClient() {
             setBudgetData(resp.data.requestedAmount);
             setFeePercentage(resp.data.subscriptionFee);
           }
-          localStorage.removeItem('payment_result');
+          // localStorage.removeItem('payment_result');
           localStorage.removeItem('payment');
           localStorage.setItem('payment_modal_shown', 'true');
         })
