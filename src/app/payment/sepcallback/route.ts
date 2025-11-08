@@ -161,8 +161,8 @@ export async function POST(request: Request) {
 
     response.cookies.set('payment_result', JSON.stringify(cookieData), {
       path: '/',
-      httpOnly: false, // برای خواندن در کلاینت
-      maxAge: 60 * 10, // ۱۰ دقیقه
+      httpOnly: false,
+      maxAge: 60 * 10,
     });
 
     return response;

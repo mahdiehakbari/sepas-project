@@ -80,6 +80,7 @@ export const FirstTab = ({
   const handleShowModal = () => {
     setIsOpenModal(true);
     setCreditLoading(false);
+    Cookies.remove('payment_result');
     if (!token) {
       toast.success(t('credit:log_in_continue'), {
         position: 'top-center',

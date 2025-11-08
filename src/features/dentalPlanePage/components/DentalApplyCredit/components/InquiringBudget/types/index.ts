@@ -9,4 +9,5 @@ export interface IInquiringBudgetProps {
   setAmountReceivedValue: (value: number) => void;
   amountReceivedValue: number;
   setCreditRequestId: (value: string) => void;
+  setBudgetData: (value: number | null) => void;
 }

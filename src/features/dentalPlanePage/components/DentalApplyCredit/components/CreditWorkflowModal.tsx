@@ -154,6 +154,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               setAmountReceivedValue={setAmountReceivedValue}
               amountReceivedValue={amountReceivedValue}
               setCreditRequestId={setCreditRequestId}
+              setBudgetData={props.setBudgetData}
             />
           )}
         </>

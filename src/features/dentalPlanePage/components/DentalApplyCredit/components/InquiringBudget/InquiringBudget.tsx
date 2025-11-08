@@ -19,6 +19,7 @@ export const InquiringBudget = ({
   setAmountReceivedValue,
   amountReceivedValue,
   setCreditRequestId,
+  setBudgetData,
 }: IInquiringBudgetProps) => {
   const { t } = useTranslation();
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -54,6 +55,7 @@ export const InquiringBudget = ({
         setCreditRequestId(resp.data.creditRequestId);
         setShowBill(true);
         setButtonLoading(false);
+        setBudgetData(budgetData);
       })
       .catch(() => {
         setButtonLoading(false);
