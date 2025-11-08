@@ -33,29 +33,22 @@ export default function PaymentResult() {
 
   // const { success, rrn, amount } = paymentData;
 
-  const handleRetry = () => {
-    router.push('/services/dentalPlan');
-  };
+  // const handleRetry = () => {
+  //   router.push('/services/dentalPlan');
+  // };
 
-  const isFailed = status === 'false';
+  // const isFailed = status === 'false';
 
-  const handleCredit = () => {
-    localStorage.removeItem('payment_modal_shown');
-    const paymentData = {
-      status: 'true',
-      rrn: '224021308748',
-      message: 'Payment completed successfully',
-      amount: '10000',
-      creditRequestId: 'fca2b84a-ceab-4eb5-e3f0-08de1d730ba4',
-      ipgTransactionId: 'f6c87bd42a194eeea903eea75f7186a7',
-    };
-    Cookies.set('payment_result', JSON.stringify(paymentData), { expires: 1 });
-    router.push('/services/dentalPlan');
-  };
+  // const handleCredit = () => {
+  //   localStorage.removeItem('payment_modal_shown');
+  //   Cookies.set('payment_result', JSON.stringify(paymentData), { expires: 1 });
+  //   router.push('/services/dentalPlan');
+  // };
 
   return (
     <div className='flex flex-col items-center justify-center '>
-      <div className='md:w-[600px] flex flex-col items-center justify-center'>
+      {paymentData}
+      {/* <div className='md:w-[600px] flex flex-col items-center justify-center'>
         <h2 className='font-bold text-[20px] text-black border-b border-border-color text-center pb-2 mb-6  w-full'>
           {t('payment:payment_receipt')}
         </h2>
@@ -102,15 +95,15 @@ export default function PaymentResult() {
               <p className='font-medium text-[16px] text-black'>
                 {t('payment:tracking_number')}
               </p>
-              {/* <p className='font-medium text-[16px] text-black'>{rrn}</p> */}
+              <p className='font-medium text-[16px] text-black'>{rrn}</p>
             </div>
 
-            {/* <div className='flex justify-between items-center w-full pb-8 border-b border-border-color'>
+            <div className='flex justify-between items-center w-full pb-8 border-b border-border-color'>
               <p className='font-medium text-[16px] text-black'>
                 {t('payment:payment_date')}
               </p>
               <p className='font-medium text-[16px] text-black'>{amount}</p>
-            </div> */}
+            </div>
 
             <div className='w-full border-t border-secondary py-2  flex justify-between'>
               <Button variant='outline' onClick={handleCredit}>
@@ -120,7 +113,7 @@ export default function PaymentResult() {
             </div>
           </>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }
