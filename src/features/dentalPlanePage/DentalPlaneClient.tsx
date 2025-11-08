@@ -38,18 +38,44 @@ export default function DentalPlaneClient() {
     let parsed: PaymentResult | null = null;
 
     try {
-      parsed = JSON.parse(paymentResult); // safe, because paymentResult is string
+      parsed = JSON.parse(paymentResult);
     } catch (err) {
       console.error('Failed to parse payment_result from localStorage', err);
       return;
     }
-
+    console.log(parsed?.amount, 'aaaa');
     if (!parsed) return;
 
     if (parsed.status === 'false' && modalShown) {
-      setIsOpenModal(true);
-      setShowCreditNoteModal(true);
-      setShowBill(false);
+      // setIsOpenModal(true);
+      // setShowCreditNoteModal(false);
+      // setShowBill(false);
+      axios
+        .post(
+          API_CUSTOMER_CREDIT_COMMAND,
+          {
+            amount: parsed.amount,
+            description: 'Credit request details',
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          },
+        )
+        .then((resp) => {
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
+          setCreditRequestId(parsed?.creditRequestId);
+          setShowBill(true);
+          setIsOpenModal(true);
+          setShowCreditNoteModal(false);
+          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+          //@ts-expect-error
+          setBudgetData(parsed.amount);
+          setPaymentReceiptStep(0);
+        })
+        .catch(() => {});
     } else if (parsed.status === 'true' && modalShown) {
       if (parsed) {
         setPaymentData(parsed);
@@ -65,9 +91,9 @@ export default function DentalPlaneClient() {
         .post(
           `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
           {
-            ipgTransactionId: parsed.ipgTransactionId,
-            isSuccessful: true,
-            errorMessage: 'Payment declined by bank',
+            // ipgTransactionId: parsed.ipgTransactionId,
+            // isSuccessful: true,
+            // errorMessage: 'Payment declined by bank',
           },
           {
             headers: {

@@ -100,7 +100,7 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
               handleBudgetLoading={handleBudgetLoading}
               creditLoading={creditLoading}
             />
-          ) : budgetData && showBill ? (
+          ) : budgetData ? (
             <>
               {paymentReceiptStep == 0 && (
                 <PayingSubScription
