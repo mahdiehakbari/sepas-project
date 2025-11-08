@@ -9,6 +9,7 @@ import axios from 'axios';
 import { API_BUDGET_CALC, API_BUDGET_QUERY } from '@/config/api_address.config';
 import { IFeeConfiguration } from './types';
 import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
+import Image from 'next/image';
 
 export interface IFirstTabProps {
   isOpenModal: boolean;
@@ -132,8 +133,8 @@ export const FirstTab = ({
   return (
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
-        <div className=' p-6 rounded-lg  border-2  border-border-color bg-white'>
-          <div className='flex items-center justify-between mb-6'>
+        <div className='py-[83px] px-6 rounded-lg  border-2  border-border-color bg-white'>
+          {/* <div className='flex items-center justify-between mb-6'>
             <h3 className='text-black text-[14px] font-[500] '>
               {t('dental_plane:loan_amount')}
             </h3>
@@ -192,7 +193,14 @@ export const FirstTab = ({
                 {option}
               </button>
             ))}
-          </div>
+          </div> */}
+          <Image
+            src='/assets/dental-plane/dental-banner-image.svg'
+            alt='dental-plane'
+            width={500}
+            height={500}
+            className='cursor-pointer hover:opacity-80 w-[200px] h-[120px] md:w-[312px] md:h-[196px]'
+          />
         </div>
       </div>
 
