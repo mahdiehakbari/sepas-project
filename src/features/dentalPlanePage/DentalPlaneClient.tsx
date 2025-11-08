@@ -20,46 +20,46 @@ export default function DentalPlaneClient() {
   const token = Cookies.get('token');
 
   useEffect(() => {
-    const cookie = Cookies.get('payment_result');
+    const paymentResult = localStorage.getItem('payment_result');
     const modalShown = localStorage.getItem('payment_modal_shown');
-
-    if (cookie && !modalShown) {
+    localStorage.setItem('payment_modal_shown', 'true');
+    const parsed = JSON.parse(paymentResult);
+    if (parsed?.status == 'false' && modalShown) {
+      setIsOpenModal(true);
+      setShowCreditNoteModal(true);
+      setShowBill(false);
+    } else if (parsed?.status == 'true' && modalShown) {
       try {
-        const parsed = JSON.parse(cookie);
+        const parsed = JSON.parse(paymentResult);
         setPaymentData(parsed);
 
         if (parsed.creditRequestId) {
           setCreditRequestId(parsed.creditRequestId);
         }
 
-        if (parsed.status === 'true' && parsed.creditRequestId) {
-          setBudgetData(Number(parsed.amount));
-          axios
-            .post(
-              `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/complete-ipg-payment`,
-              {
-                ipgTransactionId: parsed.ipgTransactionId,
-                isSuccessful: true,
-                errorMessage: 'Payment declined by bank',
+        setBudgetData(Number(parsed.amount));
+        axios
+          .post(
+            `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
+            {
+              ipgTransactionId: parsed.ipgTransactionId,
+              isSuccessful: true,
+              errorMessage: 'Payment declined by bank',
+            },
+            {
+              headers: {
+                Authorization: token ? `Bearer ${token}` : '',
               },
-              {
-                headers: {
-                  Authorization: token ? `Bearer ${token}` : '',
-                },
-              },
-            )
-            .then((resp) => {
-              setIsOpenModal(true);
-              setShowBill(true);
-              setShowCreditNoteModal(false);
-              setPaymentReceiptStep(2);
-              setIsOpenModal(true);
-              setShowBill(true);
-            })
-            .catch((err) => {});
-        }
-
-        localStorage.setItem('payment_modal_shown', 'true');
+            },
+          )
+          .then((resp) => {
+            setIsOpenModal(true);
+            setShowBill(true);
+            setShowCreditNoteModal(false);
+            setPaymentReceiptStep(2);
+            setIsOpenModal(true);
+          })
+          .catch((err) => {});
       } catch (err) {}
     }
   }, []);

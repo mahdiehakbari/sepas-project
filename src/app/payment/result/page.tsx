@@ -1,146 +1,25 @@
-// 'use client';
-
-// import { Button } from '@/sharedComponent/ui';
-// import Image from 'next/image';
-// import { useRouter } from 'next/navigation';
-// import { useEffect, useState } from 'react';
-// import { useTranslation } from 'react-i18next';
-// import Cookies from 'js-cookie';
-
-// export default function PaymentResult() {
-//   const { t } = useTranslation();
-//   const [paymentData, setPaymentData] = useState(null);
-//   const router = useRouter();
-
-//   useEffect(() => {
-//     const cookie = Cookies.get('payment_result');
-//     if (cookie) {
-//       try {
-//         setPaymentData(JSON.parse(cookie));
-//       } catch (err) {
-//         console.error('Invalid cookie data', err);
-//       }
-//     }
-//   }, []);
-
-//   // if (!paymentData) {
-//   //   return (
-//   //     <div className='flex flex-col items-center justify-center py-16'>
-//   //       <p className='text-gray-500'>در حال بارگذاری نتیجه پرداخت...</p>
-//   //     </div>
-//   //   );
-//   // }
-
-//   // const { success, rrn, amount } = paymentData;
-
-//   const handleRetry = () => {
-//     router.push('/services/dentalPlan');
-//   };
-
-//   const isFailed = status === 'false';
-
-//   const handleCredit = () => {
-//     localStorage.removeItem('payment_modal_shown');
-//     const paymentData = {
-//       status: 'true',
-//       rrn: '224021308748',
-//       message: 'Payment completed successfully',
-//       amount: '10000',
-//       creditRequestId: 'fca2b84a-ceab-4eb5-e3f0-08de1d730ba4',
-//       ipgTransactionId: 'f6c87bd42a194eeea903eea75f7186a7',
-//     };
-//     Cookies.set('payment_result', JSON.stringify(paymentData), { expires: 1 });
-//     router.push('/services/dentalPlan');
-//   };
-
-//   return (
-//     <div className='flex flex-col items-center justify-center '>
-//       <div className='md:w-[600px] flex flex-col items-center justify-center'>
-//         <h2 className='font-bold text-[20px] text-black border-b border-border-color text-center pb-2 mb-6  w-full'>
-//           {t('payment:payment_receipt')}
-//         </h2>
-
-//         <Image
-//           src={
-//             isFailed
-//               ? '/assets/icons/close-circle.svg'
-//               : '/assets/icons/success-icon.svg'
-//           }
-//           alt='payment-status'
-//           width={64}
-//           height={64}
-//           className='mb-8'
-//         />
-
-//         <p
-//           className={`font-medium text-[16px] mb-8 ${
-//             isFailed
-//               ? 'text-[var(--error-color)]'
-//               : 'text-[var(--second-green)]'
-//           }`}
-//         >
-//           {isFailed
-//             ? t('payment:payment_failed')
-//             : t('payment:payment_successful')}
-//         </p>
-
-//         {isFailed ? (
-//           <>
-//             <p className='font-medium text-[16px] text-black pb-8 border-b border-border-color w-full text-center'>
-//               {t('payment:debited')}
-//             </p>
-//             <div className='w-full border-t border-secondary py-2  flex justify-between'>
-//               <Button disabled variant='outline'>
-//                 {t('payment:contact_support')}
-//               </Button>
-//               <Button onClick={handleRetry}>{t('payment:retry')}</Button>
-//             </div>
-//           </>
-//         ) : (
-//           <>
-//             <div className='flex justify-between items-center w-full mb-8'>
-//               <p className='font-medium text-[16px] text-black'>
-//                 {t('payment:tracking_number')}
-//               </p>
-//               {/* <p className='font-medium text-[16px] text-black'>{rrn}</p> */}
-//             </div>
-
-//             {/* <div className='flex justify-between items-center w-full pb-8 border-b border-border-color'>
-//                 <p className='font-medium text-[16px] text-black'>
-//                   {t('payment:payment_date')}
-//                 </p>
-//                 <p className='font-medium text-[16px] text-black'>{amount}</p>
-//               </div> */}
-
-//             <div className='w-full border-t border-secondary py-2  flex justify-between'>
-//               <Button variant='outline' onClick={handleCredit}>
-//                 {t('payment:receive_credit')}
-//               </Button>
-//               <Button disabled>{t('payment:download_receipt')}</Button>
-//             </div>
-//           </>
-//         )}
-//       </div>
-//     </div>
-//   );
-// }
-
 'use client';
 
-import { useSearchParams } from 'next/navigation';
+import { Button } from '@/sharedComponent/ui';
+import Image from 'next/image';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 interface PaymentResult {
   status: string | null;
   rrn: string | null;
   message: string | null;
   amount: string | null;
-  creditRequestId: string | null;
-  ipgTransactionId: string | null;
+  creditRequestId?: string | null;
+  ipgTransactionId?: string | null;
 }
 
 export default function PaymentResultPage() {
+  const { t } = useTranslation();
+  const router = useRouter();
   const params = useSearchParams();
+
   const [result, setResult] = useState<PaymentResult | null>(null);
 
   useEffect(() => {
@@ -152,39 +31,95 @@ export default function PaymentResultPage() {
       creditRequestId: params.get('creditRequestId'),
       ipgTransactionId: params.get('ipgTransactionId'),
     };
+
     setResult(data);
+    try {
+      localStorage.setItem('payment_result', JSON.stringify(data));
+    } catch (err) {
+      console.error('Failed to save payment result to localStorage', err);
+    }
   }, [params]);
+
+  const handleRetry = () => {
+    router.push('/services/dentalPlan');
+  };
+
+  const handleCredit = () => {
+    localStorage.removeItem('payment_modal_shown');
+    router.push('/services/dentalPlan');
+  };
 
   if (!result) {
     return (
-      <div className='flex items-center justify-center min-h-screen'>
-        <p className='text-gray-500 text-lg'>در حال بارگذاری نتیجه پرداخت...</p>
+      <div className='flex flex-col items-center justify-center py-16'>
+        <p className='text-gray-500'>{t('payment:loading_result')}</p>
       </div>
     );
   }
 
-  const isSuccess = result.status === 'true';
+  const isFailed = result.status === 'false';
 
   return (
-    <div className='max-w-md mx-auto mt-20 p-6 rounded-2xl shadow-lg text-center border border-gray-200'>
-      <h1
-        className={`text-2xl font-bold mb-4 ${
-          isSuccess ? 'text-green-600' : 'text-red-500'
-        }`}
-      >
-        {isSuccess ? '✅ پرداخت موفق' : '❌ پرداخت ناموفق'}
-      </h1>
+    <div className='flex flex-col items-center justify-center'>
+      <div className='md:w-[600px] flex flex-col items-center justify-center'>
+        <h2 className='font-bold text-[20px] text-black border-b border-border-color text-center pb-2 mb-6 w-full'>
+          {t('payment:payment_receipt')}
+        </h2>
 
-      <div className='text-gray-700 space-y-2'>
-        <p>پیام: {result.message || '---'}</p>
-        <p>مبلغ: {result.amount || '---'}</p>
-        <p>شماره پیگیری: {result.rrn || '---'}</p>
+        <Image
+          src={
+            isFailed
+              ? '/assets/icons/close-circle.svg'
+              : '/assets/icons/success-icon.svg'
+          }
+          alt='payment-status'
+          width={64}
+          height={64}
+          className='mb-8'
+        />
 
-        {result.creditRequestId && (
-          <p>کد درخواست اعتبار: {result.creditRequestId}</p>
-        )}
-        {result.ipgTransactionId && (
-          <p>کد تراکنش درگاه: {result.ipgTransactionId}</p>
+        <p
+          className={`font-medium text-[16px] mb-8 ${
+            isFailed
+              ? 'text-[var(--error-color)]'
+              : 'text-[var(--second-green)]'
+          }`}
+        >
+          {isFailed
+            ? t('payment:payment_failed')
+            : t('payment:payment_successful')}
+        </p>
+
+        {isFailed ? (
+          <>
+            <p className='font-medium text-[16px] text-black pb-8 border-b border-border-color w-full text-center'>
+              {t('payment:debited')}
+            </p>
+            <div className='w-full border-t border-secondary py-2 flex justify-between'>
+              <Button disabled variant='outline'>
+                {t('payment:contact_support')}
+              </Button>
+              <Button onClick={handleRetry}>{t('payment:retry')}</Button>
+            </div>
+          </>
+        ) : (
+          <>
+            <div className='flex justify-between items-center w-full mb-8'>
+              <p className='font-medium text-[16px] text-black'>
+                {t('payment:tracking_number')}
+              </p>
+              <p className='font-medium text-[16px] text-black'>
+                {result.rrn || '---'}
+              </p>
+            </div>
+
+            <div className='w-full border-t border-secondary py-2 flex justify-between'>
+              <Button variant='outline' onClick={handleCredit}>
+                {t('payment:receive_credit')}
+              </Button>
+              <Button disabled>{t('payment:download_receipt')}</Button>
+            </div>
+          </>
         )}
       </div>
     </div>

@@ -58,7 +58,7 @@ export const useCreditWorkflow = (
   useEffect(() => {
     if (!isAuthenticated) return;
     const storedProfile = Cookies.get('userProfile');
-    const paymentResult = Cookies.get('payment_result');
+    const paymentResult = localStorage.getItem('payment_result');
     if (storedProfile) {
       try {
         const parsed = JSON.parse(storedProfile);
