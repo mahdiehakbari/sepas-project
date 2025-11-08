@@ -15,10 +15,12 @@ export const RequestListTable = ({
   const { getStatusInfo } = useStatusInfo();
   const router = useRouter();
 
-  const handlePayment = () => {
-    router.push('/services/dentalPlan');
+  const handlePayment = (id: string) => {
+    router.push(`/services/dentalPlan?requestId=${id}&&type=1`);
     localStorage.setItem('payment', 'true');
   };
+
+  console.log(requests, 'aaaa');
 
   return (
     <div className='overflow-x-auto'>
@@ -65,7 +67,7 @@ export const RequestListTable = ({
                     </div>
                     <div className='w-[20%] text-center'>
                       {(req.status == 3 || req.status == 5) && (
-                        <Button onClick={handlePayment}>
+                        <Button onClick={() => handlePayment(req.id)}>
                           {t('request_list:payment')}
                         </Button>
                       )}
