@@ -23,6 +23,8 @@ export interface IFirstTabProps {
   setCreditRequestId: (value: string) => void;
   showCreditNoteModal: boolean;
   setShowCreditNoteModal: (value: boolean) => void;
+  feePercentage: number;
+  setFeePercentage: (value: number) => void;
 }
 
 export const FirstTab = ({
@@ -38,6 +40,8 @@ export const FirstTab = ({
   setCreditRequestId,
   showCreditNoteModal,
   setShowCreditNoteModal,
+  feePercentage,
+  setFeePercentage,
 }: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
@@ -51,7 +55,6 @@ export const FirstTab = ({
   );
 
   const [budgetCalcData, setBudgetCalcData] = useState<IFeeConfiguration[]>([]);
-  const [feePercentage, setFeePercentage] = useState(0);
   const [amountReceivedValue, setAmountReceivedValue] = useState(100000000);
   const [showProfileModal, setShowProfileModal] = useState(false);
   const token = Cookies.get('token');

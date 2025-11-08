@@ -18,6 +18,8 @@ export interface iCreditProps {
   setCreditRequestId: (value: string) => void;
   showCreditNoteModal: boolean;
   setShowCreditNoteModal: (Value: boolean) => void;
+  feePercentage: number;
+  setFeePercentage: (value: number) => void;
 }
 
 export const DentalApplyCredit = ({
@@ -33,6 +35,8 @@ export const DentalApplyCredit = ({
   setCreditRequestId,
   showCreditNoteModal,
   setShowCreditNoteModal,
+  feePercentage,
+  setFeePercentage,
 }: iCreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -49,6 +53,8 @@ export const DentalApplyCredit = ({
     setCreditRequestId,
     showCreditNoteModal,
     setShowCreditNoteModal,
+    feePercentage,
+    setFeePercentage,
   );
   return (
     <div className='mb-12'>

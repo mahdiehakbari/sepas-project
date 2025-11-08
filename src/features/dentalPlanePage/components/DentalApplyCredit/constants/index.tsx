@@ -15,6 +15,8 @@ export const getTabsItem = (
   setCreditRequestId: (value: string) => void,
   showCreditNoteModal: boolean,
   setShowCreditNoteModal: (Value: boolean) => void,
+  feePercentage: number,
+  setFeePercentage: (value: number) => void,
 ): TTabItems[] => [
   {
     tabImage: '/assets/dental-plane/tejarat_bank_logo.svg',
@@ -33,6 +35,8 @@ export const getTabsItem = (
         setCreditRequestId={setCreditRequestId}
         showCreditNoteModal={showCreditNoteModal}
         setShowCreditNoteModal={setShowCreditNoteModal}
+        feePercentage={feePercentage}
+        setFeePercentage={setFeePercentage}
       />
     ),
   },

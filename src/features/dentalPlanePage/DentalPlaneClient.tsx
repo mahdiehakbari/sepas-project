@@ -13,7 +13,7 @@ export interface PaymentResult {
   status: string;
   rrn: string;
   message: string;
-  amount: string;
+  amount: number;
   creditRequestId?: string;
   ipgTransactionId?: string;
 }
@@ -26,6 +26,7 @@ export default function DentalPlaneClient() {
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
   const [creditRequestId, setCreditRequestId] = useState('');
   const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
+  const [feePercentage, setFeePercentage] = useState(0);
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -49,7 +50,7 @@ export default function DentalPlaneClient() {
 
     console.log(parsed, 'aaa');
 
-    if (parsed.status === 'false' && !modalShown) {
+    if (parsed.status === 'false' && modalShown) {
       axios
         .post(
           API_CUSTOMER_CREDIT_COMMAND,
@@ -70,10 +71,9 @@ export default function DentalPlaneClient() {
           setShowBill(true);
           setIsOpenModal(true);
           setShowCreditNoteModal(false);
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-expect-error
           setBudgetData(parsed.amount);
-          setPaymentReceiptStep(0);
+          setFeePercentage(parsed?.amount);
+          // setPaymentReceiptStep(0);
 
           localStorage.removeItem('payment_result');
         })
@@ -129,6 +129,8 @@ export default function DentalPlaneClient() {
         setCreditRequestId={setCreditRequestId}
         showCreditNoteModal={showCreditNoteModal}
         setShowCreditNoteModal={setShowCreditNoteModal}
+        feePercentage={feePercentage}
+        setFeePercentage={setFeePercentage}
       />
       <div className='mb-12'>
         <Accordion />

@@ -80,7 +80,7 @@ export const PayingSubScription = ({
           {t('credit:paid_subscription')}
         </p>
         <p className='text-black font-[500] text-[16px]'>
-          {feePercentage.toLocaleString('fa-IR')} {t('credit:rial')}
+          {Number(feePercentage).toLocaleString('fa-IR')} {t('credit:rial')}
         </p>
       </div>
 
