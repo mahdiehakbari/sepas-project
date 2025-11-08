@@ -32,6 +32,83 @@ export default function DentalPlaneClient() {
   const [feePercentage, setFeePercentage] = useState(0);
   const token = Cookies.get('token');
 
+  // useEffect(() => {
+  //   if (typeof window === 'undefined') return;
+
+  //   const paymentResult = localStorage.getItem('payment_result');
+  //   const modalShown = localStorage.getItem('payment_modal_shown');
+  //   const payment = localStorage.getItem('payment');
+
+  //   if (!paymentResult && !payment) return;
+
+  //   localStorage.setItem('payment_modal_shown', 'true');
+
+  //   let parsed: PaymentResult | null = null;
+  //   try {
+  //     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+  //     //@ts-expect-error
+  //     parsed = JSON.parse(paymentResult);
+  //   } catch (err) {
+  //     console.error('Failed to parse payment_result from localStorage', err);
+  //     return;
+  //   }
+
+  //   if (!parsed) return;
+
+  //   if ((parsed.status === 'false' && !modalShown) || payment == 'true') {
+  //     console.log('hiiiiii');
+  //     axios
+  //       .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
+  //         headers: { Authorization: `Bearer ${token}` },
+  //       })
+  //       .then((resp) => {
+  //         if (parsed.creditRequestId) {
+  //           setCreditRequestId(parsed.creditRequestId);
+  //           setShowBill(true);
+  //           setIsOpenModal(true);
+  //           setShowCreditNoteModal(false);
+  //           setBudgetData(resp.data.requestedAmount);
+  //           setFeePercentage(resp.data.subscriptionFee);
+  //         }
+  //         // localStorage.removeItem('payment_result');
+  //         localStorage.removeItem('payment');
+  //         localStorage.setItem('payment_modal_shown', 'true');
+  //       })
+  //       .catch(console.error);
+  //   } else if (parsed.status === 'true') {
+  //     setPaymentData(parsed);
+
+  //     if (parsed.creditRequestId) {
+  //       setCreditRequestId(parsed.creditRequestId);
+  //     }
+
+  //     setBudgetData(Number(parsed.amount));
+
+  //     axios
+  //       .post(
+  //         `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
+  //         {},
+  //         {
+  //           headers: {
+  //             Authorization: token ? `Bearer ${token}` : '',
+  //           },
+  //         },
+  //       )
+  //       .then((resp) => {
+  //         setIsOpenModal(true);
+  //         setShowBill(true);
+  //         setShowCreditNoteModal(false);
+  //         setPaymentReceiptStep(2);
+
+  //         // حذف payment_result بعد از استفاده
+  //         // localStorage.removeItem('payment_result');
+  //       })
+  //       .catch((err) => {
+  //         console.error('Error requesting budget OTP', err);
+  //       });
+  //   }
+  // }, []);
+
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
@@ -39,40 +116,50 @@ export default function DentalPlaneClient() {
     const modalShown = localStorage.getItem('payment_modal_shown');
     const payment = localStorage.getItem('payment');
 
-    if (!paymentResult) return;
+    if (!paymentResult && !payment) return;
 
     localStorage.setItem('payment_modal_shown', 'true');
 
     let parsed: PaymentResult | null = null;
-    try {
-      parsed = JSON.parse(paymentResult);
-    } catch (err) {
-      console.error('Failed to parse payment_result from localStorage', err);
-      return;
+
+    if (paymentResult) {
+      try {
+        parsed = JSON.parse(paymentResult);
+      } catch (err) {
+        console.error('Failed to parse payment_result from localStorage', err);
+        return;
+      }
     }
 
-    if (!parsed) return;
+    if (
+      (!parsed && payment === 'true') ||
+      (parsed?.status === 'false' && !modalShown) ||
+      payment === 'true'
+    ) {
+      const creditId =
+        parsed?.creditRequestId || localStorage.getItem('credit_request_id');
 
-    if ((parsed.status === 'false' && !modalShown) || payment) {
       axios
-        .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
+        .get(`${API_CUSTOMER_CREDIT}/${creditId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((resp) => {
-          if (parsed.creditRequestId) {
-            setCreditRequestId(parsed.creditRequestId);
+          if (creditId) {
+            setCreditRequestId(creditId);
             setShowBill(true);
             setIsOpenModal(true);
             setShowCreditNoteModal(false);
             setBudgetData(resp.data.requestedAmount);
             setFeePercentage(resp.data.subscriptionFee);
           }
-          // localStorage.removeItem('payment_result');
+
+          // ✅ پاک کردن فلگ‌ها بعد از استفاده
           localStorage.removeItem('payment');
+          localStorage.removeItem('payment_result');
           localStorage.setItem('payment_modal_shown', 'true');
         })
         .catch(console.error);
-    } else if (parsed.status === 'true') {
+    } else if (parsed?.status === 'true') {
       setPaymentData(parsed);
 
       if (parsed.creditRequestId) {
@@ -91,14 +178,11 @@ export default function DentalPlaneClient() {
             },
           },
         )
-        .then((resp) => {
+        .then(() => {
           setIsOpenModal(true);
           setShowBill(true);
           setShowCreditNoteModal(false);
           setPaymentReceiptStep(2);
-
-          // حذف payment_result بعد از استفاده
-          // localStorage.removeItem('payment_result');
         })
         .catch((err) => {
           console.error('Error requesting budget OTP', err);
