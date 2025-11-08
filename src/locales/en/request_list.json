@@ -12,5 +12,6 @@
   "recipient_name": "Recipient Name",
   "actions": "Actions",
   "dentistry": "Dentistry",
-  "request_list": "Request List"
+  "request_list": "Request List",
+  "payment": "payment"
 }

@@ -11,5 +11,6 @@
   "recipient_name": "نام پذیرنده",
   "actions": "عملیات ها",
   "dentistry": "دندان پزشکی",
-  "request_list": "لیست در خواست ها "
+  "request_list": "لیست در خواست ها ",
+  "payment": "پرداخت"
 }

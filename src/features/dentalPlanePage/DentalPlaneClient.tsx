@@ -37,6 +37,7 @@ export default function DentalPlaneClient() {
 
     const paymentResult = localStorage.getItem('payment_result');
     const modalShown = localStorage.getItem('payment_modal_shown');
+    const payment = localStorage.getItem('payment');
 
     if (!paymentResult) return;
 
@@ -52,7 +53,7 @@ export default function DentalPlaneClient() {
 
     if (!parsed) return;
 
-    if (parsed.status === 'false') {
+    if (parsed.status === 'false' || payment) {
       axios
         .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
           headers: { Authorization: `Bearer ${token}` },
@@ -68,6 +69,7 @@ export default function DentalPlaneClient() {
           }
           // پاک کردن payment_result بعد از استفاده
           localStorage.removeItem('payment_result');
+          localStorage.setItem('payment', 'true');
         })
         .catch(console.error);
     } else if (parsed.status === 'true') {
