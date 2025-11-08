@@ -23,7 +23,7 @@ export interface PaymentResult {
 
 export default function DentalPlaneClient() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [paymentData, setPaymentData] = useState<PaymentResult | null>(null);
+  // const [paymentData, setPaymentData] = useState<PaymentResult | null>(null);
   const [budgetData, setBudgetData] = useState<number | null>(null);
   const [showBill, setShowBill] = useState(false);
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
@@ -33,15 +33,16 @@ export default function DentalPlaneClient() {
   const token = Cookies.get('token');
 
   useEffect(() => {
+    if (typeof window === 'undefined') return;
+
     const paymentResult = localStorage.getItem('payment_result');
     const modalShown = localStorage.getItem('payment_modal_shown');
 
-    localStorage.setItem('payment_modal_shown', 'true');
-
     if (!paymentResult) return;
 
-    let parsed: PaymentResult | null = null;
+    localStorage.setItem('payment_modal_shown', 'true');
 
+    let parsed: PaymentResult | null = null;
     try {
       parsed = JSON.parse(paymentResult);
     } catch (err) {
@@ -51,58 +52,24 @@ export default function DentalPlaneClient() {
 
     if (!parsed) return;
 
-    console.log(parsed, 'aaa');
-
-    if (parsed.status === 'false' && modalShown) {
+    if (parsed.status === 'false' && !modalShown) {
       axios
         .get(`${API_CUSTOMER_CREDIT}/${parsed.creditRequestId}`, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((resp) => {
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          //@ts-expect-error
-          setCreditRequestId(parsed?.creditRequestId);
-          setShowBill(true);
-          setIsOpenModal(true);
-          setShowCreditNoteModal(false);
-          setBudgetData(resp.data.requestedAmount);
-          setFeePercentage(resp.data.subscriptionFee);
-          // setPaymentReceiptStep(0);
-
+          if (parsed.creditRequestId) {
+            setCreditRequestId(parsed.creditRequestId);
+            setShowBill(true);
+            setIsOpenModal(true);
+            setShowCreditNoteModal(false);
+            setBudgetData(resp.data.requestedAmount);
+            setFeePercentage(resp.data.subscriptionFee);
+          }
+          // پاک کردن payment_result بعد از استفاده
           localStorage.removeItem('payment_result');
         })
-        .catch(() => {});
-    } else if (parsed.status === 'true' && modalShown) {
-      setPaymentData(parsed);
-
-      if (parsed.creditRequestId) {
-        setCreditRequestId(parsed.creditRequestId);
-      }
-
-      setBudgetData(Number(parsed.amount));
-
-      axios
-        .post(
-          `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
-          {},
-          {
-            headers: {
-              Authorization: token ? `Bearer ${token}` : '',
-            },
-          },
-        )
-        .then((resp) => {
-          setIsOpenModal(true);
-          setShowBill(true);
-          setShowCreditNoteModal(false);
-          setPaymentReceiptStep(2);
-
-          // حذف payment_result بعد از استفاده
-          localStorage.removeItem('payment_result');
-        })
-        .catch((err) => {
-          console.error('Error requesting budget OTP', err);
-        });
+        .catch(console.error);
     }
   }, []);
 
