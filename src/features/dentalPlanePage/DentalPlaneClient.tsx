@@ -9,9 +9,18 @@ import Cookies from 'js-cookie';
 import axios from 'axios';
 import { API_CUSTOMER_CREDIT_COMMAND } from '@/config/api_address.config';
 
+export interface PaymentResult {
+  status: string;
+  rrn: string;
+  message: string;
+  amount: string;
+  creditRequestId?: string;
+  ipgTransactionId?: string;
+}
+
 export default function DentalPlaneClient() {
   const [isOpenModal, setIsOpenModal] = useState(false);
-  const [paymentData, setPaymentData] = useState(null);
+  const [paymentData, setPaymentData] = useState<PaymentResult | null>(null);
   const [budgetData, setBudgetData] = useState<number | null>(null);
   const [showBill, setShowBill] = useState(false);
   const [paymentReceiptStep, setPaymentReceiptStep] = useState(0);
@@ -23,44 +32,58 @@ export default function DentalPlaneClient() {
     const paymentResult = localStorage.getItem('payment_result');
     const modalShown = localStorage.getItem('payment_modal_shown');
     localStorage.setItem('payment_modal_shown', 'true');
-    const parsed = JSON.parse(paymentResult);
-    if (parsed?.status == 'false' && modalShown) {
+
+    if (!paymentResult) return;
+
+    let parsed: PaymentResult | null = null;
+
+    try {
+      parsed = JSON.parse(paymentResult); // safe, because paymentResult is string
+    } catch (err) {
+      console.error('Failed to parse payment_result from localStorage', err);
+      return;
+    }
+
+    if (!parsed) return;
+
+    if (parsed.status === 'false' && modalShown) {
       setIsOpenModal(true);
       setShowCreditNoteModal(true);
       setShowBill(false);
-    } else if (parsed?.status == 'true' && modalShown) {
-      try {
-        const parsed = JSON.parse(paymentResult);
+    } else if (parsed.status === 'true' && modalShown) {
+      if (parsed) {
         setPaymentData(parsed);
+      }
 
-        if (parsed.creditRequestId) {
-          setCreditRequestId(parsed.creditRequestId);
-        }
+      if (parsed.creditRequestId) {
+        setCreditRequestId(parsed.creditRequestId);
+      }
 
-        setBudgetData(Number(parsed.amount));
-        axios
-          .post(
-            `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
-            {
-              ipgTransactionId: parsed.ipgTransactionId,
-              isSuccessful: true,
-              errorMessage: 'Payment declined by bank',
+      setBudgetData(Number(parsed.amount));
+
+      axios
+        .post(
+          `${API_CUSTOMER_CREDIT_COMMAND}/${parsed.creditRequestId}/request-bajet-otp`,
+          {
+            ipgTransactionId: parsed.ipgTransactionId,
+            isSuccessful: true,
+            errorMessage: 'Payment declined by bank',
+          },
+          {
+            headers: {
+              Authorization: token ? `Bearer ${token}` : '',
             },
-            {
-              headers: {
-                Authorization: token ? `Bearer ${token}` : '',
-              },
-            },
-          )
-          .then((resp) => {
-            setIsOpenModal(true);
-            setShowBill(true);
-            setShowCreditNoteModal(false);
-            setPaymentReceiptStep(2);
-            setIsOpenModal(true);
-          })
-          .catch((err) => {});
-      } catch (err) {}
+          },
+        )
+        .then((resp) => {
+          setIsOpenModal(true);
+          setShowBill(true);
+          setShowCreditNoteModal(false);
+          setPaymentReceiptStep(2);
+        })
+        .catch((err) => {
+          console.error('Error requesting budget OTP', err);
+        });
     }
   }, []);
 
