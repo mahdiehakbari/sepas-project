@@ -150,13 +150,13 @@ export const FirstTab = ({
 
           <div className='flex items-center justify-between border-b-1 border-[#e0e0e0] pb-10 mb-10'>
             <p className='text-second-text-color font-[500] text-[13px]'>
-              75 میلیون تومان
+              75 میلیون ریال
             </p>
             <p className='text-[#4E4E4E] bg-[#E0E0E0] rounded-[48px] py-2 px-6 font-[700] text-[14px]'>
-              15 میلیون تومان
+              15 میلیون ریال
             </p>
             <p className='text-second-text-color font-[500] text-[13px]'>
-              ۱۰ میلیون تومان
+              ۱۰ میلیون ریال
             </p>
           </div>
 
@@ -207,7 +207,7 @@ export const FirstTab = ({
                   {t('dental_plane:monthly_installment')}
                 </h3>
                 <h4 className='text-black font-[700] text-[16px]'>
-                  8,901,204 تومان
+                  8,901,204 ریال
                 </h4>
               </div>
             </div>
@@ -217,7 +217,7 @@ export const FirstTab = ({
                   {t('dental_plane:total_refund')}
                 </h3>
                 <h4 className='text-black font-[700] text-[16px]'>
-                  53,407,221 تومان
+                  53,407,221 ریال
                 </h4>
               </div>
             </div>
@@ -228,7 +228,7 @@ export const FirstTab = ({
                 {t('dental_plane:purchasing_power')}
               </h3>
               <h4 className='text-black font-[700] text-[16px]'>
-                45,638,476 تومان
+                45,638,476 ریال
               </h4>
             </div>
           </div> */}
