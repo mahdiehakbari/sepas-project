@@ -22,4 +22,5 @@ export interface ICreditProps {
   feePercentage: number;
   setFeePercentage: (value: number) => void;
   modalLoading: boolean;
+  setModalLoading: (Value: boolean) => void;
 }

@@ -18,6 +18,7 @@ export const getTabsItem = (
   feePercentage: number,
   setFeePercentage: (value: number) => void,
   modalLoading: boolean,
+  setModalLoading: (Value: boolean) => void,
 ): TTabItems[] => [
   {
     tabImage: '/assets/dental-plane/tejarat_bank_logo.svg',
@@ -39,6 +40,7 @@ export const getTabsItem = (
         feePercentage={feePercentage}
         setFeePercentage={setFeePercentage}
         modalLoading={modalLoading}
+        setModalLoading={setModalLoading}
       />
     ),
   },

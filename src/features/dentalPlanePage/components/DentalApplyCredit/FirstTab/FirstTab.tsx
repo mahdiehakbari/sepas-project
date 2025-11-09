@@ -27,6 +27,7 @@ export const FirstTab = ({
   feePercentage,
   setFeePercentage,
   modalLoading,
+  setModalLoading,
 }: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
@@ -71,6 +72,7 @@ export const FirstTab = ({
     localStorage.removeItem('payment_result');
     localStorage.removeItem('payment_modal_shown');
     setShowCreditNoteModal(true);
+    setModalLoading(false);
     if (!token) {
       toast.success(t('credit:log_in_continue'), {
         position: 'top-center',

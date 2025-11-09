@@ -183,6 +183,7 @@ export default function DentalPlaneClient() {
         feePercentage={feePercentage}
         setFeePercentage={setFeePercentage}
         modalLoading={modalLoading}
+        setModalLoading={setModalLoading}
       />
       <div className='mb-12'>
         <Accordion />

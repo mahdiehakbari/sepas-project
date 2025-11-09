@@ -3,6 +3,7 @@ import Cookies from 'js-cookie';
 import { useTranslation } from 'react-i18next';
 import { ICreditWorkflowModalProps } from '../types';
 import { getCreditStepTitle } from '../utils/creditHelpers';
+import { useRouter } from 'next/navigation';
 
 export const useCreditWorkflow = (
   props: Omit<ICreditWorkflowModalProps, 'isOpenModal'>,
@@ -38,7 +39,7 @@ export const useCreditWorkflow = (
   } = props;
 
   const { t } = useTranslation();
-
+  const router = useRouter();
   // --- Local states ---
   const [profileData, setProfileData] = useState(userProfile);
 
@@ -87,7 +88,7 @@ export const useCreditWorkflow = (
   );
 
   const handleClose = useCallback(() => {
-    // هر بار که modal بسته می‌شود، استیت مرحله را ریست کن
+    router.push('/services/dentalPlan');
     setPaymentReceiptStep(0);
     setCreditRequestId('');
 

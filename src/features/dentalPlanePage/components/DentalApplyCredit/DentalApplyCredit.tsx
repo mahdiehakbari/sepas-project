@@ -22,6 +22,7 @@ export const DentalApplyCredit = ({
   feePercentage,
   setFeePercentage,
   modalLoading,
+  setModalLoading,
 }: ICreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
@@ -41,6 +42,7 @@ export const DentalApplyCredit = ({
     feePercentage,
     setFeePercentage,
     modalLoading,
+    setModalLoading,
   );
   return (
     <div className='mb-12'>

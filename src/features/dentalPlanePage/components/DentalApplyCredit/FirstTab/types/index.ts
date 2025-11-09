@@ -25,4 +25,5 @@ export interface IFirstTabProps {
   feePercentage: number;
   setFeePercentage: (value: number) => void;
   modalLoading: boolean;
+  setModalLoading: (value: boolean) => void;
 }
