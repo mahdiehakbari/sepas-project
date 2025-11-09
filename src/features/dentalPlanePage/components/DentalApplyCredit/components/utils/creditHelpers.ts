@@ -9,8 +9,9 @@ export const getCreditStepTitle = ({
   isProfileStep,
   paymentReceiptStep,
   shouldStartAtCreditNote,
+  modalLoading,
 }: IGetCreditStepTitleProps) => {
-  if (!isAuthenticated || creditLoading) return undefined;
+  if (!isAuthenticated || creditLoading || modalLoading) return undefined;
   if (shouldStartAtCreditNote) return t('credit:apply_credit');
   if (!shouldStartAtCreditNote && !budgetData)
     return t('credit:validation_result_budget');

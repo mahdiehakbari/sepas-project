@@ -30,6 +30,7 @@ export interface ICreditWorkflowModalProps {
   setPaymentReceiptStep: (value: number) => void;
   creditRequestId: string;
   setCreditRequestId: (value: string) => void;
+  modalLoading: boolean;
 }
 
 export interface IGetCreditStepTitleProps {
@@ -41,4 +42,5 @@ export interface IGetCreditStepTitleProps {
   isProfileStep: boolean;
   paymentReceiptStep: number;
   shouldStartAtCreditNote: boolean;
+  modalLoading: boolean;
 }

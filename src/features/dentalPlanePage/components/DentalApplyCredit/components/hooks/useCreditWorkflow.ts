@@ -34,6 +34,7 @@ export const useCreditWorkflow = (
     setPaymentReceiptStep,
     creditRequestId,
     setCreditRequestId,
+    modalLoading,
   } = props;
 
   const { t } = useTranslation();
@@ -129,6 +130,7 @@ export const useCreditWorkflow = (
         isProfileStep,
         paymentReceiptStep,
         shouldStartAtCreditNote,
+        modalLoading,
       }),
     [
       isAuthenticated,
@@ -139,6 +141,7 @@ export const useCreditWorkflow = (
       t,
       paymentReceiptStep,
       shouldStartAtCreditNote,
+      modalLoading,
     ],
   );
 

@@ -41,12 +41,16 @@ export default function PaymentResultPage() {
   }, [params]);
 
   const handleRetry = () => {
-    router.push('/services/dentalPlan');
+    router.push(
+      `/services/dentalPlan?requestId=${result?.creditRequestId}&&type=1`,
+    );
   };
 
   const handleCredit = () => {
     localStorage.removeItem('payment_modal_shown');
-    router.push('/services/dentalPlan');
+    router.push(
+      `/services/dentalPlan?requestId=${result?.creditRequestId}&&type=2`,
+    );
   };
 
   if (!result) {

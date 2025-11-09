@@ -39,5 +39,6 @@
   "list_requests": "List of requests",
   "close": "Close",
   "service_experiencing": "The service is experiencing a disruption. Please try again in a few minutes.",
-  "active_request": "Due to an active request, it is not possible to register a new request."
+  "active_request": "Due to an active request, it is not possible to register a new request.",
+  "unknown_error": "'An unknown error has occurred.'"
 }

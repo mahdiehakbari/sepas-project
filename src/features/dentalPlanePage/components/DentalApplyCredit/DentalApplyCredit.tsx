@@ -4,23 +4,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import { getTabsItem } from './constants';
 import { useTranslation } from 'react-i18next';
-
-export interface iCreditProps {
-  isOpenModal: boolean;
-  setIsOpenModal: (value: boolean) => void;
-  budgetData: number | null;
-  setBudgetData: (value: number | null) => void;
-  showBill: boolean;
-  setShowBill: (value: boolean) => void;
-  paymentReceiptStep: number;
-  setPaymentReceiptStep: (value: number) => void;
-  creditRequestId: string;
-  setCreditRequestId: (value: string) => void;
-  showCreditNoteModal: boolean;
-  setShowCreditNoteModal: (Value: boolean) => void;
-  feePercentage: number;
-  setFeePercentage: (value: number) => void;
-}
+import { ICreditProps } from './types';
 
 export const DentalApplyCredit = ({
   setIsOpenModal,
@@ -37,7 +21,8 @@ export const DentalApplyCredit = ({
   setShowCreditNoteModal,
   feePercentage,
   setFeePercentage,
-}: iCreditProps) => {
+  modalLoading,
+}: ICreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const tabsItem = getTabsItem(
@@ -55,6 +40,7 @@ export const DentalApplyCredit = ({
     setShowCreditNoteModal,
     feePercentage,
     setFeePercentage,
+    modalLoading,
   );
   return (
     <div className='mb-12'>

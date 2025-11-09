@@ -13,6 +13,7 @@ import { PaymentReceipt } from './PaymentReceipt/PaymentReceipt';
 import { OtpPaymentReceipt } from './OtpPaymentReceipt/OtpPaymentReceipt';
 import { OtpPaymentReceiptResult } from './OtpPaymentReceiptResult/OtpPaymentReceiptResult';
 import { useEffect, useState } from 'react';
+import { ModalLoading } from './ModalLoading/ModalLoading';
 
 export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
   const [ipgTransactionId, setIpgTransactionId] = useState('');
@@ -46,13 +47,6 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
     creditRequestId,
     setCreditRequestId,
   } = workflow;
-
-  console.log(
-    budgetData,
-    showBill,
-    paymentReceiptStep,
-    shouldStartAtCreditNote,
-  );
 
   return (
     <ResponsiveModal
@@ -95,7 +89,9 @@ export const CreditWorkflowModal = (props: ICreditWorkflowModalProps) => {
       {/* 🔹 Credit flow */}
       {isReady && (
         <>
-          {shouldStartAtCreditNote ? (
+          {props.modalLoading == true ? (
+            <ModalLoading />
+          ) : shouldStartAtCreditNote ? (
             <CreditNoteModal
               handleBudgetLoading={handleBudgetLoading}
               creditLoading={creditLoading}

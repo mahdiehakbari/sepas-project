@@ -7,26 +7,9 @@ import { toast } from 'react-toastify';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 import axios from 'axios';
 import { API_BUDGET_CALC, API_BUDGET_QUERY } from '@/config/api_address.config';
-import { IFeeConfiguration } from './types';
+import { IFeeConfiguration, IFirstTabProps } from './types';
 import { CreditWorkflowModal } from '../components/CreditWorkflowModal';
 import Image from 'next/image';
-
-export interface IFirstTabProps {
-  isOpenModal: boolean;
-  setIsOpenModal: (value: boolean) => void;
-  budgetData: number | null;
-  setBudgetData: (value: number | null) => void;
-  showBill: boolean;
-  setShowBill: (value: boolean) => void;
-  paymentReceiptStep: number;
-  setPaymentReceiptStep: (value: number) => void;
-  creditRequestId: string;
-  setCreditRequestId: (value: string) => void;
-  showCreditNoteModal: boolean;
-  setShowCreditNoteModal: (value: boolean) => void;
-  feePercentage: number;
-  setFeePercentage: (value: number) => void;
-}
 
 export const FirstTab = ({
   setIsOpenModal,
@@ -43,6 +26,7 @@ export const FirstTab = ({
   setShowCreditNoteModal,
   feePercentage,
   setFeePercentage,
+  modalLoading,
 }: IFirstTabProps) => {
   const { t } = useTranslation();
   const [value, setValue] = useState(0);
@@ -133,7 +117,7 @@ export const FirstTab = ({
   return (
     <div className='flex flex-wrap -mx-4 '>
       <div className='w-full md:w-6/12 px-4 mb-4 md:mb-0'>
-        <div className='py-[83px] px-6 rounded-lg  border-2  border-border-color bg-white'>
+        <div className=' px-6 rounded-lg  border-2  border-border-color bg-white'>
           {/* <div className='flex items-center justify-between mb-6'>
             <h3 className='text-black text-[14px] font-[500] '>
               {t('dental_plane:loan_amount')}
@@ -197,16 +181,16 @@ export const FirstTab = ({
           <Image
             src='/assets/dental-plane/dental-banner-image.svg'
             alt='dental-plane'
-            width={500}
-            height={500}
+            width={200}
+            height={200}
             className='cursor-pointer hover:opacity-80 w-[200px] h-[120px] md:w-[312px] md:h-[196px]'
           />
         </div>
       </div>
 
-      <div className='w-full md:w-6/12 px-4'>
-        <div className='p-6 rounded-lg  border-2  border-border-color bg-white'>
-          <div className='flex items-center justify-between mb-4'>
+      <div className='w-full md:w-6/12 px-4 h-f'>
+        <div className='p-6 rounded-lg  border-2  border-border-color bg-white h-full flex items-center'>
+          {/* <div className='flex items-center justify-between mb-4'>
             <h3 className='text-black text-[14px] font-[500]'>
               {t('dental_plane:calculation_results')}
             </h3>
@@ -245,7 +229,7 @@ export const FirstTab = ({
                 45,638,476 تومان
               </h4>
             </div>
-          </div>
+          </div> */}
 
           <Button className='w-full' onClick={handleShowModal}>
             {t('dental_plane:apply_credit')}
@@ -281,6 +265,7 @@ export const FirstTab = ({
         setPaymentReceiptStep={setPaymentReceiptStep}
         creditRequestId={creditRequestId}
         setCreditRequestId={setCreditRequestId}
+        modalLoading={modalLoading}
       />
     </div>
   );
