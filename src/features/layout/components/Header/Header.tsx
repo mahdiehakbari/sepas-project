@@ -114,6 +114,16 @@ export const Header = () => {
                             href: '/panel/requestList',
                             image: '/assets/icons/document.svg',
                           },
+                          {
+                            label: t('profile:transactions_list'),
+                            href: '/panel/transactionList',
+                            image: '/assets/icons/document.svg',
+                          },
+                          {
+                            label: t('profile:my_plans'),
+                            href: '/panel/myPlans',
+                            image: '/assets/icons/document.svg',
+                          },
                         ]
                       : []),
                     {
