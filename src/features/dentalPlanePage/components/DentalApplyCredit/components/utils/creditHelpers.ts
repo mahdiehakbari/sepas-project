@@ -13,7 +13,7 @@ export const getCreditStepTitle = ({
 }: IGetCreditStepTitleProps) => {
   if (!isAuthenticated || creditLoading || modalLoading) return undefined;
   if (shouldStartAtCreditNote) return t('credit:apply_credit');
-  if (!shouldStartAtCreditNote && !budgetData)
+  if (!shouldStartAtCreditNote && !budgetData && !isProfileStep)
     return t('credit:validation_result_budget');
   if (showBill && !paymentReceiptStep) return t('credit:paying_subscription');
   if (isProfileStep) return t('profile:complete_profile');
