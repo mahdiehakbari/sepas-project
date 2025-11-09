@@ -19,7 +19,7 @@ export const DentalPlaneContent = () => {
           <span className='font-[400] text-[14px]'>
             {t('dental_plane:install_budget_app')}
           </span>
-          <Link href='#' className='text-primary cursor-pointer'>
+          <Link href='https://mybajet.ir/#download-target' className='text-primary cursor-pointer'>
             {t('dental_plane:click_here')}
           </Link>
         </div>
