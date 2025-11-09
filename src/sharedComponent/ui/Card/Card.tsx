@@ -44,7 +44,8 @@ const Card: React.FC<ICardProps> = ({
               {remaining}
             </span>
             <span className='text-black  font-bold text-[14px]'>
-              {t('my_planes:toman')}
+              {/* {t('my_planes:toman')} */}
+              ریال
             </span>
           </div>
         </div>
