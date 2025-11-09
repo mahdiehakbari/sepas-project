@@ -8,24 +8,24 @@ import 'react-toastify/dist/ReactToastify.css';
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
   title: {
-    default: 'test Panel',
-    template: '%s | test Panel',
+    default: 'دنتالیت',
+    template: '%s | دنتالیت',
   },
   description: 'Admin panel with modular structure and global sidebar.',
-  applicationName: 'test Panel',
+  applicationName: 'دنتالیت',
   generator: 'Next.js',
-  keywords: ['real estate', 'admin panel', 'dashboard', 'nextjs', 'tailwind'],
+  keywords: ['دنتالیت', 'دندانپزشکی', 'dashboard', 'nextjs', 'tailwind'],
   authors: [{ name: 'test' }],
   openGraph: {
     type: 'website',
     url: '/',
-    title: 'test Panel',
+    title: 'دنتالیت',
     description: 'Admin panel with modular structure and global sidebar.',
-    siteName: 'test Panel',
+    siteName: 'دنتالیت',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'test Panel',
+    title: 'دنتالیت',
     description: 'Admin panel with modular structure and global sidebar.',
   },
   alternates: {

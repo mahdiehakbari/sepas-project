@@ -16,9 +16,9 @@ export const DentalBanner = () => {
           {t('dental_plane:loan')}
         </p>
 
-        <Button size='lg' className='md:mb-0 mb-4'>
+        {/* <Button size='lg' className='md:mb-0 mb-4'>
           {t('dental_plane:calculating_dental_installments')}
-        </Button>
+        </Button> */}
       </div>
       <Image
         src='/assets/dental-plane/dental-banner-image.svg'

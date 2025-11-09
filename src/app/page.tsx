@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import { Fragment } from 'react';
 
 export const metadata: Metadata = {
-  title: 'main page',
-  description: 'loan site',
+  title: 'دنتالیت',
+  description: 'دنتالیت',
 };
 
 export default function Home() {
