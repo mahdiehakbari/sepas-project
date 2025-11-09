@@ -1,7 +1,7 @@
 'use client';
 
 import { Accordion } from '@/sharedComponent/ui';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { DentalBanner } from './components/DentalBanner/DentalBanner';
 import { DentalPlaneContent } from './components/DentalPlaneContent/DentalPlaneContent';
 import { DentalApplyCredit } from './components/DentalApplyCredit/DentalApplyCredit';
@@ -24,7 +24,7 @@ export default function DentalPlaneClient() {
   const [creditRequestId, setCreditRequestId] = useState('');
   const [showCreditNoteModal, setShowCreditNoteModal] = useState(false);
   const [feePercentage, setFeePercentage] = useState(0);
-  const [modalLoading, setModalLoading] = useState(false);
+  const [modalLoading, setModalLoading] = useState(true);
   const searchParams = useSearchParams();
   const token = Cookies.get('token');
 
@@ -103,14 +103,19 @@ export default function DentalPlaneClient() {
   //       });
   //   }
   // }, []);
-
+  const requestId = searchParams.get('requestId');
+  const type = searchParams.get('type');
+  const tokenHeader = token ? `Bearer ${token}` : '';
+  const hasFetched = useRef(false);
   useEffect(() => {
     if (typeof window === 'undefined') return;
-    setModalLoading(true);
-    const requestId = searchParams.get('requestId');
-    const type = searchParams.get('type');
-    const tokenHeader = token ? `Bearer ${token}` : '';
+    if (hasFetched.current) return;
+    if (!requestId) return;
+
+    hasFetched.current = true;
     if (requestId && type === '1') {
+      setModalLoading(true);
+      setIsOpenModal(true);
       axios
         .get(`${API_CUSTOMER_CREDIT}/${requestId}`, {
           headers: { Authorization: tokenHeader },
@@ -127,10 +132,12 @@ export default function DentalPlaneClient() {
         })
         .catch((err) => {
           setModalLoading(false);
+          setIsOpenModal(false);
           toast.error(t('credit:unknown_error'));
         });
-      return;
     } else if (requestId && type === '2') {
+      setModalLoading(true);
+      setIsOpenModal(true);
       if (requestId) {
         setCreditRequestId(requestId);
       }
@@ -157,11 +164,12 @@ export default function DentalPlaneClient() {
           // localStorage.removeItem('payment_result');
         })
         .catch((err) => {
-          setModalLoading(false);
           toast.error(t('credit:unknown_error'));
+          setModalLoading(false);
+          setIsOpenModal(false);
         });
     }
-  }, [searchParams, token]);
+  }, [requestId, type]);
 
   return (
     <div className='max-w-4xl mx-auto px-6 md:px-0'>

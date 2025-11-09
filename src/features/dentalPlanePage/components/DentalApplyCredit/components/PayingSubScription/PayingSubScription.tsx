@@ -79,7 +79,7 @@ export const PayingSubScription = ({
       </div>
       <div className='flex items-center justify-between mb-6 px-4 py-2 bg-[var(--second-light-primary)] rounded-[8px]'>
         <p className='text-black font-[500] text-[16px]'>
-          {t('credit:paid_subscription')}
+          {t('credit:abonman')}
         </p>
         <p className='text-black font-[500] text-[16px]'>
           {Number(feePercentage).toLocaleString('fa-IR')} {t('credit:rial')}
