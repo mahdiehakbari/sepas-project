@@ -47,10 +47,10 @@ export const BannerSection = () => {
                     {t(item.descriptionKey)}
                   </p>
 
-                  <div className='flex items-center gap-4'>
-                    {/* <Button>{t('home:calculation_installments')}</Button> */}
+                  {/* <div className='flex items-center gap-4'>
+                    {<Button>{t('home:calculation_installments')}</Button>}
                     <Button>{t('home:view_plans')}</Button>
-                  </div>
+                  </div> */}
                 </div>
 
                 <Image
