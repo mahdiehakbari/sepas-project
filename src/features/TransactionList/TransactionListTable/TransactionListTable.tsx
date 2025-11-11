@@ -18,7 +18,7 @@ export const TransactionListTable = ({
         <thead>
           <tr>
             <th colSpan={5} className='p-0'>
-              <div className='flex bg-[var(--block-color)] border border-[var(--border-color)] rounded-[8px] px-3 py-3 font-semibold text-gray-700 text-sm'>
+              <div className='flex bg-(--block-color) border border-border-color rounded-lg px-3 py-3 font-semibold text-gray-700 text-sm'>
                 {getThItems().map((item) => (
                   <div key={item.id} className='w-1/5 text-right'>
                     {item.label}
@@ -35,7 +35,7 @@ export const TransactionListTable = ({
             return (
               <tr key={transaction.id}>
                 <td colSpan={5} className='p-0'>
-                  <div className='flex items-center justify-between bg-white border border-[var(--border-color)] rounded-[8px] px-3 py-3'>
+                  <div className='flex items-center justify-between bg-white border border-border-color rounded-lg px-3 py-3'>
                     <div className='w-[5%] text-center'>
                       {index + 1 + (currentPage - 1) * pageSize}
                     </div>

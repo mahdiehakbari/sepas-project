@@ -1,4 +1,4 @@
-interface IRequestItem {
+export interface IRequestItem {
   amount: number;
   createdAt: string;
   customerId: string;
