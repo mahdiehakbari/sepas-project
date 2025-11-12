@@ -1,18 +1,11 @@
-interface IRequestItem {
+export interface IRequest {
   id: string;
-  requestedAmount: number;
-  subscriptionFee: number;
-  feePercentage: number;
   status: number;
-  statusDescription: string;
-  errorMessage: string | null;
-  completedAt: string | null;
-  description: string;
   createdAt: string;
 }
 
 export interface IRequestsData {
-  items: IRequestItem[];
+  items: IRequest[];
   totalCount: number;
   pageNumber: number;
   pageSize: number;

@@ -14,11 +14,9 @@ import {
   API_AUTHENTICATE_ME,
   API_PURCHASE_QUERY,
 } from '@/config/api_address.config';
-import DatePicker from 'react-multi-date-picker';
-import persian from 'react-date-object/calendars/persian';
-import persian_fa from 'react-date-object/locales/persian_fa';
 import DateObject from 'react-date-object';
-import gregorian from 'react-date-object/calendars/gregorian';
+import { filterTable } from '../utility/filterTable';
+import { Filteredtabel } from '@/features/Filteredtabel';
 
 const TransactionsList = () => {
   const { t } = useTranslation();
@@ -65,40 +63,13 @@ const TransactionsList = () => {
 
   const handleFilter = () => {
     if (!transactionData) return;
-
-    const fromDateConverted = fromDate
-      ? fromDate.convert(gregorian).toDate()
-      : null;
-    const toDateConverted = toDate ? toDate.convert(gregorian).toDate() : null;
-
-    let fromFilter: Date;
-    let toFilter: Date;
-    const today = new Date();
-    today.setHours(23, 59, 59, 999);
-
-    if (fromDateConverted && toDateConverted) {
-      fromFilter = new Date(fromDateConverted.setHours(0, 0, 0, 0));
-      toFilter = new Date(toDateConverted.setHours(23, 59, 59, 999));
-    } else if (fromDateConverted && !toDateConverted) {
-      fromFilter = new Date(fromDateConverted.setHours(0, 0, 0, 0));
-      toFilter = today;
-    } else if (!fromDateConverted && toDateConverted) {
-      fromFilter = new Date('1970-01-01T00:00:00');
-      toFilter = new Date(toDateConverted.setHours(23, 59, 59, 999));
-    } else {
-      fromFilter = new Date('1970-01-01T00:00:00');
-      toFilter = today;
-    }
-
-    const filteredData = transactionData.items.filter((item) => {
-      const itemDate = new Date(item.createdAt);
-      const matchesName =
-        !planName || item.merchantName.includes(planName.trim());
-      const matchesDate = itemDate >= fromFilter && itemDate <= toFilter;
-      return matchesName && matchesDate;
+    const result = filterTable({
+      data: transactionData.items,
+      planName,
+      fromDate,
+      toDate,
     });
-
-    setFilterData(filteredData);
+    setFilterData(result);
   };
 
   const items = filterData ?? transactionData?.items ?? [];
@@ -134,53 +105,17 @@ const TransactionsList = () => {
         {t('transaction_list:transaction_list')}
       </h1>
 
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
-        <div className='w-full'>
-          <input
-            type='text'
-            placeholder='جستجو بر اساس نام طرح...'
-            value={planName}
-            onChange={(e) => setPlanName(e.target.value)}
-            className='border border-border-color rounded-md w-full px-3 py-2 focus:outline-none focus:ring focus:border-blue-400'
-          />
-        </div>
-
-        <div className='w-full'>
-          <DatePicker
-            value={fromDate}
-            onChange={setFromDate}
-            calendar={persian}
-            locale={persian_fa}
-            inputClass='border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring focus:border-blue-400'
-            placeholder='انتخاب تاریخ'
-          />
-        </div>
-
-        <div className='w-full'>
-          <DatePicker
-            value={toDate}
-            onChange={setToDate}
-            calendar={persian}
-            locale={persian_fa}
-            inputClass='border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring focus:border-blue-400'
-            placeholder='انتخاب تاریخ'
-          />
-        </div>
-
-        <div className='w-full flex items-end'>
-          <Button
-            onClick={handleFilter}
-            disabled={isFilterButtonDisabled}
-            className={`w-full ${
-              isFilterButtonDisabled
-                ? 'bg-gray-300 cursor-not-allowed'
-                : 'bg-blue-600 hover:bg-blue-700'
-            }`}
-          >
-            فیلتر
-          </Button>
-        </div>
-      </div>
+      <Filteredtabel
+        planName={planName}
+        setPlanName={setPlanName}
+        fromDate={fromDate}
+        setFromDate={setFromDate}
+        toDate={toDate}
+        setToDate={setToDate}
+        handleFilter={handleFilter}
+        isFilterButtonDisabled={isFilterButtonDisabled}
+        placeholderText={t('home:search_plane')}
+      />
 
       <div className='hidden md:block'>
         <TransactionListTable

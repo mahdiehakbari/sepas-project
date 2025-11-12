@@ -12,6 +12,9 @@ import { RequestListTable } from '@/features/requestList';
 import { ResponsiveRequestListTable } from '@/features/requestList/RequestListTable/ResponsiveRequestListTable';
 import { IRequestsData } from './types';
 import { Paginate, SpinnerDiv } from '@/sharedComponent/ui';
+import { Filteredtabel } from '@/features/Filteredtabel';
+import DateObject from 'react-date-object';
+import { filterTable } from '../utility/filterTable';
 
 export default function TransactionList() {
   const { t } = useTranslation();
@@ -19,6 +22,10 @@ export default function TransactionList() {
   const [customerId, setCustomerId] = useState('');
   const [requestsData, setRequestData] = useState<IRequestsData | null>(null);
   const [page, setPage] = useState(1);
+  const [planName, setPlanName] = useState('');
+  const [filterData, setFilterData] = useState(null);
+  const [fromDate, setFromDate] = useState<DateObject | null>(null);
+  const [toDate, setToDate] = useState<DateObject | null>(null);
   const token = Cookies.get('token');
 
   useEffect(() => {
@@ -70,8 +77,22 @@ export default function TransactionList() {
       </div>
     );
   }
+  const handleFilter = () => {
+    if (!requestsData) return;
+    const result = filterTable({
+      data: requestsData.items,
+      planName,
+      fromDate,
+      toDate,
+    });
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    //@ts-expect-error
+    setFilterData(result);
+  };
 
-  const items = requestsData.items;
+  const isFilterButtonDisabled = !planName && !fromDate && !toDate;
+
+  const items = filterData ?? requestsData.items ?? null;
   const pageSize = requestsData.pageSize || 10;
   const totalCount = requestsData.totalCount || 0;
   const totalPages = Math.ceil(totalCount / pageSize) || 1;
@@ -84,6 +105,18 @@ export default function TransactionList() {
       <h1 className='text-black font-bold text-lg mb-4'>
         {t('request_list:request_list')}
       </h1>
+
+      <Filteredtabel
+        planName={planName}
+        setPlanName={setPlanName}
+        fromDate={fromDate}
+        setFromDate={setFromDate}
+        toDate={toDate}
+        setToDate={setToDate}
+        handleFilter={handleFilter}
+        isFilterButtonDisabled={isFilterButtonDisabled}
+        placeholderText={t('home:search_plane')}
+      />
 
       <div className='hidden md:block'>
         <RequestListTable
