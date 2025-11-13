@@ -9,7 +9,7 @@ export const CreditPlans = () => {
 
   return (
     <div className='mx-auto max-w-4xl mb-12 px-6 md:px-0'>
-      <h2 className='text-[16px] font-[700] text-black mb-4'>
+      <h2 className='text-[16px] font-bold text-black mb-4'>
         {t('home:credit_plans')}
       </h2>
 
@@ -18,7 +18,7 @@ export const CreditPlans = () => {
           const isActive = index === 0;
 
           return (
-            <div key={item.alt} className='relative w-[128px]'>
+            <div key={item.alt} className='relative w-32'>
               {isActive ? (
                 <Link href={item.href} rel='noopener noreferrer'>
                   <div className='text-center bg-secondary px-4 pt-[11px] pb-4 rounded-2xl transition-all duration-300 hover:shadow-lg cursor-pointer'>
@@ -29,7 +29,7 @@ export const CreditPlans = () => {
                       height={128}
                       className='mx-auto hover:opacity-80'
                     />
-                    <p className='text-black font-[500] text-[14px] mt-2'>
+                    <p className='text-black font-medium text-[14px] mt-2'>
                       {t(item.titleKey)}
                     </p>
                   </div>
@@ -43,7 +43,7 @@ export const CreditPlans = () => {
                     height={128}
                     className='mx-auto opacity-50'
                   />
-                  <p className='text-[var(--text-disabled)] font-[500] text-[14px] mt-2'>
+                  <p className='text-(--text-disabled) font-medium text-[14px] mt-2'>
                     {t(item.titleKey)}
                   </p>
                 </div>
