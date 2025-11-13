@@ -89,7 +89,7 @@ export const SideMenu = () => {
               width={20}
               height={20}
             />
-            <p className='text-black font-[400] text-[16px] leading-6 hover:text-primary'>
+            <p className='text-black font-normal text-[16px] leading-6 hover:text-primary'>
               {t('profile:communication_experts')}
             </p>
           </div>
@@ -99,11 +99,11 @@ export const SideMenu = () => {
           >
             <Image
               src='/assets/icons/logout.svg'
-              alt=''
+              alt='logout'
               width={20}
               height={20}
             />
-            <p className='text-[#FF4B4B] font-[400] text-[16px] leading-6 '>
+            <p className='text-[#FF4B4B] font-normal text-[16px] leading-6 '>
               {t('profile:log_out')}
             </p>
           </div>

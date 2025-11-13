@@ -6,7 +6,7 @@ import { useToggleLanguage } from './hooks';
 import { Button } from '@/sharedComponent/ui';
 import { getNavItems } from './constants';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useRef, useState } from 'react';
 import { MobileMenu } from './MobileMenu';
 import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
 import { OtpModal } from '../Auth/OTPComponent/OtpModal';

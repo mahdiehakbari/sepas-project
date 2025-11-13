@@ -8,8 +8,10 @@ import {
   API_AUTHENTICATE_ME,
   API_CUSTOMER_CREDIT_QUERY,
 } from '@/config/api_address.config';
-import { RequestListTable } from '@/features/requestList';
-import { ResponsiveRequestListTable } from '@/features/requestList/RequestListTable/ResponsiveRequestListTable';
+import {
+  RequestListTable,
+  ResponsiveRequestListTable,
+} from '@/features/requestList';
 import { IRequestsData } from './types';
 import { Paginate, SpinnerDiv } from '@/sharedComponent/ui';
 import { Filteredtabel } from '@/features/Filteredtabel';

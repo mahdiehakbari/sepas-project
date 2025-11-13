@@ -5,7 +5,6 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import { BannerItems } from './constants/BannerItems';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { Button } from '@/sharedComponent/ui';
 import { useTranslation } from 'react-i18next';
 import { useEffect, useState } from 'react';
 
@@ -39,11 +38,11 @@ export const BannerSection = () => {
             <SwiperSlide key={item.id}>
               <div className='flex md:justify-between items-center'>
                 <div>
-                  <h2 className='text-white font-[700] text-[24px] md:text-[32px] mb-4'>
+                  <h2 className='text-white font-bold text-[24px] md:text-[32px] mb-4'>
                     {t(item.titleKey)}
                   </h2>
 
-                  <p className='text-white font-[400] text-[14px] md:text-[20px] mb-6 '>
+                  <p className='text-white font-normal text-[14px] md:text-[20px] mb-6 '>
                     {t(item.descriptionKey)}
                   </p>
 
@@ -58,8 +57,7 @@ export const BannerSection = () => {
                   alt={item.alt}
                   width={262}
                   height={262}
-                  priority={index === 0}
-                  className='hidden md:block'
+                  className='hidden md:block h-[262px]'
                 />
               </div>
             </SwiperSlide>
