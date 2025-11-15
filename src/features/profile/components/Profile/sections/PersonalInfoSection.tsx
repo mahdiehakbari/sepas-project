@@ -20,9 +20,6 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     { id: '2', name: t('profile:woman') },
   ];
 
-  // const defaultGenderValue =
-  //   userData?.gender === 'Female' ? 2 : userData?.gender === 'Male' ? 1 : '';
-
   return (
     <section>
       <FormTitle title={t('profile:identity_information')} />

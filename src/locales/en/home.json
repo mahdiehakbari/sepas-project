@@ -21,5 +21,7 @@
   "email": "Email: info@sepasholding.com",
   "all_rights": "All rights reserved by Sepas Holding. © 1404",
   "coming_Soon": "Coming Soon",
-  "search_plane": "Search by project name..."
+  "search_plane": "Search by project name...",
+  "page_loading": "page Loading ......",
+  "empty": "No data found."
 }

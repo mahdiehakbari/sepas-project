@@ -13,6 +13,7 @@ const MyPlanes = () => {
   const [myPlanData, setMyPlaneData] = useState<IWalletAccount[]>([]);
 
   const [pageLoading, setPageLoading] = useState(true);
+
   useEffect(() => {
     const token = Cookies.get('token');
     if (!token) {
@@ -34,11 +35,16 @@ const MyPlanes = () => {
     return (
       <div className='flex justify-center items-center h-[60vh]'>
         <SpinnerDiv size='lg' />
-        <p className='px-2'>در حال بارگذاری...</p>
+        <p className='px-2'>{t('home:page_loading')}</p>
       </div>
     );
   }
 
+  if (pageLoading && myPlanData.length === 0) {
+    return (
+      <div className='text-center mt-10 text-gray-500'>{t('home:empty')}</div>
+    );
+  }
   return (
     <div className='flex items-center gap-6'>
       {myPlanData?.map((item, index) => (

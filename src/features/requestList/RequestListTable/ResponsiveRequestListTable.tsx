@@ -1,13 +1,9 @@
-import { Button } from '@/sharedComponent/ui';
 import { IRequestListTableProps } from './types';
 import { useTranslation } from 'react-i18next';
 import { useStatusInfo } from './utils/useStatusInfo';
-// import { getStatusColor } from './utils/useStatusInfo';
 
 export const ResponsiveRequestListTable = ({
   requests,
-  currentPage,
-  pageSize,
 }: IRequestListTableProps) => {
   const { t } = useTranslation();
   const { getStatusInfo } = useStatusInfo();
@@ -18,7 +14,7 @@ export const ResponsiveRequestListTable = ({
         const { label, className } = getStatusInfo(req.status);
         return (
           <div key={index}>
-            <div className='border-2 border-[var(--border-color)] rounded-lg mb-4'>
+            <div className='border-2 border-border-color rounded-lg mb-4'>
               <div className=' p-4 '>
                 <div className='flex gap-2 items-center mb-2 '>
                   <h2 className='font-medium text-[#808080] text-[14px]'>

@@ -5,7 +5,7 @@ export interface IRequest {
 }
 
 export interface IRequestListTableProps {
-  requests: IRequest[];
+  requests: IRequest[] | null;
   currentPage: number;
   pageSize: number;
 }

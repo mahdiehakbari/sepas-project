@@ -9,11 +9,9 @@ import { Button, Paginate, SpinnerDiv } from '@/sharedComponent/ui';
 import {
   ResponsiveTransactionListTable,
   TransactionListTable,
+  useCustomerId,
 } from '@/features/TransactionList';
-import {
-  API_AUTHENTICATE_ME,
-  API_PURCHASE_QUERY,
-} from '@/config/api_address.config';
+import { API_PURCHASE_QUERY } from '@/config/api_address.config';
 import DateObject from 'react-date-object';
 import { filterTable } from '../utility/filterTable';
 import { Filteredtabel } from '@/features/Filteredtabel';
@@ -21,7 +19,6 @@ import { Filteredtabel } from '@/features/Filteredtabel';
 const TransactionsList = () => {
   const { t } = useTranslation();
   const [pageLoading, setPageLoading] = useState(true);
-  const [customerId, setCustomerId] = useState('');
   const [transactionData, setTransactionData] = useState<IRequestsData | null>(
     null,
   );
@@ -32,19 +29,9 @@ const TransactionsList = () => {
   const [toDate, setToDate] = useState<DateObject | null>(null);
   const token = Cookies.get('token');
 
-  useEffect(() => {
-    if (!token) {
-      setPageLoading(false);
-      return;
-    }
-
-    axios
-      .get(API_AUTHENTICATE_ME, {
-        headers: { Authorization: `Bearer ${token}` },
-      })
-      .then((res) => setCustomerId(res.data.customerId))
-      .catch((err) => console.error(err));
-  }, [token]);
+  const { customerId } = useCustomerId(() => {
+    setPageLoading(false);
+  });
 
   useEffect(() => {
     if (!customerId) return;
@@ -84,18 +71,16 @@ const TransactionsList = () => {
 
   if (pageLoading) {
     return (
-      <div className='flex justify-center items-center h-[60vh]'>
+      <div className='flex justify-center items-center h-screen'>
         <SpinnerDiv size='lg' />
-        <p className='px-2'>در حال بارگذاری...</p>
+        <p className='px-2'>{t('home:page_loading')}</p>
       </div>
     );
   }
 
-  if (!transactionData || transactionData.items.length === 0) {
+  if (pageLoading && transactionData?.items.length === 0) {
     return (
-      <div className='text-center mt-10 text-gray-500'>
-        هیچ داده‌ای یافت نشد.
-      </div>
+      <div className='text-center mt-10 text-gray-500'>{t('home:empty')}</div>
     );
   }
 
