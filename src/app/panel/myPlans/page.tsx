@@ -7,6 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Cookies from 'js-cookie';
 import { SpinnerDiv } from '@/sharedComponent/ui';
 import { IWalletAccount } from './types';
+import { ContentStateWrapper } from '@/features/layout';
 
 const MyPlanes = () => {
   const { t } = useTranslation();
@@ -31,35 +32,28 @@ const MyPlanes = () => {
       .catch(() => {});
   }, []);
 
-  if (pageLoading) {
-    return (
-      <div className='flex justify-center items-center h-[60vh]'>
-        <SpinnerDiv size='lg' />
-        <p className='px-2'>{t('home:page_loading')}</p>
-      </div>
-    );
-  }
-
-  if (pageLoading && myPlanData.length === 0) {
-    return (
-      <div className='text-center mt-10 text-gray-500'>{t('home:empty')}</div>
-    );
-  }
   return (
-    <div className='flex items-center gap-6'>
-      {myPlanData?.map((item, index) => (
-        <div key={index}>
-          {item.tag == 7001 && (
-            <Card
-              title={t('my_planes:dental_plan')}
-              remaining={item.balance.toLocaleString('fa-IR')}
-              borderColor='bg-blue-400'
-              image='/assets/icons/tooth-health.svg'
-            />
-          )}
-        </div>
-      ))}
-    </div>
+    <ContentStateWrapper
+      loading={pageLoading}
+      isEmpty={pageLoading && myPlanData.length === 0}
+      loadingText={t('panel:page_loading')}
+      emptyText={t('panel:empty')}
+    >
+      <div className='flex items-center gap-6'>
+        {myPlanData?.map((item, index) => (
+          <div key={index}>
+            {item.tag == 7001 && (
+              <Card
+                title={t('my_planes:dental_plan')}
+                remaining={item.balance.toLocaleString('fa-IR')}
+                borderColor='bg-blue-400'
+                image='/assets/icons/tooth-health.svg'
+              />
+            )}
+          </div>
+        ))}
+      </div>
+    </ContentStateWrapper>
   );
 };
 

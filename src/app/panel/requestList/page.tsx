@@ -15,6 +15,7 @@ import { Paginate, SpinnerDiv } from '@/sharedComponent/ui';
 import { Filteredtabel } from '@/features/Filteredtabel';
 import DateObject from 'react-date-object';
 import { filterTable } from '../utility/filterTable';
+import { ContentStateWrapper } from '@/features/layout';
 
 export default function TransactionList() {
   const { t } = useTranslation();
@@ -48,21 +49,6 @@ export default function TransactionList() {
       .finally(() => setPageLoading(false));
   }, [customerId, page]);
 
-  if (pageLoading) {
-    return (
-      <div className='flex justify-center items-center h-screen'>
-        <SpinnerDiv size='lg' />
-        <p className='px-2'>{t('home:page_loading')}</p>
-      </div>
-    );
-  }
-
-  if (pageLoading && requestsData?.items.length === 0) {
-    return (
-      <div className='text-center mt-10 text-gray-500'>{t('home:empty')}</div>
-    );
-  }
-
   const handleFilter = () => {
     if (!requestsData) return;
     const result = filterTable({
@@ -86,44 +72,51 @@ export default function TransactionList() {
   const hasNextPage = currentPage < totalPages;
 
   return (
-    <div className='max-w-6xl mx-auto mt-6'>
-      <h1 className='text-black font-bold text-lg mb-4'>
-        {t('request_list:request_list')}
-      </h1>
+    <ContentStateWrapper
+      loading={pageLoading}
+      isEmpty={pageLoading && requestsData?.items.length === 0}
+      loadingText={t('panel:page_loading')}
+      emptyText={t('panel:empty')}
+    >
+      <div className='max-w-6xl mx-auto mt-6'>
+        <h1 className='text-black font-bold text-lg mb-4'>
+          {t('request_list:request_list')}
+        </h1>
 
-      <Filteredtabel
-        planName={planName}
-        setPlanName={setPlanName}
-        fromDate={fromDate}
-        setFromDate={setFromDate}
-        toDate={toDate}
-        setToDate={setToDate}
-        handleFilter={handleFilter}
-        isFilterButtonDisabled={isFilterButtonDisabled}
-        placeholderText={t('home:search_plane')}
-      />
+        <Filteredtabel
+          planName={planName}
+          setPlanName={setPlanName}
+          fromDate={fromDate}
+          setFromDate={setFromDate}
+          toDate={toDate}
+          setToDate={setToDate}
+          handleFilter={handleFilter}
+          isFilterButtonDisabled={isFilterButtonDisabled}
+          placeholderText={t('home:search_plane')}
+        />
 
-      <div className='hidden md:block'>
-        <RequestListTable
-          requests={items}
+        <div className='hidden md:block'>
+          <RequestListTable
+            requests={items}
+            currentPage={currentPage}
+            pageSize={pageSize}
+          />
+        </div>
+        <div className='block md:hidden'>
+          <ResponsiveRequestListTable
+            requests={items}
+            currentPage={currentPage}
+            pageSize={pageSize}
+          />
+        </div>
+        <Paginate
+          hasPreviousPage={hasPreviousPage}
+          setPage={setPage}
           currentPage={currentPage}
-          pageSize={pageSize}
+          totalPages={totalPages}
+          hasNextPage={hasNextPage}
         />
       </div>
-      <div className='block md:hidden'>
-        <ResponsiveRequestListTable
-          requests={items}
-          currentPage={currentPage}
-          pageSize={pageSize}
-        />
-      </div>
-      <Paginate
-        hasPreviousPage={hasPreviousPage}
-        setPage={setPage}
-        currentPage={currentPage}
-        totalPages={totalPages}
-        hasNextPage={hasNextPage}
-      />
-    </div>
+    </ContentStateWrapper>
   );
 }
