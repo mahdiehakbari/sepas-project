@@ -16,7 +16,7 @@ const Card: React.FC<ICardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className='relative w-64 rounded-xl border border-primary bg-white pt-4 px-4 '>
+    <div className='relative w-72 rounded-xl border border-primary bg-white pt-4 px-4 '>
       <div
         className={`absolute right-0 top-0 h-full w-2 rounded-r-xl ${borderColor}`}
       ></div>
