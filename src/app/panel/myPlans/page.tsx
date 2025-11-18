@@ -36,8 +36,8 @@ const MyPlanes = () => {
     <ContentStateWrapper
       loading={pageLoading}
       isEmpty={pageLoading && myPlanData.length === 0}
-      loadingText={t('panel:page_loading')}
-      emptyText={t('panel:empty')}
+      loadingText={t('home:page_loading')}
+      emptyText={t('home:empty')}
     >
       <div className='flex items-center gap-6'>
         {myPlanData?.map((item, index) => (

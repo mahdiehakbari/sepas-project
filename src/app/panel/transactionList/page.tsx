@@ -74,8 +74,8 @@ const TransactionsList = () => {
     <ContentStateWrapper
       loading={pageLoading}
       isEmpty={pageLoading && transactionData?.items.length === 0}
-      loadingText={t('panel:page_loading')}
-      emptyText={t('panel:empty')}
+      loadingText={t('home:page_loading')}
+      emptyText={t('home:empty')}
     >
       <div className='max-w-6xl mx-auto mt-6'>
         <h1 className='text-black font-bold text-lg mb-4'>
