@@ -86,16 +86,21 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
           />
         </div>
 
-        <div className='flex justify-end gap-4 my-6'>
+        <div className='md:flex justify-end gap-4 my-6'>
           <Button
             variant='outline'
             disabled={isLoading}
             type='button'
             onClick={handleBack}
+            className='mb-2 w-full  md:w-[161px] '
           >
             {t('profile:return')}
           </Button>
-          <Button disabled={isLoading} type='submit'>
+          <Button
+            disabled={isLoading}
+            type='submit'
+            className='mb-2 w-full md:w-[161px]'
+          >
             {isLoading ? (
               <SpinnerDiv size='sm' className='text-white' />
             ) : (

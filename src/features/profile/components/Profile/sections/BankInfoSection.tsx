@@ -10,7 +10,7 @@ export const BankInfoSection: React.FC<IBankInfoSectionProps> = ({
 }) => (
   <section>
     <FormTitle title={t('profile:bank_information')} />
-    <div className='grid grid-cols-2 gap-4 text-right mb-12'>
+    <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-right mb-12'>
       <Input
         label={t('profile:iban')}
         name='iban'

@@ -13,8 +13,8 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
     <div className='bg-(--block-color) rounded-2xl p-6 '>
       <FormTitle title={t('profile:identity_information')} />
       <div className='space-y-6'>
-        <div className='grid grid-cols-2 gap-4'>
-          <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6 mb-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4'>
+          <div className='flex justify-between items-center md:border-l-2 border-[#C2C2C2] pl-6 mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>
               {t('profile:first_name')} و {t('profile:last_name')}
             </p>
@@ -38,7 +38,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
               {user.phoneNumber}
             </p>
           </div>
-          <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6  mb-6'>
+          <div className='flex justify-between items-center md:border-l-2 border-[#C2C2C2] pl-6  mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>
               {t('profile:national_id')}:
             </p>
@@ -54,7 +54,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
               <BirthDate birthDate={user.birthDate} />
             </p>
           </div>
-          <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6  mb-6'>
+          <div className='flex justify-between items-center md:border-l-2 md:border-[#C2C2C2] pl-6  mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>
               {t('profile:gender')}:
             </p>
@@ -84,8 +84,8 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
           </div>
         </div>
         <FormTitle title={t('profile:address_information')} />
-        <div className='grid grid-cols-2 gap-4 mt-2'>
-          <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6  mb-6'>
+        <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mt-2'>
+          <div className='flex justify-between items-center md:border-l-2 border-[#C2C2C2] pl-6  mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>استان:</p>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>
               {user.address?.provinceName}
@@ -97,7 +97,7 @@ export const ShowUserData = ({ user }: IShowUserDataProps) => {
               {user.address?.cityName}
             </p>
           </div>
-          <div className='flex justify-between items-center border-l-2 border-[#C2C2C2] pl-6  mb-6'>
+          <div className='flex justify-between items-center md:border-l-2 border-[#C2C2C2] pl-6  mb-6'>
             <p className='text-[#3B3B3B] text-[14px] font-medium'>
               {t('profile:postal_code')}:
             </p>

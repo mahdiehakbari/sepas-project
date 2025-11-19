@@ -20,7 +20,7 @@ export const AddressInfoSection: React.FC<IAddressInfoSectionProps> = ({
     <section>
       <FormTitle title={t('profile:address_information')} />
 
-      <div className='grid grid-cols-2 gap-4 text-right mb-6'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-right mb-6'>
         {provinces.length > 0 && (
           <SelectInput
             label={t('profile:province')}

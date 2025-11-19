@@ -20,13 +20,11 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     { id: 'Female', name: t('profile:woman') },
   ];
 
-  console.log(userData, 'ssss');
-
   return (
     <section>
       <FormTitle title={t('profile:identity_information')} />
 
-      <div className='grid grid-cols-2 gap-4 text-right mb-12'>
+      <div className='grid grid-cols-1 md:grid-cols-2 gap-4 text-right mb-12'>
         <Input
           label={t('profile:first_name')}
           name='firstName'
