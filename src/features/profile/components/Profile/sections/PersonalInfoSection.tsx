@@ -4,7 +4,7 @@ import { validationRules } from '../utils/validationRules';
 import { IPersonalInfoSectionProps } from './types';
 import { RegisterOptions } from 'react-hook-form';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
-import { BirthDate } from '@/sharedComponent/lib';
+// import { BirthDate } from '@/sharedComponent/lib';
 
 export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   t,
@@ -16,9 +16,11 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   const rules = validationRules(t);
 
   const genderItems = [
-    { id: '1', name: t('profile:man') },
-    { id: '2', name: t('profile:woman') },
+    { id: 'Male', name: t('profile:man') },
+    { id: 'Female', name: t('profile:woman') },
   ];
+
+  console.log(userData, 'ssss');
 
   return (
     <section>
@@ -72,7 +74,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           label={t('profile:date_birth')}
           errors={errors}
           rules={{ required: t('profile:field_required') }}
-          // defaultValue={userData?.birthDate ?? ''}
+          defaultValue={userData?.birthDate ?? ''}
         />
 
         <SelectInput
@@ -82,7 +84,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           options={genderItems.map((c) => ({ value: c.id, label: c.name }))}
           errors={errors}
           rules={{ required: t('profile:field_required') }}
-          // defaultValue={defaultGenderValue}
+          defaultValue={userData?.gender ? String(userData.gender) : ''}
         />
 
         <Input

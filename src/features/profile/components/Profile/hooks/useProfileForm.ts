@@ -12,7 +12,7 @@ export const useProfileForm = (userData?: IProfileFormValues | null) => {
     control,
     reset,
     formState: { errors },
-  } = useForm<IProfileFormValues>({ defaultValues: {} });
+  } = useForm<IProfileFormValues>({ defaultValues: userData || undefined });
 
   const { provinces, cities, handleProvinceChange } = useLocationData(setValue);
   const savedPhone = Cookies.get('phoneNumber');
