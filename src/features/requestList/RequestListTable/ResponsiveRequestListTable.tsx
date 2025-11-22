@@ -10,7 +10,7 @@ export const ResponsiveRequestListTable = ({
 
   return (
     <div className='max-w-md mx-auto mt-10'>
-      {requests.map((req, index) => {
+      {requests?.map((req, index) => {
         const { label, className } = getStatusInfo(req.status);
         return (
           <div key={index}>
