@@ -82,7 +82,7 @@ const TransactionsList = () => {
           {t('transaction_list:transaction_list')}
         </h1>
 
-        <Filteredtabel
+        {/* <Filteredtabel
           planName={planName}
           setPlanName={setPlanName}
           fromDate={fromDate}
@@ -92,7 +92,7 @@ const TransactionsList = () => {
           handleFilter={handleFilter}
           isFilterButtonDisabled={isFilterButtonDisabled}
           placeholderText={t('home:search_plane')}
-        />
+        /> */}
 
         <div className='hidden md:block'>
           <TransactionListTable

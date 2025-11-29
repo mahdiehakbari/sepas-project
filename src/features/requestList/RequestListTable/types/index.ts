@@ -1,6 +1,6 @@
 export interface IRequest {
   id: string;
-  status: string;
+  status: number;
   createdAt: string;
 }
 
