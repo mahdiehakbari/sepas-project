@@ -68,52 +68,58 @@ export default function TransactionList() {
   const totalPages = requestsData?.totalPages ?? 1;
 
   return (
-    <ContentStateWrapper
-      loading={loading}
-      isEmpty={!loading && items.length === 0}
-      loadingText={t('home:page_loading')}
-      emptyText={t('home:empty')}
-    >
+    <ContentStateWrapper loading={loading} loadingText={t('home:page_loading')}>
       <div className='max-w-6xl mx-auto mt-6'>
         <PageHeader
           titleKey='request_list:request_list'
           onFilterClick={handleOpenModal}
         />
-
-        <div className='hidden md:block'>
-          <RequestListTable requests={items} currentPage={page} pageSize={10} />
-        </div>
-
-        <div className='block md:hidden'>
-          <ResponsiveRequestListTable
-            requests={items}
-            currentPage={page}
-            pageSize={10}
+        <ResponsiveModal
+          isOpen={isOpenModal}
+          title={t('panel:filter')}
+          onClose={handleClose}
+        >
+          <FilterRequest
+            fromDate={fromDate}
+            setFromDate={setFromDate}
+            toDate={toDate}
+            setToDate={setToDate}
+            handleFilter={handleFilter}
+            handleRemoveFilter={handleRemoveFilter}
           />
-        </div>
+        </ResponsiveModal>
+        {!loading && items.length === 0 ? (
+          <div className='text-center mt-10 text-gray-500'>
+            {t('home:empty')}
+          </div>
+        ) : (
+          <>
+            <div className='hidden md:block'>
+              <RequestListTable
+                requests={items}
+                currentPage={page}
+                pageSize={10}
+              />
+            </div>
 
-        <Paginate
-          hasPreviousPage={page > 1}
-          setPage={setPage}
-          currentPage={page}
-          totalPages={totalPages}
-          hasNextPage={page < totalPages}
-        />
+            <div className='block md:hidden'>
+              <ResponsiveRequestListTable
+                requests={items}
+                currentPage={page}
+                pageSize={10}
+              />
+            </div>
+
+            <Paginate
+              hasPreviousPage={page > 1}
+              setPage={setPage}
+              currentPage={page}
+              totalPages={totalPages}
+              hasNextPage={page < totalPages}
+            />
+          </>
+        )}
       </div>
-      <ResponsiveModal
-        isOpen={isOpenModal}
-        title={t('panel:filter')}
-        onClose={handleClose}
-      >
-        <FilterRequest
-          fromDate={fromDate}
-          setFromDate={setFromDate}
-          toDate={toDate}
-          setToDate={setToDate}
-          handleFilter={handleFilter}
-          handleRemoveFilter={handleRemoveFilter}
-        />
-      </ResponsiveModal>
     </ContentStateWrapper>
   );
 }

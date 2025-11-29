@@ -16,6 +16,7 @@ import DateObject from 'react-date-object';
 import { filterTable } from '../utility/filterTable';
 import { Filteredtabel } from '@/features/Filteredtabel';
 import { ContentStateWrapper } from '@/features/layout';
+import { PageHeader } from '@/features/PageHeader';
 
 const TransactionsList = () => {
   const { t } = useTranslation();
@@ -28,8 +29,11 @@ const TransactionsList = () => {
   const [filterData, setFilterData] = useState<IRequestItem[] | null>(null);
   const [fromDate, setFromDate] = useState<DateObject | null>(null);
   const [toDate, setToDate] = useState<DateObject | null>(null);
+  const [isOpenModal, setIsOpenModal] = useState(false);
   const token = Cookies.get('token');
-
+  const handleOpenModal = () => {
+    setIsOpenModal(true);
+  };
   const { customerId } = useCustomerId(() => {
     setPageLoading(false);
   });
@@ -73,15 +77,15 @@ const TransactionsList = () => {
   return (
     <ContentStateWrapper
       loading={pageLoading}
-      isEmpty={pageLoading && transactionData?.items.length === 0}
+      // isEmpty={pageLoading && transactionData?.items.length === 0}
       loadingText={t('home:page_loading')}
-      emptyText={t('home:empty')}
+      // emptyText={t('home:empty')}
     >
       <div className='max-w-6xl mx-auto mt-6'>
-        <h1 className='text-black font-bold text-lg mb-4'>
-          {t('transaction_list:transaction_list')}
-        </h1>
-
+        <PageHeader
+          titleKey='transaction_list:transaction_list'
+          onFilterClick={handleOpenModal}
+        />
         {/* <Filteredtabel
           planName={planName}
           setPlanName={setPlanName}
