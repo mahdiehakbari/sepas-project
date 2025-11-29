@@ -12,5 +12,7 @@
   "actions": "عملیات ها",
   "dentistry": "دندان پزشکی",
   "request_list": "لیست در خواست ها ",
-  "payment": "پرداخت"
+  "payment": "پرداخت",
+  "success": "موفق",
+  "failed": "ناموفق"
 }

@@ -4,5 +4,6 @@
   "Completed": "تکمیل شده",
   "ConfirmedByCustomer": "تایید شده",
   "Failed": "ناموفق",
-  "Cancelled": "لغو شده"
+  "Cancelled": "لغو شده",
+  "CompletedVerified": "تأیید شده"
 }

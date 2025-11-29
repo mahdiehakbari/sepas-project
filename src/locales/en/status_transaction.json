@@ -4,5 +4,6 @@
   "Completed": "Completed",
   "ConfirmedByCustomer": "Confirmed",
   "Failed": "Failed",
-  "Cancelled": "Cancelled"
+  "Cancelled": "Cancelled",
+  "CompletedVerified": "CompletedVerified"
 }

@@ -6,7 +6,7 @@ export interface IRequest {
 
 export interface IRequestsData {
   items: IRequest[];
-  totalCount: number;
+  totalPages: number;
   pageNumber: number;
   pageSize: number;
 }

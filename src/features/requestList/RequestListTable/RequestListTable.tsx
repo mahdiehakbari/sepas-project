@@ -2,9 +2,9 @@
 import { getThItems } from './constants';
 import { useTranslation } from 'react-i18next';
 import { IRequestListTableProps } from './types';
-import { useStatusInfo } from './utils/useStatusInfo';
 import { Button } from '@/sharedComponent/ui';
 import { useRouter } from 'next/navigation';
+import { useStatus } from '@/features/TransactionList/TransactionListTable/utils/useStatus';
 
 export const RequestListTable = ({
   requests,
@@ -12,7 +12,7 @@ export const RequestListTable = ({
   pageSize,
 }: IRequestListTableProps) => {
   const { t } = useTranslation();
-  const { getStatusInfo } = useStatusInfo();
+  const { getStatus } = useStatus();
   const router = useRouter();
 
   const handlePayment = (id: string) => {
@@ -44,7 +44,7 @@ export const RequestListTable = ({
 
         <tbody>
           {requests?.map((req, index) => {
-            const { label, className } = getStatusInfo(Number(req.status));
+            const { label, className } = getStatus(req?.status);
 
             return (
               <tr key={req.id}>
@@ -69,7 +69,7 @@ export const RequestListTable = ({
                       </span>
                     </div>
                     <div className='w-[20%] text-center'>
-                      {(req.status == 3 || req.status == 5) && (
+                      {/* {(req.status == 3 || req.status == 5) && (
                         <Button onClick={() => handlePayment(req.id)}>
                           {t('request_list:payment')}
                         </Button>
@@ -80,7 +80,7 @@ export const RequestListTable = ({
                         <Button onClick={() => handlePaymentCredit(req.id)}>
                           {t('credit:receive_credit')}
                         </Button>
-                      )}
+                      )} */}
                     </div>
                   </div>
                 </td>
