@@ -10,6 +10,9 @@ export const API_BUDGET_CALC =
 export const API_CUSTOMER_CREDIT_COMMAND = '/api/CustomerCreditCommand';
 export const API_CUSTOMER_CREDIT_QUERY =
   '/api/CustomerCreditQuery/my-credit-requests';
-export const API_PURCHASE_QUERY = '/api/PurchaseRequestsQuery/customer';
+export const API_PURCHASE_QUERY =
+  '/api/PurchaseRequestsQuery/my-purchase-requests';
 export const API_ACCOUNT_BALANCES = '/api/EniacQuery/account-balances/me';
 export const API_CUSTOMER_CREDIT = '/api/CustomerCreditQuery';
+export const API_CUSTOMER_QUERY_SIMPLE = '/api/CustomersQuery/simple';
+export const API_MERCHANT_QUERY_SIMPLE = '/api/MerchantsQuery/simple';

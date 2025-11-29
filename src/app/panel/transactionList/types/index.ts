@@ -14,4 +14,26 @@ export interface IRequestsData {
   totalCount: number;
   pageNumber: number;
   pageSize: number;
+  totalPages: number;
+  hasNextPage: boolean;
+  hasPreviousPage: boolean;
+}
+
+export interface ISelectOption {
+  label: string;
+  value: string;
+}
+export interface IAcceptorData {
+  firstName: string;
+  id: string;
+  lastName: string;
+  nationalId: string;
+}
+
+export interface IMerchantData {
+  businessName: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+  nationalId: string;
 }
