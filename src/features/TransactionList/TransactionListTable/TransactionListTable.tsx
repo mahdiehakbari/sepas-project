@@ -41,6 +41,9 @@ export const TransactionListTable = ({
                       {index + 1 + (currentPage - 1) * pageSize}
                     </div>
                     <div className='w-[20%] text-center'>
+                      {toPersianNumber(transaction.referenceNumber)}
+                    </div>
+                    <div className='w-[20%] text-center'>
                       {t('request_list:dentistry')}
                     </div>
                     <div className='w-[20%] text-center'>
@@ -54,9 +57,6 @@ export const TransactionListTable = ({
                     </div>
                     <div className='w-[20%] text-center'>
                       {transaction.amount.toLocaleString('fa-IR')}
-                    </div>
-                    <div className='w-[20%] text-center'>
-                      {toPersianNumber(transaction.referenceNumber)}
                     </div>
                     <div className='w-[20%] text-center'>
                       <span
