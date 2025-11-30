@@ -76,7 +76,7 @@ export default function TransactionList() {
         />
         <ResponsiveModal
           isOpen={isOpenModal}
-          title={t('panel:filter')}
+          title={t('home:filter')}
           onClose={handleClose}
         >
           <FilterRequest

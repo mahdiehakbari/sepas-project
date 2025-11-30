@@ -51,6 +51,9 @@ export const RequestListTable = ({
                 {index + 1 + (currentPage - 1) * pageSize}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {toPersianNumber(req.referenceNumber)}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 {t('request_list:dentistry')}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
@@ -60,9 +63,6 @@ export const RequestListTable = ({
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 {req.requestedAmount.toLocaleString('fa-IR')}
-              </div>
-              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
-                {toPersianNumber(req.referenceNumber)}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 <span

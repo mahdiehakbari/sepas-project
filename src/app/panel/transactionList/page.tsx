@@ -121,7 +121,7 @@ const TransactionsList = () => {
       </div>
 
       <ResponsiveModal
-        title={t('panel:filter')}
+        title={t('home:filter')}
         isOpen={isOpenModal}
         onClose={handleClose}
       >
