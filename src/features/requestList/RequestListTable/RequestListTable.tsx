@@ -5,6 +5,7 @@ import { IRequestListTableProps } from './types';
 import { useStatusInfo } from './utils/useStatusInfo';
 import { Button } from '@/sharedComponent/ui';
 import { useRouter } from 'next/navigation';
+import { toPersianNumber } from './utils/PersianNumbr';
 
 export const RequestListTable = ({
   requests,
@@ -25,70 +26,67 @@ export const RequestListTable = ({
     localStorage.setItem('payment', 'true');
   };
 
+  const headers = getThItems();
+
   return (
-    <div className='overflow-x-auto'>
-      <table className='w-full border-separate [border-spacing:0_16px]'>
-        <thead>
-          <tr>
-            <th colSpan={5} className='p-0'>
-              <div className='flex bg-(--block-color) border border-border-color rounded-lg px-3 py-3 font-semibold text-gray-700 text-sm'>
-                {getThItems().map((item) => (
-                  <div key={item.id} className='w-1/5 text-right'>
-                    {item.label}
-                  </div>
-                ))}
+    <div className='w-full'>
+      <div className='hidden md:flex bg-gray-100 rounded-lg px-3 py-3 font-semibold text-gray-700 text-sm mb-2'>
+        {headers.map((item) => (
+          <div key={item.id} className='w-1/5 text-right'>
+            {item.label}
+          </div>
+        ))}
+      </div>
+
+      <div className='flex flex-col gap-3'>
+        {requests?.map((req, index) => {
+          const { label, className } = getStatusInfo(Number(req.status));
+
+          return (
+            <div
+              key={req.id}
+              className='flex flex-col md:flex-row items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-3'
+            >
+              <div className='w-full md:w-[5%] text-center mb-1 md:mb-0'>
+                {index + 1 + (currentPage - 1) * pageSize}
               </div>
-            </th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {requests?.map((req, index) => {
-            const { label, className } = getStatusInfo(Number(req.status));
-
-            return (
-              <tr key={req.id}>
-                <td colSpan={5} className='p-0'>
-                  <div className='flex items-center justify-between bg-white border border-border-color rounded-lg px-3 py-3'>
-                    <div className='w-[5%] text-center'>
-                      {index + 1 + (currentPage - 1) * pageSize}
-                    </div>
-                    <div className='w-[20%] text-center'>
-                      {t('request_list:dentistry')}
-                    </div>
-                    <div className='w-[20%] text-center'>
-                      {new Date(req.createdAt).toLocaleTimeString('fa-IR') +
-                        ' - ' +
-                        new Date(req.createdAt).toLocaleDateString('fa-IR')}
-                    </div>
-                    <div className='w-[20%] text-center'>
-                      <span
-                        className={`px-3 py-1 rounded-full text-xs font-semibold ${className}`}
-                      >
-                        {label}
-                      </span>
-                    </div>
-                    <div className='w-[20%] text-center'>
-                      {(req.status == 3 || req.status == 5) && (
-                        <Button onClick={() => handlePayment(req.id)}>
-                          {t('request_list:payment')}
-                        </Button>
-                      )}
-                      {(req.status == 4 ||
-                        req.status == 7 ||
-                        req.status == 6) && (
-                        <Button onClick={() => handlePaymentCredit(req.id)}>
-                          {t('credit:receive_credit')}
-                        </Button>
-                      )}
-                    </div>
-                  </div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {t('request_list:dentistry')}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {new Date(req.createdAt).toLocaleTimeString('fa-IR') +
+                  ' - ' +
+                  new Date(req.createdAt).toLocaleDateString('fa-IR')}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {req.requestedAmount.toLocaleString('fa-IR')}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {toPersianNumber(req.referenceNumber)}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-semibold ${className}`}
+                >
+                  {label}
+                </span>
+              </div>
+              <div className='w-full md:w-[20%] text-center flex justify-center gap-2'>
+                {(req.status === 3 || req.status === 5) && (
+                  <Button onClick={() => handlePayment(req.id)}>
+                    {t('request_list:payment')}
+                  </Button>
+                )}
+                {(req.status === 4 || req.status === 6 || req.status === 7) && (
+                  <Button onClick={() => handlePaymentCredit(req.id)}>
+                    {t('credit:receive_credit')}
+                  </Button>
+                )}
+              </div>
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 };

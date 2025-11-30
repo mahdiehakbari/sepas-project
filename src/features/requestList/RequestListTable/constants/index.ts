@@ -4,6 +4,8 @@ export const getThItems = () => [
   { id: 1, label: i18n.t('request_list:row') },
   { id: 2, label: i18n.t('request_list:design_Name') },
   { id: 3, label: i18n.t('request_list:request_history') },
-  { id: 4, label: i18n.t('request_list:status') },
-  { id: 5, label: i18n.t('request_list:actions') },
+  { id: 4, label: i18n.t('request_list:request_amount') },
+  { id: 5, label: i18n.t('request_list:tracking_number') },
+  { id: 6, label: i18n.t('request_list:status') },
+  { id: 7, label: i18n.t('request_list:actions') },
 ];

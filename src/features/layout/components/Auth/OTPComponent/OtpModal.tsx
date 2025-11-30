@@ -171,8 +171,8 @@ export const OtpModal: React.FC<IOtpProps> = ({
             <></>,
             <Link
               key='terms-link'
-              href='/terms'
-              target='_blank'
+              href=''
+              // target='_blank'
               className='text-primary underline font-medium '
             />,
           ]}

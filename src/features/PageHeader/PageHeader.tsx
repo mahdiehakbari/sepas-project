@@ -10,9 +10,9 @@ export const PageHeader: React.FC<IPageHeaderProps> = ({
 }) => {
   const { t } = useTranslation();
   return (
-    <div className='mx-auto mt-6'>
+    <div className='mx-auto mt-6 mb-4'>
       <div className='flex justify-between items-center'>
-        <h1 className='text-black font-bold text-lg mb-4'>{t(titleKey)}</h1>
+        <h1 className='text-black font-bold text-lg'>{t(titleKey)}</h1>
         <Button onClick={onFilterClick} className='w-[75px]'>
           <Image
             src='/assets/icons/filter.svg'

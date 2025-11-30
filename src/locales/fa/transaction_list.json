@@ -1,6 +1,6 @@
 {
   "transaction_date": "تاریخ تراکنش",
-  "transaction_amount": "مبلغ تراکنش",
+  "transaction_amount": "مبلغ تراکنش (ریال)",
   "status": "وضعیت",
   "name_recipient": "نام پذیرنده",
   "transaction_list": "لیست تراکنش ها "

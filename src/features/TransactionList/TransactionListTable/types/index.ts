@@ -7,6 +7,7 @@ interface IRequestItem {
   merchantId: string;
   merchantName: string;
   status: string;
+  referenceNumber: number;
 }
 export interface ITransactionListTableProps {
   transactions: IRequestItem[];

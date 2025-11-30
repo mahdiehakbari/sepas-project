@@ -3,6 +3,7 @@ import { getThItems } from './constants';
 import { useTranslation } from 'react-i18next';
 import { ITransactionListTableProps } from './types';
 import { useStatus } from './utils/useStatus';
+import { toPersianNumber } from '@/features/requestList/RequestListTable/utils/PersianNumbr';
 
 export const TransactionListTable = ({
   transactions,
@@ -53,6 +54,9 @@ export const TransactionListTable = ({
                     </div>
                     <div className='w-[20%] text-center'>
                       {transaction.amount.toLocaleString('fa-IR')}
+                    </div>
+                    <div className='w-[20%] text-center'>
+                      {toPersianNumber(transaction.referenceNumber)}
                     </div>
                     <div className='w-[20%] text-center'>
                       <span

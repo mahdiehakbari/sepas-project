@@ -69,7 +69,7 @@ export default function TransactionList() {
 
   return (
     <ContentStateWrapper loading={loading} loadingText={t('home:page_loading')}>
-      <div className='max-w-6xl mx-auto mt-6'>
+      <div className='max-w-full mx-auto mt-6'>
         <PageHeader
           titleKey='request_list:request_list'
           onFilterClick={handleOpenModal}

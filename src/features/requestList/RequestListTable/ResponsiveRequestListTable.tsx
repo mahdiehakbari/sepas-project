@@ -1,6 +1,7 @@
 import { IRequestListTableProps } from './types';
 import { useTranslation } from 'react-i18next';
 import { useStatusInfo } from './utils/useStatusInfo';
+import { toPersianNumber } from './utils/PersianNumbr';
 
 export const ResponsiveRequestListTable = ({
   requests,
@@ -18,7 +19,7 @@ export const ResponsiveRequestListTable = ({
               <div className=' p-4 '>
                 <div className='flex gap-2 items-center mb-2 '>
                   <h2 className='font-medium text-[#808080] text-[14px]'>
-                    نام طرح:
+                    {t('request_list:plane_name')}
                   </h2>
                   <h2 className='font-semibold text-gray-800'>
                     {t('request_list:dentistry')}
@@ -26,7 +27,7 @@ export const ResponsiveRequestListTable = ({
                 </div>
                 <div className='flex justify-between gap-2 items-center mb-4 '>
                   <h2 className='font-medium text-[#808080] text-[14px]'>
-                    تاریخ درخواست:
+                    {t('request_list:request_date')}
                   </h2>
                   <p className='font-medium text-black text-[14px]'>
                     {new Date(req.createdAt).toLocaleDateString('fa-IR')}
@@ -34,7 +35,23 @@ export const ResponsiveRequestListTable = ({
                 </div>
                 <div className='flex justify-between gap-2 items-center mb-4 '>
                   <h2 className='font-medium text-[#808080] text-[14px]'>
-                    وضعیت:
+                    {t('request_list:request_amount')}:
+                  </h2>
+                  <p className='font-medium text-black text-[14px]'>
+                    {req.requestedAmount.toLocaleString('fa-IR')}
+                  </p>
+                </div>
+                <div className='flex justify-between gap-2 items-center mb-4 '>
+                  <h2 className='font-medium text-[#808080] text-[14px]'>
+                    {t('request_list:tracking_number')}:
+                  </h2>
+                  <p className='font-medium text-black text-[14px]'>
+                    {toPersianNumber(req.referenceNumber)}
+                  </p>
+                </div>
+                <div className='flex justify-between gap-2 items-center mb-4 '>
+                  <h2 className='font-medium text-[#808080] text-[14px]'>
+                    {t('request_list:status_title')}
                   </h2>
 
                   <span

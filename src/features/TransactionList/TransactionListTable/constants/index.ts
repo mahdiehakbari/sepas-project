@@ -5,6 +5,7 @@ export const getThItems = () => [
   { id: 2, label: i18n.t('request_list:design_Name') },
   { id: 3, label: i18n.t('transaction_list:transaction_date') },
   { id: 4, label: i18n.t('transaction_list:transaction_amount') },
+  { id: 5, label: i18n.t('request_list:tracking_number') },
   { id: 6, label: i18n.t('transaction_list:status') },
   { id: 7, label: i18n.t('transaction_list:name_recipient') },
 ];

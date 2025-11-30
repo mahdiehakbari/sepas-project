@@ -7,7 +7,7 @@
   "row": "row",
   "design_Name": "Design Name",
   "request_history": "request history",
-  "request_amount": "request amount",
+  "request_amount": "request amount (Rial)",
   "status": "Status",
   "recipient_name": "Recipient Name",
   "actions": "Actions",
@@ -15,5 +15,9 @@
   "request_list": "Request List",
   "payment": "payment",
   "success": "success",
-  "failed": "Failed"
+  "failed": "Failed",
+  "plane_name": "Plane Name:",
+  "request_date": "Request Date:",
+  "status_title": "Status:",
+  "tracking_number": "tracking number"
 }
