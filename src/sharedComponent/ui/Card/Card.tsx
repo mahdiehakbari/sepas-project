@@ -16,7 +16,7 @@ const Card: React.FC<ICardProps> = ({
   const { t } = useTranslation();
 
   return (
-    <div className='relative w-72 rounded-xl border border-primary bg-white pt-4 px-4 '>
+    <div className='relative w-80 rounded-xl border border-primary bg-white pt-4 px-4 '>
       <div
         className={`absolute right-0 top-0 h-full w-2 rounded-r-xl ${borderColor}`}
       ></div>
@@ -31,14 +31,18 @@ const Card: React.FC<ICardProps> = ({
           <span>مبلغ دریافتی</span>
           <div>
             <span>{amountReceived}</span>
-            <span className='text-black  font-normal text-[14px]'>ریال</span>
+            <span className='text-black  font-normal text-[14px] pr-0.5'>
+              ریال
+            </span>
           </div>
         </div>
         <div className='flex justify-between mb-2'>
           <span>میزان هزینه</span>
           <div>
             <span>{cost}</span>
-            <span className='text-black  font-normal text-[14px]'>ریال</span>
+            <span className='text-black  font-normal text-[14px] pr-0.5'>
+              ریال
+            </span>
           </div>
         </div>
         <div className='flex justify-between  mb-2'>
@@ -49,7 +53,9 @@ const Card: React.FC<ICardProps> = ({
             <span className='text-black  font-bold text-[14px]'>
               {remaining}
             </span>
-            <span className='text-black  font-bold text-[14px]'>ریال</span>
+            <span className='text-black  font-bold text-[14px] pr-0.5'>
+              ریال
+            </span>
           </div>
         </div>
       </div>

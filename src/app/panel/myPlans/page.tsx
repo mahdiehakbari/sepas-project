@@ -43,7 +43,7 @@ const MyPlanes = () => {
       <div className='flex items-center gap-6'>
         <Card
           title={t('my_planes:dental_plan')}
-          remaining={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
+          remaining={myPlanData?.totalAmountSuccessfulCustomerCreditRequests.toLocaleString(
             'fa-IR',
           )}
           amountReceived={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
