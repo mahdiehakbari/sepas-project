@@ -34,5 +34,8 @@
   "from_date": "از تاریخ",
   "to_date": "تا تاریخ",
   "remove_filter": "حذف فیلتر",
-  "get_report": "دریافت گزارش"
+  "get_report": "دریافت گزارش",
+  "select_image": "انتخاب تصویر",
+  "cancel": "انصراف",
+  "confirm": "تایید"
 }

@@ -22,7 +22,7 @@ export function useFilter<T>(
   const filterData = async (
     fromDate: DateObject | null,
     toDate: DateObject | null,
-    customerIds: string[] = [],
+    merchantIds: string[] = [],
     pageNumber: number = 1,
     pageSize: number = 10,
   ) => {
@@ -37,7 +37,7 @@ export function useFilter<T>(
     const params: IFilterParams = { pageNumber, pageSize };
     if (createdFrom) params.createdFrom = createdFrom;
     if (createdTo) params.createdTo = createdTo;
-    if (customerIds.length > 0) params.customerIds = customerIds;
+    if (merchantIds.length > 0) params.merchantIds = merchantIds;
 
     const config: AxiosRequestConfig = {
       headers: { Authorization: `Bearer ${token}` },

@@ -28,5 +28,8 @@
   "from_date": "From Date",
   "to_date": "To Date",
   "remove_filter": "Remove the filter",
-  "get_report": "Get the report"
+  "get_report": "Get the report",
+  "select_image": "Select image",
+  "cancel": "Cancel",
+  "confirm": "Confirm"
 }
