@@ -27,15 +27,21 @@ const Card: React.FC<ICardProps> = ({
       </div>
 
       <div className='text-sm text-gray-700 space-y-1'>
-        {/* <div className='flex justify-between'>
+        <div className='flex justify-between mb-2'>
           <span>مبلغ دریافتی</span>
-          <span>{amountReceived}</span>
+          <div>
+            <span>{amountReceived}</span>
+            <span className='text-black  font-normal text-[14px]'>ریال</span>
+          </div>
         </div>
-        <div className='flex justify-between'>
+        <div className='flex justify-between mb-2'>
           <span>میزان هزینه</span>
-          <span>{cost}</span>
-        </div> */}
-        <div className='flex justify-between'>
+          <div>
+            <span>{cost}</span>
+            <span className='text-black  font-normal text-[14px]'>ریال</span>
+          </div>
+        </div>
+        <div className='flex justify-between  mb-2'>
           <span className='text-black  font-bold text-[14px]'>
             {t('my_planes:remaining_amount')}
           </span>
@@ -43,10 +49,7 @@ const Card: React.FC<ICardProps> = ({
             <span className='text-black  font-bold text-[14px]'>
               {remaining}
             </span>
-            <span className='text-black  font-bold text-[14px]'>
-              {/* {t('my_planes:toman')} */}
-              ریال
-            </span>
+            <span className='text-black  font-bold text-[14px]'>ریال</span>
           </div>
         </div>
       </div>

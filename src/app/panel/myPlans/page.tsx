@@ -11,7 +11,7 @@ import { ContentStateWrapper } from '@/features/layout';
 
 const MyPlanes = () => {
   const { t } = useTranslation();
-  const [myPlanData, setMyPlaneData] = useState<IWalletAccount[]>([]);
+  const [myPlanData, setMyPlaneData] = useState<IWalletAccount | null>(null);
 
   const [pageLoading, setPageLoading] = useState(true);
 
@@ -26,7 +26,8 @@ const MyPlanes = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        setMyPlaneData(res.data.data);
+        console.log(res.data, 'aaaa');
+        setMyPlaneData(res.data);
         setPageLoading(false);
       })
       .catch(() => {});
@@ -40,18 +41,18 @@ const MyPlanes = () => {
       // emptyText={t('home:empty')}
     >
       <div className='flex items-center gap-6'>
-        {myPlanData?.map((item, index) => (
-          <div key={index}>
-            {item.tag == 7001 && (
-              <Card
-                title={t('my_planes:dental_plan')}
-                remaining={item.balance.toLocaleString('fa-IR')}
-                borderColor='bg-blue-400'
-                image='/assets/icons/tooth-health.svg'
-              />
-            )}
-          </div>
-        ))}
+        <Card
+          title={t('my_planes:dental_plan')}
+          remaining={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
+            'fa-IR',
+          )}
+          amountReceived={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
+            'fa-IR',
+          )}
+          cost={myPlanData?.totalAmountDeduction.toLocaleString('fa-IR')}
+          borderColor='bg-blue-400'
+          image='/assets/icons/tooth-health.svg'
+        />
       </div>
     </ContentStateWrapper>
   );

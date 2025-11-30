@@ -1,11 +1,7 @@
 export interface IWalletAccount {
-  accountNumber: string;
-  walletAccountType: string;
-  balance: number;
-  status: number;
-  type: number;
-  [key: string]: unknown;
-  tag: number;
+  totalAmountSuccessfulPurchaseRequests: number;
+  totalAmountSuccessfulCustomerCreditRequests: number;
+  totalAmountDeduction: number;
 }
 
 export interface IWalletResponse {

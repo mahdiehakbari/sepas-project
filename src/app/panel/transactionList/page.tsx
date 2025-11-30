@@ -78,8 +78,6 @@ const TransactionsList = () => {
     setIsOpenModal(true);
   };
 
-  console.log(requestData?.items.length, 'hiiii');
-
   return (
     <ContentStateWrapper
       loading={pageLoading}
