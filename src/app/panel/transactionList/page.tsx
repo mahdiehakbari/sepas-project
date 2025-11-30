@@ -78,41 +78,48 @@ const TransactionsList = () => {
     setIsOpenModal(true);
   };
 
+  console.log(requestData?.items.length, 'hiiii');
+
   return (
     <ContentStateWrapper
       loading={pageLoading}
-      // isEmpty={pageLoading && transactionData?.items.length === 0}
       loadingText={t('home:page_loading')}
-      // emptyText={t('home:empty')}
     >
       <div className='max-w-6xl mx-auto mt-6'>
         <PageHeader
           titleKey='transaction_list:transaction_list'
           onFilterClick={handleOpenModal}
         />
+        {!pageLoading && requestData?.items.length == 0 ? (
+          <div className='text-center mt-10 text-gray-500'>
+            {t('home:empty')}
+          </div>
+        ) : (
+          <>
+            <div className='hidden md:block'>
+              <TransactionListTable
+                transactions={requestData?.items ?? []}
+                currentPage={requestData?.pageNumber ?? 1}
+                pageSize={requestData?.pageSize ?? pageSize}
+              />
+            </div>
+            <div className='block md:hidden'>
+              <ResponsiveTransactionListTable
+                transactions={requestData?.items ?? []}
+                currentPage={requestData?.pageNumber ?? 1}
+                pageSize={requestData?.pageSize ?? pageSize}
+              />
+            </div>
 
-        <div className='hidden md:block'>
-          <TransactionListTable
-            transactions={requestData?.items ?? []}
-            currentPage={requestData?.pageNumber ?? 1}
-            pageSize={requestData?.pageSize ?? pageSize}
-          />
-        </div>
-        <div className='block md:hidden'>
-          <ResponsiveTransactionListTable
-            transactions={requestData?.items ?? []}
-            currentPage={requestData?.pageNumber ?? 1}
-            pageSize={requestData?.pageSize ?? pageSize}
-          />
-        </div>
-
-        <Paginate
-          hasPreviousPage={requestData?.hasPreviousPage ?? false}
-          hasNextPage={requestData?.hasNextPage ?? false}
-          currentPage={requestData?.pageNumber ?? 1}
-          totalPages={requestData?.totalPages ?? 1}
-          setPage={setPage}
-        />
+            <Paginate
+              hasPreviousPage={requestData?.hasPreviousPage ?? false}
+              hasNextPage={requestData?.hasNextPage ?? false}
+              currentPage={requestData?.pageNumber ?? 1}
+              totalPages={requestData?.totalPages ?? 1}
+              setPage={setPage}
+            />
+          </>
+        )}
       </div>
 
       <ResponsiveModal
