@@ -16,8 +16,8 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   const rules = validationRules(t);
 
   const genderItems = [
-    { id: 'Male', name: t('profile:man') },
-    { id: 'Female', name: t('profile:woman') },
+    { id: 1, name: t('profile:man') },
+    { id: 2, name: t('profile:woman') },
   ];
 
   return (
@@ -72,17 +72,26 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           label={t('profile:date_birth')}
           errors={errors}
           rules={{ required: t('profile:field_required') }}
-          defaultValue={userData?.birthDate ?? ''}
+          defaultValue={
+            userData?.birthDate && !isNaN(Date.parse(userData.birthDate))
+              ? userData.birthDate // ✅ رشته ISO، نه Date
+              : undefined
+          }
         />
 
         <SelectInput
           label={t('profile:gender')}
           name='gender'
           register={register}
-          options={genderItems.map((c) => ({ value: c.id, label: c.name }))}
+          options={genderItems.map((c) => ({
+            value: c.id.toString(),
+            label: c.name,
+          }))}
           errors={errors}
           rules={{ required: t('profile:field_required') }}
-          defaultValue={userData?.gender ? String(userData.gender) : ''}
+          defaultValue={
+            userData?.gender !== undefined ? String(userData.gender) : ''
+          }
         />
 
         <Input

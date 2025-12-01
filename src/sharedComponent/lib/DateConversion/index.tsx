@@ -11,24 +11,31 @@ const toPersianNumber = (str: string) =>
 export const BirthDate: React.FC<BirthDateProps> = ({ birthDate }) => {
   if (!birthDate) return <span>تاریخ نامعتبر</span>;
 
-  const date = new Date(birthDate);
-
-  if (isNaN(date.getTime())) {
+  const timestamp = Date.parse(birthDate);
+  if (isNaN(timestamp)) {
     console.error('تاریخ نامعتبر:', birthDate);
     return <span>تاریخ نامعتبر</span>;
   }
 
-  const jDate = jalaali.toJalaali(
-    date.getFullYear(),
-    date.getMonth() + 1,
-    date.getDate(),
-  );
+  const date = new Date(timestamp);
 
-  const formatted = `${jDate.jy}/${String(jDate.jm).padStart(2, '0')}/${String(
-    jDate.jd,
-  ).padStart(2, '0')}`;
+  try {
+    const jDate = jalaali.toJalaali(
+      date.getFullYear(),
+      date.getMonth() + 1,
+      date.getDate(),
+    );
 
-  const persianFormatted = toPersianNumber(formatted);
+    const formatted = `${jDate.jy}/${String(jDate.jm).padStart(
+      2,
+      '0',
+    )}/${String(jDate.jd).padStart(2, '0')}`;
 
-  return <span>{persianFormatted}</span>;
+    const persianFormatted = toPersianNumber(formatted);
+
+    return <span>{persianFormatted}</span>;
+  } catch (err) {
+    console.error('خطا در تبدیل جلالی:', err, birthDate);
+    return <span>تاریخ نامعتبر</span>;
+  }
 };

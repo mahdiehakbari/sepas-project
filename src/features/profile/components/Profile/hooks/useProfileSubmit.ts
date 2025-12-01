@@ -24,6 +24,7 @@ export const useProfileSubmit = ({
   const { setProfile } = useProfileStore();
 
   const onSubmit = async (data: IProfileFormValues) => {
+    console.log(data, 'dataaaaa');
     const token = Cookies.get('token');
     if (!token) return toast.error(t('profile:token_missing'));
 
@@ -31,10 +32,14 @@ export const useProfileSubmit = ({
 
     const formattedData: Partial<IProfileFormValues> = {
       ...data,
-      gender: data.gender ? Number(data.gender) : 0,
+      gender: data.gender !== '' ? Number(data.gender) : 0,
       birthDate: formatBirthDate(data.birthDate),
       FullName: `${data.firstName} ${data.lastName}`,
     };
+
+    if (!formattedData.email) {
+      delete formattedData.email;
+    }
 
     try {
       const res = await updateProfile(token, formattedData);
