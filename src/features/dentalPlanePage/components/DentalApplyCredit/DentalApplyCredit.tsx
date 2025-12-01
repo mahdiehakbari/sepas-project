@@ -47,6 +47,23 @@ export const DentalApplyCredit = ({
   return (
     <div className='mb-12'>
       <h2 className='font[700] text-[24px] mb-4'>
+        {t('dental_plane:kalanow_credit')}
+      </h2>
+
+      <div className='flex justify-center mb-6'>
+        <div className='relative w-[200px] pb-[56.20%] '>
+          <iframe
+            className='absolute top-0 left-0 w-full h-full rounded-lg shadow-lg'
+            src='/assets/video/kalano.mp4'
+            title='Kalanow Credit Video'
+            frameBorder='0'
+            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
+            allowFullScreen
+          ></iframe>
+        </div>
+      </div>
+
+      <h2 className='font[700] text-[24px] mb-4'>
         {t('dental_plane:dental_plan_credit')}
       </h2>
 
