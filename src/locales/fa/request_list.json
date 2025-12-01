@@ -19,5 +19,6 @@
   "plane_name": " نام طرح:",
   "request_date": " تاریخ درخواست:",
   "status_title": " وضعیت:",
-  "tracking_number": "شماره  پیگیری"
+  "tracking_number": "شماره  پیگیری",
+  "inquiry_amount": "مبلغ استعلام(ریال)"
 }

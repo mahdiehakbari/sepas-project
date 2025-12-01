@@ -80,7 +80,7 @@ export const Header = () => {
             <div className='relative' ref={menuRef}>
               <div onClick={handleClick} className='cursor-pointer'>
                 <Image
-                  src='/assets/icons/user-profile-icon.jpg'
+                  src='/assets/icons/guest.jpg'
                   alt='user-profile-icon'
                   width={56}
                   height={56}
@@ -138,7 +138,7 @@ export const Header = () => {
             </div>
           )}
 
-          <button
+          {/* <button
             className='cursor-pointer bg-secondary h-[42px] px-3 py-1 rounded-[8px] flex items-center gap-2'
             onClick={toggleLanguage}
           >
@@ -155,7 +155,7 @@ export const Header = () => {
             <span className='text-sm font-medium'>
               {currentLanguage === 'fa' ? 'فا' : 'EN'}
             </span>
-          </button>
+          </button> */}
           <button
             className='md:hidden flex flex-col justify-center items-center w-8 h-8 relative'
             onClick={() => setIsOpen(!isOpen)}

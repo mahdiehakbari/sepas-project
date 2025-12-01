@@ -54,6 +54,9 @@ export const RequestListTable = ({
                 {toPersianNumber(req.referenceNumber)}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
+                {toPersianNumber(String(req.creditLineBalanceBeforeRequest))}
+              </div>
+              <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 {t('request_list:dentistry')}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>

@@ -4,6 +4,7 @@ export interface IRequest {
   createdAt: string;
   requestedAmount: number;
   referenceNumber: number;
+  creditLineBalanceBeforeRequest: number;
 }
 
 export interface IRequestsData {

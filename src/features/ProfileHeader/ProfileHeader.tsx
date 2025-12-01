@@ -16,7 +16,7 @@ export const ProfileHeader = ({
       <div className='relative'>
         <div className='w-14 h-14 rounded-full overflow-hidden relative'>
           <Image
-            src={profileImage || '/assets/icons/user-profile-icon.jpg'}
+            src={profileImage || '/assets/icons/guest.jpg'}
             alt='user'
             fill
             className='object-cover'

@@ -19,7 +19,7 @@ export const SideMenu = () => {
     null,
   );
   const [profileImage, setProfileImage] = useState<string>(
-    '/assets/icons/user-profile-icon.jpg',
+    '/assets/icons/guest.jpg',
   );
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
