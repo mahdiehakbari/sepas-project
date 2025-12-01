@@ -44,10 +44,10 @@ const MyPlanes = () => {
         <Card
           title={t('my_planes:dental_plan')}
           remaining={myPlanData?.totalAmountDeduction.toLocaleString('fa-IR')}
-          amountReceived={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
+          amountReceived={myPlanData?.totalAmountSuccessfulCustomerCreditRequests.toLocaleString(
             'fa-IR',
           )}
-          cost={myPlanData?.totalAmountSuccessfulCustomerCreditRequests.toLocaleString(
+          cost={myPlanData?.totalAmountSuccessfulPurchaseRequests.toLocaleString(
             'fa-IR',
           )}
           borderColor='bg-blue-400'

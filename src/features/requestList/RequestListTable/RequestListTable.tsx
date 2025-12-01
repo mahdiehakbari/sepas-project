@@ -5,7 +5,10 @@ import { IRequestListTableProps } from './types';
 import { useStatusInfo } from './utils/useStatusInfo';
 import { Button } from '@/sharedComponent/ui';
 import { useRouter } from 'next/navigation';
-import { toPersianNumber } from './utils/PersianNumbr';
+import {
+  formatPersianNumberWithSeparator,
+  toPersianNumber,
+} from './utils/PersianNumbr';
 
 export const RequestListTable = ({
   requests,
@@ -47,14 +50,16 @@ export const RequestListTable = ({
               key={req.id}
               className='flex flex-col md:flex-row items-center justify-between bg-white border border-gray-200 rounded-lg px-3 py-3'
             >
-              <div className='w-full md:w-[5%] text-center mb-1 md:mb-0'>
+              <div className='w-full md:w-[13%] text-right mb-1 md:mb-0'>
                 {index + 1 + (currentPage - 1) * pageSize}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 {toPersianNumber(req.referenceNumber)}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
-                {toPersianNumber(String(req.creditLineBalanceBeforeRequest))}
+                {formatPersianNumberWithSeparator(
+                  String(req.creditLineBalanceBeforeRequest),
+                )}
               </div>
               <div className='w-full md:w-[20%] text-center mb-1 md:mb-0'>
                 {t('request_list:dentistry')}
