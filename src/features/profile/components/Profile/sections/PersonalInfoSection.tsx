@@ -12,6 +12,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   errors,
   control,
   userData,
+  phoneNumber,
 }) => {
   const rules = validationRules(t);
 
@@ -50,8 +51,8 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           errors={errors}
           textError={t('profile:field_required')}
           rules={rules.mobile as unknown as RegisterOptions<IProfileFormValues>}
-          defaultValue={userData?.phoneNumber ?? ''}
-          disabled={!!userData?.phoneNumber}
+          defaultValue={userData?.phoneNumber ?? phoneNumber}
+          disabled={!!userData?.phoneNumber || !!phoneNumber}
         />
 
         <Input

@@ -64,14 +64,16 @@ export const SideMenu = () => {
   };
 
   const isActive = (path: string) => pathname === path;
+  const isLoggedIn = Cookies.get('isLoggedIn');
 
   useEffect(() => {
     const userDataStr = localStorage.getItem('user');
     if (userDataStr) {
-      const userData = JSON.parse(userDataStr);
-      setUserData(userData);
+      setUserData(JSON.parse(userDataStr));
+    } else {
+      setUserData(null);
     }
-  }, []);
+  }, [isLoggedIn]);
 
   useEffect(() => {
     switch (userData?.gender) {
@@ -80,6 +82,7 @@ export const SideMenu = () => {
         break;
       case 'Female':
         setProfileImage('/assets/icons/avatar-f.jpg');
+        break;
       default:
         setProfileImage('/assets/icons/guest.jpg');
         break;

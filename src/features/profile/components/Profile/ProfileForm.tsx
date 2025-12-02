@@ -23,7 +23,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
 }) => {
   const router = useRouter();
   const { user } = useAuthStore();
-  const [phoneNumber, setPhoneNumber] = useState<string | undefined>('');
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
   const { t } = useTranslation();
   const {
     register,
@@ -45,7 +45,8 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
   });
 
   useEffect(() => {
-    setPhoneNumber(user?.phoneNumber || savedPhone);
+    const phone = user?.phoneNumber || savedPhone;
+    if (phone) setPhoneNumber(phone);
   }, [savedPhone, user]);
 
   return (
@@ -71,6 +72,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
           <PersonalInfoSection
             t={t}
             {...{ register, errors, control, userData }}
+            phoneNumber={phoneNumber}
           />
           <BankInfoSection t={t} {...{ register, errors, userData }} />
           <AddressInfoSection
