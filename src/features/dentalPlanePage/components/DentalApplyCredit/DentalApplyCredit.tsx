@@ -27,6 +27,21 @@ export const DentalApplyCredit = ({
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const [isPlaying, setIsPlaying] = useState(false);
+
+  const togglePlay = () => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    if (isPlaying) {
+      video.pause();
+      setIsPlaying(false);
+    } else {
+      video.play();
+      setIsPlaying(true);
+    }
+  };
+
   const tabsItem = getTabsItem(
     isOpenModal,
     setIsOpenModal,
@@ -46,28 +61,28 @@ export const DentalApplyCredit = ({
     setModalLoading,
   );
 
-  useEffect(() => {
-    if (!videoRef.current) return;
+  // useEffect(() => {
+  //   if (!videoRef.current) return;
 
-    const video = videoRef.current;
+  //   const video = videoRef.current;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            video.play().catch(() => {});
-          } else {
-            video.pause();
-          }
-        });
-      },
-      { threshold: 0.5 },
-    );
+  //   const observer = new IntersectionObserver(
+  //     (entries) => {
+  //       entries.forEach((entry) => {
+  //         if (entry.isIntersecting) {
+  //           video.play().catch(() => {});
+  //         } else {
+  //           video.pause();
+  //         }
+  //       });
+  //     },
+  //     { threshold: 0.5 },
+  //   );
 
-    observer.observe(video);
+  //   observer.observe(video);
 
-    return () => observer.disconnect();
-  }, []);
+  //   return () => observer.disconnect();
+  // }, []);
 
   return (
     <div className='mb-12'>
@@ -79,12 +94,18 @@ export const DentalApplyCredit = ({
         <div className='relative w-[300px] md:w-[250px] pb-[56.20%]'>
           <video
             ref={videoRef}
-            className='absolute top-0 left-0 w-full h-full rounded-lg shadow-lg'
+            className='absolute top-0 left-0 w-full h-full rounded-lg shadow-lg object-cover'
             src='/assets/video/kalano.mp4'
             playsInline
-            muted
-            preload='none'
+            preload='metadata'
           />
+
+          <button
+            onClick={togglePlay}
+            className='absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/80 px-4 py-1 rounded-lg shadow font-semibold cursor-pointer'
+          >
+            {isPlaying ? '⏸ توقف' : '▶ پخش'}
+          </button>
         </div>
       </div>
 
