@@ -10,6 +10,7 @@ import { useAuthStore } from '@/store/Auth/authStore';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { Button } from '@/sharedComponent/ui';
 import { ProfileHeader } from '@/features/ProfileHeader';
+import { IUserData } from '../Header/types';
 
 export const SideMenu = () => {
   const { t } = useTranslation();
@@ -18,12 +19,11 @@ export const SideMenu = () => {
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
   );
-  const [profileImage, setProfileImage] = useState<string>(
-    '/assets/icons/guest.jpg',
-  );
+  const [profileImage, setProfileImage] = useState<string>('');
   const [previewImage, setPreviewImage] = useState<string | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const pathname = usePathname();
+  const [userData, setUserData] = useState<IUserData | null>(null);
   const router = useRouter();
   const { logout } = useAuthStore();
   useEffect(() => {
@@ -64,6 +64,27 @@ export const SideMenu = () => {
   };
 
   const isActive = (path: string) => pathname === path;
+
+  useEffect(() => {
+    const userDataStr = localStorage.getItem('user');
+    if (userDataStr) {
+      const userData = JSON.parse(userDataStr);
+      setUserData(userData);
+    }
+  }, []);
+
+  useEffect(() => {
+    switch (userData?.gender) {
+      case 'Male':
+        setProfileImage('/assets/icons/avatar-m.jpg');
+        break;
+      case 'Female':
+        setProfileImage('/assets/icons/avatar-f.jpg');
+      default:
+        setProfileImage('/assets/icons/guest.jpg');
+        break;
+    }
+  }, [userData]);
 
   return (
     <>

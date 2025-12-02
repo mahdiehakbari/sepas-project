@@ -41,6 +41,7 @@ const FilterRequest = ({
           onChange={setFromDate}
           calendar={persian}
           locale={persian_fa}
+          maxDate={new Date()}
           portal
           className='w-full'
           containerClassName='w-full'
@@ -70,6 +71,7 @@ const FilterRequest = ({
           onChange={setToDate}
           calendar={persian}
           locale={persian_fa}
+          maxDate={new Date()}
           portal
           className='w-full'
           containerClassName='w-full'

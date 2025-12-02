@@ -81,12 +81,12 @@ export const OtpModal: React.FC<IOtpProps> = ({
           />
         </button>
 
-        <h2 className='text-[18px] font-[700] '>
+        <h2 className='text-[18px] font-bold '>
           {t('login:verification_code')}
         </h2>
       </div>
 
-      <p className='text-[12px] font-[600] text-[#323232] mb-6'>
+      <p className='text-[12px] font-semibold text-[#323232] mb-6'>
         {t('login:enter_otp_message', { phone })}
       </p>
       <div className=' mb-6'>
@@ -159,7 +159,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
         >
           {t('login:resend_code')}
         </button>
-        <span className='text-[#A5A5A5] text-[12px] font-[700]'>
+        <span className='text-[#A5A5A5] text-[12px] font-bold'>
           {formatTime(timeLeft)}
         </span>
       </div>

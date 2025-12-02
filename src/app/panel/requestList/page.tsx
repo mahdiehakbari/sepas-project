@@ -29,15 +29,20 @@ export default function TransactionList() {
   const pageSize = 10;
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
 
-  const fetchData = async (pageNumber = 1) => {
+  const fetchData = async (
+    pageNumber = 1,
+    filterFromDate = fromDate,
+    filterToDate = toDate,
+    filterReferenceNumber = referenceNumber,
+  ) => {
     setLoading(true);
 
     await filterData(
-      fromDate,
-      toDate,
+      filterFromDate,
+      filterToDate,
       pageNumber,
       pageSize,
-      referenceNumber ? Number(referenceNumber) : undefined,
+      filterReferenceNumber ? Number(filterReferenceNumber) : undefined,
     );
 
     setLoading(false);
@@ -49,7 +54,7 @@ export default function TransactionList() {
 
   const handleFilter = () => {
     setPage(1);
-    fetchData(1);
+    fetchData(1, fromDate, toDate, referenceNumber);
     setIsOpenModal(false);
   };
 
@@ -66,7 +71,7 @@ export default function TransactionList() {
 
   const handleRemoveFilter = () => {
     setPage(1);
-    fetchData(1);
+    fetchData(1, null, null, null);
     setIsOpenModal(false);
     setFromDate(null);
     setToDate(null);
@@ -82,6 +87,7 @@ export default function TransactionList() {
         <PageHeader
           titleKey='request_list:request_list'
           onFilterClick={handleOpenModal}
+          handleRemoveFilter={handleRemoveFilter}
         />
         <ResponsiveModal
           isOpen={isOpenModal}

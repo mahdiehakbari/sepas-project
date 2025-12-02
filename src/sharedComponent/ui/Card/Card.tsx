@@ -4,6 +4,7 @@ import { ICardProps } from './types';
 import Image from 'next/image';
 import { Button } from '../Button/Button';
 import { useTranslation } from 'react-i18next';
+import { useRouter } from 'next/navigation';
 
 const Card: React.FC<ICardProps> = ({
   title,
@@ -14,6 +15,10 @@ const Card: React.FC<ICardProps> = ({
   image,
 }) => {
   const { t } = useTranslation();
+  const router = useRouter();
+  const handleClick = () => {
+    router.push('/panel/requestList');
+  };
 
   return (
     <div className='relative w-80 rounded-xl border border-primary bg-white pt-4 px-4 '>
@@ -62,8 +67,8 @@ const Card: React.FC<ICardProps> = ({
 
       <div className='border-t border-border-color mt-3 '>
         <Button
-          disabled
-          className='w-full text-primary text-sm text-center hover:underline bg-transparent disabled:bg-transparent '
+          onClick={handleClick}
+          className='w-full text-primary text-sm text-center hover:underline bg-transparent disabled:bg-transparent hover:bg-transparent'
         >
           جزئیات بیشتر
         </Button>

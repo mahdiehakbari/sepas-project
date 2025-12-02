@@ -6,7 +6,7 @@ import { useToggleLanguage } from './hooks';
 import { Button } from '@/sharedComponent/ui';
 import { getNavItems } from './constants';
 import Image from 'next/image';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { MobileMenu } from './MobileMenu';
 import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
 import { OtpModal } from '../Auth/OTPComponent/OtpModal';
@@ -15,6 +15,7 @@ import { useRouter } from 'next/navigation';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
 import { useAuthStore } from '@/store/Auth/authStore';
+import { IUserData } from './types';
 
 export const Header = () => {
   const { t } = useTranslation();
@@ -24,6 +25,7 @@ export const Header = () => {
   const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
   const [openPopUp, setOpenPopUp] = useState(false);
+  const [userData, setUserData] = useState<IUserData | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { logout } = useAuthStore();
@@ -45,6 +47,14 @@ export const Header = () => {
   const handleClick = () => {
     setOpenPopUp(true);
   };
+
+  useEffect(() => {
+    const userDataStr = localStorage.getItem('user');
+    if (userDataStr) {
+      const userData = JSON.parse(userDataStr);
+      setUserData(userData);
+    }
+  }, []);
 
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-white mb-14'>
@@ -79,13 +89,31 @@ export const Header = () => {
           ) : (
             <div className='relative' ref={menuRef}>
               <div onClick={handleClick} className='cursor-pointer'>
-                <Image
-                  src='/assets/icons/guest.jpg'
-                  alt='user-profile-icon'
-                  width={56}
-                  height={56}
-                  className='rounded-full'
-                />
+                {userData?.gender == 'Male' ? (
+                  <Image
+                    src='/assets/icons/avatar-m.jpg'
+                    alt='user-profile-icon'
+                    width={56}
+                    height={56}
+                    className='rounded-full'
+                  />
+                ) : userData?.gender == 'Female' ? (
+                  <Image
+                    src='/assets/icons/avatar-f.jpg'
+                    alt='user-profile-icon'
+                    width={56}
+                    height={56}
+                    className='rounded-full'
+                  />
+                ) : (
+                  <Image
+                    src='/assets/icons/guest.jpg'
+                    alt='user-profile-icon'
+                    width={56}
+                    height={56}
+                    className='rounded-full'
+                  />
+                )}
               </div>
               {openPopUp && (
                 <DropdownMenu

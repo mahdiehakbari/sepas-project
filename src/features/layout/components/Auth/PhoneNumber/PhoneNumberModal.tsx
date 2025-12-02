@@ -56,19 +56,19 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
         />
       </div>
 
-      <h2 className='text-[18px] font-[700] mb-2 text-center'>
+      <h2 className='text-[18px] font-bold mb-2 text-center'>
         {t('login:login_user_account')}
       </h2>
-      <p className='text-[14px] font-[500] text-[#323232] mb-6 text-center'>
+      <p className='text-[14px] font-medium text-[#323232] mb-6 text-center'>
         {t('login:enter_mobile')}
       </p>
 
       <form onSubmit={handleSubmit(onSubmit)} className='w-full'>
         <div className='flex items-center gap-1 mb-2'>
-          <p className='text-[14px] font-[500] text-[#494A50]'>
+          <p className='text-[14px] font-medium text-[#494A50]'>
             {t('login:phone_number')}
           </p>
-          <p className='text-[14px] font-[500] text-[#ff4b4b]'>*</p>
+          <p className='text-[14px] font-medium text-[#ff4b4b]'>*</p>
         </div>
 
         <input

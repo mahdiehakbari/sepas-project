@@ -103,6 +103,7 @@ const TransactionsList = () => {
         <PageHeader
           titleKey='transaction_list:transaction_list'
           onFilterClick={handleOpenModal}
+          handleRemoveFilter={handleRemoveFilter}
         />
         {!pageLoading && requestData?.items.length == 0 ? (
           <div className='text-center mt-10 text-gray-500'>
