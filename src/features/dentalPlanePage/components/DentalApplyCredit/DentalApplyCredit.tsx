@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { getTabsItem } from './constants';
 import { useTranslation } from 'react-i18next';
 import { ICreditProps } from './types';
@@ -26,6 +26,7 @@ export const DentalApplyCredit = ({
 }: ICreditProps) => {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
   const tabsItem = getTabsItem(
     isOpenModal,
     setIsOpenModal,
@@ -44,6 +45,30 @@ export const DentalApplyCredit = ({
     modalLoading,
     setModalLoading,
   );
+
+  useEffect(() => {
+    if (!videoRef.current) return;
+
+    const video = videoRef.current;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            video.play().catch(() => {});
+          } else {
+            video.pause();
+          }
+        });
+      },
+      { threshold: 0.5 },
+    );
+
+    observer.observe(video);
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className='mb-12'>
       <h2 className='font[700] text-[24px] mb-4'>
@@ -51,15 +76,15 @@ export const DentalApplyCredit = ({
       </h2>
 
       <div className='flex justify-center mb-6'>
-        <div className='relative w-[200px] pb-[56.20%] '>
-          <iframe
+        <div className='relative w-[300px] md:w-[250px] pb-[56.20%]'>
+          <video
+            ref={videoRef}
             className='absolute top-0 left-0 w-full h-full rounded-lg shadow-lg'
             src='/assets/video/kalano.mp4'
-            title='Kalanow Credit Video'
-            frameBorder='0'
-            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture'
-            allowFullScreen
-          ></iframe>
+            playsInline
+            muted
+            preload='none'
+          />
         </div>
       </div>
 

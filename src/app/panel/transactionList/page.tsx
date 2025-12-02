@@ -34,16 +34,30 @@ const TransactionsList = () => {
   const [fromDate, setFromDate] = useState<DateObject | null>(null);
   const [toDate, setToDate] = useState<DateObject | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   const token = Cookies.get('token');
   const pageSize = 10;
   useFetchMerchant(setMerchantData);
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
 
-  const fetchData = async (pageNumber = 1) => {
-    const merchantIds = merchantName.map((c) => c.value);
+  const fetchData = async (
+    pageNumber = 1,
+    filterFromDate = fromDate,
+    filterToDate = toDate,
+    filterMerchantName = merchantName,
+    filterReferenceNumber = referenceNumber,
+  ) => {
     setPageLoading(true);
+    const merchantIds = filterMerchantName.map((c) => c.value);
 
-    await filterData(fromDate, toDate, merchantIds, pageNumber, pageSize);
+    await filterData(
+      filterFromDate,
+      filterToDate,
+      merchantIds,
+      pageNumber,
+      pageSize,
+      filterReferenceNumber ? Number(filterReferenceNumber) : undefined,
+    );
 
     setPageLoading(false);
   };
@@ -51,6 +65,7 @@ const TransactionsList = () => {
   useEffect(() => {
     fetchData(page);
   }, [page]);
+
   const handleFilter = () => {
     setPage(1);
     fetchData(1);
@@ -58,20 +73,21 @@ const TransactionsList = () => {
   };
 
   const handleClose = () => {
-    setPage(1);
-    fetchData(1);
     setMerchantName([]);
     setIsOpenModal(false);
     setFromDate(null);
     setToDate(null);
+    setReferenceNumber(null);
   };
 
   const handleRemoveFilter = () => {
-    setPage(1);
-    fetchData(1);
     setMerchantName([]);
     setFromDate(null);
     setToDate(null);
+    setReferenceNumber(null);
+    setPage(1);
+
+    fetchData(1, null, null, [], null);
   };
 
   const handleOpenModal = () => {
@@ -136,6 +152,8 @@ const TransactionsList = () => {
           placeholderText={t('panel:search_customer')}
           acceptorData={merchantData || []}
           handleRemoveFilter={handleRemoveFilter}
+          referenceNumber={referenceNumber}
+          setReferenceNumber={setReferenceNumber}
         />
       </ResponsiveModal>
     </ContentStateWrapper>

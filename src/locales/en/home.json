@@ -31,5 +31,6 @@
   "get_report": "Get the report",
   "select_image": "Select image",
   "cancel": "Cancel",
-  "confirm": "Confirm"
+  "confirm": "Confirm",
+  "tracking_number": "Tracking Number"
 }

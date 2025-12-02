@@ -1,6 +1,7 @@
 import { ITransactionListTableProps } from './types';
 import { useTranslation } from 'react-i18next';
 import { useStatus } from './utils/useStatus';
+import { toPersianNumber } from '@/features/requestList/RequestListTable/utils/PersianNumbr';
 
 export const ResponsiveTransactionListTable = ({
   transactions,
@@ -24,6 +25,14 @@ export const ResponsiveTransactionListTable = ({
                   </h2>
                   <h2 className='font-semibold text-gray-800'>
                     {t('request_list:dentistry')}
+                  </h2>
+                </div>
+                <div className='flex justify-between gap-2 items-center mb-2 '>
+                  <h2 className='font-medium text-[#808080] text-[14px]'>
+                    شماره پیگیری
+                  </h2>
+                  <h2 className='font-semibold text-gray-800'>
+                    {toPersianNumber(transaction.referenceNumber)}
                   </h2>
                 </div>
                 <div className='flex justify-between gap-2 items-center mb-4 '>

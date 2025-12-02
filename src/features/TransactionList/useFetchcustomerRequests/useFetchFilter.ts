@@ -25,6 +25,7 @@ export function useFilter<T>(
     merchantIds: string[] = [],
     pageNumber: number = 1,
     pageSize: number = 10,
+    referenceNumber?: number | null,
   ) => {
     const createdFrom = fromDate
       ? startOfDay(fromDate.convert(gregorian).toDate()).toISOString()
@@ -38,6 +39,7 @@ export function useFilter<T>(
     if (createdFrom) params.createdFrom = createdFrom;
     if (createdTo) params.createdTo = createdTo;
     if (merchantIds.length > 0) params.merchantIds = merchantIds;
+    if (referenceNumber) params.referenceNumber = referenceNumber;
 
     const config: AxiosRequestConfig = {
       headers: { Authorization: `Bearer ${token}` },

@@ -5,6 +5,7 @@ import persian from 'react-date-object/calendars/persian';
 import persian_fa from 'react-date-object/locales/persian_fa';
 import { IFilterProps } from './types';
 import { Button } from '@/sharedComponent/ui';
+import { englishToPersian, persianToEnglish } from '@/features/hooks';
 
 const FilterRequest = ({
   fromDate,
@@ -13,10 +14,27 @@ const FilterRequest = ({
   setToDate,
   handleRemoveFilter,
   handleFilter,
+  referenceNumber,
+  setReferenceNumber,
 }: IFilterProps) => {
   const { t } = useTranslation();
   return (
     <div className='p-6 md:w-[465px]'>
+      <div className='w-full mb-5'>
+        <input
+          type='text'
+          value={englishToPersian(referenceNumber ?? '')}
+          onChange={(e) => {
+            const val = e.target.value;
+            const english = persianToEnglish(val);
+            setReferenceNumber(english);
+          }}
+          placeholder={t('credit:tracking_number')}
+          className='border border-border-color w-full h-[38px] px-3 rounded-sm outline-0 placeholder:text-right'
+          dir='ltr'
+          inputMode='numeric'
+        />
+      </div>
       <div className='w-full  mb-5'>
         <DatePicker
           value={fromDate}

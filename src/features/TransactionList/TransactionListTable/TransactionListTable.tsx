@@ -37,10 +37,10 @@ export const TransactionListTable = ({
               <tr key={transaction.id}>
                 <td colSpan={5} className='p-0'>
                   <div className='flex items-center justify-between bg-white border border-border-color rounded-lg px-3 py-3'>
-                    <div className='w-[5%] text-center'>
+                    <div className='w-[15%] text-right'>
                       {index + 1 + (currentPage - 1) * pageSize}
                     </div>
-                    <div className='w-[20%] text-center'>
+                    <div className='w-[15%] text-center'>
                       {toPersianNumber(transaction.referenceNumber)}
                     </div>
                     <div className='w-[20%] text-center'>

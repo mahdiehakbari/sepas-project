@@ -24,6 +24,7 @@ export default function TransactionList() {
   const [fromDate, setFromDate] = useState<DateObject | null>(null);
   const [toDate, setToDate] = useState<DateObject | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
+  const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   const token = Cookies.get('token');
   const pageSize = 10;
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
@@ -31,7 +32,13 @@ export default function TransactionList() {
   const fetchData = async (pageNumber = 1) => {
     setLoading(true);
 
-    await filterData(fromDate, toDate, pageNumber, pageSize);
+    await filterData(
+      fromDate,
+      toDate,
+      pageNumber,
+      pageSize,
+      referenceNumber ? Number(referenceNumber) : undefined,
+    );
 
     setLoading(false);
   };
@@ -51,17 +58,19 @@ export default function TransactionList() {
   };
 
   const handleClose = () => {
+    setIsOpenModal(false);
+    setFromDate(null);
+    setToDate(null);
+    setReferenceNumber(null);
+  };
+
+  const handleRemoveFilter = () => {
     setPage(1);
     fetchData(1);
     setIsOpenModal(false);
     setFromDate(null);
     setToDate(null);
-  };
-
-  const handleRemoveFilter = () => {
-    setPage(1);
-    setFromDate(null);
-    setToDate(null);
+    setReferenceNumber(null);
   };
 
   const items = requestsData?.items ?? [];
@@ -86,6 +95,8 @@ export default function TransactionList() {
             setToDate={setToDate}
             handleFilter={handleFilter}
             handleRemoveFilter={handleRemoveFilter}
+            referenceNumber={referenceNumber}
+            setReferenceNumber={setReferenceNumber}
           />
         </ResponsiveModal>
         {!loading && items.length === 0 ? (

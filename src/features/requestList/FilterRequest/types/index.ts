@@ -7,4 +7,6 @@ export interface IFilterProps {
   setToDate: (value: DateObject | null) => void;
   handleRemoveFilter: () => void;
   handleFilter: () => void;
+  setReferenceNumber: (value: string | null) => void;
+  referenceNumber: string | null;
 }

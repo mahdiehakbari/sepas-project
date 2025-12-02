@@ -31,4 +31,6 @@ export interface IFilteredProps {
   placeholderText: string;
   acceptorData: IAcceptorData[];
   handleRemoveFilter: () => void;
+  setReferenceNumber: (value: string | null) => void;
+  referenceNumber: string | null;
 }

@@ -5,4 +5,5 @@ export interface IFilterParams {
   createdTo?: string;
   customerIds?: string[];
   merchantIds?: string[];
+  referenceNumber?: number | null;
 }
