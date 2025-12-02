@@ -97,9 +97,13 @@ const TransactionsList = () => {
   };
 
   useEffect(() => {
-    if (referenceNumber || toDate || fromDate || merchantName.length > 0) {
-      setRemove(true);
-    }
+    const hasFilter =
+      (referenceNumber && referenceNumber.trim() !== '') ||
+      fromDate !== null ||
+      toDate !== null ||
+      merchantName.length > 0;
+
+    setRemove(hasFilter);
   }, [fromDate, toDate, referenceNumber, merchantName]);
 
   return (

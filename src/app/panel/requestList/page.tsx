@@ -81,9 +81,12 @@ export default function TransactionList() {
   };
 
   useEffect(() => {
-    if (referenceNumber || toDate || fromDate) {
-      setRemove(true);
-    }
+    const hasFilter =
+      (referenceNumber && referenceNumber.trim() !== '') ||
+      fromDate !== null ||
+      toDate !== null;
+
+    setRemove(hasFilter);
   }, [fromDate, toDate, referenceNumber]);
 
   const items = requestsData?.items ?? [];
