@@ -3,4 +3,5 @@ export interface IPageHeaderProps {
   onFilterClick: () => void;
   filterTextKey?: string;
   handleRemoveFilter: () => void;
+  remove: boolean;
 }

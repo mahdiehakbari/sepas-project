@@ -35,6 +35,7 @@ const TransactionsList = () => {
   const [toDate, setToDate] = useState<DateObject | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
+  const [remove, setRemove] = useState(false);
   const token = Cookies.get('token');
   const pageSize = 10;
   useFetchMerchant(setMerchantData);
@@ -86,6 +87,7 @@ const TransactionsList = () => {
     setToDate(null);
     setReferenceNumber(null);
     setPage(1);
+    setRemove(false);
 
     fetchData(1, null, null, [], null);
   };
@@ -93,6 +95,12 @@ const TransactionsList = () => {
   const handleOpenModal = () => {
     setIsOpenModal(true);
   };
+
+  useEffect(() => {
+    if (referenceNumber || toDate || fromDate || merchantName.length > 0) {
+      setRemove(true);
+    }
+  }, [fromDate, toDate, referenceNumber, merchantName]);
 
   return (
     <ContentStateWrapper
@@ -104,6 +112,7 @@ const TransactionsList = () => {
           titleKey='transaction_list:transaction_list'
           onFilterClick={handleOpenModal}
           handleRemoveFilter={handleRemoveFilter}
+          remove={remove}
         />
         {!pageLoading && requestData?.items.length == 0 ? (
           <div className='text-center mt-10 text-gray-500'>

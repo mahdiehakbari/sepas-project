@@ -25,6 +25,7 @@ export default function TransactionList() {
   const [toDate, setToDate] = useState<DateObject | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
+  const [remove, setRemove] = useState(false);
   const token = Cookies.get('token');
   const pageSize = 10;
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
@@ -76,7 +77,14 @@ export default function TransactionList() {
     setFromDate(null);
     setToDate(null);
     setReferenceNumber(null);
+    setRemove(false);
   };
+
+  useEffect(() => {
+    if (referenceNumber || toDate || fromDate) {
+      setRemove(true);
+    }
+  }, [fromDate, toDate, referenceNumber]);
 
   const items = requestsData?.items ?? [];
   const totalPages = requestsData?.totalPages ?? 1;
@@ -88,6 +96,7 @@ export default function TransactionList() {
           titleKey='request_list:request_list'
           onFilterClick={handleOpenModal}
           handleRemoveFilter={handleRemoveFilter}
+          remove={remove}
         />
         <ResponsiveModal
           isOpen={isOpenModal}
