@@ -35,5 +35,8 @@
   "to_date": "تا تاریخ",
   "remove_filter": "حذف فیلتر",
   "get_report": "دریافت گزارش",
-  "select_image": "انتخاب تصویر"
+  "select_image": "انتخاب تصویر",
+  "confirm": "ثبت",
+  "cancel": "انصراف",
+  "tracking_number": "شماره پیگیری"
 }

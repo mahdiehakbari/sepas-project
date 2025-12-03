@@ -5,6 +5,7 @@ import axios from 'axios';
 import { API_AUTHENTICATE } from '@/config/api_address.config';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/Auth/authStore';
+import { getProfileImage } from '@/features/layout/components/SideMenu/api/profileImage.api';
 
 export const useOtp = (onClose: () => void) => {
   const [phone, setPhone] = useState<string>('');
@@ -48,6 +49,21 @@ export const useOtp = (onClose: () => void) => {
       setAuth(token, user);
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
+
+      // Fetch profile image after successful login
+      try {
+        const profileImageData = await getProfileImage(token);
+        if (profileImageData && profileImageData.base64Image) {
+          // Store the base64 image in localStorage
+          localStorage.setItem('profileImage', `data:image/jpeg;base64,${profileImageData.base64Image}`);
+        } else {
+          // Remove any existing profile image if none exists
+          localStorage.removeItem('profileImage');
+        }
+      } catch (error) {
+        console.error('Failed to fetch profile image:', error);
+        // Continue with login even if image fetch fails
+      }
 
       if (!user.isVerified) {
         // router.push('/profile');

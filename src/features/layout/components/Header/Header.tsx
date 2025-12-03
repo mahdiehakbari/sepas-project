@@ -26,6 +26,7 @@ export const Header = () => {
   const [isOpenOtpModal, setIsOpenOtpModal] = useState(false);
   const [openPopUp, setOpenPopUp] = useState(false);
   const [userData, setUserData] = useState<IUserData | null>(null);
+  const [profileImage, setProfileImage] = useState<string>('');
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { logout } = useAuthStore();
@@ -34,9 +35,10 @@ export const Header = () => {
     logout();
     Cookies.remove('userProfile');
     Cookies.remove('isLoggedIn');
+    localStorage.removeItem('user');
+    localStorage.removeItem('profileImage');
     router.push('/');
     setIsOpenOtpModal(false);
-    localStorage.removeItem('user');
   };
   const handleLogin = () => {
     setIsOpenLoginModal(true);
@@ -57,6 +59,45 @@ export const Header = () => {
       setUserData(null);
     }
   }, [isLoggedIn]);
+
+  useEffect(() => {
+    // First, try to load the profile image from localStorage
+    const savedProfileImage = localStorage.getItem('profileImage');
+    
+    if (savedProfileImage) {
+      // If user has uploaded a profile image, use it
+      setProfileImage(savedProfileImage);
+    } else {
+      // Otherwise, set default avatar based on gender
+      switch (userData?.gender) {
+        case 'Male':
+          setProfileImage('/assets/icons/avatar-m.jpg');
+          break;
+        case 'Female':
+          setProfileImage('/assets/icons/avatar-f.jpg');
+          break;
+        default:
+          setProfileImage('/assets/icons/guest.jpg');
+          break;
+      }
+    }
+  }, [userData]);
+
+  // Listen for profile image changes
+  useEffect(() => {
+    const handleStorageChange = (e: CustomEvent) => {
+      const savedProfileImage = localStorage.getItem('profileImage');
+      if (savedProfileImage) {
+        setProfileImage(savedProfileImage);
+      }
+    };
+
+    window.addEventListener('profileImageUpdated', handleStorageChange as EventListener);
+
+    return () => {
+      window.removeEventListener('profileImageUpdated', handleStorageChange as EventListener);
+    };
+  }, []);
 
   return (
     <header className='w-full sticky top-0 z-50 shadow-[0px_-3px_10px_-4px_#32323214,0px_4px_6px_-2px_#32323208] bg-white mb-14'>
@@ -91,31 +132,13 @@ export const Header = () => {
           ) : (
             <div className='relative' ref={menuRef}>
               <div onClick={handleClick} className='cursor-pointer'>
-                {userData?.gender == 'Male' ? (
-                  <Image
-                    src='/assets/icons/avatar-m.jpg'
-                    alt='user-profile-icon'
-                    width={56}
-                    height={56}
-                    className='rounded-full'
-                  />
-                ) : userData?.gender == 'Female' ? (
-                  <Image
-                    src='/assets/icons/avatar-f.jpg'
-                    alt='user-profile-icon'
-                    width={56}
-                    height={56}
-                    className='rounded-full'
-                  />
-                ) : (
-                  <Image
-                    src='/assets/icons/guest.jpg'
-                    alt='user-profile-icon'
-                    width={56}
-                    height={56}
-                    className='rounded-full'
-                  />
-                )}
+                <Image
+                  src={profileImage || '/assets/icons/guest.jpg'}
+                  alt='user-profile-icon'
+                  width={56}
+                  height={56}
+                  className='rounded-full object-cover'
+                />
               </div>
               {openPopUp && (
                 <DropdownMenu

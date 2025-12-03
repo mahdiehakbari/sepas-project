@@ -11,10 +11,12 @@ import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { Button } from '@/sharedComponent/ui';
 import { ProfileHeader } from '@/features/ProfileHeader';
 import { IUserData } from '../Header/types';
+import { useUploadProfileImage } from './hooks/useUploadProfileImage';
 
 export const SideMenu = () => {
   const { t } = useTranslation();
   const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const { uploadImage, isLoading } = useUploadProfileImage();
 
   const [userProfile, setUserProfile] = useState<IProfileFormValues | null>(
     null,
@@ -43,12 +45,42 @@ export const SideMenu = () => {
     e.target.value = '';
   };
 
-  const handleConfirmImage = () => {
-    if (previewImage) {
-      setProfileImage(previewImage);
+  const handleConfirmImage = async () => {
+    if (!previewImage) return;
+
+    try {
+      // Convert blob URL to base64
+      const response = await fetch(previewImage);
+      const blob = await response.blob();
+
+      const reader = new FileReader();
+      reader.onloadend = async () => {
+        const base64String = reader.result as string;
+        // Remove the data:image/...;base64, prefix
+        const base64Image = base64String.split(',')[1];
+
+        // Upload to backend
+        const success = await uploadImage(base64Image);
+
+        if (success) {
+          // Store the full base64 string (with prefix) in localStorage
+          localStorage.setItem('profileImage', base64String);
+          // Only set the profile image if upload was successful
+          setProfileImage(base64String);
+          
+          // Dispatch custom event to notify other components
+          window.dispatchEvent(new CustomEvent('profileImageUpdated'));
+        }
+
+        setPreviewImage(null);
+        setIsModalOpen(false);
+      };
+      reader.readAsDataURL(blob);
+    } catch (error) {
+      console.error('Error converting image:', error);
+      setPreviewImage(null);
+      setIsModalOpen(false);
     }
-    setPreviewImage(null);
-    setIsModalOpen(false);
   };
 
   const handleCancelImage = () => {
@@ -60,6 +92,7 @@ export const SideMenu = () => {
     logout();
     Cookies.remove('userProfile');
     Cookies.remove('isLoggedIn');
+    localStorage.removeItem('profileImage');
     router.push('/');
   };
 
@@ -76,16 +109,25 @@ export const SideMenu = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    switch (userData?.gender) {
-      case 'Male':
-        setProfileImage('/assets/icons/avatar-m.jpg');
-        break;
-      case 'Female':
-        setProfileImage('/assets/icons/avatar-f.jpg');
-        break;
-      default:
-        setProfileImage('/assets/icons/guest.jpg');
-        break;
+    // First, try to load the profile image from localStorage
+    const savedProfileImage = localStorage.getItem('profileImage');
+    
+    if (savedProfileImage) {
+      // If user has uploaded a profile image, use it
+      setProfileImage(savedProfileImage);
+    } else {
+      // Otherwise, set default avatar based on gender
+      switch (userData?.gender) {
+        case 'Male':
+          setProfileImage('/assets/icons/avatar-m.jpg');
+          break;
+        case 'Female':
+          setProfileImage('/assets/icons/avatar-f.jpg');
+          break;
+        default:
+          setProfileImage('/assets/icons/guest.jpg');
+          break;
+      }
     }
   }, [userData]);
 
@@ -173,7 +215,9 @@ export const SideMenu = () => {
             <Button variant='outline' onClick={handleCancelImage}>
               {t('home:cancel')}
             </Button>
-            <Button onClick={handleConfirmImage}>{t('home:confirm')}</Button>
+            <Button onClick={handleConfirmImage} disabled={isLoading}>
+              {isLoading ? t('home:uploading') || 'در حال آپلود...' : t('home:confirm')}
+            </Button>
           </div>
         </div>
       </ResponsiveModal>
