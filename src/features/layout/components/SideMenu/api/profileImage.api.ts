@@ -1,20 +1,10 @@
 import axios from 'axios';
 
-import { API_UPLOAD_PROFILE_IMAGE, API_GET_PROFILE_IMAGE } from '@/config/api_address.config';
-
-interface IUploadProfileImageData {
-  base64Image: string;
-  description?: string;
-}
-
-interface IProfileImageResponse {
-  id: string;
-  userId: string;
-  imageUrl: string;
-  base64Image: string;
-  description: string;
-  createdAt: string;
-}
+import {
+  API_UPLOAD_PROFILE_IMAGE,
+  API_GET_PROFILE_IMAGE,
+} from '@/config/api_address.config';
+import { IProfileImageResponse, IUploadProfileImageData } from './types';
 
 export const uploadProfileImage = async (
   token: string,
@@ -32,11 +22,14 @@ export const getProfileImage = async (
   token: string,
 ): Promise<IProfileImageResponse | null> => {
   try {
-    const response = await axios.get<IProfileImageResponse>(API_GET_PROFILE_IMAGE, {
-      headers: {
-        Authorization: `Bearer ${token}`,
+    const response = await axios.get<IProfileImageResponse>(
+      API_GET_PROFILE_IMAGE,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       },
-    });
+    );
     return response.data;
   } catch (error) {
     // If no image exists, return null

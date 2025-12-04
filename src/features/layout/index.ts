@@ -7,3 +7,4 @@ export { usePhoneNumber } from './components/Auth/PhoneNumber/hooks/usePhoneNumb
 export { useOtp } from './components/Auth/OTPComponent/hooks';
 export { DropdownMenu } from './components/DropdownMenu/DropdownMenu';
 export { ContentStateWrapper } from './components/ContentStateWrapper/ContentStateWrapper';
+export { getProfileImage } from './components/SideMenu/api/profileImage.api';

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_AUTHENTICATE } from '@/config/api_address.config';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/Auth/authStore';
-import { getProfileImage } from '@/features/layout/components/SideMenu/api/profileImage.api';
+import { getProfileImage } from '../../../SideMenu/api/profileImage.api';
 
 export const useOtp = (onClose: () => void) => {
   const [phone, setPhone] = useState<string>('');
@@ -55,7 +55,10 @@ export const useOtp = (onClose: () => void) => {
         const profileImageData = await getProfileImage(token);
         if (profileImageData && profileImageData.base64Image) {
           // Store the base64 image in localStorage
-          localStorage.setItem('profileImage', `data:image/jpeg;base64,${profileImageData.base64Image}`);
+          localStorage.setItem(
+            'profileImage',
+            `data:image/jpeg;base64,${profileImageData.base64Image}`,
+          );
         } else {
           // Remove any existing profile image if none exists
           localStorage.removeItem('profileImage');
