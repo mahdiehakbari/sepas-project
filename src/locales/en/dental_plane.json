@@ -1,5 +1,6 @@
 {
-  "dental_plane_desc": "The dental plan, using the credit system, allows you to receive dental treatment and cosmetic services without the need for upfront payment. By obtaining credit through the Bajet platform in cooperation with Tejarat Bank, you can pay your treatment costs in installments over flexible time periods. This service helps you remove financial concerns from essential or cosmetic dental treatments and focus peacefully on your oral and dental health.",
+  "dental_plane_desc": "The Dentalite dental plan, using an online credit system, provides the possibility of using medical and cosmetic services in the field of oral health on credit.",
+  "dental_plane_desc2": "By activating this credit, the cost of the required services is settled in installments and at specific time intervals based on an agreement with the operating bank. This mechanism is designed to remove financial obstacles from receiving essential or cosmetic dental services and facilitate the treatment process for applicants.",
   "Dental_plan": "Dental Plan",
   "loan": "Get a loan right now! In exclusive collaboration with Tejarat Bank",
   "calculating_dental_installments": "Calculate Dental Installments",
@@ -50,27 +51,38 @@
   "purchasing_power": "Purchasing Power (Available credit for purchasing from the provider)",
   "apply_credit": "Apply for Credit",
 
-  "conditions_receiving": "Conditions for receiving installment credit through Kalanow – Tejarat Bank:",
-  "install_budget_app": "1- First, install the Bajet app and complete the credit application process. To download the Bajet app, ",
-  "click_here": "click here.",
+  "conditions_requesting":"Credit application conditions",
+  "conditions_requesting_desc1":"Each individual can use this plan up to 150 million Tomans at a time. (Based on the validation of the Central Bank of the Islamic Republic of Iran)",
+  "conditions_requesting_desc2":"The granted credit will be usable for 30 days and will be 'inactive' and void if not used within the specified period.",
+  "conditions_requesting_desc3":"If the amount of the requested service exceeds the amount of credit available in the Dentalit system, the difference must be settled in cash with the dentist by the applicant for the service (user).",
 
-  "after_receiving_credit": "2- After receiving the credit, you must pay the service fee by selecting 'Apply for Credit'. (This fee is 1% of the total loan amount.)",
+  "conditions_receiving": "Instructions for receiving and using credit in the Dentalit project:",
+  "install_budget_app": "1- Install and activate the Budget app:",
+  "install_budget_app_desc": "To receive credit, the Budget app must first be installed and the credit receiving process must be completed in the Budget app.",
+  "click_here": " (Budget Receiving Link)",
+
+  "after_receiving_credit": "2- Requesting credit in the Budget app:",
+  "after_receiving_credit_desc": "All steps of registering information, verifying conditions, and receiving credit are done through Budget.",
+  "bajet_video_link": " (Instructional video on receiving credit in Budget)",
+
+  "activate_in_dentalit": "3- Credit activation in the Dentalit system:",
+  "activate_in_dentalit_desc": "By visiting the Dentalit website and registering a request on this site, in the requests section, request the amount you need from the allocated credit.",
+
+  "referral_to_doctors": "4- Referral to doctors and centers that are part of Dentalit's contract:",
+  "referral_to_doctors_desc": "Once the applicant's account is activated on Dentallit, the user can avail themselves of the required services by visiting any Dentallit-contracted physician introduced by the Iranian Dental Association. After agreeing with the dentist to receive the medical services, upon the user's confirmation, the cost of the services will be deducted from the user's credit on Dentallit and paid to the dentist.",
 
   "note": "Regarding the service fee, please note:",
   "note_fee_amount": "The service fee is non-refundable. Once paid, it cannot be returned.",
   "note_without_paying": "Without paying the service fee, the credit activated in the Bajet app cannot be used.",
 
-  "after_paying": "3- After payment, a one-time password will be sent to the phone number you registered with in the Bajet app.",
-
   "password_tips:": "Notes regarding the one-time password:",
   "password_correctly": "Enter the code correctly in the designated field.",
   "dont_receive_code": "If you do not receive the code within the expected time, you can request a new code.",
 
-  "constitutes_receiving_credit": "Please note that entering the OTP means the credit has been officially granted and cancelation is no longer possible.",
+  "constitutes_receiving_credit": "Important explanation: The credit allocated to the user in the Dentalit system cannot be withdrawn in cash and is used solely to pay for dental services at the contracted facilities.",
 
   "dental_plan_credit": "Dental Plan Credit Request",
   "guide": "Guide",
 
-  "bank_announces": "4- After the bank announces the result, you can use the approved credit for dental services. Note that withdrawing this credit in cash is not possible.",
   "kalanow_credit": "How to Apply for Kalanow Credit"
 }

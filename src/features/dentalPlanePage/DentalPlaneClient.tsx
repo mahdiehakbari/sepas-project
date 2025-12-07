@@ -111,7 +111,6 @@ export default function DentalPlaneClient() {
   return (
     <div className='max-w-4xl mx-auto px-6 md:px-0'>
       <DentalBanner />
-      <DentalPlaneContent />
       <DentalApplyCredit
         setIsOpenModal={setIsOpenModal}
         isOpenModal={isOpenModal}
@@ -130,6 +129,7 @@ export default function DentalPlaneClient() {
         modalLoading={modalLoading}
         setModalLoading={setModalLoading}
       />
+      <DentalPlaneContent />
       <div className='mb-12' id='faq-section'>
         <Accordion />
       </div>

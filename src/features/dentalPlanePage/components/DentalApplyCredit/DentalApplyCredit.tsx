@@ -27,20 +27,6 @@ export const DentalApplyCredit = ({
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  const togglePlay = () => {
-    const video = videoRef.current;
-    if (!video) return;
-
-    if (isPlaying) {
-      video.pause();
-      setIsPlaying(false);
-    } else {
-      video.play();
-      setIsPlaying(true);
-    }
-  };
 
   const tabsItem = getTabsItem(
     isOpenModal,
@@ -87,29 +73,6 @@ export const DentalApplyCredit = ({
   return (
     <div className='mb-12'>
       <h2 className='font[700] text-[24px] mb-4'>
-        {t('dental_plane:kalanow_credit')}
-      </h2>
-
-      <div className='flex justify-center mb-6'>
-        <div className='relative w-[300px] md:w-[250px] pb-[56.20%]'>
-          <video
-            ref={videoRef}
-            className='absolute top-0 left-0 w-full h-full rounded-lg shadow-lg object-cover'
-            src='/assets/video/kalano.mp4'
-            playsInline
-            preload='metadata'
-          />
-
-          <button
-            onClick={togglePlay}
-            className='absolute bottom-3 left-1/2 -translate-x-1/2 bg-white/80 px-4 py-1 rounded-lg shadow font-semibold cursor-pointer'
-          >
-            {isPlaying ? '⏸ توقف' : '▶ پخش'}
-          </button>
-        </div>
-      </div>
-
-      <h2 className='font[700] text-[24px] mb-4'>
         {t('dental_plane:dental_plan_credit')}
       </h2>
 
@@ -148,7 +111,7 @@ export const DentalApplyCredit = ({
         ))}
       </div>
 
-      <div className='mt-4 transition-all duration-300'>
+      <div className='mt-4 transition-all duration-300 mb-12'>
         {tabsItem[activeIndex].content}
       </div>
     </div>
