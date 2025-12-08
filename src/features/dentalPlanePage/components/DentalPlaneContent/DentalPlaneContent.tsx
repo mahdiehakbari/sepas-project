@@ -21,10 +21,14 @@ export const DentalPlaneContent = () => {
       setIsPlaying(true);
     }
   };
-  
+
 
   return (
     <div className='mb-12'>
+      <h2 className='font[700] text-[24px] mb-4'>
+        {t('dental_plane:introducing_plan')}
+      </h2>
+
       <p className='font-[400] text-[14px] mb-6'>
         {t('dental_plane:dental_plane_desc')}
       </p>
@@ -110,6 +114,9 @@ export const DentalPlaneContent = () => {
         </div>
         <p className='font-[400] text-[14px] mb-6'>
           {t('dental_plane:referral_to_doctors_desc')}
+          <Link href='/listOfDoctors' className='text-primary cursor-pointer'>
+            {t('dental_plane:doctors_page_link')}
+          </Link>
         </p>
       </div>
 
@@ -125,8 +132,7 @@ export const DentalPlaneContent = () => {
         </p>
       </div>
 
-
-      <h2 className='font[700] text-[24px] mb-4'>
+      <h2 className='font[700] text-[24px] mb-4' id="bajet_video">
         {t('dental_plane:kalanow_credit')}
       </h2>
 
