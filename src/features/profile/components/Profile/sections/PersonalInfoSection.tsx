@@ -17,8 +17,8 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   const rules = validationRules(t);
 
   const genderItems = [
-    { id: 1, name: t('profile:man') },
-    { id: 2, name: t('profile:woman') },
+    { id: 'Male', name: t('profile:man') },
+    { id: 'Female', name: t('profile:woman') },
   ];
 
   return (

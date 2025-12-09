@@ -67,7 +67,7 @@ export const SideMenu = () => {
           localStorage.setItem('profileImage', base64String);
           // Only set the profile image if upload was successful
           setProfileImage(base64String);
-          
+
           // Dispatch custom event to notify other components
           window.dispatchEvent(new CustomEvent('profileImageUpdated'));
         }
@@ -109,14 +109,10 @@ export const SideMenu = () => {
   }, [isLoggedIn]);
 
   useEffect(() => {
-    // First, try to load the profile image from localStorage
     const savedProfileImage = localStorage.getItem('profileImage');
-    
     if (savedProfileImage) {
-      // If user has uploaded a profile image, use it
       setProfileImage(savedProfileImage);
     } else {
-      // Otherwise, set default avatar based on gender
       switch (userData?.gender) {
         case 'Male':
           setProfileImage('/assets/icons/avatar-m.jpg');
@@ -216,7 +212,9 @@ export const SideMenu = () => {
               {t('home:cancel')}
             </Button>
             <Button onClick={handleConfirmImage} disabled={isLoading}>
-              {isLoading ? t('home:uploading') || 'در حال آپلود...' : t('home:confirm')}
+              {isLoading
+                ? t('home:uploading') || 'در حال آپلود...'
+                : t('home:confirm')}
             </Button>
           </div>
         </div>

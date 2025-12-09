@@ -16,27 +16,15 @@ export const validationRules = (t: {
   },
 
   nationalId: {
-    required: t('profile:field_required'),
+    required: t('dental-society:field_required'),
     pattern: {
       value: /^[0-9]{10}$/,
-      message: t('profile:national_code_invalid'),
+      message: t('dental-society:national_code_invalid'),
     },
-
     validate: (value?: string) => {
       if (!value) return true;
-      if (!/^\d{10}$/.test(value)) return t('profile:national_code_invalid');
-
-      const check = +value[9];
-      const sum =
-        value
-          .split('')
-          .slice(0, 9)
-          .reduce((acc, num, i) => acc + +num * (10 - i), 0) % 11;
-
       return (
-        (sum < 2 && check === sum) ||
-        (sum >= 2 && check === 11 - sum) ||
-        t('profile:national_code_invalid')
+        /^\d{10}$/.test(value) || t('dental-society:national_code_invalid')
       );
     },
   },

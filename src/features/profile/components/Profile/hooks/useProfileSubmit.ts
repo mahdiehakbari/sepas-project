@@ -24,7 +24,6 @@ export const useProfileSubmit = ({
   const { setProfile } = useProfileStore();
 
   const onSubmit = async (data: IProfileFormValues) => {
-    console.log(data, 'dataaaaa');
     const token = Cookies.get('token');
     if (!token) return toast.error(t('profile:token_missing'));
 
