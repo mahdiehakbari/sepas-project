@@ -14,6 +14,7 @@ export const RequestListTable = ({
   requests,
   currentPage,
   pageSize,
+  handleDetailCredit,
 }: IRequestListTableProps) => {
   const { t } = useTranslation();
   const { getStatusInfo } = useStatusInfo();
@@ -88,6 +89,14 @@ export const RequestListTable = ({
                 {(req.status === 4 || req.status === 6 || req.status === 7) && (
                   <Button onClick={() => handlePaymentCredit(req.id)}>
                     {t('credit:receive_credit')}
+                  </Button>
+                )}
+                {req.status === 9 && (
+                  <Button
+                    onClick={() => handleDetailCredit(req.id)}
+                    className='w-25'
+                  >
+                    {t('credit:detail')}
                   </Button>
                 )}
               </div>

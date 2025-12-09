@@ -15,6 +15,27 @@ import { useFilter } from '@/features/requestList/hooks/FetchRequestData';
 import { PageHeader } from '@/features/PageHeader';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { FilterRequest } from '@/features/requestList/FilterRequest';
+import axios from 'axios';
+import { API_CUSTOMER_CREDIT_QUERY_ID } from '@/config/api_address.config';
+import { PaymentDetail } from '@/features/requestList/PaymentDetail';
+
+export interface IPaymentDetail {
+  rrn: string;
+  refNum: string;
+  maskedPan: string;
+  terminalNumber: number;
+  originalAmount: number;
+  affectiveAmount: number;
+  straceDate: string;
+  straceNo: string;
+  status: number;
+  errorCode: string;
+  errorDesc: string;
+  resultCode: number;
+  resultDescription: string;
+  success: boolean;
+  createdAt: string;
+}
 
 export default function TransactionList() {
   const { t } = useTranslation();
@@ -26,6 +47,7 @@ export default function TransactionList() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   const [remove, setRemove] = useState(false);
+  const [detailData, setDetailData] = useState(true);
   const token = Cookies.get('token');
   const pageSize = 10;
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
@@ -61,6 +83,7 @@ export default function TransactionList() {
 
   const handleOpenModal = () => {
     setIsOpenModal(true);
+    setDetailData(false);
   };
 
   const handleClose = () => {
@@ -89,6 +112,21 @@ export default function TransactionList() {
     setRemove(hasFilter);
   }, [fromDate, toDate, referenceNumber]);
 
+  const handleDetailCredit = (id: string) => {
+    setIsOpenModal(true);
+    setDetailData(true);
+    // axios
+    //   .get(API_CUSTOMER_CREDIT_QUERY_ID, {
+    //     headers: { Authorization: `Bearer ${token}` },
+    //     params: { creditRequestId: id },
+    //   })
+    //   .then((resp) => {
+    //     console.log(resp.data, 'aaaa');
+    //     setDetailData(resp.data);
+    //   })
+    //   .catch();
+  };
+
   const items = requestsData?.items ?? [];
   const totalPages = requestsData?.totalPages ?? 1;
 
@@ -103,19 +141,23 @@ export default function TransactionList() {
         />
         <ResponsiveModal
           isOpen={isOpenModal}
-          title={t('home:filter')}
+          title={detailData ? t('credit:payment_detail') : t('home:filter')}
           onClose={handleClose}
         >
-          <FilterRequest
-            fromDate={fromDate}
-            setFromDate={setFromDate}
-            toDate={toDate}
-            setToDate={setToDate}
-            handleFilter={handleFilter}
-            handleRemoveFilter={handleRemoveFilter}
-            referenceNumber={referenceNumber}
-            setReferenceNumber={setReferenceNumber}
-          />
+          {detailData ? (
+            <PaymentDetail />
+          ) : (
+            <FilterRequest
+              fromDate={fromDate}
+              setFromDate={setFromDate}
+              toDate={toDate}
+              setToDate={setToDate}
+              handleFilter={handleFilter}
+              handleRemoveFilter={handleRemoveFilter}
+              referenceNumber={referenceNumber}
+              setReferenceNumber={setReferenceNumber}
+            />
+          )}
         </ResponsiveModal>
         {!loading && items.length === 0 ? (
           <div className='text-center mt-10 text-gray-500'>
@@ -128,6 +170,7 @@ export default function TransactionList() {
                 requests={items}
                 currentPage={page}
                 pageSize={10}
+                handleDetailCredit={handleDetailCredit}
               />
             </div>
 
@@ -136,6 +179,7 @@ export default function TransactionList() {
                 requests={items}
                 currentPage={page}
                 pageSize={10}
+                handleDetailCredit={handleDetailCredit}
               />
             </div>
 

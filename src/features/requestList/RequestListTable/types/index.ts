@@ -11,4 +11,5 @@ export interface IRequestListTableProps {
   requests: IRequest[] | null;
   currentPage: number;
   pageSize: number;
+  handleDetailCredit: (value: string) => void;
 }
