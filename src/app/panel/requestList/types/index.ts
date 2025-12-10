@@ -13,3 +13,25 @@ export interface IRequestsData {
   pageNumber: number;
   pageSize: number;
 }
+
+export interface IPaymentDetail {
+  rrn: string;
+  refNum: string;
+  maskedPan: string;
+  terminalNumber: number;
+  originalAmount: number;
+  affectiveAmount: number;
+  straceDate: string;
+  straceNo: string;
+  status: number;
+  errorCode: string;
+  errorDesc: string;
+  resultCode: number;
+  resultDescription: string;
+  success: boolean;
+  createdAt: string;
+}
+
+export interface IPaymentDetailProps {
+  detailData: IPaymentDetail;
+}

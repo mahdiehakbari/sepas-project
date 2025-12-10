@@ -11,7 +11,7 @@ import { MobileMenu } from './MobileMenu';
 import { PhoneNumberModal } from '../Auth/PhoneNumber/PhoneNumberModal';
 import { OtpModal } from '../Auth/OTPComponent/OtpModal';
 import Cookies from 'js-cookie';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
 import { DropdownMenu } from '../DropdownMenu/DropdownMenu';
 import { useAuthStore } from '@/store/Auth/authStore';
@@ -30,7 +30,8 @@ export const Header = () => {
   const menuRef = useRef<HTMLDivElement>(null);
   const router = useRouter();
   const { logout } = useAuthStore();
-
+  const pathname = usePathname();
+  const isActive = (path: string) => pathname === path;
   const handleLogout = () => {
     logout();
     Cookies.remove('userProfile');
@@ -63,7 +64,7 @@ export const Header = () => {
   useEffect(() => {
     // First, try to load the profile image from localStorage
     const savedProfileImage = localStorage.getItem('profileImage');
-    
+
     if (savedProfileImage) {
       // If user has uploaded a profile image, use it
       setProfileImage(savedProfileImage);
@@ -92,10 +93,16 @@ export const Header = () => {
       }
     };
 
-    window.addEventListener('profileImageUpdated', handleStorageChange as EventListener);
+    window.addEventListener(
+      'profileImageUpdated',
+      handleStorageChange as EventListener,
+    );
 
     return () => {
-      window.removeEventListener('profileImageUpdated', handleStorageChange as EventListener);
+      window.removeEventListener(
+        'profileImageUpdated',
+        handleStorageChange as EventListener,
+      );
     };
   }, []);
 
@@ -118,7 +125,11 @@ export const Header = () => {
                 href={item.href}
                 className='flex items-center duration-300 no-underline'
               >
-                <p className='font-medium hover:text-primary transition-all duration-300'>
+                <p
+                  className={`font-medium hover:text-primary transition-all duration-300   ${
+                    isActive(item.href) ? 'text-primary ' : ''
+                  }`}
+                >
                   {item.label}
                 </p>
               </Link>

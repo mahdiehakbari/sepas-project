@@ -7,7 +7,7 @@ import {
   RequestListTable,
   ResponsiveRequestListTable,
 } from '@/features/requestList';
-import { IRequestsData } from './types';
+import { IPaymentDetail, IRequestsData } from './types';
 import { Paginate } from '@/sharedComponent/ui';
 import DateObject from 'react-date-object';
 import { ContentStateWrapper } from '@/features/layout';
@@ -19,24 +19,6 @@ import axios from 'axios';
 import { API_CUSTOMER_CREDIT_QUERY_ID } from '@/config/api_address.config';
 import { PaymentDetail } from '@/features/requestList/PaymentDetail';
 
-export interface IPaymentDetail {
-  rrn: string;
-  refNum: string;
-  maskedPan: string;
-  terminalNumber: number;
-  originalAmount: number;
-  affectiveAmount: number;
-  straceDate: string;
-  straceNo: string;
-  status: number;
-  errorCode: string;
-  errorDesc: string;
-  resultCode: number;
-  resultDescription: string;
-  success: boolean;
-  createdAt: string;
-}
-
 export default function TransactionList() {
   const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
@@ -47,7 +29,8 @@ export default function TransactionList() {
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [referenceNumber, setReferenceNumber] = useState<string | null>(null);
   const [remove, setRemove] = useState(false);
-  const [detailData, setDetailData] = useState(true);
+  const [detailData, setDetailData] = useState<IPaymentDetail | null>(null);
+  const [showDetail, setShowDetail] = useState(false);
   const token = Cookies.get('token');
   const pageSize = 10;
   const { filterData } = useFilter<IRequestsData>(token, setRequestData);
@@ -79,11 +62,12 @@ export default function TransactionList() {
     setPage(1);
     fetchData(1, fromDate, toDate, referenceNumber);
     setIsOpenModal(false);
+    setShowDetail(false);
   };
 
   const handleOpenModal = () => {
     setIsOpenModal(true);
-    setDetailData(false);
+    setShowDetail(false);
   };
 
   const handleClose = () => {
@@ -91,6 +75,7 @@ export default function TransactionList() {
     setFromDate(null);
     setToDate(null);
     setReferenceNumber(null);
+    setShowDetail(false);
   };
 
   const handleRemoveFilter = () => {
@@ -113,18 +98,17 @@ export default function TransactionList() {
   }, [fromDate, toDate, referenceNumber]);
 
   const handleDetailCredit = (id: string) => {
-    setIsOpenModal(true);
-    setDetailData(true);
-    // axios
-    //   .get(API_CUSTOMER_CREDIT_QUERY_ID, {
-    //     headers: { Authorization: `Bearer ${token}` },
-    //     params: { creditRequestId: id },
-    //   })
-    //   .then((resp) => {
-    //     console.log(resp.data, 'aaaa');
-    //     setDetailData(resp.data);
-    //   })
-    //   .catch();
+    setShowDetail(true);
+    setDetailData(null);
+    axios
+      .get(`${API_CUSTOMER_CREDIT_QUERY_ID}/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
+        params: { creditRequestId: id },
+      })
+      .then((resp) => {
+        setDetailData(resp.data.paymentDetail);
+      })
+      .catch();
   };
 
   const items = requestsData?.items ?? [];
@@ -140,24 +124,31 @@ export default function TransactionList() {
           remove={remove}
         />
         <ResponsiveModal
+          isOpen={showDetail}
+          title={detailData ? t('credit:payment_detail') : t('home:filter')}
+          onClose={handleClose}
+        >
+          {detailData !== null ? (
+            <PaymentDetail detailData={detailData} />
+          ) : (
+            <p className='text-center py-8 md:w-[600px]'>در حال بارگذاری...</p>
+          )}
+        </ResponsiveModal>
+        <ResponsiveModal
           isOpen={isOpenModal}
           title={detailData ? t('credit:payment_detail') : t('home:filter')}
           onClose={handleClose}
         >
-          {detailData ? (
-            <PaymentDetail />
-          ) : (
-            <FilterRequest
-              fromDate={fromDate}
-              setFromDate={setFromDate}
-              toDate={toDate}
-              setToDate={setToDate}
-              handleFilter={handleFilter}
-              handleRemoveFilter={handleRemoveFilter}
-              referenceNumber={referenceNumber}
-              setReferenceNumber={setReferenceNumber}
-            />
-          )}
+          <FilterRequest
+            fromDate={fromDate}
+            setFromDate={setFromDate}
+            toDate={toDate}
+            setToDate={setToDate}
+            handleFilter={handleFilter}
+            handleRemoveFilter={handleRemoveFilter}
+            referenceNumber={referenceNumber}
+            setReferenceNumber={setReferenceNumber}
+          />
         </ResponsiveModal>
         {!loading && items.length === 0 ? (
           <div className='text-center mt-10 text-gray-500'>
