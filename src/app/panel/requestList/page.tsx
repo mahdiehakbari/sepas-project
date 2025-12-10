@@ -131,7 +131,7 @@ export default function TransactionList() {
           {detailData !== null ? (
             <PaymentDetail detailData={detailData} />
           ) : (
-            <p className='text-center py-8 md:w-[600px]'>در حال بارگذاری...</p>
+            <p className='text-center py-8 md:w-[600px]'>داده ای یافت نشد.</p>
           )}
         </ResponsiveModal>
         <ResponsiveModal

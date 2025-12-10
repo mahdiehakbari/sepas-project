@@ -52,7 +52,7 @@ const ListOfDentist = () => {
                   {'شماره مطب'}: {d.workPlacePhoneNumber}
                 </p>
                 <p className='text-sm text-[#919191] '>
-                  {t('credit:tracking_number')}: {d.medicalCertificateNumber}
+                  {'کد نظام پزشکی'}: {d.medicalCertificateNumber}
                 </p>
               </div>
               <div className='flex items-center gap-2'>

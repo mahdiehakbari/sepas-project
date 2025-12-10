@@ -2,9 +2,11 @@ import { IRequestListTableProps } from './types';
 import { useTranslation } from 'react-i18next';
 import { useStatusInfo } from './utils/useStatusInfo';
 import { toPersianNumber } from './utils/PersianNumbr';
+import { Button } from '@/sharedComponent/ui';
 
 export const ResponsiveRequestListTable = ({
   requests,
+  handleDetailCredit,
 }: IRequestListTableProps) => {
   const { t } = useTranslation();
   const { getStatusInfo } = useStatusInfo();
@@ -60,6 +62,14 @@ export const ResponsiveRequestListTable = ({
                     {label}
                   </span>
                 </div>
+                {req.status === 9 && (
+                  <Button
+                    onClick={() => handleDetailCredit(req.id)}
+                    className='w-full'
+                  >
+                    {t('credit:detail')}
+                  </Button>
+                )}
               </div>
             </div>
           </div>
