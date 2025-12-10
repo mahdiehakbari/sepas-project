@@ -1,12 +1,10 @@
 'use client';
 import { IPaymentDetailProps } from '@/app/panel/requestList/types';
 import { useTranslation } from 'react-i18next';
-import DateObject from 'react-date-object';
 import { formatJalaliDateTime } from '@/sharedComponent/lib';
 
 const PaymentDetail = ({ detailData }: IPaymentDetailProps) => {
   const { t } = useTranslation();
-  console.log(detailData, 'aaaa');
   return (
     <div className='p-8 md:w-[600px]'>
       <div className='flex items-center justify-between mb-6'>
