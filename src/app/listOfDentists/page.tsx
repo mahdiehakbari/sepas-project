@@ -6,11 +6,13 @@ import { useEffect, useState } from 'react';
 import { Paginate } from '@/sharedComponent/ui';
 import { IDentist, IDentistListResponse } from './types';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 const ListOfDentist = () => {
   const [dentistList, setDentistList] = useState<IDentist[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
+  const { t } = useTranslation();
 
   const fetchDentists = (pageNumber: number) => {
     axios
@@ -45,7 +47,13 @@ const ListOfDentist = () => {
             >
               <div className='border-b border-border-color mb-4 pb-4'>
                 <h3 className='text-lg font-semibold mb-3'>{d.fullName}</h3>
-                <p className='text-sm text-[#919191]'>{d.businessName}</p>
+                <p className='text-sm text-[#919191] mb-3'>{d.businessName}</p>
+                <p className='text-sm text-[#919191] mb-3'>
+                  {'شماره مطب'}: {d.workPlacePhoneNumber}
+                </p>
+                <p className='text-sm text-[#919191] '>
+                  {t('credit:tracking_number')}: {d.medicalCertificateNumber}
+                </p>
               </div>
               <div className='flex items-center gap-2'>
                 <Image
