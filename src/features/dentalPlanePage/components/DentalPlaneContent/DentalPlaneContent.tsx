@@ -59,7 +59,7 @@ export const DentalPlaneContent = () => {
         </ul>
       </div>
 
-      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12'>
+      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12' id="process_receiving">
         <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
           {t('dental_plane:who_can_purchase')}
         </h3>
