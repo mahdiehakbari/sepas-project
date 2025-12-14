@@ -114,7 +114,7 @@ export const DentalPlaneContent = () => {
         </div>
         <p className='font-[400] text-[14px] mb-6'>
           {t('dental_plane:referral_to_doctors_desc')}
-          <Link href='/listOfDoctors' className='text-primary cursor-pointer'>
+          <Link href='/listOfDentists' className='text-primary cursor-pointer'>
             {t('dental_plane:doctors_page_link')}
           </Link>
         </p>
