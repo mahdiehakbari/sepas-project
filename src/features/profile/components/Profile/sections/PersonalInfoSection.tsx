@@ -50,7 +50,11 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           register={register}
           errors={errors}
           textError={t('profile:field_required')}
-          rules={rules.mobile as unknown as RegisterOptions<IProfileFormValues>}
+          rules={
+            !!userData?.phoneNumber || !!phoneNumber
+              ? {}
+              : (rules.mobile as unknown as RegisterOptions<IProfileFormValues>)
+          }
           defaultValue={userData?.phoneNumber ?? phoneNumber}
           disabled={!!userData?.phoneNumber || !!phoneNumber}
         />

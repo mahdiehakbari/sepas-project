@@ -33,8 +33,6 @@ const ListOfDentist = () => {
     fetchDentists(page);
   }, [page]);
 
-  console.log(dentistList, 'aaa');
-
   return (
     <div>
       <BannerSection />

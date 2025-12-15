@@ -4,11 +4,7 @@ export const validationRules = (t: {
 }) => ({
   mobile: {
     required: t('profile:field_required'),
-    pattern: {
-      value: /^[0-9]*$/,
-      message: t('profile:only_numbers_allowed'),
-    },
-
+    pattern: { value: /^[0-9]*$/, message: t('profile:only_numbers_allowed') },
     validate: (value?: string) => {
       if (!value) return true;
       return value.length === 11 || t('profile:mobile_must_be_11_digits');

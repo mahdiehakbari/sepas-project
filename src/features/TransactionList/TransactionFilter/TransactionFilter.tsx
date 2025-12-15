@@ -31,7 +31,8 @@ const TransactionFilter = ({
     label: `${item.firstName} ${item.lastName} - ${item.nationalId}`,
     value: item.id,
   }));
-
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
   return (
     <div className='p-6 md:w-[465px]'>
       <div className='w-full mb-5'>
@@ -83,7 +84,7 @@ const TransactionFilter = ({
           onChange={setFromDate}
           calendar={persian}
           locale={persian_fa}
-          maxDate={new Date()}
+          maxDate={today}
           portal
           className='w-full'
           containerClassName='w-full'
@@ -113,7 +114,7 @@ const TransactionFilter = ({
           onChange={setToDate}
           calendar={persian}
           locale={persian_fa}
-          maxDate={new Date()}
+          maxDate={today}
           portal
           className='w-full'
           containerClassName='w-full'
