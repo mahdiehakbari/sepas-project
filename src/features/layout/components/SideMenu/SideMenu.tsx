@@ -240,7 +240,7 @@ export const SideMenu = () => {
           <div className='md:w-[500px] py-8 px-6'>
             <div className='flex items-center gap-2'>
               <p>شماره تماس پشتیبانی:</p>
-              <p>۷۹۵۷۲۰۰۰-۰۲۱</p>
+              <p>۰۲۱-۷۹۵۷۲۰۰۰</p>
             </div>
           </div>
         )}
