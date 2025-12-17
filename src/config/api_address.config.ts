@@ -20,3 +20,4 @@ export const API_UPLOAD_PROFILE_IMAGE = '/api/UserProfileImage/upload';
 export const API_GET_PROFILE_IMAGE = '/api/UserProfileImage';
 export const API_CUSTOMER_CREDIT_QUERY_ID = '/api/CustomerCreditQuery';
 export const API_DENTIST_LIST = '/api/MerchantsQuery/paged-by-ids';
+export const API_MERCHANT_BANNER = '/api/UserProfileImage/merchant-banner';

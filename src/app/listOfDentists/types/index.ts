@@ -17,6 +17,7 @@ export interface IDentist {
   isVerified: boolean;
   createdAt: string;
   availableBalance: number;
+  skills?: string[] | undefined;
 }
 export interface IDentistListResponse {
   items: IDentist[];
