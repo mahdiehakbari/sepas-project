@@ -24,7 +24,6 @@ export const useUploadProfileImage = () => {
     const token = Cookies.get('token');
 
     if (!token) {
-      console.error('Token is missing');
       toast.error(t('profile:token_missing'));
       return null;
     }
@@ -49,12 +48,6 @@ export const useUploadProfileImage = () => {
       }
     } catch (error) {
       const axiosError = error as AxiosError<UploadProfileImageResponse>;
-
-      console.error('Upload profile image error:', {
-        message: axiosError.message,
-        status: axiosError.response?.status,
-        data: axiosError.response?.data,
-      });
 
       toast.error(
         axiosError.response?.data?.message || t('profile:update_error'),
