@@ -49,20 +49,18 @@ export const useOtp = (onClose: () => void) => {
       setAuth(token, user);
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
-
-      // Fetch profile image after successful login
       try {
-        const profileImageData = await getProfileImage(token);
-        if (profileImageData && profileImageData.base64Image) {
-          // Store the base64 image in localStorage
-          localStorage.setItem(
-            'profileImage',
-            `data:image/jpeg;base64,${profileImageData.base64Image}`,
-          );
-        } else {
-          // Remove any existing profile image if none exists
-          localStorage.removeItem('profileImage');
-        }
+        // const profileImageData = await getProfileImage(token);
+        // if (profileImageData && profileImageData.base64Image) {
+        //   // Store the base64 image in localStorage
+        //   localStorage.setItem(
+        //     'profileImage',
+        //     `data:image/jpeg;base64,${profileImageData.base64Image}`,
+        //   );
+        // } else {
+        //   // Remove any existing profile image if none exists
+        //   localStorage.removeItem('profileImage');
+        // }
       } catch (error) {
         console.error('Failed to fetch profile image:', error);
         // Continue with login even if image fetch fails

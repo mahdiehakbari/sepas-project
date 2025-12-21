@@ -1,40 +1,73 @@
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Cookies from 'js-cookie';
-import { AxiosError } from 'axios';
+import { AxiosError, AxiosResponse } from 'axios';
 import { useTranslation } from 'react-i18next';
 import { uploadProfileImage } from '../api/profileImage.api';
 
+interface UploadProfileImageResponse {
+  message?: string;
+  success?: boolean;
+  imageFilePath?: string | null;
+  assetId?: string | null;
+}
+
 export const useUploadProfileImage = () => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const { t } = useTranslation();
 
-  const uploadImage = async (base64Image: string, description?: string) => {
+  const uploadImage = async (
+    base64Image: string,
+    description?: string,
+  ): Promise<string | null> => {
+    // برگرداندن imageFilePath یا null
     const token = Cookies.get('token');
+
     if (!token) {
+      console.error('Token is missing');
       toast.error(t('profile:token_missing'));
-      return false;
+      return null;
     }
 
     setIsLoading(true);
 
     try {
-      await uploadProfileImage(token, {
-        base64Image,
-        description: description || 'User profile picture',
-      });
-      toast.success(t('profile:success_toast'));
-      return true;
+      const response: AxiosResponse<UploadProfileImageResponse> =
+        await uploadProfileImage(token, {
+          base64Image,
+          description: description || 'User profile picture',
+        });
+
+      console.log('Upload profile image response:', response);
+
+      if (response.data?.success && response.data.imageFilePath) {
+        toast.success(t('profile:success_toast'));
+        return response.data.imageFilePath;
+      } else {
+        toast.error(response.data?.message || t('profile:update_error'));
+        return null;
+      }
     } catch (error) {
-      const axiosError = error as AxiosError<{ message?: string }>;
+      const axiosError = error as AxiosError<UploadProfileImageResponse>;
+
+      console.error('Upload profile image error:', {
+        message: axiosError.message,
+        status: axiosError.response?.status,
+        data: axiosError.response?.data,
+      });
+
       toast.error(
         axiosError.response?.data?.message || t('profile:update_error'),
       );
-      return false;
+
+      return null;
     } finally {
       setIsLoading(false);
     }
   };
 
-  return { uploadImage, isLoading };
+  return {
+    uploadImage,
+    isLoading,
+  };
 };

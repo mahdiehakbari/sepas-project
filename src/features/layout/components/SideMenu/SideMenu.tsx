@@ -8,10 +8,11 @@ import { useTranslation } from 'react-i18next';
 import { getSideBarItems } from './constants';
 import { useAuthStore } from '@/store/Auth/authStore';
 import ResponsiveModal from '@/sharedComponent/ui/ResponsiveModal/Modal';
-import { Button } from '@/sharedComponent/ui';
+import { Button, SpinnerDiv } from '@/sharedComponent/ui';
 import { ProfileHeader } from '@/features/ProfileHeader';
 import { IUserData } from '../Header/types';
 import { useUploadProfileImage } from './hooks/useUploadProfileImage';
+import { toast } from 'react-toastify';
 
 export const SideMenu = () => {
   const { t } = useTranslation();
@@ -31,6 +32,8 @@ export const SideMenu = () => {
   const { logout } = useAuthStore();
   useEffect(() => {
     const userInfo = localStorage.getItem('userProfile');
+    const profileImage = localStorage.getItem('profileImage');
+    setPreviewImage(profileImage);
     if (userInfo) {
       Promise.resolve().then(() => setUserProfile(JSON.parse(userInfo)));
     }
@@ -39,6 +42,13 @@ export const SideMenu = () => {
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+
+    const maxSizeInBytes = 256 * 1024;
+    if (file.size > maxSizeInBytes) {
+      toast.error('حجم عکس نمی‌تواند بیشتر از 256 کیلوبایت باشد.');
+      e.target.value = '';
+      return;
+    }
 
     const blobUrl = URL.createObjectURL(file);
     setPreviewImage(blobUrl);
@@ -58,19 +68,12 @@ export const SideMenu = () => {
       const reader = new FileReader();
       reader.onloadend = async () => {
         const base64String = reader.result as string;
-        // Remove the data:image/...;base64, prefix
         const base64Image = base64String.split(',')[1];
-
-        // Upload to backend
         const success = await uploadImage(base64Image);
-
         if (success) {
-          // Store the full base64 string (with prefix) in localStorage
-          localStorage.setItem('profileImage', base64String);
-          // Only set the profile image if upload was successful
-          setProfileImage(base64String);
-
-          // Dispatch custom event to notify other components
+          const fullUrl = `https://dentalitfiles.sepasholding.com/images/profileimages/${success}`;
+          localStorage.setItem('profileImage', success);
+          setProfileImage(fullUrl);
           window.dispatchEvent(new CustomEvent('profileImageUpdated'));
         }
 
@@ -113,7 +116,9 @@ export const SideMenu = () => {
   useEffect(() => {
     const savedProfileImage = localStorage.getItem('profileImage');
     if (savedProfileImage) {
-      setProfileImage(savedProfileImage);
+      setProfileImage(
+        `https://dentalitfiles.sepasholding.com/images/profileimages/${savedProfileImage}`,
+      );
     } else {
       switch (userData?.gender) {
         case 'Male':
@@ -230,9 +235,7 @@ export const SideMenu = () => {
                 {t('home:cancel')}
               </Button>
               <Button onClick={handleConfirmImage} disabled={isLoading}>
-                {isLoading
-                  ? t('home:uploading') || 'در حال آپلود...'
-                  : t('home:confirm')}
+                {isLoading ? <SpinnerDiv /> : t('home:confirm')}
               </Button>
             </div>
           </div>
