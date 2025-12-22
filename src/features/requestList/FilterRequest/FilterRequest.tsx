@@ -40,28 +40,42 @@ const FilterRequest = ({
       <div className='w-full  mb-5'>
         <DatePicker
           value={fromDate}
-          onChange={setFromDate}
+          onChange={(date) => setFromDate(date ?? null)}
           calendar={persian}
           locale={persian_fa}
           maxDate={today}
+          onOpenPickNewDate={false}
           portal
           className='w-full'
           containerClassName='w-full'
-          inputClass='border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring focus:border-blue-400'
           placeholder={t('home:from_date')}
           render={(value, openCalendar) => (
             <div
               className='border border-gray-300 rounded-md w-full px-3 py-2 flex items-center justify-between cursor-pointer'
               onClick={openCalendar}
             >
-              <span>{value || t('home:from_date')}</span>
+              <span className='truncate'>{value || t('home:from_date')}</span>
+              <div className='flex items-center gap-2'>
+                {value && (
+                  <button
+                    type='button'
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFromDate(null);
+                    }}
+                    className='text-gray-400 hover:text-red-500 text-lg leading-none'
+                  >
+                    ×
+                  </button>
+                )}
 
-              <Image
-                src='/assets/icons/calendar.svg'
-                alt='calender'
-                width={20}
-                height={20}
-              />
+                <Image
+                  src='/assets/icons/calendar.svg'
+                  alt='calendar'
+                  width={20}
+                  height={20}
+                />
+              </div>
             </div>
           )}
         />
@@ -70,28 +84,43 @@ const FilterRequest = ({
       <div className='w-full  mb-5'>
         <DatePicker
           value={toDate}
-          onChange={setToDate}
+          onChange={(date) => setToDate(date ?? null)}
           calendar={persian}
           locale={persian_fa}
           maxDate={today}
           portal
           className='w-full'
           containerClassName='w-full'
-          inputClass='border border-gray-300 rounded-md w-full px-3 py-2 focus:outline-none focus:ring focus:border-blue-400'
           placeholder={t('home:to_date')}
+          onOpenPickNewDate={false}
           render={(value, openCalendar) => (
             <div
               className='border border-gray-300 rounded-md w-full px-3 py-2 flex items-center justify-between cursor-pointer'
               onClick={openCalendar}
             >
-              <span>{value || t('home:to_date')}</span>
+              <span className='truncate'>{value || t('home:to_date')}</span>
 
-              <Image
-                src='/assets/icons/calendar.svg'
-                alt='calender'
-                width={20}
-                height={20}
-              />
+              <div className='flex items-center gap-2'>
+                {value && (
+                  <button
+                    type='button'
+                    onClick={(e) => {
+                      e.stopPropagation(); // جلوگیری از باز شدن تقویم
+                      setToDate(null);
+                    }}
+                    className='text-gray-400 hover:text-red-500 text-lg leading-none'
+                  >
+                    ×
+                  </button>
+                )}
+
+                <Image
+                  src='/assets/icons/calendar.svg'
+                  alt='calendar'
+                  width={20}
+                  height={20}
+                />
+              </div>
             </div>
           )}
         />
