@@ -70,6 +70,7 @@ export const Header = () => {
 
   const handleLogin = () => {
     setIsOpenLoginModal(true);
+    setIsOpenOtpModal(false);
     setIsOpenModal(true);
   };
 
