@@ -4,6 +4,7 @@ import { Header, Footer, SiteRights } from '@/features/layout';
 import I18nProvider from '@/providers/I18nProvider';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthChecker } from '@/features/layout/components/Auth/AuthChecker';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://example.com'),
@@ -46,6 +47,7 @@ export default function RootLayout({
     <html lang='fa' dir='rtl' className='font-fa'>
       <body>
         <I18nProvider>
+          <AuthChecker />
           <div className='min-h-screen flex flex-col'>
             <Header />
             <main className='flex-1'>{children}</main>

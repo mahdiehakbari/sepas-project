@@ -5,7 +5,7 @@ import axios from 'axios';
 import { API_AUTHENTICATE } from '@/config/api_address.config';
 import { useRouter } from 'next/navigation';
 import { useAuthStore } from '@/store/Auth/authStore';
-import { getProfileImage } from '../../../SideMenu/api/profileImage.api';
+
 
 export const useOtp = (onClose: () => void) => {
   const [phone, setPhone] = useState<string>('');
@@ -22,12 +22,13 @@ export const useOtp = (onClose: () => void) => {
 
   useEffect(() => {
     const token = Cookies.get('token');
+    const expiresAt = Cookies.get('expiresAt');
     const userData = localStorage.getItem('user');
 
-    if (token && userData) {
+    if (token && userData && expiresAt) {
       try {
         const parsedUser = JSON.parse(userData);
-        setAuth(token, parsedUser);
+        setAuth(token, parsedUser, expiresAt);
       } catch (err) {
         console.error('Failed to parse user from localStorage', err);
       }
@@ -44,9 +45,9 @@ export const useOtp = (onClose: () => void) => {
         otp,
       });
 
-      const { token, user } = response.data;
+      const { token, user, expiresAt } = response.data;
 
-      setAuth(token, user);
+      setAuth(token, user, expiresAt);
       localStorage.setItem('token', token);
       localStorage.setItem('user', JSON.stringify(user));
       try {
