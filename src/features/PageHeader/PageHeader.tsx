@@ -27,6 +27,9 @@ export const PageHeader: React.FC<IPageHeaderProps> = ({
           )}
 
           <Button onClick={onFilterClick} className='w-[75px]'>
+            {remove == true && (
+              <span className='inline-block h-2 w-2 ml-1 rounded-full bg-red-500' />
+            )}
             <Image
               src='/assets/icons/filter.svg'
               alt='filter'
