@@ -79,17 +79,17 @@ export const InquiringBudget = ({
   return (
     <>
       <div className='md:w-[600px] p-4'>
-        <div className='flex items-center justify-between bg-[var(--second-light-primary)] px-4 py-2 rounded-2xl mb-4'>
-          <p className='text-black font-[500] text-[16px]'>
+        <div className='flex items-center justify-between bg-(--second-light-primary) px-4 py-2 rounded-2xl mb-4'>
+          <p className='text-black font-medium text-[16px]'>
             {t('credit:approved_credit_amount')}
           </p>
-          <p className='text-black font-[500] text-[16px]'>
+          <p className='text-black font-medium text-[16px]'>
             {formattedPrice} {t('credit:rial')}
           </p>
         </div>
 
-        <div className='bg-[var(--bg-gray)] px-4 py-2 rounded-2xl mb-4'>
-          <p className='text-black font-[400] text-[16px] mb-4'>
+        <div className='bg-(--bg-gray) px-4 py-2 rounded-2xl mb-4'>
+          <p className='text-black font-normal text-[16px] mb-4'>
             {t('credit:amount_credit_requesting')}
           </p>
           <input
@@ -117,18 +117,18 @@ export const InquiringBudget = ({
           />
 
           <div className='flex items-center justify-between mb-4 mt-6'>
-            <p className='text-black font-[400] text-[16px]'>
+            <p className='text-black font-normal text-[16px]'>
               {t('credit:credit_requested')}
             </p>
-            <p className='text-black font-[500] text-[16px]'>
+            <p className='text-black font-medium text-[16px]'>
               {amountReceivedValue.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
           <div className='flex items-center justify-between mb-4'>
-            <p className='text-black font-[400] text-[16px]'>
+            <p className='text-black font-normal text-[16px]'>
               {t('credit:subscription')}
             </p>
-            <p className='text-black font-[500] text-[16px]'>
+            <p className='text-black font-medium text-[16px]'>
               {feePercentage.toLocaleString('fa-IR')} {t('credit:rial')}
             </p>
           </div>
@@ -151,10 +151,10 @@ export const InquiringBudget = ({
           relative
           before:content-['']
           before:absolute
-          before:top-[2px]
-          before:left-[6px]
+          before:top-0.5
+          before:left-1.5
           before:w-[5px]
-          before:h-[10px]
+          before:h-2.5
           before:border-r-2
           before:border-b-2
           before:border-white
@@ -164,14 +164,14 @@ export const InquiringBudget = ({
         "
           />
 
-          <div className=' text-[16px] font-[500] text-black leading-relaxed'>
+          <div className=' text-[16px] font-medium text-black leading-relaxed'>
             <Trans
               i18nKey='credit:agree_terms'
               components={[
                 <></>,
                 <Link
                   key='terms-link'
-                  href='/terms'
+                  href='/rules'
                   target='_blank'
                   className='text-primary underline font-medium '
                 />,
