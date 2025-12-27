@@ -71,9 +71,9 @@ export const useProfileSubmit = ({
       if (respData?.errors && typeof respData.errors === 'object') {
         Object.entries(respData.errors).forEach(([field, msgs]) => {
           if (Array.isArray(msgs)) {
-            msgs.forEach((m: string) => toast.error(`${field}: ${m}`));
+            msgs.forEach((m: string) => toast.error(`${m}`));
           } else if (typeof msgs === 'string') {
-            toast.error(`${field}: ${msgs}`);
+            toast.error(`${msgs}`);
           }
         });
       } else if (respData?.title) {
