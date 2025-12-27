@@ -26,7 +26,6 @@ const MyPlanes = () => {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
-        console.log(res.data, 'aaaa');
         setMyPlaneData(res.data);
         setPageLoading(false);
       })

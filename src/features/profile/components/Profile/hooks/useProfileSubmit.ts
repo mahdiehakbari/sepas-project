@@ -63,10 +63,24 @@ export const useProfileSubmit = ({
       setShowProfileModal?.(false);
       setShowCreditNoteModal?.(true);
     } catch (error) {
-      const axiosError = error as AxiosError<{ message?: string }>;
-      toast.error(
-        axiosError.response?.data?.message || t('profile:update_error'),
-      );
+      const axiosError = error as AxiosError;
+      const respData = axiosError.response?.data as
+        | { errors?: Record<string, string | string[]>; title?: string }
+        | undefined;
+
+      if (respData?.errors && typeof respData.errors === 'object') {
+        Object.entries(respData.errors).forEach(([field, msgs]) => {
+          if (Array.isArray(msgs)) {
+            msgs.forEach((m: string) => toast.error(`${field}: ${m}`));
+          } else if (typeof msgs === 'string') {
+            toast.error(`${field}: ${msgs}`);
+          }
+        });
+      } else if (respData?.title) {
+        toast.error(respData.title);
+      } else {
+        toast.error('در ارسال اطلاعات مشکلی رخ داده است.');
+      }
     } finally {
       setIsLoading(false);
     }

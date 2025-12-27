@@ -18,6 +18,8 @@ export interface IDentist {
   createdAt: string;
   availableBalance: number;
   skills?: string[] | undefined;
+  bannerImageFilePath: string;
+  bio: string;
 }
 export interface IDentistListResponse {
   items: IDentist[];

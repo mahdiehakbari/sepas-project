@@ -9,11 +9,20 @@ export const getNavItems = (): NavItem[] => [
     href: '/listOfDentists',
   },
   // { id: 3, label: i18n.t('home:credit_system'), href: '/' },
-  { id: 4, label: i18n.t('home:process_receiving_credit'), href: '/services/dentalPlan#process_receiving' },
+  {
+    id: 4,
+    label: i18n.t('home:process_receiving_credit'),
+    href: '/services/dentalPlan#process_receiving',
+  },
   // { id: 5, label: i18n.t('home:video_training'), href: '/' },
   {
     id: 6,
     label: i18n.t('home:Frequently'),
     href: '/services/dentalPlan?scroll=faq',
+  },
+  {
+    id: 7,
+    label: i18n.t('home:rules'),
+    href: '/rules',
   },
 ];

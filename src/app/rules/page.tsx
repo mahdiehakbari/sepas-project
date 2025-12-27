@@ -10,18 +10,7 @@ const Rules = () => {
 
     return (
       <div className='mx-auto md:w-4/5 mb-36 px-6 md:px-0'>
-        <div
-          className='flex items-center gap-1 cursor-pointer mb-12'
-          onClick={handleBack}
-        >
-          <Image
-            src='/assets/icons/arrow-right.svg'
-            alt='return'
-            width={16}
-            height={16}
-          />
-          <p className='text-primary'>بازگشت</p>
-        </div>
+
         <h2 className='text-[#414141] font-medium text-[28px] text-center mb-6'>
           قوانین و مقرررات
         </h2>

@@ -56,12 +56,19 @@ const ListOfDentist = () => {
               onClick={() => handleRoute(d.id)}
             >
               <div className='border-b border-border-color mb-4 pb-4'>
-                <Image
-                  src='/assets/icons/images.jpg'
-                  alt='images'
-                  width={250}
-                  height={152}
-                />
+                <div className='w-full h-40 relative mb-3'>
+                  <Image
+                    src={
+                      d.bannerImageFilePath == ''
+                        ? '/assets/icons/images.jpg'
+                        : `https://dentalitfiles.sepasholding.com/images/bannerimages/${d.bannerImageFilePath}`
+                    }
+                    alt='images'
+                    fill
+                    style={{ objectFit: 'cover', borderRadius: '8px' }}
+                    sizes='(max-width: 768px) 100vw, 25vw'
+                  />
+                </div>
                 <h3 className='text-lg font-semibold mb-3'>{d.fullName}</h3>
                 <p className='text-sm text-[#919191] mb-3'>{d.businessName}</p>
                 <p className='text-sm text-[#919191] mb-3'>
