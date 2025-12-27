@@ -84,9 +84,7 @@ export default function PaymentResultPage() {
 
         <p
           className={`font-medium text-[16px] mb-8 ${
-            isFailed
-              ? 'text-[var(--error-color)]'
-              : 'text-[var(--second-green)]'
+            isFailed ? 'text-(--error-color)' : 'text-(--second-green)'
           }`}
         >
           {isFailed
