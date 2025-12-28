@@ -1,23 +1,22 @@
-export const API_SEND_OTP = '/api/UnifiedAuth/send-otp';
-export const API_AUTHENTICATE = '/api/UnifiedAuth/authenticate';
-export const API_AUTHENTICATE_ME = '/api/UnifiedAuth/me';
-export const API_PROVINCES_QUERY = '/api/ProvincesQuery';
-export const API_CITIES_QUERY = '/api/CitiesQuery/by-province/';
-export const API_UPDATE_PROFILE = '/api/CustomersCommand/profile';
-export const API_BUDGET_QUERY = '/api/BajetQuery/balance';
-export const API_BUDGET_CALC =
-  '/api/CustomerCreditFeeConfigurationQuery/active';
-export const API_CUSTOMER_CREDIT_COMMAND = '/api/CustomerCreditCommand';
-export const API_CUSTOMER_CREDIT_QUERY =
-  '/api/CustomerCreditQuery/my-credit-requests';
-export const API_PURCHASE_QUERY =
-  '/api/PurchaseRequestsQuery/my-purchase-requests';
-export const API_ACCOUNT_BALANCES = '/api/CustomerFinancialSummaryQuery';
-export const API_CUSTOMER_CREDIT = '/api/CustomerCreditQuery';
-export const API_CUSTOMER_QUERY_SIMPLE = '/api/CustomersQuery/simple';
-export const API_MERCHANT_QUERY_SIMPLE = '/api/MerchantsQuery/simple';
-export const API_UPLOAD_PROFILE_IMAGE = '/api/UserProfileImage/upload';
-export const API_GET_PROFILE_IMAGE = '/api/UserProfileImage';
-export const API_CUSTOMER_CREDIT_QUERY_ID = '/api/CustomerCreditQuery';
-export const API_DENTIST_LIST = '/api/MerchantsQuery/paged-by-ids';
-export const API_MERCHANT_BANNER = '/api/UserProfileImage/merchant-banner';
+export const BASE_URL = '/api';
+
+export const API_SEND_OTP = `${BASE_URL}/UnifiedAuth/send-otp`;
+export const API_AUTHENTICATE = `${BASE_URL}/UnifiedAuth/authenticate`;
+export const API_AUTHENTICATE_ME = `${BASE_URL}/UnifiedAuth/me`;
+export const API_PROVINCES_QUERY = `${BASE_URL}/ProvincesQuery`;
+export const API_CITIES_QUERY = `${BASE_URL}/CitiesQuery/by-province/`;
+export const API_UPDATE_PROFILE = `${BASE_URL}/CustomersCommand/profile`;
+export const API_BUDGET_QUERY = `${BASE_URL}/BajetQuery/balance`;
+export const API_BUDGET_CALC = `${BASE_URL}/CustomerCreditFeeConfigurationQuery/active`;
+export const API_CUSTOMER_CREDIT_COMMAND = `${BASE_URL}/CustomerCreditCommand`;
+export const API_CUSTOMER_CREDIT_QUERY = `${BASE_URL}/CustomerCreditQuery/my-credit-requests`;
+export const API_PURCHASE_QUERY = `${BASE_URL}/PurchaseRequestsQuery/my-purchase-requests`;
+export const API_ACCOUNT_BALANCES = `${BASE_URL}/CustomerFinancialSummaryQuery`;
+export const API_CUSTOMER_CREDIT = `${BASE_URL}/CustomerCreditQuery`;
+export const API_CUSTOMER_QUERY_SIMPLE = `${BASE_URL}/CustomersQuery/simple`;
+export const API_MERCHANT_QUERY_SIMPLE = `${BASE_URL}/MerchantsQuery/simple`;
+export const API_UPLOAD_PROFILE_IMAGE = `${BASE_URL}/UserProfileImage/upload`;
+export const API_GET_PROFILE_IMAGE = `${BASE_URL}/UserProfileImage`;
+export const API_CUSTOMER_CREDIT_QUERY_ID = `${BASE_URL}/CustomerCreditQuery`;
+export const API_DENTIST_LIST = `${BASE_URL}/MerchantsQuery/paged-by-ids`;
+export const API_MERCHANT_BANNER = `${BASE_URL}/UserProfileImage/merchant-banner`;
