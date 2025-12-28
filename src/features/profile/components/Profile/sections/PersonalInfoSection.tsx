@@ -1,8 +1,8 @@
-import React, { useEffect } from 'react';
-import { DateInput, FormTitle, Input, SelectInput } from '@/sharedComponent/ui';
+import React from 'react';
+import { DateInput, FormTitle, Input } from '@/sharedComponent/ui';
 import { validationRules } from '../utils/validationRules';
 import { IPersonalInfoSectionProps } from './types';
-import { RegisterOptions } from 'react-hook-form';
+import { RegisterOptions, Controller } from 'react-hook-form';
 import { IProfileFormValues } from '@/sharedComponent/ui/Input/types';
 // import { BirthDate } from '@/sharedComponent/lib';
 
@@ -11,7 +11,6 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   register,
   errors,
   control,
-  setValue,
   userData,
   phoneNumber,
 }) => {
@@ -42,13 +41,6 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     'normalizedGender:',
     normalizedGender,
   );
-
-  // Set gender value when userData changes
-  useEffect(() => {
-    if (userData?.gender !== undefined && userData?.gender !== null) {
-      setValue('gender', normalizedGender);
-    }
-  }, [userData?.gender, normalizedGender, setValue]);
 
   return (
     <section>
@@ -110,18 +102,38 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           defaultValue={normalizedBirthDate}
         />
 
-        <SelectInput
-          label={t('profile:gender')}
-          name='gender'
-          register={register}
-          options={genderItems.map((c) => ({
-            value: c.id.toString(),
-            label: c.name,
-          }))}
-          errors={errors}
-          rules={{ required: t('profile:field_required') }}
-          defaultValue={normalizedGender}
-        />
+        <div className='flex flex-col'>
+          <Controller
+            name='gender'
+            control={control}
+            rules={{ required: t('profile:field_required') }}
+            defaultValue={normalizedGender}
+            render={({ field }) => (
+              <select
+                {...field}
+                value={field.value || normalizedGender}
+                onChange={(e) => field.onChange(e.target.value)}
+                className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
+                  focus:outline-none focus:ring-2 ${
+                    errors?.gender
+                      ? 'border-red-500 focus:ring-red-400'
+                      : 'border-gray-300 focus:ring-blue-500'
+                  }`}
+              >
+                {genderItems.map((item) => (
+                  <option key={item.id} value={item.id}>
+                    {item.name}
+                  </option>
+                ))}
+              </select>
+            )}
+          />
+          {errors?.gender?.message && (
+            <span className='text-red-500 text-sm mt-1'>
+              {errors.gender.message.toString()}
+            </span>
+          )}
+        </div>
 
         <Input
           label={t('profile:email')}
