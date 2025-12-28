@@ -37,39 +37,6 @@ export const DentalPlaneContent = () => {
       </p>
 
       <div className='py-2 px-10 bg-secondary rounded-2xl mb-12'>
-        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
-          {t('dental_plane:conditions_requesting')}
-        </h3>
-        <ul className='list-disc px-7 font-[400] text-[14px]'>
-          <li className='mb-2'>{t('dental_plane:conditions_requesting_desc1')}</li>
-          <li className='mb-2'>{t('dental_plane:conditions_requesting_desc2')}</li>
-          <li>{t('dental_plane:conditions_requesting_desc3')}</li>
-        </ul>
-      </div>
-
-      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12'>
-        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
-          {t('dental_plane:why_installments')}
-        </h3>
-        <ul className='list-disc px-7 font-[400] text-[14px]'>
-          <li className='mb-2'>{t('dental_plane:why_installments_desc1')}</li>
-          <li className='mb-2'>{t('dental_plane:why_installments_desc2')}</li>
-          <li className='mb-2'>{t('dental_plane:why_installments_desc3')}</li>
-          <li>{t('dental_plane:why_installments_desc4')}</li>
-        </ul>
-      </div>
-
-      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12' id="process_receiving">
-        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
-          {t('dental_plane:who_can_purchase')}
-        </h3>
-        <ul className='list-disc px-7 font-[400] text-[14px]'>
-          <li className='mb-2'>{t('dental_plane:who_can_purchase_desc1')}</li>
-          <li className='mb-2'>{t('dental_plane:who_can_purchase_desc2')}</li>
-        </ul>
-      </div>
-
-      <div className='mb-4'>
         <h3 className='font-[700] text-[14px] mb-6'>
           {t('dental_plane:conditions_receiving')}
         </h3>
@@ -118,18 +85,51 @@ export const DentalPlaneContent = () => {
             {t('dental_plane:doctors_page_link')}
           </Link>
         </p>
+
+        <div className='py-2 px-4 bg-[var(--light-primary)] rounded-2xl mb-4 flex items-center gap-4 border border-[var(--primary-border)]'>
+          <Image
+            src='/assets/icons/notice-icon.svg'
+            alt='logo'
+            width={20}
+            height={20}
+          />
+          <p className='font-[400] text-[14px] text-[var(--second-primary)]'>
+            {t('dental_plane:constitutes_receiving_credit')}
+          </p>
+        </div>
       </div>
 
-      <div className='py-2 px-4 bg-[var(--light-primary)] rounded-2xl mb-4 flex items-center gap-4 border border-[var(--primary-border)]'>
-        <Image
-          src='/assets/icons/notice-icon.svg'
-          alt='logo'
-          width={20}
-          height={20}
-        />
-        <p className='font-[400] text-[14px] text-[var(--second-primary)]'>
-          {t('dental_plane:constitutes_receiving_credit')}
-        </p>
+      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12'>
+        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
+          {t('dental_plane:conditions_requesting')}
+        </h3>
+        <ul className='list-disc px-7 font-[400] text-[14px]'>
+          <li className='mb-2'>{t('dental_plane:conditions_requesting_desc1')}</li>
+          <li className='mb-2'>{t('dental_plane:conditions_requesting_desc2')}</li>
+          <li>{t('dental_plane:conditions_requesting_desc3')}</li>
+        </ul>
+      </div>
+
+      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12'>
+        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
+          {t('dental_plane:why_installments')}
+        </h3>
+        <ul className='list-disc px-7 font-[400] text-[14px]'>
+          <li className='mb-2'>{t('dental_plane:why_installments_desc1')}</li>
+          <li className='mb-2'>{t('dental_plane:why_installments_desc2')}</li>
+          <li className='mb-2'>{t('dental_plane:why_installments_desc3')}</li>
+          <li>{t('dental_plane:why_installments_desc4')}</li>
+        </ul>
+      </div>
+
+      <div className='py-2 px-10 bg-secondary rounded-2xl mb-12' id="process_receiving">
+        <h3 className='font-[700] text-[14px] mb-2 text-[var(--second-primary)]'>
+          {t('dental_plane:who_can_purchase')}
+        </h3>
+        <ul className='list-disc px-7 font-[400] text-[14px]'>
+          <li className='mb-2'>{t('dental_plane:who_can_purchase_desc1')}</li>
+          <li className='mb-2'>{t('dental_plane:who_can_purchase_desc2')}</li>
+        </ul>
       </div>
 
       <h2 className='font[700] text-[24px] mb-4' id="bajet_video">
