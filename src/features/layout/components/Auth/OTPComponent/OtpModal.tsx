@@ -164,7 +164,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
         </span>
       </div>
 
-      <div className='text-center text-xs text-gray-600 mt-4 leading-relaxed'>
+      {/* <div className='text-center text-xs text-gray-600 mt-4 leading-relaxed'>
         <Trans
           i18nKey='login:accept_terms_message'
           components={[
@@ -172,12 +172,12 @@ export const OtpModal: React.FC<IOtpProps> = ({
             <Link
               key='terms-link'
               href='/rules'
-              // target='_blank'
+              target='_blank'
               className='text-primary underline font-medium '
             />,
           ]}
         />
-      </div>
+      </div> */}
     </div>
   );
 };

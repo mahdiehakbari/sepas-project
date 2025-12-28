@@ -1,6 +1,6 @@
 {
   "Pending": "ثبت اولیه",
-  "OtpSent": "رمز یکبار مصرف ارسال شده.",
+  "OtpSent": "عدم ورود رمز توسط مشتری",
   "Completed": "موفق",
   "ConfirmedByCustomer": "تایید شده",
   "Failed": "ناموفق",
