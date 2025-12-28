@@ -27,20 +27,51 @@ export const useProfileSubmit = ({
     if (!token) return toast.error(t('profile:token_missing'));
 
     setIsLoading(true);
-
-    // Map gender: 'Male' -> 0, 'Female' -> 1
     const genderValue = data.gender === 'Female' ? 1 : 0;
 
-    const formattedData: Partial<IProfileFormValues> = {
-      ...data,
-      gender: genderValue,
-      birthDate: data.birthDate,
-      FullName: `${data.firstName} ${data.lastName}`,
-    };
+    // Convert Persian/Arabic numerals to English
+    const convertToEnglishNumbers = (str: string): string => {
+      const persianNumbers = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+      const arabicNumbers = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+      let result = str;
 
-    if (!formattedData.email) {
-      delete formattedData.email;
+      for (let i = 0; i < 10; i++) {
+        result = result.replace(
+          new RegExp(persianNumbers[i], 'g'),
+          i.toString(),
+        );
+        result = result.replace(
+          new RegExp(arabicNumbers[i], 'g'),
+          i.toString(),
+        );
+      }
+
+      return result;
+    };
+    let formattedBirthDate = data.birthDate;
+    if (data.birthDate) {
+      try {
+        const englishDate = convertToEnglishNumbers(data.birthDate);
+        const dateOnly = englishDate.split('T')[0];
+        formattedBirthDate = `${dateOnly}T00:00:00.000Z`;
+      } catch (error) {
+        console.error('Error formatting birthDate:', error);
+        formattedBirthDate = data.birthDate;
+      }
     }
+
+    const formattedData = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      gender: genderValue,
+      nationalId: data.nationalId,
+      birthDate: formattedBirthDate,
+      cityId: data.cityId,
+      addressDetails: data.addressDetails,
+      postalCode: data.postalCode,
+      ...(data.email && { email: data.email }),
+      ...(data.iban && { iban: data.iban }),
+    };
 
     try {
       const res = await updateProfile(token, formattedData);

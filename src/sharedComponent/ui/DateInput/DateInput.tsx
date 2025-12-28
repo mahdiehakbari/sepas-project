@@ -69,7 +69,7 @@ export const DateInput = <T extends FieldValues>({
               const gregorianDate = date
                 .convert(gregorian)
                 .format('YYYY-MM-DD');
-              const isoDate = `${gregorianDate}T00:00:00Z`;
+              const isoDate = `${gregorianDate}T00:00:00.000Z`;
               field.onChange(isoDate as PathValue<T, Path<T>>);
             }}
             render={(value, openCalendar) => (

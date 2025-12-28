@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { DateInput, FormTitle, Input, SelectInput } from '@/sharedComponent/ui';
 import { validationRules } from '../utils/validationRules';
 import { IPersonalInfoSectionProps } from './types';
@@ -11,6 +11,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
   register,
   errors,
   control,
+  setValue,
   userData,
   phoneNumber,
 }) => {
@@ -25,13 +26,29 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     ? userData.birthDate.split('T')[0]
     : undefined;
 
-  // Convert gender from number (0=Male, 1=Female) to string
+  // Convert gender from number (0=Male, 1=Female) or string to string
   const normalizedGender =
-    userData?.gender !== undefined
-      ? userData.gender === 1 || userData.gender === 'Female'
+    userData?.gender !== undefined && userData?.gender !== null
+      ? userData.gender === 1 ||
+        userData.gender === '1' ||
+        userData.gender === 'Female'
         ? 'Female'
         : 'Male'
       : 'Male';
+
+  console.log(
+    'userData.gender:',
+    userData?.gender,
+    'normalizedGender:',
+    normalizedGender,
+  );
+
+  // Set gender value when userData changes
+  useEffect(() => {
+    if (userData?.gender !== undefined && userData?.gender !== null) {
+      setValue('gender', normalizedGender);
+    }
+  }, [userData?.gender, normalizedGender, setValue]);
 
   return (
     <section>

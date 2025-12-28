@@ -29,5 +29,6 @@ export interface IPersonalInfoSectionProps {
   register: UseFormRegister<IProfileFormValues>;
   errors: FieldErrors<IProfileFormValues>;
   control: Control<IProfileFormValues>;
+  setValue: any;
   phoneNumber: string;
 }

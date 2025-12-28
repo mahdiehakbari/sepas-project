@@ -21,7 +21,7 @@ export const SelectInput = <T extends FieldValues>({
           registerField.onChange(e);
           onChange?.(e.target.value);
         }}
-        defaultValue={defaultValue}
+        defaultValue={defaultValue || ''}
         className={`bg-white border rounded-lg px-3 py-2 text-right placeholder-gray-400 
           focus:outline-none focus:ring-2
           ${
@@ -30,7 +30,7 @@ export const SelectInput = <T extends FieldValues>({
               : 'border-gray-300 focus:ring-blue-500'
           }`}
       >
-        <option value=''>{label}</option>
+        {!defaultValue && <option value=''>{label}</option>}
         {options.map((opt: { value: string; label: string }) => (
           <option key={opt.value} value={opt.value}>
             {opt.label}

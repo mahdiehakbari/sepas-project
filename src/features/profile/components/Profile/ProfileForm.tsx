@@ -28,6 +28,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
   const {
     register,
     handleSubmit,
+    setValue,
     control,
     errors,
     provinces,
@@ -71,7 +72,7 @@ export const ProfileForm: React.FC<IProfileFormProps> = ({
         <div className='p-6 bg-(--block-color) border border-border-color rounded-lg space-y-6'>
           <PersonalInfoSection
             t={t}
-            {...{ register, errors, control, userData }}
+            {...{ register, errors, control, setValue, userData }}
             phoneNumber={phoneNumber}
           />
           <BankInfoSection t={t} {...{ register, errors, userData }} />
