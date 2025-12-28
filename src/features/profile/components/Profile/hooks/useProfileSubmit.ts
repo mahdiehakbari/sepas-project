@@ -6,7 +6,6 @@ import axios, { AxiosError } from 'axios';
 import { useTranslation } from 'react-i18next';
 import { useProfileStore } from '@/store/Profile/useProfileStore';
 import { updateProfile } from '../api/profile.api';
-import { formatBirthDate } from '../utils/formatBirthDate';
 import { API_AUTHENTICATE_ME } from '@/config/api_address.config';
 import { IProfileFormValues } from '../types';
 import { ProfileSubmitProps } from './types';
@@ -29,9 +28,12 @@ export const useProfileSubmit = ({
 
     setIsLoading(true);
 
+    // Map gender: 'Male' -> 0, 'Female' -> 1
+    const genderValue = data.gender === 'Female' ? 1 : 0;
+
     const formattedData: Partial<IProfileFormValues> = {
       ...data,
-      gender: data.gender !== '' ? Number(data.gender) : 0,
+      gender: genderValue,
       birthDate: data.birthDate,
       FullName: `${data.firstName} ${data.lastName}`,
     };
@@ -69,7 +71,7 @@ export const useProfileSubmit = ({
         | undefined;
 
       if (respData?.errors && typeof respData.errors === 'object') {
-        Object.entries(respData.errors).forEach(([field, msgs]) => {
+        Object.entries(respData.errors).forEach(([, msgs]) => {
           if (Array.isArray(msgs)) {
             msgs.forEach((m: string) => toast.error(`${m}`));
           } else if (typeof msgs === 'string') {

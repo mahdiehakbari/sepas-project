@@ -3,7 +3,7 @@ export interface IProfile {
   lastName: string;
   mobile: string;
   nationalId: string;
-  gender: number;
+  gender: number | string;
   birthDate: string;
   email: string;
   iban: string;

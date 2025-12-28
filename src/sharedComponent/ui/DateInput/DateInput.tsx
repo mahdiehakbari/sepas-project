@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Controller, FieldValues } from 'react-hook-form';
+import { Controller, FieldValues, Path, PathValue } from 'react-hook-form';
 import DatePicker, { DateObject } from 'react-multi-date-picker';
 import persian from 'react-date-object/calendars/persian';
 import gregorian from 'react-date-object/calendars/gregorian';
@@ -65,14 +65,12 @@ export const DateInput = <T extends FieldValues>({
                 field.onChange(undefined);
                 return;
               }
-
               setPickerValue(date);
-
               const gregorianDate = date
                 .convert(gregorian)
                 .format('YYYY-MM-DD');
-
-              field.onChange(gregorianDate);
+              const isoDate = `${gregorianDate}T00:00:00Z`;
+              field.onChange(isoDate as PathValue<T, Path<T>>);
             }}
             render={(value, openCalendar) => (
               <div className='relative'>
