@@ -117,10 +117,10 @@ const ListOfDentistId = () => {
                   </div>
                 </div>
 
-                {item.skills?.map((skill, index) => (
+                {item.skills && item.skills.length > 0 && item.skills.map((skill, index) => (
                   <div className='flex items-center gap-2 mb-10' key={index}>
                     <p className='text-[#757575] font-normal text-[14px] py-1 px-3 border border-border-color rounded-3xl'>
-                      {skill}
+                      {skill.description}
                     </p>
                   </div>
                 ))}
