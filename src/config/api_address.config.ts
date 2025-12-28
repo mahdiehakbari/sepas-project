@@ -1,4 +1,4 @@
-export const BASE_URL = '/api';
+export const BASE_URL = 'https://dentalitapi.sepasholding.com/api';
 
 export const API_SEND_OTP = `${BASE_URL}/UnifiedAuth/send-otp`;
 export const API_AUTHENTICATE = `${BASE_URL}/UnifiedAuth/authenticate`;
