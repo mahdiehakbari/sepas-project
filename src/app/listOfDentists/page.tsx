@@ -90,16 +90,14 @@ const ListOfDentist = () => {
             >
               <div className='border-b border-border-color mb-4 pb-4'>
                 <div className='w-full h-40 relative mb-3'>
-                  <Image
+                  <img
                     src={
                       d.bannerImageFilePath == ''
                         ? '/assets/icons/images.jpg'
                         : `https://dentalitfiles.sepasholding.com/images/bannerimages/${d.bannerImageFilePath}`
                     }
                     alt='images'
-                    fill
-                    style={{ objectFit: 'cover', borderRadius: '8px' }}
-                    sizes='(max-width: 768px) 100vw, 25vw'
+                    className='w-full h-full object-cover rounded-md'
                   />
                 </div>
                 <h3 className='text-lg font-semibold mb-3'>{d.fullName}</h3>
