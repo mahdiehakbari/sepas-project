@@ -1,4 +1,4 @@
-import { Control, FieldErrors, UseFormRegister } from 'react-hook-form';
+import { Control, FieldErrors, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import { IProfileFormValues } from '../../types';
 
 interface ILocationItem {
@@ -29,6 +29,6 @@ export interface IPersonalInfoSectionProps {
   register: UseFormRegister<IProfileFormValues>;
   errors: FieldErrors<IProfileFormValues>;
   control: Control<IProfileFormValues>;
-  setValue: any;
+  setValue: UseFormSetValue<IProfileFormValues>;
   phoneNumber: string;
 }
