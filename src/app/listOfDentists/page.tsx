@@ -15,13 +15,17 @@ const ListOfDentist = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [pageLoading, setPageLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
   const { t } = useTranslation();
   const router = useRouter();
-  const fetchDentists = (pageNumber: number) => {
+
+  const fetchDentists = (pageNumber: number, search: string = '') => {
+    setPageLoading(true);
     axios
       .post<IDentistListResponse>(API_DENTIST_LIST, {
         pageNumber: pageNumber,
         pageSize: 12,
+        searchTerm: search,
       })
       .then((resp) => {
         setDentistList(resp.data.items);
@@ -30,12 +34,19 @@ const ListOfDentist = () => {
       })
       .catch((err) => {
         console.error(err);
+        setPageLoading(false);
       });
   };
 
   useEffect(() => {
-    fetchDentists(page);
+    fetchDentists(page, searchTerm);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [page]);
+
+  const handleSearch = () => {
+    setPage(1);
+    fetchDentists(1, searchTerm);
+  };
 
   const handleRoute = (id: string) => {
     router.push(`/listOfDentists/${id}`);
@@ -46,8 +57,30 @@ const ListOfDentist = () => {
       loading={pageLoading}
       loadingText={t('home:page_loading')}
     >
-      <BannerSection />
-      <div className='max-w-6xl mx-6 md:mx-auto mt-8'>
+      <div className='relative'>
+        <BannerSection />
+
+        <div className='absolute bottom-0 left-0 right-0 transform translate-y-1/2 px-6'>
+          <div className='max-w-3xl mx-auto flex gap-3'>
+            <input
+              type='text'
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              onKeyPress={(e) => e.key === 'Enter' && handleSearch()}
+              placeholder={'جستجو ...'}
+              className='flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-lg bg-white'
+            />
+            <button
+              onClick={handleSearch}
+              className='px-6 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 transition-colors shadow-lg'
+            >
+              {t('dentist_list:search') || 'جستجو'}
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div className='max-w-6xl mx-6 md:mx-auto mt-16'>
         <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4'>
           {dentistList.map((d) => (
             <div
