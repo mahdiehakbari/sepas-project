@@ -1,3 +1,8 @@
+export interface ISkill {
+  skillId: string;
+  description: string;
+}
+
 export interface IDentist {
   id: string;
   userId: string;
@@ -17,7 +22,7 @@ export interface IDentist {
   isVerified: boolean;
   createdAt: string;
   availableBalance: number;
-  skills?: string[] | undefined;
+  skills?: ISkill[] | undefined;
   bannerImageFilePath: string;
   bio: string;
 }
