@@ -21,6 +21,10 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
     { id: 'Female', name: t('profile:woman') },
   ];
 
+  const normalizedBirthDate = userData?.birthDate
+    ? userData.birthDate.split('T')[0]
+    : undefined;
+
   return (
     <section>
       <FormTitle title={t('profile:identity_information')} />
@@ -78,11 +82,7 @@ export const PersonalInfoSection: React.FC<IPersonalInfoSectionProps> = ({
           label={t('profile:date_birth')}
           errors={errors}
           rules={{ required: t('profile:field_required') }}
-          defaultValue={
-            userData?.birthDate && !isNaN(Date.parse(userData.birthDate))
-              ? userData.birthDate // ✅ رشته ISO، نه Date
-              : undefined
-          }
+          defaultValue={normalizedBirthDate}
         />
 
         <SelectInput

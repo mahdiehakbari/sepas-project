@@ -32,7 +32,7 @@ export const useProfileSubmit = ({
     const formattedData: Partial<IProfileFormValues> = {
       ...data,
       gender: data.gender !== '' ? Number(data.gender) : 0,
-      birthDate: formatBirthDate(data.birthDate),
+      birthDate: data.birthDate,
       FullName: `${data.firstName} ${data.lastName}`,
     };
 
