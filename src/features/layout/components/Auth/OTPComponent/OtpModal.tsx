@@ -9,6 +9,7 @@ import Link from 'next/link';
 import { useSendOtp } from '../PhoneNumber/hooks';
 import axios from 'axios';
 import { formatTime } from '@/sharedComponent/lib';
+import { toast } from 'react-toastify';
 
 export const OtpModal: React.FC<IOtpProps> = ({
   setIsOpenOtpModal,
@@ -55,6 +56,7 @@ export const OtpModal: React.FC<IOtpProps> = ({
     setApiError('');
     try {
       await sendOtp({ phoneNumber: phone });
+      toast.success(t('home:resend_otp'));
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setApiError(err.response?.data?.message);

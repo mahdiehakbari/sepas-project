@@ -12,6 +12,12 @@ export const metadata: Metadata = {
     default: 'دنتالیت',
     template: '%s | دنتالیت',
   },
+  icons: {
+    icon: '/assets/icons/logo.png',
+    shortcut: '/assets/icons/logo.png',
+    apple: '/assets/icons/logo.png',
+  },
+
   description: 'Admin panel with modular structure and global sidebar.',
   applicationName: 'دنتالیت',
   generator: 'Next.js',

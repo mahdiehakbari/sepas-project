@@ -33,5 +33,6 @@
   "cancel": "Cancel",
   "confirm": "Confirm",
   "tracking_number": "Tracking Number",
-  "rules":"Rules"
+  "rules":"Rules",
+  "resend_otp":"One-time code sent successfully."
 }
