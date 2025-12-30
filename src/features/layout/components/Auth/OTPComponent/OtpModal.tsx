@@ -50,13 +50,13 @@ export const OtpModal: React.FC<IOtpProps> = ({
   }, [timeLeft]);
 
   const handleResend = async () => {
+    toast.success(t('home:resend_otp'));
     setOtp('');
     setTimeLeft(120);
     setCanResend(false);
     setApiError('');
     try {
       await sendOtp({ phoneNumber: phone });
-      toast.success(t('home:resend_otp'));
     } catch (err: unknown) {
       if (axios.isAxiosError(err)) {
         setApiError(err.response?.data?.message);
