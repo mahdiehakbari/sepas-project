@@ -43,14 +43,14 @@ export const useUploadProfileImage = () => {
         toast.success(t('profile:success_toast'));
         return response.data.imageFilePath;
       } else {
-        toast.error(response.data?.message || t('profile:update_error'));
+        toast.error(response.data?.message || 'خطا در بروز رسانی اطلاعات');
         return null;
       }
     } catch (error) {
       const axiosError = error as AxiosError<UploadProfileImageResponse>;
 
       toast.error(
-        axiosError.response?.data?.message || t('profile:update_error'),
+        axiosError.response?.data?.message || 'خطا در بروز رسانی اطلاعات',
       );
 
       return null;

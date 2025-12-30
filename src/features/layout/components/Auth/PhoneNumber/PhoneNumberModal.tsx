@@ -48,7 +48,7 @@ export const PhoneNumberModal: React.FC<IPhoneNumberModalProps> = ({
 
       <div className='flex justify-center mb-4'>
         <Image
-          src='/assets/icons/logo.svg'
+          src='/assets/icons/logo.png'
           alt='logo'
           width={78}
           height={42}
