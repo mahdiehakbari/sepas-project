@@ -20,3 +20,4 @@ export const API_GET_PROFILE_IMAGE = `${BASE_URL}/UserProfileImage`;
 export const API_CUSTOMER_CREDIT_QUERY_ID = `${BASE_URL}/CustomerCreditQuery`;
 export const API_DENTIST_LIST = `${BASE_URL}/MerchantsQuery/paged-by-ids`;
 export const API_MERCHANT_BANNER = `${BASE_URL}/UserProfileImage/merchant-banner`;
+export const API_CITIES_QUERY_ALL = `${BASE_URL}/CitiesQuery`;

@@ -35,3 +35,8 @@ export interface IDentistListResponse {
   hasNextPage: boolean;
   hasPreviousPage: boolean;
 }
+
+export interface ICity {
+  id: string;
+  name: string;
+}
