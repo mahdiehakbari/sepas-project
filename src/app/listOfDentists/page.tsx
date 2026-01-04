@@ -79,7 +79,7 @@ const ListOfDentist = () => {
   }, [token]);
 
   const filteredCities = cities.filter((city) =>
-    city.name.toLowerCase().includes(citySearch.toLowerCase()),
+    city.name.toLowerCase().includes(citySearch.toLowerCase()) || city.provinceName.toLowerCase().includes(citySearch.toLowerCase()),
   );
 
   useEffect(() => {
@@ -121,7 +121,7 @@ const ListOfDentist = () => {
               onClick={() => setShowCityDropdown((p) => !p)}
             >
               {selectedCityIds.length > 0
-                ? cities.find((c) => c.id === selectedCityIds[0])?.name
+                ? (`${cities.find((c) => c.id === selectedCityIds[0])?.name} (${cities.find((c) => c.id === selectedCityIds[0])?.provinceName})`)
                 : 'انتخاب شهر'}
               <Image
                 src='/assets/icons/arrow.svg'
@@ -169,7 +169,7 @@ const ListOfDentist = () => {
                       }}
                       className='px-4 py-2 cursor-pointer text-sm hover:bg-gray-100'
                     >
-                      {city.name}
+                      {(`${city.name} (${city.provinceName})` )}
                     </div>
                   ))
                 ) : (

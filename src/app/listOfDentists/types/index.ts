@@ -39,4 +39,5 @@ export interface IDentistListResponse {
 export interface ICity {
   id: string;
   name: string;
+  provinceName: string;
 }
