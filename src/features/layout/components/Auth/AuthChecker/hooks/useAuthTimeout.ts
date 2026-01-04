@@ -2,7 +2,9 @@
 
 import Cookies from 'js-cookie';
 import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
+
+const PUBLIC_ROUTES = ['/listOfDentists', '/services/dentalPlan', '/rules'];
 
 function logout(router: ReturnType<typeof useRouter>) {
   Cookies.remove('token');
@@ -15,8 +17,13 @@ function logout(router: ReturnType<typeof useRouter>) {
 
 export function useAuthTimeout() {
   const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
+    if (PUBLIC_ROUTES.includes(pathname)) {
+      return;
+    }
+
     const token = Cookies.get('token');
     const expiresAt = Cookies.get('tokenExpiresAt');
 
@@ -44,5 +51,5 @@ export function useAuthTimeout() {
     }, timeout);
 
     return () => clearTimeout(timer);
-  }, [router]);
+  }, [router, pathname]);
 }
